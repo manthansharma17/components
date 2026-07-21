@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSAP Demo</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- GSAP -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+
+  <!-- ScrollTrigger (Optional) -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+  <div class="wrapper">
+  <section class="panel about">
+
+          <div class="about-container">
+  <span class="content-subtitle">About Aerodynamics</span>
+
+  <div class="about-grid">
+
+    <!-- Left -->
+    <div class="left-content">
+      <h2 class="content-heading">
+        Aerodynamics offers
+        <br />
+        <span class="italic-text">luxury</span> and service
+        <br />
+        at the highest level.
+      </h2>
+    </div>
+
+    <!-- Right -->
+    <div class="right-content">
+      <p class="content-text">
+        Private jets deserve service of the highest calibre. That is the
+        conviction of Aerodynamics, and that dedication is felt in every
+        interaction. Clients notice the difference, and that is precisely why
+        they choose Aerodynamics time and again.
+      </p>
+
+      <button class="content-button">
+        <div class="button-icon">
+          ↗
+        </div>
+
+        <span>Book a Flight</span>
+      </button>
+    </div>
+
+  </div>
+</div>
+  </section>
+
+
+  <section class="panel reveal">
+
+    <div class="reveal-section">
+
+  <div class="gallery">
+
+    <!-- Background Images -->
+    <div class="gallery-images">
+
+      <img
+        class="gallery-image"
+        src="images/gallery-1.jpeg"
+        alt="Private Charter"
+      />
+
+      <img
+        class="gallery-image"
+        src="images/gallery-2.webp"
+        alt="Business Travel"
+      />
+
+      <img
+        class="gallery-image"
+        src="images/gallery-3.webp"
+        alt="Luxury Experience"
+      />
+
+      <div class="overlay"></div>
+
+    </div>
+
+    <!-- Slides -->
+    <div class="gallery-slides">
+
+      <div class="slide">
+
+        <div class="container">
+          <span class="slide-number">01</span>
+
+          <h2 class="slide-title">
+            Private Charter
+          </h2>
+
+          <p class="slide-description">
+            Travel in complete luxury with our tailored private charter
+            experience.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="slide">
+
+        <div class="container">
+          <span class="slide-number">02</span>
+
+          <h2 class="slide-title">
+            Business Travel
+          </h2>
+
+          <p class="slide-description">
+            Seamless executive flights with premium comfort and flexibility.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="slide">
+
+        <div class="container">
+          <span class="slide-number">03</span>
+
+          <h2 class="slide-title">
+            Luxury Experience
+          </h2>
+
+          <p class="slide-description">
+            Every journey is crafted with the highest level of service and care.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+</section>
+</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
