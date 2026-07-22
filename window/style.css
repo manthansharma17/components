@@ -158,7 +158,7 @@ section {
 
   text-transform: uppercase;
 
-  color: rgba(78, 131, 255, 0.65);
+  color: rgba(254, 254, 255, 0.65);
 }
 
 /* ==========================================
@@ -240,14 +240,14 @@ section {
   }
 
   .hero-header {
-    flex-direction: column;
+    flex-direction: row;
     gap: 48px;
 
     justify-content: space-between;
   }
 
   .hero-header .col:last-child {
-    align-items: flex-start;
+    align-items: center;
     text-align: left;
   }
 
