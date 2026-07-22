@@ -1,128 +1,145 @@
 gsap.registerPlugin(ScrollTrigger);
 
-const panels = gsap.utils.toArray(".panel");
-const images = gsap.utils.toArray(".gallery-image");
+// ===============================
+// Elements
+// ===============================
+const reveal = document.querySelector(".reveal");
+const galleryImages = gsap.utils.toArray(".gallery-image");
 const slides = gsap.utils.toArray(".slide");
 
-// Place every panel except first below viewport
-
-gsap.set(".reveal", {
+// ===============================
+// Initial States
+// ===============================
+gsap.set(reveal, {
   yPercent: 100,
   scale: 0.92,
   borderRadius: 40,
   transformOrigin: "bottom center",
+  willChange: "transform",
 });
 
-gsap.set(images, {
-  opacity: 0,
+gsap.set(galleryImages, {
+  autoAlpha: 0,
 });
 
 gsap.set(slides, {
-  opacity: 0,
-  y: 100,
+  autoAlpha: 0,
+  yPercent: 100,
 });
 
-gsap.set(images[0], {
-  opacity: 1,
+gsap.set(galleryImages[0], {
+  autoAlpha: 1,
 });
 
 gsap.set(slides[0], {
-  opacity: 1,
-  y: 0,
+  autoAlpha: 1,
+  yPercent: 0,
 });
 
-// Create the timeline
+// ===============================
+// Timeline
+// ===============================
 const tl = gsap.timeline({
+  defaults: {
+    duration: 1.2,
+    ease: "power2.out",
+  },
   scrollTrigger: {
     trigger: ".wrapper",
     start: "top top",
-    end: "+=300%",
+    end: () => `+=${slides.length * 120}%`,
     pin: true,
-    scrub: 1,
+    scrub: 0.7,
+    anticipatePin: 1,
+    invalidateOnRefresh: true,
+    // markers: true,
   },
 });
 
+// ===============================
+// Intro
+// ===============================
+tl.add("intro");
+
 tl.from(".content-subtitle", {
   y: 120,
-  opacity: 0,
-  duration: 1,
+  autoAlpha: 0,
 });
-// Animate first panel content
-tl.from(".left-content", {
-  y: -120,
-  opacity: 0,
-  duration: 1,
-});
+
+tl.from(
+  ".left-content",
+  {
+    y: -120,
+    autoAlpha: 0,
+  },
+  "<0.1",
+);
 
 tl.from(
   ".right-content",
   {
     y: 120,
-    opacity: 0,
-    duration: 1,
+    autoAlpha: 0,
   },
   "<",
 );
 
-tl.to({},{
-    duration: 1.5
-})
+// Small pause before reveal
+tl.add("revealStart", "+=1.5");
 
-tl.to(".reveal", {
+// ===============================
+// Reveal Gallery
+// ===============================
+tl.to(reveal, {
   yPercent: 0,
   scale: 1,
   borderRadius: 0,
   duration: 2,
-  ease: "power2.out",
 });
 
-for (let i = 0; i < slides.length - 1; i++) {
-  tl.to(slides[i], {
-    y: -150,
-    opacity: 0,
-    duration: 1.2,
-  });
+// ===============================
+// Gallery Transitions
+// ===============================
+function switchSlide(current, next) {
+  tl.to(
+    slides[current],
+    {
+      yPercent: -100,
+      autoAlpha: 0,
+    },
+    "+=0.2",
+  );
 
   tl.to(
-    images[i],
+    galleryImages[current],
     {
-      opacity: 0,
-      duration: 1.2,
+      autoAlpha: 0,
     },
     "<",
   );
 
   tl.to(
-    images[i + 1],
+    galleryImages[next],
     {
-      opacity: 1,
-      duration: 1.2,
+      autoAlpha: 1,
     },
     "<",
   );
 
   tl.fromTo(
-    slides[i + 1],
+    slides[next],
     {
-      y: 150,
-      opacity: 0,
+      yPercent: 100,
+      autoAlpha: 0,
     },
     {
-      y: 0,
-      opacity: 1,
-      duration: 1.2,
+      yPercent: 0,
+      autoAlpha: 1,
     },
-    "<0.2",
+    "<0.15",
   );
 }
 
-// // Then reveal the next panels
-// panels.slice(1).forEach((panel) => {
-//   tl.to(panel, {
-//     yPercent: 0,
-//     scale: 1,
-//     borderRadius: "0px",
-//     duration: 1,
-//     ease: "power2.out",
-//   });
-// });
+for (let i = 0; i < slides.length - 1; i++) {
+  switchSlide(i, i + 1);
+}
