@@ -68,3 +68,15 @@ body{
     transform:translateY(80px);
 }
 
+/* SECTION 4 */
+
+.section-four{
+    perspective:1200px;
+}
+
+.flip-word{
+    display:inline-block;
+    opacity:0;
+    transform-origin:bottom center;
+    transform:rotateX(-90deg) translateY(60px);
+}
