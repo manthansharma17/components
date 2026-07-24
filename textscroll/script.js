@@ -88,3 +88,32 @@ gsap.to(".char", {
     toggleActions: "play none none reverse",
   },
 });
+
+/* =========================
+   SECTION 4
+========================= */
+
+const flip = document.querySelector(".flip-text");
+
+const words = flip.textContent.trim().split(" ");
+
+flip.innerHTML = words
+  .map((word) => `<span class="flip-word">${word}</span>`)
+  .join(" ");
+
+gsap.to(".flip-word", {
+  rotationX: 0,
+  y: 0,
+  opacity: 1,
+
+  duration: 0.8,
+  stagger: 0.08,
+
+  ease: "power4.out",
+
+  scrollTrigger: {
+    trigger: ".section-four",
+    start: "top 70%",
+    toggleActions: "play none none reverse",
+  },
+});
