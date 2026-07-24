@@ -117,3 +117,36 @@ gsap.to(".flip-word", {
     toggleActions: "play none none reverse",
   },
 });
+
+/* =========================
+   SECTION 5
+========================= */
+
+const scatter = document.querySelector(".scatter-text");
+
+const scatterWords = scatter.textContent.trim().split(" ");
+
+scatter.innerHTML = scatterWords
+  .map((word) => `<span class="scatter-word">${word}</span>`)
+  .join(" ");
+
+gsap.from(".scatter-word", {
+  x: () => gsap.utils.random(-300, 300),
+  y: () => gsap.utils.random(-250, 250),
+  rotation: () => gsap.utils.random(-180, 180),
+  scale: () => gsap.utils.random(0.2, 2),
+
+  opacity: 0,
+
+  duration: 1.4,
+
+  ease: "expo.out",
+
+  stagger: 0.05,
+
+  scrollTrigger: {
+    trigger: ".section-five",
+    start: "top 70%",
+    toggleActions: "play none none reverse",
+  },
+});
