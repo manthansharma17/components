@@ -80,3 +80,10 @@ body{
     transform-origin:bottom center;
     transform:rotateX(-90deg) translateY(60px);
 }
+
+/* SECTION 5 */
+
+.scatter-word{
+    display:inline-block;
+    opacity:0;
+}
