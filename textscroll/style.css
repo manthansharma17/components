@@ -81,11 +81,30 @@ body{
     transform:rotateX(-90deg) translateY(60px);
 }
 
-/* SECTION 5 */
+/* =========================
+   SECTION 5 — SCATTER
+========================= */
+
+.section-five{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.scatter-text{
+    max-width:1200px;
+
+    font-size:clamp(3rem,7vw,7rem);
+    line-height:1.05;
+    text-align:center;
+}
 
 .scatter-word{
     display:inline-block;
-    opacity:0;
+    opacity:1;
+    transform-origin:center;
 }
 
 /* =========================
