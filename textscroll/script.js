@@ -120,36 +120,66 @@ gsap.to(".flip-word", {
 
 /* =========================
    SECTION 5
+   SCATTER → ASSEMBLE
 ========================= */
 
-const scatter = document.querySelector(".scatter-text");
+const scatterText = document.querySelector(".scatter-text");
 
-const scatterWords = scatter.textContent.trim().split(" ");
+const scatterWords = scatterText
+    .textContent
+    .trim()
+    .split(" ");
 
-scatter.innerHTML = scatterWords
-  .map((word) => `<span class="scatter-word">${word}</span>`)
-  .join(" ");
+scatterText.innerHTML = scatterWords
+    .map(word => `<span class="scatter-word">${word}</span>`)
+    .join(" ");
 
-gsap.from(".scatter-word", {
-  x: () => gsap.utils.random(-300, 300),
-  y: () => gsap.utils.random(-250, 250),
-  rotation: () => gsap.utils.random(-180, 180),
-  scale: () => gsap.utils.random(0.2, 2),
+const words5 = scatterText.querySelectorAll(".scatter-word");
 
-  opacity: 0,
+gsap.fromTo(
+    words5,
 
-  duration: 1.4,
+    // FROM
+    {
+        x: () => gsap.utils.random(-300, 300),
+        y: () => gsap.utils.random(-200, 200),
 
-  ease: "expo.out",
+        rotation: () => gsap.utils.random(-90, 90),
 
-  stagger: 0.05,
+        scale: () => gsap.utils.random(0.3, 1.8),
 
-  scrollTrigger: {
-    trigger: ".section-five",
-    start: "top 70%",
-    toggleActions: "play none none reverse",
-  },
-});
+        opacity: 0
+    },
+
+    // TO
+    {
+        x: 0,
+        y: 0,
+
+        rotation: 0,
+
+        scale: 1,
+
+        opacity: 1,
+
+        duration: 1.4,
+
+        stagger: {
+            each: 0.06,
+            from: "random"
+        },
+
+        ease: "expo.out",
+
+        scrollTrigger: {
+            trigger: ".section-five",
+
+            start: "top 70%",
+
+            toggleActions: "play none none reverse"
+        }
+    }
+);
 
 /* =========================
    SECTION 6
