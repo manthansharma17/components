@@ -324,6 +324,152 @@ tl8.to(track8, {
 });
 
 /* =========================================================
+   SECTION 9
+   SCRAMBLE → DECODE → EXPAND
+========================================================= */
+
+const section9 = document.querySelector(".section-nine");
+const scrambleText = document.querySelector(".scramble-text");
+
+const finalText = scrambleText.dataset.text;
+
+const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&?";
+
+
+/* ---------------------------------------------------------
+   SCRAMBLE FUNCTION
+--------------------------------------------------------- */
+
+function updateScramble(progress) {
+
+    let output = "";
+
+    for (let i = 0; i < finalText.length; i++) {
+
+        const originalCharacter = finalText[i];
+
+        // Keep spaces
+        if (originalCharacter === " ") {
+            output += " ";
+            continue;
+        }
+
+
+        // Each character gets its own reveal point
+        const characterProgress =
+            i / finalText.length;
+
+
+        if (progress > characterProgress) {
+
+            output += originalCharacter;
+
+        } else {
+
+            const randomIndex =
+                Math.floor(
+                    Math.random() * characters.length
+                );
+
+            output += characters[randomIndex];
+
+        }
+
+    }
+
+    scrambleText.textContent = output;
+}
+
+
+/* ------------TIMELINE------------- */
+
+const scrambleProgress = {
+    value: 0
+};
+
+
+const tl9 = gsap.timeline({
+
+    scrollTrigger: {
+
+        trigger: section9,
+
+        start: "top top",
+
+        end: "+=1600",
+
+        scrub: 0.5,
+
+        pin: true,
+
+        anticipatePin: 1
+
+    }
+
+});
+
+
+/* 1. SCRAMBLE → REAL TEXT */
+
+tl9.to(scrambleProgress, {
+
+    value: 1,
+
+    duration: 3,
+
+    ease: "none",
+
+    onUpdate: function () {
+
+        updateScramble(
+            scrambleProgress.value
+        );
+
+    }
+
+});
+
+
+/* 2. EXPAND TEXT */
+
+tl9.to(scrambleText, {
+
+    letterSpacing: "0.08em",
+
+    scale: 1.05,
+
+    duration: 1,
+
+    ease: "none"
+
+});
+
+
+/*3. LABEL DISAPPEARS */
+
+tl9.to(
+    ".scramble-label",
+
+    {
+
+        opacity: 0,
+
+        y: -20,
+
+        duration: 0.5,
+
+        ease: "none"
+
+    },
+
+    "<"
+
+);
+
+/* INITIAL SCRAMBLE */
+updateScramble(0);
+
+/* =========================================================
    REFRESH
 ========================================================= */
 
