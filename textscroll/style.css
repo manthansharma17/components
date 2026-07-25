@@ -113,3 +113,31 @@ body{
 
     transition:color .1s;
 }
+
+/* =========================
+   SECTION 7
+========================= */
+
+.section-seven{
+    height:100vh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+
+    background:#f1f1f1;
+}
+
+.scale-text{
+    color:#111;
+
+    font-size:clamp(5rem,15vw,15rem);
+    font-weight:900;
+
+    line-height:.8;
+    white-space:nowrap;
+
+    transform-origin:center center;
+}
