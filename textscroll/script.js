@@ -150,3 +150,43 @@ gsap.from(".scatter-word", {
     toggleActions: "play none none reverse",
   },
 });
+
+/* =========================
+   SECTION 6
+   SCROLL WORD FILL
+========================= */
+
+const fillText = document.querySelector(".fill-text");
+
+const fillWords = fillText.textContent
+    .trim()
+    .split(" ");
+
+fillText.innerHTML = fillWords
+    .map(word => `<span class="fill-word">${word}</span>`)
+    .join(" ");
+
+const words6 = document.querySelectorAll(".fill-word");
+
+
+gsap.to(words6, {
+
+    color: "#fff",
+
+    stagger: 0.1,
+
+    ease: "none",
+
+    scrollTrigger: {
+
+        trigger: ".section-six",
+
+        start: "top 60%",
+
+        end: "bottom 60%",
+
+        scrub: true
+
+    }
+
+});
