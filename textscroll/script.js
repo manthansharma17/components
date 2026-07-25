@@ -265,3 +265,36 @@ gsap.timeline({
     ease: "power3.in"
 
 });
+
+/* =========================
+   SECTION 8
+   PINNED HORIZONTAL TEXT
+========================= */
+
+const section8 = document.querySelector(".section-eight");
+const track8 = document.querySelector(".horizontal-track");
+
+gsap.to(track8, {
+
+    x: () => -(track8.scrollWidth - window.innerWidth),
+
+    ease: "none",
+
+    scrollTrigger: {
+
+        trigger: section8,
+
+        start: "top top",
+
+        end: () => "+=" + track8.scrollWidth,
+
+        scrub: 1,
+
+        pin: true,
+
+        anticipatePin: 1,
+
+        invalidateOnRefresh: true
+    }
+
+});
