@@ -190,3 +190,48 @@ gsap.to(words6, {
     }
 
 });
+
+/* =========================
+   SECTION 7
+   PIN + SCALE
+========================= */
+
+gsap.timeline({
+
+    scrollTrigger: {
+
+        trigger: ".section-seven",
+
+        start: "top top",
+
+        end: "+=1800",
+
+        scrub: 1,
+
+        pin: true,
+
+        anticipatePin: 1
+
+    }
+
+})
+
+.to(".scale-text", {
+
+    scale: 4,
+
+    letterSpacing: "0.15em",
+
+    ease: "power2.in"
+
+})
+
+.to(".scale-text", {
+
+    scale: 12,
+
+    opacity: 0,
+
+    ease: "power3.in"
+
+});
