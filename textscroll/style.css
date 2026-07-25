@@ -87,3 +87,29 @@ body{
     display:inline-block;
     opacity:0;
 }
+
+/* =========================
+   SECTION 6
+========================= */
+
+.section-six{
+    min-height:150vh;
+    align-items:center;
+}
+
+.fill-text{
+    max-width:1200px;
+
+    font-size:clamp(3rem,7vw,7rem);
+    line-height:1.05;
+
+    text-align:center;
+}
+
+.fill-word{
+    display:inline-block;
+
+    color:#333;
+
+    transition:color .1s;
+}
