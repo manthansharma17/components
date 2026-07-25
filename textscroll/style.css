@@ -194,3 +194,51 @@ body{
 
     color:#fff;
 }
+
+/* =========================
+   SECTION 9
+   SCRAMBLE / DECODE
+========================= */
+
+.section-nine {
+    height: 100vh;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #0a0a0a;
+    color: #fff;
+}
+
+.scramble-wrapper {
+    width: 90%;
+
+    text-align: center;
+}
+
+.scramble-label {
+    margin-bottom: 2rem;
+
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+
+    opacity: 0.4;
+}
+
+.scramble-text {
+    font-size: clamp(3rem, 9vw, 10rem);
+
+    font-weight: 700;
+
+    line-height: 0.9;
+
+    letter-spacing: -0.05em;
+
+    text-transform: uppercase;
+
+    will-change: transform;
+}
