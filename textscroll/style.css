@@ -1,207 +1,346 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+/* =========================================================
+   RESET / GLOBAL
+========================================================= */
+
+:root {
+    --bg-dark: #111;
+    --bg-darker: #0a0a0a;
+    --bg-light: #f2f2f2;
+
+    --text-light: #fff;
+    --text-dark: #111;
+    --text-muted: #333;
+
+    --page-padding: clamp(1.5rem, 8vw, 8rem);
+
+    --text-lg: clamp(3rem, 7vw, 7rem);
+    --text-xl: clamp(4rem, 10vw, 10rem);
+    --text-display: clamp(5rem, 15vw, 16rem);
 }
 
-body{
-    background:#111;
-    color:white;
-    font-family:Arial, Helvetica, sans-serif;
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.hero{
-    height:100vh;
-    display:grid;
-    place-items:center;
-    font-size:4rem;
+
+html {
+    background: var(--bg-dark);
 }
 
-.section{
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    padding:0 8vw;
+
+body {
+    min-height: 100%;
+    overflow-x: hidden;
+
+    background: var(--bg-dark);
+    color: var(--text-light);
+
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-/* SECTION 1 */
 
-.line-wrapper{
-    overflow:hidden;
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    min-height: 100dvh;
+
+    display: grid;
+    place-items: center;
+
+    padding-inline: var(--page-padding);
+
+    font-size: clamp(3rem, 8vw, 8rem);
 }
 
-.line{
-    font-size:clamp(3rem,8vw,7rem);
-    line-height:1;
+
+/* =========================================================
+   SHARED SECTION
+========================================================= */
+
+.section {
+    min-height: 100dvh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding-inline: var(--page-padding);
 }
 
-.word{
-    display:inline-block;
-    opacity:0;
-    transform:translateY(120%) scale(.6) rotate(6deg);
+
+/* =========================================================
+   SECTION 1
+   WORD BOUNCE
+========================================================= */
+
+.section-one .line-wrapper {
+    overflow: hidden;
+
+    /* Prevent descenders like g/y getting clipped */
+    padding-block: 0.08em;
 }
 
-/* SECTION 2 */
 
-.reveal{
-    overflow:hidden;
+.section-one .line {
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 1;
 }
 
-.reveal-text{
-    font-size:clamp(4rem,10vw,8rem);
-    line-height:.95;
-    transform:translateY(120%);
+
+.section-one .word {
+    display: inline-block;
+
+    opacity: 0;
+
+    transform:
+        translateY(120%)
+        scale(0.6)
+        rotate(6deg);
+
+    transform-origin: center bottom;
+
+    will-change: transform, opacity;
 }
 
-/* SECTION 3 */
 
-.chars{
-    font-size:clamp(3rem,6vw,6rem);
-    line-height:1.1;
+/* =========================================================
+   SECTION 2
+   MASK REVEAL
+========================================================= */
+
+.section-two .reveal {
+    overflow: hidden;
+
+    padding-block: 0.05em;
 }
 
-.char{
-    display:inline-block;
-    opacity:0;
-    filter:blur(10px);
-    transform:translateY(80px);
+
+.section-two .reveal-text {
+    font-size: var(--text-xl);
+
+    line-height: 0.95;
+
+    transform: translateY(120%);
+
+    will-change: transform;
 }
 
-/* SECTION 4 */
 
-.section-four{
-    perspective:1200px;
+/* =========================================================
+   SECTION 3
+   CHARACTER BLUR
+========================================================= */
+
+.section-three .chars {
+    max-width: 1200px;
+
+    font-size: clamp(3rem, 6vw, 6rem);
+    line-height: 1.1;
 }
 
-.flip-word{
-    display:inline-block;
-    opacity:0;
-    transform-origin:bottom center;
-    transform:rotateX(-90deg) translateY(60px);
+
+.section-three .char {
+    display: inline-block;
+
+    opacity: 0;
+
+    filter: blur(10px);
+
+    transform: translateY(80px);
+
+    will-change: transform, opacity, filter;
 }
 
-/* =========================
-   SECTION 5 — SCATTER
-========================= */
 
-.section-five{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
+/* =========================================================
+   SECTION 4
+   3D FLIP
+========================================================= */
+
+.section-four {
+    perspective: 1200px;
 }
 
-.scatter-text{
-    max-width:1200px;
 
-    font-size:clamp(3rem,7vw,7rem);
-    line-height:1.05;
-    text-align:center;
+.section-four .flip-text {
+    max-width: 1200px;
+
+    font-size: var(--text-lg);
+    line-height: 1.05;
 }
 
-.scatter-word{
-    display:inline-block;
-    opacity:1;
-    transform-origin:center;
+
+.section-four .flip-word {
+    display: inline-block;
+
+    opacity: 0;
+
+    transform:
+        rotateX(-90deg)
+        translateY(60px);
+
+    transform-origin: center bottom;
+
+    backface-visibility: hidden;
+
+    will-change: transform, opacity;
 }
 
-/* =========================
+
+/* =========================================================
+   SECTION 5
+   SCATTER → ASSEMBLE
+========================================================= */
+
+.section-five {
+    align-items: center;
+
+    overflow: hidden;
+}
+
+
+.section-five .scatter-text {
+    width: min(100%, 1200px);
+
+    font-size: var(--text-lg);
+    line-height: 1.05;
+
+    text-align: center;
+}
+
+
+.section-five .scatter-word {
+    display: inline-block;
+
+    transform-origin: center;
+
+    will-change: transform, opacity;
+}
+
+
+/* =========================================================
    SECTION 6
-========================= */
+   SCROLL WORD FILL
+========================================================= */
 
-.section-six{
-    min-height:150vh;
-    align-items:center;
+.section-six {
+    min-height: 150dvh;
+
+    align-items: center;
 }
 
-.fill-text{
-    max-width:1200px;
 
-    font-size:clamp(3rem,7vw,7rem);
-    line-height:1.05;
+.section-six .fill-text {
+    width: min(100%, 1200px);
 
-    text-align:center;
+    font-size: var(--text-lg);
+    line-height: 1.05;
+
+    text-align: center;
 }
 
-.fill-word{
-    display:inline-block;
 
-    color:#333;
+.section-six .fill-word {
+    display: inline-block;
 
-    transition:color .1s;
+    color: var(--text-muted);
+
+    will-change: color;
 }
 
-/* =========================
+
+/* =========================================================
    SECTION 7
-========================= */
+   PIN + SCALE
+========================================================= */
 
-.section-seven{
-    height:100vh;
+.section-seven {
+    position: relative;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    height: 100dvh;
 
-    overflow:hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    background:#f1f1f1;
+    overflow: hidden;
+
+    background: var(--bg-light);
+    color: var(--text-dark);
 }
 
-.scale-text{
-    color:#111;
 
-    font-size:clamp(5rem,15vw,15rem);
-    font-weight:900;
+.section-seven .scale-text {
+    font-size: var(--text-display);
+    font-weight: 900;
 
-    line-height:.8;
-    white-space:nowrap;
+    line-height: 0.8;
 
-    transform-origin:center center;
+    white-space: nowrap;
+
+    transform-origin: center;
+
+    will-change: transform, opacity;
 }
 
-/* =========================
+
+/* =========================================================
    SECTION 8
    HORIZONTAL TEXT
-========================= */
+========================================================= */
 
-.section-eight{
-    height:100vh;
-    width:100%;
+.section-eight {
+    position: relative;
 
-    display:flex;
-    align-items:center;
+    height: 100dvh;
+    width: 100%;
 
-    overflow:hidden;
+    display: flex;
+    align-items: center;
 
-    background:#111;
+    overflow: hidden;
+
+    background: var(--bg-dark);
 }
 
-.horizontal-track{
-    width:max-content;
-    will-change:transform;
+
+.section-eight .horizontal-track {
+    width: max-content;
+
+    will-change: transform;
 }
 
-.horizontal-text{
-    font-size:clamp(6rem,15vw,16rem);
-    font-weight:700;
-    line-height:1;
 
-    white-space:nowrap;
+.section-eight .horizontal-text {
+    padding-left: 100vw;
 
-    padding-left:100vw;
+    font-size: var(--text-display);
+    font-weight: 700;
 
-    color:#fff;
+    line-height: 0.9;
+
+    white-space: nowrap;
+
+    color: var(--text-light);
 }
 
-/* =========================
+
+/* =========================================================
    SECTION 9
    SCRAMBLE / DECODE
-========================= */
+========================================================= */
 
 .section-nine {
-    height: 100vh;
+    position: relative;
+
+    height: 100dvh;
     width: 100%;
 
     display: flex;
@@ -210,17 +349,19 @@ body{
 
     overflow: hidden;
 
-    background: #0a0a0a;
-    color: #fff;
+    background: var(--bg-darker);
+    color: var(--text-light);
 }
 
-.scramble-wrapper {
-    width: 90%;
+
+.section-nine .scramble-wrapper {
+    width: min(90%, 1400px);
 
     text-align: center;
 }
 
-.scramble-label {
+
+.section-nine .scramble-label {
     margin-bottom: 2rem;
 
     font-size: 0.75rem;
@@ -229,9 +370,9 @@ body{
     opacity: 0.4;
 }
 
-.scramble-text {
-    font-size: clamp(3rem, 9vw, 10rem);
 
+.section-nine .scramble-text {
+    font-size: clamp(3rem, 9vw, 10rem);
     font-weight: 700;
 
     line-height: 0.9;
@@ -240,41 +381,45 @@ body{
 
     text-transform: uppercase;
 
-    will-change: transform;
+    overflow-wrap: anywhere;
+
+    will-change: transform, letter-spacing;
 }
 
-/* =========================
+
+/* =========================================================
    SECTION 10
    TYPOGRAPHY FINALE
-========================= */
+========================================================= */
 
 .section-ten {
-    height: 100vh;
-    width: 100%;
-
     position: relative;
+
+    height: 100dvh;
+    width: 100%;
 
     overflow: hidden;
 
-    background: #f2f2f2;
-    color: #111;
+    background: var(--bg-light);
+    color: var(--text-dark);
 }
 
-.finale-stage {
+
+.section-ten .finale-stage {
+    position: relative;
+
     width: 100%;
     height: 100%;
 
-    position: relative;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    place-items: center;
 }
 
-.finale-word {
+
+.section-ten .finale-word {
     position: absolute;
 
-    font-size: clamp(5rem, 15vw, 16rem);
+    font-size: var(--text-display);
     font-weight: 900;
 
     line-height: 0.8;
@@ -282,5 +427,67 @@ body{
 
     white-space: nowrap;
 
+    transform-origin: center;
+
     will-change: transform, opacity;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    :root {
+        --page-padding: 1.25rem;
+
+        --text-lg: clamp(2.5rem, 11vw, 5rem);
+        --text-xl: clamp(3rem, 13vw, 6rem);
+        --text-display: clamp(4rem, 20vw, 9rem);
+    }
+
+
+    .section-one .line {
+        font-size: clamp(2.5rem, 12vw, 5rem);
+    }
+
+
+    .section-three .chars {
+        font-size: clamp(2.5rem, 10vw, 4.5rem);
+    }
+
+
+    .section-nine .scramble-wrapper {
+        width: calc(100% - 2.5rem);
+    }
+
+
+    .section-nine .scramble-text {
+        font-size: clamp(2.5rem, 12vw, 6rem);
+
+        line-height: 0.95;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
 }
