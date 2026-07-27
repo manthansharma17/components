@@ -470,6 +470,263 @@ tl9.to(
 updateScramble(0);
 
 /* =========================================================
+   SECTION 10
+   CREATE → MOVE → INSPIRE
+   COLLIDE → EXPLODE
+========================================================= */
+
+const tl10 = gsap.timeline({
+
+    scrollTrigger: {
+
+        trigger: ".section-ten",
+
+        start: "top top",
+
+        end: "+=3000",
+
+        scrub: 0.6,
+
+        pin: true,
+
+        anticipatePin: 1
+
+        // markers: true
+    }
+
+});
+
+
+/* =========================================================
+   INITIAL POSITIONS
+========================================================= */
+
+gsap.set(".word-create", {
+    xPercent: -150,
+    rotation: -10,
+    opacity: 0
+});
+
+gsap.set(".word-move", {
+    yPercent: 150,
+    scale: 0.4,
+    opacity: 0
+});
+
+gsap.set(".word-inspire", {
+    xPercent: 150,
+    rotation: 10,
+    opacity: 0
+});
+
+
+/* =========================================================
+   PHASE 1
+   CREATE ENTERS FROM LEFT
+========================================================= */
+
+tl10.to(".word-create", {
+
+    xPercent: 0,
+    rotation: 0,
+    opacity: 1,
+
+    duration: 1,
+
+    ease: "none"
+
+});
+
+
+/* =========================================================
+   PHASE 2
+   MOVE ENTERS FROM BOTTOM
+========================================================= */
+
+tl10.to(".word-move", {
+
+    yPercent: 0,
+    scale: 1,
+    opacity: 1,
+
+    duration: 1,
+
+    ease: "none"
+
+});
+
+
+/* CREATE MOVES UP */
+
+tl10.to(
+    ".word-create",
+    {
+        yPercent: -110,
+        scale: 0.7,
+
+        duration: 1,
+
+        ease: "none"
+    },
+    "<"
+);
+
+
+/* =========================================================
+   PHASE 3
+   INSPIRE ENTERS FROM RIGHT
+========================================================= */
+
+tl10.to(".word-inspire", {
+
+    xPercent: 0,
+    rotation: 0,
+    opacity: 1,
+
+    duration: 1,
+
+    ease: "none"
+
+});
+
+
+/* MOVE MOVES UP */
+
+tl10.to(
+    ".word-move",
+    {
+        yPercent: -110,
+        scale: 0.7,
+
+        duration: 1,
+
+        ease: "none"
+    },
+    "<"
+);
+
+
+/* CREATE GOES HIGHER */
+
+tl10.to(
+    ".word-create",
+    {
+        yPercent: -220,
+        scale: 0.45,
+        opacity: 0.5,
+
+        duration: 1,
+
+        ease: "none"
+    },
+    "<"
+);
+
+
+/* =========================================================
+   PHASE 4
+   ALL THREE COLLIDE
+========================================================= */
+
+tl10.to(
+    ".finale-word",
+    {
+
+        xPercent: 0,
+        yPercent: 0,
+
+        scale: 1,
+
+        rotation: 0,
+
+        opacity: 1,
+
+        duration: 1.2,
+
+        ease: "none"
+
+    }
+);
+
+
+/* =========================================================
+   PHASE 5
+   HOLD
+========================================================= */
+
+tl10.to({}, {
+    duration: 0.5
+});
+
+
+/* =========================================================
+   PHASE 6
+   EXPLODE
+========================================================= */
+
+tl10.to(".word-create", {
+
+    xPercent: -170,
+    yPercent: -120,
+
+    rotation: -25,
+
+    scale: 2,
+
+    opacity: 0,
+
+    duration: 1.5,
+
+    ease: "none"
+
+});
+
+
+tl10.to(
+    ".word-move",
+    {
+
+        yPercent: 180,
+
+        rotation: 20,
+
+        scale: 3,
+
+        opacity: 0,
+
+        duration: 1.5,
+
+        ease: "none"
+
+    },
+
+    "<"
+);
+
+
+tl10.to(
+    ".word-inspire",
+    {
+
+        xPercent: 170,
+        yPercent: -80,
+
+        rotation: 25,
+
+        scale: 2,
+
+        opacity: 0,
+
+        duration: 1.5,
+
+        ease: "none"
+
+    },
+
+    "<"
+);
+
+/* =========================================================
    REFRESH
 ========================================================= */
 
