@@ -657,6 +657,171 @@ body {
     will-change: clip-path;
 }
 
+/* =========================================================
+   SECTION 12
+   LIQUID TEXT FILL
+========================================================= */
+
+.section-twelve {
+    position: relative;
+
+    width: 100%;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #080808;
+}
+
+
+/* STAGE */
+
+.water-stage {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+}
+
+
+.water-label {
+    margin-bottom: 2rem;
+
+    font-size: 0.75rem;
+    letter-spacing: 0.4em;
+
+    color: #fff;
+
+    opacity: 0.4;
+}
+
+
+/* WORD */
+
+.water-word {
+    position: relative;
+
+    display: grid;
+    place-items: center;
+}
+
+
+/* SHARED TEXT */
+
+.water-outline,
+.water-fill {
+    grid-area: 1 / 1;
+
+    font-size: clamp(6rem, 20vw, 22rem);
+    font-weight: 900;
+
+    line-height: 0.8;
+    letter-spacing: -0.08em;
+
+    white-space: nowrap;
+}
+
+
+/* OUTLINE */
+
+.water-outline {
+    position: relative;
+
+    color: transparent;
+
+    -webkit-text-stroke: 2px #555;
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   MASK
+
+   Same dimensions as the text.
+========================================================= */
+
+.water-mask {
+    position: absolute;
+    inset: 0;
+
+    overflow: hidden;
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   LIQUID
+
+   Starts completely below the word.
+========================================================= */
+
+.water-liquid {
+    position: absolute;
+
+    left: 0;
+    bottom: -100%;
+
+    width: 100%;
+    height: 100%;
+
+    will-change: transform, bottom;
+}
+
+
+/* FILLED TEXT */
+
+.water-fill {
+    position: absolute;
+
+    inset: 0;
+
+    display: grid;
+    place-items: center;
+
+    color: #3b82f6;
+}
+
+
+/* =========================================================
+   WAVE
+========================================================= */
+
+.water-wave {
+    position: absolute;
+
+    top: -10px;
+    left: -25%;
+
+    width: 150%;
+    height: 25px;
+
+    z-index: 3;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            #60a5fa 0%,
+            #60a5fa 45%,
+            transparent 46%
+        );
+
+    background-size: 50px 20px;
+
+    opacity: 0.9;
+
+    animation: waterWave 1.8s linear infinite;
+}
+
+
 
 /* =========================================================
    REDUCED MOTION
