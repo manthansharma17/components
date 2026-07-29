@@ -821,7 +821,17 @@ body {
     animation: waterWave 1.8s linear infinite;
 }
 
+@keyframes waterWave {
 
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(50px);
+    }
+
+}
 
 /* =========================================================
    REDUCED MOTION
