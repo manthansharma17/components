@@ -1133,6 +1133,380 @@ tl12.to(
     "<"
 );
 
+/* =========================================================
+   SECTION 13
+   MAGNETIC WORD ASSEMBLY
+========================================================= */
+
+const magneticWords =
+    document.querySelectorAll(".magnetic-word");
+
+
+/* =========================================================
+   INITIAL SCATTERED POSITIONS
+========================================================= */
+
+gsap.set(".magnetic-1", {
+    x: -400,
+    y: -180,
+    rotation: -15,
+    scale: 0.8,
+    opacity: 0.4
+});
+
+
+gsap.set(".magnetic-2", {
+    x: 320,
+    y: -220,
+    rotation: 12,
+    scale: 1.2,
+    opacity: 0.5
+});
+
+
+gsap.set(".magnetic-3", {
+    x: -350,
+    y: 160,
+    rotation: 18,
+    scale: 0.7,
+    opacity: 0.4
+});
+
+
+gsap.set(".magnetic-4", {
+    x: 380,
+    y: 140,
+    rotation: -12,
+    scale: 1.1,
+    opacity: 0.5
+});
+
+
+gsap.set(".magnetic-5", {
+    x: -100,
+    y: 250,
+    rotation: -20,
+    scale: 0.6,
+    opacity: 0.3
+});
+
+
+gsap.set(".magnetic-6", {
+    x: 280,
+    y: 260,
+    rotation: 16,
+    scale: 0.9,
+    opacity: 0.4
+});
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+const tl13 = gsap.timeline({
+
+    scrollTrigger: {
+
+        trigger: ".section-thirteen",
+
+        start: "top top",
+
+        end: "+=2600",
+
+        scrub: 0.6,
+
+        pin: true,
+
+        anticipatePin: 1
+
+        // markers: true
+    }
+
+});
+
+
+/* =========================================================
+   PHASE 1
+   WORDS MOVE CLOSER
+========================================================= */
+
+tl13.to(".magnetic-1", {
+
+    x: -250,
+    y: -100,
+
+    rotation: -8,
+
+    opacity: 0.7,
+
+    duration: 1,
+
+    ease: "none"
+
+});
+
+
+tl13.to(
+    ".magnetic-2",
+    {
+
+        x: 180,
+        y: -120,
+
+        rotation: 6,
+
+        opacity: 0.7,
+
+        duration: 1,
+
+        ease: "none"
+
+    },
+
+    "<"
+);
+
+
+tl13.to(
+    ".magnetic-3",
+    {
+
+        x: -180,
+        y: 80,
+
+        rotation: 8,
+
+        opacity: 0.7,
+
+        duration: 1,
+
+        ease: "none"
+
+    },
+
+    "<"
+);
+
+
+tl13.to(
+    ".magnetic-4",
+    {
+
+        x: 200,
+        y: 70,
+
+        rotation: -6,
+
+        opacity: 0.7,
+
+        duration: 1,
+
+        ease: "none"
+
+    },
+
+    "<"
+);
+
+
+tl13.to(
+    ".magnetic-5",
+    {
+
+        x: -60,
+        y: 140,
+
+        rotation: -8,
+
+        opacity: 0.7,
+
+        duration: 1,
+
+        ease: "none"
+
+    },
+
+    "<"
+);
+
+
+tl13.to(
+    ".magnetic-6",
+    {
+
+        x: 140,
+        y: 130,
+
+        rotation: 8,
+
+        opacity: 0.7,
+
+        duration: 1,
+
+        ease: "none"
+
+    },
+
+    "<"
+);
+
+
+/* =========================================================
+   PHASE 2
+   MAGNETIC COLLISION
+
+   All words get pulled toward center.
+========================================================= */
+
+tl13.to(magneticWords, {
+
+    x: 0,
+    y: 0,
+
+    rotation: 0,
+
+    scale: 1,
+
+    opacity: 1,
+
+    duration: 1.5,
+
+    stagger: 0.08,
+
+    ease: "none"
+
+});
+
+
+/* =========================================================
+   PHASE 3
+   HOLD COLLISION
+========================================================= */
+
+tl13.to({}, {
+    duration: 0.4
+});
+
+
+/* =========================================================
+   PHASE 4
+   FORM SENTENCE
+========================================================= */
+
+tl13.to(".magnetic-1", {
+
+    xPercent: -285,
+
+    duration: 1,
+
+    ease: "none"
+
+});
+
+
+tl13.to(
+    ".magnetic-2",
+    {
+
+        xPercent: -155,
+
+        duration: 1,
+
+        ease: "none"
+
+    },
+
+    "<"
+);
+
+
+tl13.to(
+    ".magnetic-3",
+    {
+
+        xPercent: -65,
+
+        duration: 1,
+
+        ease: "none"
+
+    },
+
+    "<"
+);
+
+
+tl13.to(
+    ".magnetic-4",
+    {
+
+        xPercent: 35,
+
+        duration: 1,
+
+        ease: "none"
+
+    },
+
+    "<"
+);
+
+
+tl13.to(
+    ".magnetic-5",
+    {
+
+        xPercent: 160,
+
+        duration: 1,
+
+        ease: "none"
+
+    },
+
+    "<"
+);
+
+
+tl13.to(
+    ".magnetic-6",
+    {
+
+        xPercent: 180,
+
+        duration: 1,
+
+        ease: "none"
+
+    },
+
+    "<"
+);
+
+
+/* =========================================================
+   PHASE 5
+   LABEL DISAPPEARS
+========================================================= */
+
+tl13.to(
+    ".magnetic-label",
+
+    {
+
+        opacity: 0,
+
+        y: -20,
+
+        duration: 0.5,
+
+        ease: "none"
+
+    },
+
+    "<"
+);
 
 
 /* =========================================================
