@@ -1,10 +1,10 @@
 /* =========================================================
-   RESET / GLOBAL
+   GLOBAL
 ========================================================= */
 
 :root {
     --bg-dark: #111;
-    --bg-darker: #0a0a0a;
+    --bg-darker: #080808;
     --bg-light: #f2f2f2;
 
     --text-light: #fff;
@@ -28,13 +28,19 @@
 }
 
 
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+
 html {
     background: var(--bg-dark);
 }
 
 
 body {
-    min-height: 100%;
     overflow-x: hidden;
 
     background: var(--bg-dark);
@@ -55,13 +61,17 @@ body {
     place-items: center;
 
     padding-inline: var(--page-padding);
+}
 
+
+.hero h1 {
     font-size: clamp(3rem, 8vw, 8rem);
+    line-height: 0.9;
 }
 
 
 /* =========================================================
-   SHARED SECTION
+   SHARED
 ========================================================= */
 
 .section {
@@ -77,13 +87,10 @@ body {
 
 /* =========================================================
    SECTION 1
-   WORD BOUNCE
 ========================================================= */
 
 .section-one .line-wrapper {
     overflow: hidden;
-
-    /* Prevent descenders like g/y getting clipped */
     padding-block: 0.08em;
 }
 
@@ -112,19 +119,16 @@ body {
 
 /* =========================================================
    SECTION 2
-   MASK REVEAL
 ========================================================= */
 
 .section-two .reveal {
     overflow: hidden;
-
     padding-block: 0.05em;
 }
 
 
 .section-two .reveal-text {
     font-size: var(--text-xl);
-
     line-height: 0.95;
 
     transform: translateY(120%);
@@ -135,7 +139,6 @@ body {
 
 /* =========================================================
    SECTION 3
-   CHARACTER BLUR
 ========================================================= */
 
 .section-three .chars {
@@ -161,7 +164,6 @@ body {
 
 /* =========================================================
    SECTION 4
-   3D FLIP
 ========================================================= */
 
 .section-four {
@@ -196,12 +198,10 @@ body {
 
 /* =========================================================
    SECTION 5
-   SCATTER → ASSEMBLE
 ========================================================= */
 
 .section-five {
     align-items: center;
-
     overflow: hidden;
 }
 
@@ -227,7 +227,6 @@ body {
 
 /* =========================================================
    SECTION 6
-   SCROLL WORD FILL
 ========================================================= */
 
 .section-six {
@@ -258,12 +257,12 @@ body {
 
 /* =========================================================
    SECTION 7
-   PIN + SCALE
 ========================================================= */
 
 .section-seven {
     position: relative;
 
+    width: 100%;
     height: 100dvh;
 
     display: flex;
@@ -293,14 +292,13 @@ body {
 
 /* =========================================================
    SECTION 8
-   HORIZONTAL TEXT
 ========================================================= */
 
 .section-eight {
     position: relative;
 
-    height: 100dvh;
     width: 100%;
+    height: 100dvh;
 
     display: flex;
     align-items: center;
@@ -320,6 +318,7 @@ body {
 
 .section-eight .horizontal-text {
     padding-left: 100vw;
+    padding-right: 10vw;
 
     font-size: var(--text-display);
     font-weight: 700;
@@ -334,14 +333,13 @@ body {
 
 /* =========================================================
    SECTION 9
-   SCRAMBLE / DECODE
 ========================================================= */
 
 .section-nine {
     position: relative;
 
-    height: 100dvh;
     width: 100%;
+    height: 100dvh;
 
     display: flex;
     align-items: center;
@@ -350,7 +348,6 @@ body {
     overflow: hidden;
 
     background: var(--bg-darker);
-    color: var(--text-light);
 }
 
 
@@ -361,7 +358,7 @@ body {
 }
 
 
-.section-nine .scramble-label {
+.scramble-label {
     margin-bottom: 2rem;
 
     font-size: 0.75rem;
@@ -371,7 +368,7 @@ body {
 }
 
 
-.section-nine .scramble-text {
+.scramble-text {
     font-size: clamp(3rem, 9vw, 10rem);
     font-weight: 700;
 
@@ -389,14 +386,13 @@ body {
 
 /* =========================================================
    SECTION 10
-   TYPOGRAPHY FINALE
 ========================================================= */
 
 .section-ten {
     position: relative;
 
-    height: 100dvh;
     width: 100%;
+    height: 100dvh;
 
     overflow: hidden;
 
@@ -405,7 +401,7 @@ body {
 }
 
 
-.section-ten .finale-stage {
+.finale-stage {
     position: relative;
 
     width: 100%;
@@ -416,7 +412,7 @@ body {
 }
 
 
-.section-ten .finale-word {
+.finale-word {
     position: absolute;
 
     font-size: var(--text-display);
@@ -432,10 +428,10 @@ body {
     will-change: transform, opacity;
 }
 
-/* =========================
+
+/* =========================================================
    SECTION 11
-   TEXT SLICE
-========================= */
+========================================================= */
 
 .section-eleven {
     position: relative;
@@ -449,6 +445,7 @@ body {
     color: #fff;
 }
 
+
 .slice-stage {
     position: relative;
 
@@ -461,8 +458,6 @@ body {
 }
 
 
-/* ALL SLICES */
-
 .slice {
     position: absolute;
 
@@ -473,7 +468,7 @@ body {
 
     overflow: hidden;
 
-    will-change: transform;
+    will-change: transform, opacity;
 }
 
 
@@ -489,31 +484,29 @@ body {
 }
 
 
-/* =========================
-   CUT WORD INTO 4 PIECES
-========================= */
-
 .slice-1 {
     clip-path: inset(0 0 75% 0);
 }
+
 
 .slice-2 {
     clip-path: inset(25% 0 50% 0);
 }
 
+
 .slice-3 {
     clip-path: inset(50% 0 25% 0);
 }
+
 
 .slice-4 {
     clip-path: inset(75% 0 0 0);
 }
 
 
-
 /* =========================================================
-   SECTION 13
-   LIQUID TEXT FILL
+   SECTION 12
+   LIQUID TEXT
 ========================================================= */
 
 .section-twelve {
@@ -531,8 +524,6 @@ body {
     background: #080808;
 }
 
-
-/* STAGE */
 
 .water-stage {
     width: 100%;
@@ -557,8 +548,6 @@ body {
 }
 
 
-/* WORD */
-
 .water-word {
     position: relative;
 
@@ -567,12 +556,8 @@ body {
 }
 
 
-/* SHARED TEXT */
-
 .water-outline,
 .water-fill {
-    grid-area: 1 / 1;
-
     font-size: clamp(6rem, 20vw, 22rem);
     font-weight: 900;
 
@@ -583,9 +568,9 @@ body {
 }
 
 
-/* OUTLINE */
-
 .water-outline {
+    grid-area: 1 / 1;
+
     position: relative;
 
     color: transparent;
@@ -595,12 +580,6 @@ body {
     z-index: 1;
 }
 
-
-/* =========================================================
-   MASK
-
-   Same dimensions as the text.
-========================================================= */
 
 .water-mask {
     position: absolute;
@@ -612,51 +591,39 @@ body {
 }
 
 
-/* =========================================================
-   LIQUID
-
-   Starts completely below the word.
-========================================================= */
-
 .water-liquid {
     position: absolute;
-
-    left: 0;
-    bottom: -100%;
+    inset: 0;
 
     width: 100%;
     height: 100%;
 
-    will-change: transform, bottom;
+    will-change: transform;
 }
 
-
-/* FILLED TEXT */
 
 .water-fill {
     position: absolute;
-
     inset: 0;
 
-    display: grid;
-    place-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     color: #3b82f6;
+
+    z-index: 2;
 }
 
-
-/* =========================================================
-   WAVE
-========================================================= */
 
 .water-wave {
     position: absolute;
 
-    top: -10px;
+    top: -8px;
     left: -25%;
 
     width: 150%;
-    height: 25px;
+    height: 22px;
 
     z-index: 3;
 
@@ -675,6 +642,7 @@ body {
     animation: waterWave 1.8s linear infinite;
 }
 
+
 @keyframes waterWave {
 
     from {
@@ -687,9 +655,9 @@ body {
 
 }
 
+
 /* =========================================================
-   SECTION 14
-   MAGNETIC WORDS
+   SECTION 13
 ========================================================= */
 
 .section-thirteen {
@@ -700,12 +668,10 @@ body {
 
     overflow: hidden;
 
-    background: #f2f2f2;
-    color: #111;
+    background: var(--bg-light);
+    color: var(--text-dark);
 }
 
-
-/* STAGE */
 
 .magnetic-stage {
     position: relative;
@@ -718,8 +684,6 @@ body {
     justify-content: center;
 }
 
-
-/* LABEL */
 
 .magnetic-label {
     position: absolute;
@@ -738,14 +702,10 @@ body {
 }
 
 
-/* =========================================================
-   TEXT AREA
-========================================================= */
-
 .magnetic-text {
     position: relative;
 
-    width: 90%;
+    width: min(94%, 1500px);
     height: 70%;
 
     display: flex;
@@ -753,14 +713,11 @@ body {
     justify-content: center;
 }
 
-/* =========================================================
-   WORDS
-========================================================= */
 
 .magnetic-word {
     position: absolute;
 
-    font-size: clamp(2.5rem, 7vw, 8rem);
+    font-size: clamp(2rem, 5.5vw, 6.5rem);
     font-weight: 800;
 
     line-height: 1;
@@ -773,6 +730,37 @@ body {
 
     will-change: transform, opacity;
 }
+
+
+/*
+Final sentence positions are controlled with left percentages.
+JS animates every word toward these positions.
+*/
+
+.magnetic-1 {
+    --final-x: 8%;
+}
+
+.magnetic-2 {
+    --final-x: 26%;
+}
+
+.magnetic-3 {
+    --final-x: 45%;
+}
+
+.magnetic-4 {
+    --final-x: 57%;
+}
+
+.magnetic-5 {
+    --final-x: 72%;
+}
+
+.magnetic-6 {
+    --final-x: 82%;
+}
+
 
 /* =========================================================
    RESPONSIVE
@@ -804,10 +792,25 @@ body {
     }
 
 
-    .section-nine .scramble-text {
+    .scramble-text {
         font-size: clamp(2.5rem, 12vw, 6rem);
-
         line-height: 0.95;
+    }
+
+
+    .water-outline,
+    .water-fill {
+        font-size: clamp(5rem, 24vw, 10rem);
+    }
+
+
+    .magnetic-text {
+        width: 100%;
+    }
+
+
+    .magnetic-word {
+        font-size: clamp(1.5rem, 7vw, 3rem);
     }
 
 }
@@ -818,10 +821,6 @@ body {
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-
-    html {
-        scroll-behavior: auto;
-    }
 
     *,
     *::before,
