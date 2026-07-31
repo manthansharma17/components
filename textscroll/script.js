@@ -16,13 +16,9 @@ document.querySelectorAll(".section-one .line").forEach((line) => {
 const tl1 = gsap.timeline({
   scrollTrigger: {
     trigger: ".section-one",
-
     start: "top 80%",
     end: "bottom 40%",
-
     scrub: 1,
-
-    // markers: true
   },
 });
 
@@ -49,10 +45,8 @@ document.querySelectorAll(".section-one .line").forEach((line) => {
 const tl2 = gsap.timeline({
   scrollTrigger: {
     trigger: ".section-two",
-
     start: "top 80%",
     end: "bottom 40%",
-
     scrub: 1,
   },
 });
@@ -74,25 +68,30 @@ tl2.to(".section-two .reveal-text", {
 
 const heading = document.querySelector(".section-three .chars");
 
-const text = heading.textContent;
+const headingText = heading.textContent.trim();
 
 heading.innerHTML = "";
 
-text.split("").forEach((letter) => {
+headingText.split("").forEach((letter) => {
   if (letter === " ") {
-    heading.innerHTML += " ";
-  } else {
-    heading.innerHTML += `<span class="char">${letter}</span>`;
+    heading.appendChild(document.createTextNode(" "));
+
+    return;
   }
+
+  const span = document.createElement("span");
+
+  span.className = "char";
+  span.textContent = letter;
+
+  heading.appendChild(span);
 });
 
 const tl3 = gsap.timeline({
   scrollTrigger: {
     trigger: ".section-three",
-
     start: "top 80%",
     end: "bottom 40%",
-
     scrub: 1,
   },
 });
@@ -113,7 +112,7 @@ tl3.to(".section-three .char", {
 
 /* =========================================================
    SECTION 4
-   3D WORD FLIP
+   WORD FLIP
 ========================================================= */
 
 const flip = document.querySelector(".section-four .flip-text");
@@ -127,10 +126,8 @@ flip.innerHTML = flipWords
 const tl4 = gsap.timeline({
   scrollTrigger: {
     trigger: ".section-four",
-
     start: "top 80%",
     end: "bottom 40%",
-
     scrub: 1,
   },
 });
@@ -151,7 +148,7 @@ tl4.to(".section-four .flip-word", {
 
 /* =========================================================
    SECTION 5
-   SCATTER → ASSEMBLE
+   SCATTER
 ========================================================= */
 
 const scatterText = document.querySelector(".section-five .scatter-text");
@@ -164,7 +161,6 @@ scatterText.innerHTML = scatterWords
 
 const words5 = scatterText.querySelectorAll(".scatter-word");
 
-// Give every word a random starting position
 gsap.set(words5, {
   x: () => gsap.utils.random(-300, 300),
 
@@ -180,17 +176,14 @@ gsap.set(words5, {
 const tl5 = gsap.timeline({
   scrollTrigger: {
     trigger: ".section-five",
-
     start: "top 80%",
     end: "bottom 40%",
-
     scrub: 1,
   },
 });
 
 tl5.to(words5, {
   x: 0,
-
   y: 0,
 
   rotation: 0,
@@ -211,7 +204,7 @@ tl5.to(words5, {
 
 /* =========================================================
    SECTION 6
-   WORD COLOR FILL
+   COLOR FILL
 ========================================================= */
 
 const fillText = document.querySelector(".section-six .fill-text");
@@ -227,10 +220,8 @@ const words6 = fillText.querySelectorAll(".fill-word");
 const tl6 = gsap.timeline({
   scrollTrigger: {
     trigger: ".section-six",
-
     start: "top 70%",
     end: "bottom 40%",
-
     scrub: 1,
   },
 });
@@ -247,15 +238,13 @@ tl6.to(words6, {
 
 /* =========================================================
    SECTION 7
-   PIN + CINEMATIC SCALE
+   SCALE
 ========================================================= */
 
 const tl7 = gsap.timeline({
   scrollTrigger: {
     trigger: ".section-seven",
-
     start: "top top",
-
     end: "+=1800",
 
     scrub: 1,
@@ -266,36 +255,38 @@ const tl7 = gsap.timeline({
   },
 });
 
-tl7
+tl7.to(".scale-text", {
+  scale: 4,
 
-  .to(".section-seven .scale-text", {
-    scale: 4,
+  letterSpacing: "0.15em",
 
-    letterSpacing: "0.15em",
+  duration: 1,
 
-    duration: 1,
+  ease: "none",
+});
 
-    ease: "none",
-  })
+tl7.to(".scale-text", {
+  scale: 12,
 
-  .to(".section-seven .scale-text", {
-    scale: 12,
+  opacity: 0,
 
-    opacity: 0,
+  duration: 1,
 
-    duration: 1,
-
-    ease: "none",
-  });
+  ease: "none",
+});
 
 /* =========================================================
    SECTION 8
-   PINNED HORIZONTAL TEXT
+   HORIZONTAL
 ========================================================= */
 
 const section8 = document.querySelector(".section-eight");
 
 const track8 = document.querySelector(".horizontal-track");
+
+const getHorizontalDistance = () => {
+  return Math.max(0, track8.scrollWidth - window.innerWidth);
+};
 
 const tl8 = gsap.timeline({
   scrollTrigger: {
@@ -303,7 +294,7 @@ const tl8 = gsap.timeline({
 
     start: "top top",
 
-    end: () => "+=" + track8.scrollWidth,
+    end: () => `+=${Math.max(getHorizontalDistance(), window.innerHeight)}`,
 
     scrub: 1,
 
@@ -316,7 +307,7 @@ const tl8 = gsap.timeline({
 });
 
 tl8.to(track8, {
-  x: () => -(track8.scrollWidth - window.innerWidth),
+  x: () => -getHorizontalDistance(),
 
   duration: 1,
 
@@ -325,351 +316,290 @@ tl8.to(track8, {
 
 /* =========================================================
    SECTION 9
-   SCRAMBLE → DECODE → EXPAND
+   SCRAMBLE
 ========================================================= */
 
 const section9 = document.querySelector(".section-nine");
+
 const scrambleText = document.querySelector(".scramble-text");
 
 const finalText = scrambleText.dataset.text;
 
 const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&?";
 
-
-/* ---------------------------------------------------------
-   SCRAMBLE FUNCTION
---------------------------------------------------------- */
-
 function updateScramble(progress) {
+  let output = "";
 
-    let output = "";
+  for (let i = 0; i < finalText.length; i++) {
+    const originalCharacter = finalText[i];
 
-    for (let i = 0; i < finalText.length; i++) {
+    if (originalCharacter === " ") {
+      output += " ";
 
-        const originalCharacter = finalText[i];
-
-        // Keep spaces
-        if (originalCharacter === " ") {
-            output += " ";
-            continue;
-        }
-
-
-        // Each character gets its own reveal point
-        const characterProgress =
-            i / finalText.length;
-
-
-        if (progress > characterProgress) {
-
-            output += originalCharacter;
-
-        } else {
-
-            const randomIndex =
-                Math.floor(
-                    Math.random() * characters.length
-                );
-
-            output += characters[randomIndex];
-
-        }
-
+      continue;
     }
 
-    scrambleText.textContent = output;
+    const revealPoint = i / finalText.length;
+
+    if (progress >= revealPoint) {
+      output += originalCharacter;
+    } else {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+
+      output += characters[randomIndex];
+    }
+  }
+
+  scrambleText.textContent = output;
 }
 
-
-/* ------------TIMELINE------------- */
-
 const scrambleProgress = {
-    value: 0
+  value: 0,
 };
 
-
 const tl9 = gsap.timeline({
+  scrollTrigger: {
+    trigger: section9,
 
-    scrollTrigger: {
+    start: "top top",
 
-        trigger: section9,
+    end: "+=1600",
 
-        start: "top top",
+    scrub: 0.5,
 
-        end: "+=1600",
+    pin: true,
 
-        scrub: 0.5,
-
-        pin: true,
-
-        anticipatePin: 1
-
-    }
-
+    anticipatePin: 1,
+  },
 });
-
-
-/* 1. SCRAMBLE → REAL TEXT */
 
 tl9.to(scrambleProgress, {
+  value: 1,
 
-    value: 1,
+  duration: 3,
 
-    duration: 3,
+  ease: "none",
 
-    ease: "none",
-
-    onUpdate: function () {
-
-        updateScramble(
-            scrambleProgress.value
-        );
-
-    }
-
+  onUpdate() {
+    updateScramble(scrambleProgress.value);
+  },
 });
-
-
-/* 2. EXPAND TEXT */
 
 tl9.to(scrambleText, {
+  letterSpacing: "0.08em",
 
-    letterSpacing: "0.08em",
+  scale: 1.05,
 
-    scale: 1.05,
+  duration: 1,
 
-    duration: 1,
-
-    ease: "none"
-
+  ease: "none",
 });
 
-
-/*3. LABEL DISAPPEARS */
-
 tl9.to(
-    ".scramble-label",
+  ".scramble-label",
+  {
+    opacity: 0,
 
-    {
+    y: -20,
 
-        opacity: 0,
+    duration: 0.5,
 
-        y: -20,
-
-        duration: 0.5,
-
-        ease: "none"
-
-    },
-
-    "<"
-
+    ease: "none",
+  },
+  "<",
 );
 
-/* INITIAL SCRAMBLE */
 updateScramble(0);
 
 /* =========================================================
    SECTION 10
-   CREATE → MOVE → INSPIRE
-   COLLIDE → EXPLODE
-========================================================= */
-
-const tl10 = gsap.timeline({
-
-    scrollTrigger: {
-
-        trigger: ".section-ten",
-
-        start: "top top",
-
-        end: "+=3000",
-
-        scrub: 0.6,
-
-        pin: true,
-
-        anticipatePin: 1
-
-        // markers: true
-    }
-
-});
-
-
-/* =========================================================
-   INITIAL POSITIONS
 ========================================================= */
 
 gsap.set(".word-create", {
-    xPercent: -150,
-    rotation: -10,
-    opacity: 0
+  xPercent: -150,
+
+  rotation: -10,
+
+  opacity: 0,
 });
 
 gsap.set(".word-move", {
-    yPercent: 150,
-    scale: 0.4,
-    opacity: 0
+  yPercent: 150,
+
+  scale: 0.4,
+
+  opacity: 0,
 });
 
 gsap.set(".word-inspire", {
-    xPercent: 150,
-    rotation: 10,
-    opacity: 0
+  xPercent: 150,
+
+  rotation: 10,
+
+  opacity: 0,
 });
 
+const tl10 = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".section-ten",
 
-/* =========================================================
-   PHASE 1
-   CREATE ENTERS FROM LEFT
-========================================================= */
+    start: "top top",
+
+    end: "+=3000",
+
+    scrub: 0.6,
+
+    pin: true,
+
+    anticipatePin: 1,
+  },
+});
 
 tl10.to(".word-create", {
+  xPercent: 0,
 
-    xPercent: 0,
-    rotation: 0,
-    opacity: 1,
+  rotation: 0,
 
-    duration: 1,
+  opacity: 1,
 
-    ease: "none"
+  duration: 1,
 
+  ease: "none",
 });
-
-
-/* =========================================================
-   PHASE 2
-   MOVE ENTERS FROM BOTTOM
-========================================================= */
 
 tl10.to(".word-move", {
+  yPercent: 0,
 
-    yPercent: 0,
-    scale: 1,
-    opacity: 1,
+  scale: 1,
+
+  opacity: 1,
+
+  duration: 1,
+
+  ease: "none",
+});
+
+tl10.to(
+  ".word-create",
+  {
+    yPercent: -110,
+
+    scale: 0.7,
 
     duration: 1,
 
-    ease: "none"
-
-});
-
-
-/* CREATE MOVES UP */
-
-tl10.to(
-    ".word-create",
-    {
-        yPercent: -110,
-        scale: 0.7,
-
-        duration: 1,
-
-        ease: "none"
-    },
-    "<"
+    ease: "none",
+  },
+  "<",
 );
-
-
-/* =========================================================
-   PHASE 3
-   INSPIRE ENTERS FROM RIGHT
-========================================================= */
 
 tl10.to(".word-inspire", {
+  xPercent: 0,
 
-    xPercent: 0,
-    rotation: 0,
-    opacity: 1,
+  rotation: 0,
+
+  opacity: 1,
+
+  duration: 1,
+
+  ease: "none",
+});
+
+tl10.to(
+  ".word-move",
+  {
+    yPercent: -110,
+
+    scale: 0.7,
 
     duration: 1,
 
-    ease: "none"
+    ease: "none",
+  },
+  "<",
+);
 
+tl10.to(
+  ".word-create",
+  {
+    yPercent: -220,
+
+    scale: 0.45,
+
+    opacity: 0.5,
+
+    duration: 1,
+
+    ease: "none",
+  },
+  "<",
+);
+
+tl10.to(".finale-word", {
+  xPercent: 0,
+
+  yPercent: 0,
+
+  scale: 1,
+
+  rotation: 0,
+
+  opacity: 1,
+
+  duration: 1.2,
+
+  ease: "none",
 });
 
-
-/* MOVE MOVES UP */
-
 tl10.to(
-    ".word-move",
-    {
-        yPercent: -110,
-        scale: 0.7,
-
-        duration: 1,
-
-        ease: "none"
-    },
-    "<"
+  {},
+  {
+    duration: 0.5,
+  },
 );
-
-
-/* CREATE GOES HIGHER */
-
-tl10.to(
-    ".word-create",
-    {
-        yPercent: -220,
-        scale: 0.45,
-        opacity: 0.5,
-
-        duration: 1,
-
-        ease: "none"
-    },
-    "<"
-);
-
-
-/* =========================================================
-   PHASE 4
-   ALL THREE COLLIDE
-========================================================= */
-
-tl10.to(
-    ".finale-word",
-    {
-
-        xPercent: 0,
-        yPercent: 0,
-
-        scale: 1,
-
-        rotation: 0,
-
-        opacity: 1,
-
-        duration: 1.2,
-
-        ease: "none"
-
-    }
-);
-
-
-/* =========================================================
-   PHASE 5
-   HOLD
-========================================================= */
-
-tl10.to({}, {
-    duration: 0.5
-});
-
-
-/* =========================================================
-   PHASE 6
-   EXPLODE
-========================================================= */
 
 tl10.to(".word-create", {
+  xPercent: -170,
 
-    xPercent: -170,
-    yPercent: -120,
+  yPercent: -120,
 
-    rotation: -25,
+  rotation: -25,
+
+  scale: 2,
+
+  opacity: 0,
+
+  duration: 1.5,
+
+  ease: "none",
+});
+
+tl10.to(
+  ".word-move",
+  {
+    yPercent: 180,
+
+    rotation: 20,
+
+    scale: 3,
+
+    opacity: 0,
+
+    duration: 1.5,
+
+    ease: "none",
+  },
+  "<",
+);
+
+tl10.to(
+  ".word-inspire",
+  {
+    xPercent: 170,
+
+    yPercent: -80,
+
+    rotation: 25,
 
     scale: 2,
 
@@ -677,764 +607,377 @@ tl10.to(".word-create", {
 
     duration: 1.5,
 
-    ease: "none"
-
-});
-
-
-tl10.to(
-    ".word-move",
-    {
-
-        yPercent: 180,
-
-        rotation: 20,
-
-        scale: 3,
-
-        opacity: 0,
-
-        duration: 1.5,
-
-        ease: "none"
-
-    },
-
-    "<"
-);
-
-
-tl10.to(
-    ".word-inspire",
-    {
-
-        xPercent: 170,
-        yPercent: -80,
-
-        rotation: 25,
-
-        scale: 2,
-
-        opacity: 0,
-
-        duration: 1.5,
-
-        ease: "none"
-
-    },
-
-    "<"
+    ease: "none",
+  },
+  "<",
 );
 
 /* =========================================================
    SECTION 11
-   TEXT SLICE
-   SCATTER → ALIGN → SPLIT
-========================================================= */
-
-const tl11 = gsap.timeline({
-
-    scrollTrigger: {
-
-        trigger: ".section-eleven",
-
-        start: "top top",
-
-        end: "+=2400",
-
-        scrub: 0.6,
-
-        pin: true,
-
-        anticipatePin: 1
-
-        // markers: true
-    }
-
-});
-
-
-/* =========================================================
-   INITIAL STATE
 ========================================================= */
 
 gsap.set(".slice-1", {
-    xPercent: -120
+  xPercent: -120,
 });
 
 gsap.set(".slice-2", {
-    xPercent: 120
+  xPercent: 120,
 });
 
 gsap.set(".slice-3", {
-    xPercent: -120
+  xPercent: -120,
 });
 
 gsap.set(".slice-4", {
-    xPercent: 120
+  xPercent: 120,
 });
 
+const tl11 = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".section-eleven",
 
-/* =========================================================
-   PHASE 1
-   SLICES ENTER
-========================================================= */
+    start: "top top",
 
-tl11.to(".slice-1", {
+    end: "+=2400",
 
-    xPercent: 0,
+    scrub: 0.6,
 
-    duration: 1,
+    pin: true,
 
-    ease: "none"
-
+    anticipatePin: 1,
+  },
 });
 
+tl11.to(".slice", {
+  xPercent: 0,
 
-tl11.to(
-    ".slice-2",
-    {
+  duration: 1,
 
-        xPercent: 0,
-
-        duration: 1,
-
-        ease: "none"
-
-    },
-
-    "<"
-);
-
-
-tl11.to(
-    ".slice-3",
-    {
-
-        xPercent: 0,
-
-        duration: 1,
-
-        ease: "none"
-
-    },
-
-    "<"
-);
-
-
-tl11.to(
-    ".slice-4",
-    {
-
-        xPercent: 0,
-
-        duration: 1,
-
-        ease: "none"
-
-    },
-
-    "<"
-);
-
-
-/* =========================================================
-   PHASE 2
-   HOLD COMPLETE WORD
-========================================================= */
-
-tl11.to({}, {
-    duration: 0.5
+  ease: "none",
 });
 
-
-/* =========================================================
-   PHASE 3
-   ADD LETTER SPACING
-========================================================= */
+tl11.to(
+  {},
+  {
+    duration: 0.5,
+  },
+);
 
 tl11.to(".slice h2", {
+  letterSpacing: "0.05em",
 
-    letterSpacing: "0.05em",
+  duration: 0.8,
 
-    duration: 0.8,
-
-    ease: "none"
-
+  ease: "none",
 });
 
-
-/* =========================================================
-   PHASE 4
-   SPLIT VERTICALLY
-========================================================= */
-
 tl11.to(".slice-1", {
+  yPercent: -200,
 
-    yPercent: -200,
+  duration: 1,
+
+  ease: "none",
+});
+
+tl11.to(
+  ".slice-2",
+  {
+    yPercent: -100,
 
     duration: 1,
 
-    ease: "none"
-
-});
-
-
-tl11.to(
-    ".slice-2",
-    {
-
-        yPercent: -100,
-
-        duration: 1,
-
-        ease: "none"
-
-    },
-
-    "<"
+    ease: "none",
+  },
+  "<",
 );
 
-
 tl11.to(
-    ".slice-3",
-    {
+  ".slice-3",
+  {
+    yPercent: 100,
 
-        yPercent: 100,
+    duration: 1,
 
-        duration: 1,
-
-        ease: "none"
-
-    },
-
-    "<"
+    ease: "none",
+  },
+  "<",
 );
 
-
 tl11.to(
-    ".slice-4",
-    {
+  ".slice-4",
+  {
+    yPercent: 200,
 
-        yPercent: 200,
+    duration: 1,
 
-        duration: 1,
-
-        ease: "none"
-
-    },
-
-    "<"
+    ease: "none",
+  },
+  "<",
 );
 
-
-/* =========================================================
-   FADE OUT
-========================================================= */
-
 tl11.to(
-    ".slice",
-    {
+  ".slice",
+  {
+    opacity: 0,
 
-        opacity: 0,
+    duration: 0.5,
 
-        duration: 0.5,
-
-        ease: "none"
-
-    },
-
-    "<+=0.4"
+    ease: "none",
+  },
+  "<+=0.4",
 );
-
 
 /* =========================================================
    SECTION 12
    LIQUID FILL
 ========================================================= */
 
-const tl12 = gsap.timeline({
-
-    scrollTrigger: {
-
-        trigger: ".section-twelve",
-
-        start: "top top",
-
-        end: "+=2200",
-
-        scrub: 0.6,
-
-        pin: true,
-
-        anticipatePin: 1
-
-        // markers: true
-    }
-
-});
-
-
-/* =========================================================
-   INITIAL STATE
-========================================================= */
-
 gsap.set(".water-liquid", {
-    yPercent: 100
+  yPercent: 105,
 });
 
+const tl12 = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".section-twelve",
 
-/* =========================================================
-   PHASE 1
-   WATER RISES
-========================================================= */
+    start: "top top",
+
+    end: "+=2200",
+
+    scrub: 0.6,
+
+    pin: true,
+
+    anticipatePin: 1,
+  },
+});
 
 tl12.to(".water-liquid", {
+  yPercent: 0,
 
-    yPercent: 0,
+  duration: 3,
 
-    duration: 3,
-
-    ease: "none"
-
+  ease: "none",
 });
-
-
-/* =========================================================
-   PHASE 2
-   HOLD FULL WORD
-========================================================= */
-
-tl12.to({}, {
-    duration: 0.5
-});
-
-
-/* =========================================================
-   PHASE 3
-   WORD EXPANDS
-========================================================= */
-
-tl12.to(".water-word", {
-
-    scale: 1.08,
-
-    duration: 0.8,
-
-    ease: "none"
-
-});
-
-
-/* LABEL DISAPPEARS */
 
 tl12.to(
-    ".water-label",
+  {},
+  {
+    duration: 0.5,
+  },
+);
 
-    {
+tl12.to(".water-word", {
+  scale: 1.08,
 
-        opacity: 0,
+  duration: 0.8,
 
-        y: -20,
+  ease: "none",
+});
 
-        duration: 0.5,
+tl12.to(
+  ".water-label",
+  {
+    opacity: 0,
 
-        ease: "none"
+    y: -20,
 
-    },
+    duration: 0.5,
 
-    "<"
+    ease: "none",
+  },
+  "<",
 );
 
 /* =========================================================
    SECTION 13
-   MAGNETIC WORD ASSEMBLY
+   MAGNETIC WORDS
 ========================================================= */
 
-const magneticWords =
-    document.querySelectorAll(".magnetic-word");
+const magneticText = document.querySelector(".magnetic-text");
 
+const magneticWords = gsap.utils.toArray(".magnetic-word");
 
-/* =========================================================
-   INITIAL SCATTERED POSITIONS
-========================================================= */
-
-gsap.set(".magnetic-1", {
+const scatterPositions = [
+  {
     x: -400,
     y: -180,
     rotation: -15,
     scale: 0.8,
-    opacity: 0.4
-});
+  },
 
-
-gsap.set(".magnetic-2", {
+  {
     x: 320,
     y: -220,
     rotation: 12,
     scale: 1.2,
-    opacity: 0.5
-});
+  },
 
-
-gsap.set(".magnetic-3", {
+  {
     x: -350,
     y: 160,
     rotation: 18,
     scale: 0.7,
-    opacity: 0.4
-});
+  },
 
-
-gsap.set(".magnetic-4", {
+  {
     x: 380,
     y: 140,
     rotation: -12,
     scale: 1.1,
-    opacity: 0.5
-});
+  },
 
-
-gsap.set(".magnetic-5", {
+  {
     x: -100,
     y: 250,
     rotation: -20,
     scale: 0.6,
-    opacity: 0.3
-});
+  },
 
-
-gsap.set(".magnetic-6", {
+  {
     x: 280,
     y: 260,
     rotation: 16,
     scale: 0.9,
-    opacity: 0.4
+  },
+];
+
+magneticWords.forEach((word, index) => {
+  gsap.set(word, {
+    x: scatterPositions[index].x,
+
+    y: scatterPositions[index].y,
+
+    rotation: scatterPositions[index].rotation,
+
+    scale: scatterPositions[index].scale,
+
+    opacity: 0.4,
+  });
 });
-
-
-/* =========================================================
-   TIMELINE
-========================================================= */
 
 const tl13 = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".section-thirteen",
 
-    scrollTrigger: {
+    start: "top top",
 
-        trigger: ".section-thirteen",
+    end: "+=2600",
 
-        start: "top top",
+    scrub: 0.6,
 
-        end: "+=2600",
+    pin: true,
 
-        scrub: 0.6,
+    anticipatePin: 1,
 
-        pin: true,
-
-        anticipatePin: 1
-
-        // markers: true
-    }
-
+    invalidateOnRefresh: true,
+  },
 });
 
-
-/* =========================================================
-   PHASE 1
-   WORDS MOVE CLOSER
-========================================================= */
-
-tl13.to(".magnetic-1", {
-
-    x: -250,
-    y: -100,
-
-    rotation: -8,
-
-    opacity: 0.7,
-
-    duration: 1,
-
-    ease: "none"
-
-});
-
-
-tl13.to(
-    ".magnetic-2",
-    {
-
-        x: 180,
-        y: -120,
-
-        rotation: 6,
-
-        opacity: 0.7,
-
-        duration: 1,
-
-        ease: "none"
-
-    },
-
-    "<"
-);
-
-
-tl13.to(
-    ".magnetic-3",
-    {
-
-        x: -180,
-        y: 80,
-
-        rotation: 8,
-
-        opacity: 0.7,
-
-        duration: 1,
-
-        ease: "none"
-
-    },
-
-    "<"
-);
-
-
-tl13.to(
-    ".magnetic-4",
-    {
-
-        x: 200,
-        y: 70,
-
-        rotation: -6,
-
-        opacity: 0.7,
-
-        duration: 1,
-
-        ease: "none"
-
-    },
-
-    "<"
-);
-
-
-tl13.to(
-    ".magnetic-5",
-    {
-
-        x: -60,
-        y: 140,
-
-        rotation: -8,
-
-        opacity: 0.7,
-
-        duration: 1,
-
-        ease: "none"
-
-    },
-
-    "<"
-);
-
-
-tl13.to(
-    ".magnetic-6",
-    {
-
-        x: 140,
-        y: 130,
-
-        rotation: 8,
-
-        opacity: 0.7,
-
-        duration: 1,
-
-        ease: "none"
-
-    },
-
-    "<"
-);
-
-
-/* =========================================================
-   PHASE 2
-   MAGNETIC COLLISION
-
-   All words get pulled toward center.
-========================================================= */
+/* MOVE CLOSER */
 
 tl13.to(magneticWords, {
+  x: (index) => scatterPositions[index].x * 0.5,
 
-    x: 0,
-    y: 0,
+  y: (index) => scatterPositions[index].y * 0.5,
 
-    rotation: 0,
+  rotation: (index) => scatterPositions[index].rotation * 0.4,
 
-    scale: 1,
+  opacity: 0.7,
 
-    opacity: 1,
+  duration: 1,
 
-    duration: 1.5,
-
-    stagger: 0.08,
-
-    ease: "none"
-
+  ease: "none",
 });
 
+/* COLLIDE */
 
-/* =========================================================
-   PHASE 3
-   HOLD COLLISION
-========================================================= */
+tl13.to(magneticWords, {
+  x: 0,
 
-tl13.to({}, {
-    duration: 0.4
+  y: 0,
+
+  rotation: 0,
+
+  scale: 1,
+
+  opacity: 1,
+
+  duration: 1.5,
+
+  stagger: 0.08,
+
+  ease: "none",
 });
 
+/* HOLD */
+
+tl13.to(
+  {},
+  {
+    duration: 0.4,
+  },
+);
 
 /* =========================================================
-   PHASE 4
    FORM SENTENCE
+
+   We calculate each word's final center relative to the
+   center of .magnetic-text instead of using xPercent.
 ========================================================= */
 
-tl13.to(".magnetic-1", {
+function getMagneticFinalX(word) {
+  const percent = parseFloat(
+    getComputedStyle(word).getPropertyValue("--final-x"),
+  );
 
-    xPercent: -285,
+  const containerWidth = magneticText.clientWidth;
 
-    duration: 1,
+  const target = containerWidth * (percent / 100);
 
-    ease: "none"
-
-});
-
-
-tl13.to(
-    ".magnetic-2",
-    {
-
-        xPercent: -155,
-
-        duration: 1,
-
-        ease: "none"
-
-    },
-
-    "<"
-);
-
-
-tl13.to(
-    ".magnetic-3",
-    {
-
-        xPercent: -65,
-
-        duration: 1,
-
-        ease: "none"
-
-    },
-
-    "<"
-);
-
-
-tl13.to(
-    ".magnetic-4",
-    {
-
-        xPercent: 35,
-
-        duration: 1,
-
-        ease: "none"
-
-    },
-
-    "<"
-);
-
-
-tl13.to(
-    ".magnetic-5",
-    {
-
-        xPercent: 160,
-
-        duration: 1,
-
-        ease: "none"
-
-    },
-
-    "<"
-);
-
-
-tl13.to(
-    ".magnetic-6",
-    {
-
-        xPercent: 180,
-
-        duration: 1,
-
-        ease: "none"
-
-    },
-
-    "<"
-);
-
-
-/* =========================================================
-   PHASE 5
-   LABEL DISAPPEARS
-========================================================= */
-
-tl13.to(
-    ".magnetic-label",
-
-    {
-
-        opacity: 0,
-
-        y: -20,
-
-        duration: 0.5,
-
-        ease: "none"
-
-    },
-
-    "<"
-);
-
-/* =========================================================
-   PHASE 6
-   FINAL EXPANSION
-========================================================= */
+  return target - containerWidth / 2 + word.offsetWidth / 2;
+}
 
 tl13.to(magneticWords, {
+  x: (index, word) => getMagneticFinalX(word),
 
-    letterSpacing: "0.05em",
+  y: 0,
 
-    duration: 1,
+  rotation: 0,
 
-    ease: "none"
+  scale: 1,
 
+  opacity: 1,
+
+  duration: 1.5,
+
+  ease: "none",
+});
+
+/* LABEL */
+
+tl13.to(
+  ".magnetic-label",
+  {
+    opacity: 0,
+
+    y: -20,
+
+    duration: 0.5,
+
+    ease: "none",
+  },
+  "<",
+);
+
+/* FINAL EXPANSION */
+
+tl13.to(magneticWords, {
+  letterSpacing: "0.01em",
+
+  duration: 1,
+
+  ease: "none",
 });
 
 /* =========================================================
