@@ -766,79 +766,72 @@ JS animates every word toward these positions.
     height:100dvh;
 
     display:flex;
-    align-items:center;
     justify-content:center;
-
-    overflow:hidden;
+    align-items:center;
 
     background:#090909;
-}
 
-/* ========================= */
+    perspective:1200px;
+}
 
 .chrome-text{
 
-    --x:50%;
-    --y:50%;
+    --mx:50%;
+    --my:50%;
 
-    font-size:clamp(6rem,18vw,18rem);
+    position:relative;
+
+    font-size:clamp(6rem,18vw,16rem);
     font-weight:900;
     letter-spacing:-0.08em;
-    line-height:.8;
+    line-height:.85;
 
     cursor:pointer;
     user-select:none;
+
+    transform-style:preserve-3d;
 
     color:transparent;
 
     background:
 
-    /* mouse highlight */
     radial-gradient(
-        circle at var(--x) var(--y),
+        circle at var(--mx) var(--my),
 
         rgba(255,255,255,.95) 0%,
-        rgba(255,255,255,.45) 10%,
-        rgba(255,255,255,.08) 25%,
-        transparent 45%
+        rgba(255,255,255,.55) 10%,
+        rgba(255,255,255,.15) 22%,
+        transparent 42%
     ),
 
-    /* chrome */
     linear-gradient(
-
         90deg,
 
-        #3b3b3b 0%,
-        #fdfdfd 10%,
-        #8d8d8d 18%,
-        #ffffff 28%,
-        #505050 38%,
-        #efefef 50%,
-        #6d6d6d 62%,
-        #ffffff 74%,
-        #8a8a8a 88%,
-        #d5d5d5 100%
-
+        #2f2f2f 0%,
+        #d8d8d8 8%,
+        #5a5a5a 16%,
+        #ffffff 26%,
+        #6d6d6d 38%,
+        #f5f5f5 50%,
+        #565656 62%,
+        #ffffff 76%,
+        #7b7b7b 88%,
+        #e6e6e6 100%
     );
 
     background-size:
-        200% 200%,
+        180% 180%,
         250% 100%;
 
     background-position:
-        var(--x) var(--y),
+        var(--mx) var(--my),
         center;
 
     -webkit-background-clip:text;
     background-clip:text;
 
     filter:
-        drop-shadow(0 0 8px rgba(255,255,255,.05));
-
-    transition:
-
-        filter .3s ease,
-        transform .25s ease;
+        drop-shadow(0 0 15px rgba(255,255,255,.08));
 }
 
 /* =========================================================
