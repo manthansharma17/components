@@ -761,6 +761,85 @@ JS animates every word toward these positions.
     --final-x: 82%;
 }
 
+.section-fourteen{
+    width:100%;
+    height:100dvh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+
+    background:#090909;
+}
+
+/* ========================= */
+
+.chrome-text{
+
+    --x:50%;
+    --y:50%;
+
+    font-size:clamp(6rem,18vw,18rem);
+    font-weight:900;
+    letter-spacing:-0.08em;
+    line-height:.8;
+
+    cursor:pointer;
+    user-select:none;
+
+    color:transparent;
+
+    background:
+
+    /* mouse highlight */
+    radial-gradient(
+        circle at var(--x) var(--y),
+
+        rgba(255,255,255,.95) 0%,
+        rgba(255,255,255,.45) 10%,
+        rgba(255,255,255,.08) 25%,
+        transparent 45%
+    ),
+
+    /* chrome */
+    linear-gradient(
+
+        90deg,
+
+        #3b3b3b 0%,
+        #fdfdfd 10%,
+        #8d8d8d 18%,
+        #ffffff 28%,
+        #505050 38%,
+        #efefef 50%,
+        #6d6d6d 62%,
+        #ffffff 74%,
+        #8a8a8a 88%,
+        #d5d5d5 100%
+
+    );
+
+    background-size:
+        200% 200%,
+        250% 100%;
+
+    background-position:
+        var(--x) var(--y),
+        center;
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    filter:
+        drop-shadow(0 0 8px rgba(255,255,255,.05));
+
+    transition:
+
+        filter .3s ease,
+        transform .25s ease;
+}
 
 /* =========================================================
    RESPONSIVE
