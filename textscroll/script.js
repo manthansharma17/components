@@ -988,38 +988,34 @@ chrome.addEventListener("mousemove", (e) => {
   const x = ((e.clientX - rect.left) / rect.width) * 100;
   const y = ((e.clientY - rect.top) / rect.height) * 100;
 
-  gsap.to(chrome, {
-    "--x": `${x}%`,
-    "--y": `${y}%`,
+  // Update the highlight position
+  chrome.style.setProperty("--mx", `${x}%`);
+  chrome.style.setProperty("--my", `${y}%`);
 
+  // Smooth tilt
+  gsap.to(chrome, {
+    rotateY: gsap.utils.mapRange(0, 100, -12, 12, x),
     rotateX: gsap.utils.mapRange(0, 100, 8, -8, y),
 
-    rotateY: gsap.utils.mapRange(0, 100, -12, 12, x),
+    scale: 1.03,
 
     duration: 0.25,
+
     ease: "power2.out",
   });
 });
 
-chrome.addEventListener("mouseenter", () => {
-  gsap.to(chrome, {
-    scale: 1.03,
-
-    duration: 0.25,
-  });
-});
-
 chrome.addEventListener("mouseleave", () => {
-  gsap.to(chrome, {
-    "--x": "50%",
-    "--y": "50%",
+  chrome.style.setProperty("--mx", "50%");
+  chrome.style.setProperty("--my", "50%");
 
+  gsap.to(chrome, {
     rotateX: 0,
     rotateY: 0,
 
     scale: 1,
 
-    duration: 0.6,
+    duration: 0.5,
 
     ease: "power3.out",
   });
