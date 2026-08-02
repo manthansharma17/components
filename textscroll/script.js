@@ -1104,6 +1104,91 @@ chars.forEach((char,index)=>{
 });
 
 /* =========================================================
+   SECTION 16
+========================================================= */
+
+gsap.set(".zoom-text",{
+
+    scale:.02,
+
+    opacity:0,
+
+    z:-3000
+
+});
+
+const tl16 = gsap.timeline({
+
+    scrollTrigger:{
+
+        trigger:".section-sixteen",
+
+        start:"top top",
+
+        end:"+=2600",
+
+        scrub:1,
+
+        pin:true,
+
+        anticipatePin:1
+
+    }
+
+});
+
+
+/* FAR AWAY */
+
+tl16.to(".zoom-text",{
+
+    opacity:1,
+
+    scale:.3,
+
+    z:-1000,
+
+    duration:1,
+
+    ease:"none"
+
+});
+
+
+/* CAMERA REACHES TEXT */
+
+tl16.to(".zoom-text",{
+
+    scale:1,
+
+    z:0,
+
+    duration:1,
+
+    ease:"none"
+
+});
+
+
+/* TEXT PASSES CAMERA */
+
+tl16.to(".zoom-text",{
+
+    scale:9,
+
+    letterSpacing:"0.15em",
+
+    opacity:0,
+
+    duration:1,
+
+    ease:"none"
+
+});
+
+
+
+/* =========================================================
    REFRESH
 ========================================================= */
 
