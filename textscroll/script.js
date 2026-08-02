@@ -1022,6 +1022,88 @@ chrome.addEventListener("mouseleave", () => {
 });
 
 /* =========================================================
+   SECTION 15
+   TYPOGRAPHY WAVE
+========================================================= */
+
+const waveText = document.querySelector(".wave-text");
+
+const original = waveText.textContent;
+
+waveText.innerHTML = "";
+
+[...original].forEach(letter=>{
+
+    if(letter===" "){
+
+        waveText.innerHTML+=" ";
+
+        return;
+
+    }
+
+    waveText.innerHTML+=`
+        <span class="wave-char">${letter}</span>
+    `;
+
+});
+
+const chars = gsap.utils.toArray(".wave-char");
+
+const tl15 = gsap.timeline({
+
+    scrollTrigger:{
+
+        trigger:".section-fifteen",
+
+        start:"top top",
+
+        end:"+=2200",
+
+        scrub:1,
+
+        pin:true,
+
+        anticipatePin:1
+
+    }
+
+});
+
+
+chars.forEach((char,index)=>{
+
+    tl15.to(char,{
+
+        y:-120,
+
+        scale:1.25,
+
+        rotation:15,
+
+        duration:.25,
+
+        ease:"none"
+
+    },index*0.05)
+
+    .to(char,{
+
+        y:0,
+
+        scale:1,
+
+        rotation:0,
+
+        duration:.25,
+
+        ease:"none"
+
+    });
+
+});
+
+/* =========================================================
    REFRESH
 ========================================================= */
 
