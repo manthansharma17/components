@@ -969,7 +969,14 @@ JS animates every word toward these positions.
     white-space:nowrap;
 }
 
+.explode-char{
 
+    display:inline-block;
+
+    transform-origin:center;
+
+    will-change:transform,opacity,filter;
+}
 
 
 
