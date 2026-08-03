@@ -1186,6 +1186,135 @@ tl16.to(".zoom-text",{
 
 });
 
+/* =========================================================
+   SECTION 17
+   TYPOGRAPHY EXPLOSION
+========================================================= */
+
+const explodeHeading = document.querySelector(".explode-text");
+
+const explodeValue = explodeHeading.textContent;
+
+explodeHeading.innerHTML = "";
+
+[...explodeValue].forEach(letter=>{
+
+    if(letter===" "){
+
+        explodeHeading.innerHTML+=" ";
+
+        return;
+
+    }
+
+    explodeHeading.innerHTML+=`
+        <span class="explode-char">${letter}</span>
+    `;
+
+});
+
+const chars17 = gsap.utils.toArray(".explode-char");
+
+/* ----------------------------------------
+   Store radial direction for every letter
+---------------------------------------- */
+
+chars17.forEach((char,index)=>{
+
+    const total = chars17.length;
+
+    const progress = index/(total-1);
+
+    const angle = gsap.utils.mapRange(
+        0,
+        1,
+        -140,
+        140,
+        progress
+    );
+
+    char.dataset.angle = angle;
+
+});
+
+const tl17 = gsap.timeline({
+
+    scrollTrigger:{
+
+        trigger:".section-seventeen",
+
+        start:"top top",
+
+        end:"+=2800",
+
+        scrub:1,
+
+        pin:true,
+
+        anticipatePin:1
+
+    }
+
+});
+
+
+/* =====================================================
+   SHAKE
+===================================================== */
+
+tl17.to(".explode-text",{
+
+    x:4,
+
+    duration:.05,
+
+    repeat:10,
+
+    yoyo:true,
+
+    ease:"none"
+
+});
+
+
+/* =====================================================
+   EXPLOSION
+===================================================== */
+
+chars17.forEach(char=>{
+
+    const angle = Number(char.dataset.angle);
+
+    const distance = gsap.utils.random(350,900);
+
+    const x = Math.cos(angle*Math.PI/180)*distance;
+
+    const y = Math.sin(angle*Math.PI/180)*distance;
+
+    tl17.to(char,{
+
+        x,
+
+        y,
+
+        z:gsap.utils.random(-1200,1200),
+
+        rotation:gsap.utils.random(-720,720),
+
+        scale:gsap.utils.random(.2,2),
+
+        opacity:0,
+
+        filter:"blur(8px)",
+
+        duration:1.2,
+
+        ease:"none"
+
+    },">");
+
+});
+
 
 
 /* =========================================================
