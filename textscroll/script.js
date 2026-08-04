@@ -1354,6 +1354,34 @@ tl17.to(".explode-char",{
 
 });
 
+/* =========================================================
+   SECTION 18
+   TYPOGRAPHY VORTEX
+========================================================= */
+
+const vortexHeading = document.querySelector(".vortex-text");
+
+const vortexValue = vortexHeading.textContent;
+
+vortexHeading.innerHTML = "";
+
+[...vortexValue].forEach(letter=>{
+
+    if(letter===" "){
+
+        vortexHeading.innerHTML+=" ";
+
+        return;
+
+    }
+
+    vortexHeading.innerHTML+=`
+        <span class="vortex-char">${letter}</span>
+    `;
+
+});
+
+
 
 /* =========================================================
    REFRESH
