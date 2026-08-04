@@ -978,6 +978,36 @@ JS animates every word toward these positions.
     will-change:transform,opacity,filter;
 }
 
+/* =========================================================
+   SECTION 18
+   TYPOGRAPHY VORTEX
+========================================================= */
+
+.section-eighteen{
+
+    width:100%;
+    height:100dvh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    overflow:hidden;
+
+    background:#030303;
+
+    perspective:2200px;
+}
+
+.vortex-stage{
+
+    width:100%;
+    height:100%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
 
 
 /* =========================================================
