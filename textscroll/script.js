@@ -1381,6 +1381,46 @@ vortexHeading.innerHTML = "";
 
 });
 
+const vortexChars = gsap.utils.toArray(".vortex-char");
+
+const tl18 = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".section-eighteen",
+
+    start: "top top",
+
+    end: "+=3200",
+
+    scrub: 1,
+
+    pin: true,
+
+    anticipatePin: 1,
+  },
+});
+
+/* ============================================
+   STAGE 1
+   Letters spread slightly
+============================================ */
+
+vortexChars.forEach((char, index) => {
+  const offset = index - (vortexChars.length - 1) / 2;
+
+  tl18.to(
+    char,
+    {
+      x: offset * 40,
+
+      duration: 0.5,
+
+      ease: "none",
+    },
+    0,
+  );
+});
+
+
 
 
 /* =========================================================
