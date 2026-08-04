@@ -1420,6 +1420,37 @@ vortexChars.forEach((char, index) => {
   );
 });
 
+/* ============================================
+   STAGE 2
+   Spiral inward
+============================================ */
+
+vortexChars.forEach((char,index)=>{
+
+    const angle=index*40;
+
+    const radius=300+(index*25);
+
+    const x=Math.cos(angle*Math.PI/180)*radius;
+    const y=Math.sin(angle*Math.PI/180)*radius;
+
+    tl18.to(char,{
+
+        x,
+
+        y,
+
+        rotation:720,
+
+        scale:.6,
+
+        opacity:.8,
+
+        duration:1
+
+    },1);
+
+});
 
 
 
