@@ -1452,6 +1452,60 @@ vortexChars.forEach((char,index)=>{
 
 });
 
+/* ============================================
+   STAGE 3
+   Collapse to center
+============================================ */
+
+vortexChars.forEach((char,index)=>{
+
+    tl18.to(char,{
+
+        x:0,
+
+        y:0,
+
+        scale:0,
+
+        rotation:1440,
+
+        opacity:0,
+
+        filter:"blur(10px)",
+
+        duration:1,
+
+        ease:"none"
+
+    },2);
+
+});
+
+
+/* ============================================
+   STAGE 4
+   Tiny black hole pulse
+============================================ */
+
+tl18.to(".vortex-stage",{
+
+    scale:1.08,
+
+    duration:.4,
+
+    ease:"none"
+
+});
+
+tl18.to(".vortex-stage",{
+
+    scale:1,
+
+    duration:.4,
+
+    ease:"none"
+
+});
 
 
 /* =========================================================
