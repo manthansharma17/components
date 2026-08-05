@@ -1531,6 +1531,41 @@ tunnelWords.forEach((word,index)=>{
 
 });
 
+const tl19 = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".section-nineteen",
+
+    start: "top top",
+
+    end: "+=5000",
+
+    scrub: 1,
+
+    pin: true,
+
+    anticipatePin: 1,
+  },
+});
+
+tunnelWords.forEach((word, index) => {
+  tl19.to(
+    word,
+    {
+      z: 1200,
+
+      opacity: 1,
+
+      scale: 1,
+
+      filter: "blur(0px)",
+
+      duration: 1,
+
+      ease: "none",
+    },
+    0,
+  );
+});
 
 
 /* =========================================================
