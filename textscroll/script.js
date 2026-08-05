@@ -1566,6 +1566,119 @@ tunnelWords.forEach((word, index) => {
     0,
   );
 });
+/* =========================================================
+   SECTION 19
+   TYPOGRAPHY TUNNEL
+========================================================= */
+
+const tunnel = document.querySelector(".tunnel");
+
+const tunnelWords = gsap.utils.toArray(".tunnel-word");
+
+/* -------------------------------------------------
+   Position every word in 3D space
+------------------------------------------------- */
+
+const spacing = 1800;
+
+tunnelWords.forEach((word,index)=>{
+
+    gsap.set(word,{
+
+        z:-index*spacing,
+
+        opacity:0.2,
+
+        scale:0.4,
+
+        filter:"blur(10px)"
+
+    });
+
+});
+
+
+/* -------------------------------------------------
+   CAMERA MOVEMENT
+------------------------------------------------- */
+
+const tl19 = gsap.timeline({
+
+    scrollTrigger:{
+
+        trigger:".section-nineteen",
+
+        start:"top top",
+
+        end:`+=${spacing*(tunnelWords.length+1)}`,
+
+        scrub:1,
+
+        pin:true,
+
+        anticipatePin:1
+
+    }
+
+});
+
+
+/* Camera flies through tunnel */
+
+tl19.to(tunnel,{
+
+    z:spacing*(tunnelWords.length-1),
+
+    ease:"none"
+
+},0);
+
+
+/* -------------------------------------------------
+   Each word reacts when camera reaches it
+------------------------------------------------- */
+
+tunnelWords.forEach((word,index)=>{
+
+    tl19.to(word,{
+
+        opacity:1,
+
+        scale:1,
+
+        filter:"blur(0px)",
+
+        duration:.25,
+
+        ease:"none"
+
+    },index);
+
+    tl19.to(word,{
+
+        scale:1.12,
+
+        duration:.15,
+
+        ease:"power1.out"
+
+    },index+.18);
+
+    tl19.to(word,{
+
+        opacity:0,
+
+        scale:2,
+
+        filter:"blur(18px)",
+
+        duration:.35,
+
+        ease:"none"
+
+    },index+.45);
+
+});
 
 
 /* =========================================================
