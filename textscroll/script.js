@@ -1507,6 +1507,29 @@ tl18.to(".vortex-stage",{
 
 });
 
+/* =========================================================
+   SECTION 19
+========================================================= */
+
+const tunnelWords = gsap.utils.toArray(".tunnel-word");
+
+/* place words in 3D */
+
+tunnelWords.forEach((word,index)=>{
+
+    gsap.set(word,{
+
+        z:-index*1400,
+
+        opacity:0,
+
+        scale:0.6,
+
+        filter:"blur(10px)"
+
+    });
+
+});
 
 
 
