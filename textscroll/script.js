@@ -1680,6 +1680,50 @@ tunnelWords.forEach((word,index)=>{
 
 });
 
+/* =========================================================
+   SECTION 20
+========================================================= */
+
+const sentences=[
+
+"DESIGN",
+
+"CREATE",
+
+"ANIMATE",
+
+"INSPIRE",
+
+"BUILD THE FUTURE."
+
+];
+
+const typed=document.querySelector(".typed-text");
+
+const state={progress:0};
+
+gsap.timeline({
+
+    scrollTrigger:{
+
+        trigger:".section-twenty",
+
+        start:"top top",
+
+        end:"+=6000",
+
+        scrub:1,
+
+        pin:true,
+
+        anticipatePin:1
+
+    }
+
+})
+
+
+
 
 /* =========================================================
    REFRESH
