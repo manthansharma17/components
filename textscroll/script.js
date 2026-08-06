@@ -1702,26 +1702,52 @@ const typed=document.querySelector(".typed-text");
 
 const state={progress:0};
 
-gsap.timeline({
+gsap
+  .timeline({
+    scrollTrigger: {
+      trigger: ".section-twenty",
 
-    scrollTrigger:{
+      start: "top top",
 
-        trigger:".section-twenty",
+      end: "+=6000",
 
-        start:"top top",
+      scrub: 1,
 
-        end:"+=6000",
+      pin: true,
 
-        scrub:1,
+      anticipatePin: 1,
+    },
+  })
 
-        pin:true,
+  .to(state, {
+    progress: 1,
 
-        anticipatePin:1
+    ease: "none",
 
-    }
+    onUpdate() {
+      const totalCharacters = sentences.join("").length;
 
-})
+      const value = Math.floor(state.progress * totalCharacters * 2);
 
+      let count = value;
+
+      let output = "";
+
+      for (let i = 0; i < sentences.length; i++) {
+        const sentence = sentences[i];
+
+        if (count <= sentence.length) {
+          output = sentence.substring(0, count);
+
+          break;
+        }
+
+        count -= sentence.length;
+      }
+
+      typed.textContent = output;
+    },
+  });
 
 
 
