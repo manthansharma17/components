@@ -1794,7 +1794,36 @@ const tl21 = gsap.timeline({
   },
 });
 
+tideChars.forEach((char, index) => {
+  tl21
+    .to(
+      char,
+      {
+        y: -90,
 
+        rotation: 8,
+
+        scale: 1.15,
+
+        duration: 0.3,
+
+        ease: "none",
+      },
+      index * 0.08,
+    )
+
+    .to(char, {
+      y: 0,
+
+      rotation: 0,
+
+      scale: 1,
+
+      duration: 0.3,
+
+      ease: "none",
+    });
+});
 
 
 
