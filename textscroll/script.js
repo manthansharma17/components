@@ -1749,6 +1749,34 @@ gsap
     },
   });
 
+/* =========================================================
+   SECTION 21
+   TIDE WAVE
+========================================================= */
+
+const tideText=document.querySelector(".tide-text");
+
+const tideValue=tideText.textContent;
+
+tideText.innerHTML="";
+
+[...tideValue].forEach(letter=>{
+
+    if(letter===" "){
+
+        tideText.innerHTML+=" ";
+
+        return;
+
+    }
+
+    tideText.innerHTML+=`
+        <span class="tide-char">${letter}</span>
+    `;
+
+});
+
+
 
 
 /* =========================================================
