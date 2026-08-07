@@ -1776,6 +1776,25 @@ tideText.innerHTML="";
 
 });
 
+const tideChars = gsap.utils.toArray(".tide-char");
+
+const tl21 = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".section-twentyone",
+
+    start: "top top",
+
+    end: "+=2500",
+
+    scrub: 1,
+
+    pin: true,
+
+    anticipatePin: 1,
+  },
+});
+
+
 
 
 
