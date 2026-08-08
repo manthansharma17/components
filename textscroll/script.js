@@ -1886,7 +1886,118 @@ const tl22 = gsap.timeline({
 
 });
 
+/* =========================================================
+   PHASE 1
+   GRAVITY STARTS
+========================================================= */
 
+gravityChars.forEach((char, index) => {
+
+    const direction = index % 2 === 0 ? 1 : -1;
+
+    tl22.to(
+        char,
+        {
+            y: 100 + index * 35,
+
+            rotation: direction * (8 + index * 2),
+
+            scale: 0.95,
+
+            duration: 0.7,
+
+            ease: "power2.in"
+        },
+        index * 0.08
+    );
+
+});
+
+
+/* =========================================================
+   PHASE 2
+   HEAVY FALL
+========================================================= */
+
+gravityChars.forEach((char, index) => {
+
+    const direction = index % 2 === 0 ? 1 : -1;
+
+    tl22.to(
+        char,
+        {
+            y: 300 + index * 55,
+
+            rotation: direction * (25 + index * 4),
+
+            scale: 0.85,
+
+            duration: 0.8,
+
+            ease: "power2.in"
+        },
+        0.9 + index * 0.05
+    );
+
+});
+
+
+/* =========================================================
+   PHASE 3
+   FLOAT / ORBIT
+========================================================= */
+
+gravityChars.forEach((char, index) => {
+
+    const direction = index % 2 === 0 ? 1 : -1;
+
+    tl22.to(
+        char,
+        {
+            y: direction * (100 + index * 25),
+
+            rotation: direction * 45,
+
+            scale: 0.8,
+
+            opacity: 0.75,
+
+            duration: 0.9,
+
+            ease: "power1.inOut"
+        },
+        1.8 + index * 0.05
+    );
+
+});
+
+
+/* =========================================================
+   PHASE 4
+   GRAVITY RELEASE
+========================================================= */
+
+tl22.to(
+    gravityChars,
+    {
+        y: 0,
+
+        rotation: 0,
+
+        scale: 1,
+
+        opacity: 1,
+
+        duration: 1.2,
+
+        stagger: {
+            each: 0.06,
+            from: "center"
+        },
+
+        ease: "elastic.out(1, 0.6)"
+    }
+);
 
 
 
