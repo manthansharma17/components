@@ -1255,6 +1255,33 @@ JS animates every word toward these positions.
     justify-content: center;
 }
 
+.gravity-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: clamp(5rem, 15vw, 14rem);
+    font-weight: 900;
+
+    line-height: 0.8;
+    letter-spacing: -0.08em;
+
+    white-space: nowrap;
+}
+
+.gravity-char {
+    display: inline-block;
+
+    transform-origin: 50% 0%;
+
+    will-change: transform, opacity;
+
+    backface-visibility: hidden;
+}
+
+
+
+
 /* =========================================================
    RESPONSIVE
 ========================================================= */
