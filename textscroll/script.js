@@ -1862,6 +1862,36 @@ gsap.set(gravityChars, {
 });
 
 /* =========================================================
+   SECTION TIMELINE
+========================================================= */
+
+const tl22 = gsap.timeline({
+
+    scrollTrigger: {
+
+        trigger: ".section-twenty-two",
+
+        start: "top top",
+
+        end: "+=2800",
+
+        scrub: 0.8,
+
+        pin: true,
+
+        anticipatePin: 1
+
+        // markers: true
+    }
+
+});
+
+
+
+
+
+
+/* =========================================================
    REFRESH
 ========================================================= */
 
