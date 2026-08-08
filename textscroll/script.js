@@ -1825,7 +1825,41 @@ tideChars.forEach((char, index) => {
     });
 });
 
+/* =========================================================
+   SECTION 22
+   GRAVITY TYPOGRAPHY
+========================================================= */
 
+const gravityText = document.querySelector(".gravity-text");
+
+const gravityValue = gravityText.textContent.trim();
+
+gravityText.innerHTML = "";
+
+[...gravityValue].forEach((letter) => {
+
+    const span = document.createElement("span");
+
+    span.className = "gravity-char";
+    span.textContent = letter;
+
+    gravityText.appendChild(span);
+
+});
+
+const gravityChars = gsap.utils.toArray(".gravity-char");
+
+
+/* =========================================================
+   INITIAL STATE
+========================================================= */
+
+gsap.set(gravityChars, {
+    y: 0,
+    rotation: 0,
+    scale: 1,
+    opacity: 1
+});
 
 /* =========================================================
    REFRESH
