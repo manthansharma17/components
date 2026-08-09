@@ -1395,6 +1395,59 @@ JS animates every word toward these positions.
     opacity: .5;
 }
 
+/* =========================================================
+   SECTION 24
+   TYPOGRAPHY COLLAPSE
+========================================================= */
+
+.section-twenty-four {
+    width: 100%;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #050505;
+    color: #fff;
+
+    perspective: 1800px;
+}
+
+.collapse-stage {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.collapse-text {
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: clamp(5rem, 15vw, 15rem);
+    font-weight: 900;
+
+    line-height: .8;
+    letter-spacing: -.08em;
+
+    white-space: nowrap;
+
+    will-change: transform;
+}
+
+
+
+
 
 /* =========================================================
    RESPONSIVE
