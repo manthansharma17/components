@@ -1279,6 +1279,37 @@ JS animates every word toward these positions.
     backface-visibility: hidden;
 }
 
+/* =========================================================
+   SECTION 23
+   GLASS REFRACTION
+========================================================= */
+
+.section-twenty-three {
+    position: relative;
+
+    width: 100%;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #080808;
+    color: #fff;
+}
+
+.glass-stage {
+    position: relative;
+
+    width: min(90vw, 1400px);
+    height: 300px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 
 
