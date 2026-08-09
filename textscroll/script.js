@@ -1999,7 +1999,48 @@ tl22.to(
     }
 );
 
+/* =========================================================
+   SECTION 23
+   GLASS REFRACTION
+========================================================= */
 
+const glassSection = document.querySelector(
+    ".section-twenty-three"
+);
+
+const glassText = document.querySelector(
+    ".glass-text"
+);
+
+const glassLens = document.querySelector(
+    ".glass-lens"
+);
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+const tl23 = gsap.timeline({
+
+    scrollTrigger: {
+
+        trigger: glassSection,
+
+        start: "top top",
+
+        end: "+=2600",
+
+        scrub: 0.8,
+
+        pin: true,
+
+        anticipatePin: 1
+
+        // markers: true
+    }
+
+});
 
 
 /* =========================================================
