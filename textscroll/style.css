@@ -1376,6 +1376,25 @@ JS animates every word toward these positions.
     will-change: left, transform;
 }
 
+/* =========================================================
+   REFLECTION
+========================================================= */
+
+.glass-lens::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 10% 35%;
+
+    background: rgba(255,255,255,.35);
+
+    filter: blur(18px);
+
+    opacity: .5;
+}
+
 
 /* =========================================================
    RESPONSIVE
