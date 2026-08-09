@@ -1311,6 +1311,70 @@ JS animates every word toward these positions.
     justify-content: center;
 }
 
+.glass-text {
+    position: relative;
+
+    margin: 0;
+
+    font-size: clamp(4rem, 11vw, 11rem);
+    font-weight: 900;
+
+    line-height: 1;
+    letter-spacing: -0.08em;
+
+    white-space: nowrap;
+
+    color: #f5f5f5;
+
+    will-change: transform, filter;
+}
+
+
+/* =========================================================
+   GLASS LENS
+========================================================= */
+
+.glass-lens {
+    position: absolute;
+
+    top: 50%;
+
+    left: -25%;
+
+    width: 180px;
+    height: 220px;
+
+    transform: translateY(-50%);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: 2;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.12),
+            rgba(255,255,255,.55),
+            rgba(255,255,255,.12),
+            transparent
+        );
+
+    border-left: 1px solid rgba(255,255,255,.35);
+    border-right: 1px solid rgba(255,255,255,.35);
+
+    box-shadow:
+        inset 0 0 30px rgba(255,255,255,.12),
+        0 0 40px rgba(255,255,255,.05);
+
+    backdrop-filter: blur(3px);
+
+    opacity: 0;
+
+    will-change: left, transform;
+}
 
 
 /* =========================================================
