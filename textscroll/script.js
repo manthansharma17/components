@@ -2177,6 +2177,42 @@ tl23.to(glassText, {
 }, "<");
 
 /* =========================================================
+   SECTION 24
+   TYPOGRAPHY COLLAPSE
+========================================================= */
+
+const collapseText = document.querySelector(".collapse-text");
+const collapsePoint = document.querySelector(".collapse-point");
+
+const collapseValue = collapseText.textContent.trim();
+
+collapseText.innerHTML = "";
+
+
+/* =========================================================
+   SPLIT TEXT INTO CHARACTERS
+========================================================= */
+
+[...collapseValue].forEach((letter) => {
+
+    const char = document.createElement("span");
+
+    char.className = "collapse-char";
+    char.textContent = letter;
+
+    collapseText.appendChild(char);
+
+});
+
+
+const collapseChars = gsap.utils.toArray(
+    ".collapse-char"
+);
+
+
+
+
+/* =========================================================
    REFRESH
 ========================================================= */
 
