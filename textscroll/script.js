@@ -2244,6 +2244,97 @@ const tl24 = gsap.timeline({
 
 });
 
+/* =========================================================
+   PHASE 1
+   WORD SPREADS
+========================================================= */
+
+tl24.to(collapseChars, {
+
+    letterSpacing: "0.02em",
+
+    duration: 1,
+
+    stagger: 0.04,
+
+    ease: "none"
+
+});
+
+
+/* =========================================================
+   PHASE 2
+   LETTERS MOVE TOWARD CENTER
+========================================================= */
+
+collapseChars.forEach((char) => {
+
+    const rect = char.getBoundingClientRect();
+
+    const charCenter =
+        rect.left + rect.width / 2;
+
+    const viewportCenter =
+        window.innerWidth / 2;
+
+    const distance =
+        viewportCenter - charCenter;
+
+    tl24.to(
+        char,
+        {
+
+            x: distance,
+
+            y: gsap.utils.random(-40, 40),
+
+            scale: 0.7,
+
+            rotation: gsap.utils.random(-8, 8),
+
+            duration: 1,
+
+            ease: "power2.inOut"
+
+        },
+        1
+    );
+
+});
+
+
+/* =========================================================
+   PHASE 3
+   COLLAPSE INTO POINT
+========================================================= */
+
+tl24.to(
+    collapseChars,
+    {
+
+        x: 0,
+
+        y: 0,
+
+        scale: 0,
+
+        rotation: 0,
+
+        opacity: 0,
+
+        filter: "blur(10px)",
+
+        duration: 1.2,
+
+        stagger: 0.03,
+
+        ease: "power3.in"
+
+    }
+);
+
+
+
 
 /* =========================================================
    REFRESH
