@@ -2209,7 +2209,40 @@ const collapseChars = gsap.utils.toArray(
     ".collapse-char"
 );
 
+/* =========================================================
+   INITIAL STATE
+========================================================= */
 
+gsap.set(collapsePoint, {
+    scale: 0,
+    opacity: 0
+});
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+const tl24 = gsap.timeline({
+
+    scrollTrigger: {
+
+        trigger: ".section-twenty-four",
+
+        start: "top top",
+
+        end: "+=3000",
+
+        scrub: 0.8,
+
+        pin: true,
+
+        anticipatePin: 1
+
+        // markers: true
+    }
+
+});
 
 
 /* =========================================================
