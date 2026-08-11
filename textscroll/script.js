@@ -2522,6 +2522,41 @@ liquidChars.forEach((char, index) => {
 
 });
 
+/* =========================================================
+   PHASE 3
+   LIQUID WAVE PASSES
+========================================================= */
+
+liquidChars.forEach((char, index) => {
+
+    const phase = 1.6 + index * 0.12;
+
+    tl25.to(
+        char,
+        {
+
+            y: -25,
+
+            rotation: 5,
+
+            scaleX: 1.2,
+
+            scaleY: 0.85,
+
+            skewX: 7,
+
+            filter: "blur(1px)",
+
+            duration: 0.4,
+
+            ease: "power2.inOut"
+
+        },
+        phase
+    );
+
+});
+
 
 
 
