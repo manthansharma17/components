@@ -2487,6 +2487,41 @@ liquidChars.forEach((char, index) => {
 
 });
 
+/* =========================================================
+   PHASE 2
+   STRONG LIQUID STRETCH
+========================================================= */
+
+liquidChars.forEach((char, index) => {
+
+    const phase = 0.8 + index * 0.12;
+
+    tl25.to(
+        char,
+        {
+
+            y: 45,
+
+            rotation: -10,
+
+            scaleX: 1.45,
+
+            scaleY: 0.72,
+
+            skewX: -14,
+
+            filter: "blur(2px)",
+
+            duration: 0.45,
+
+            ease: "power2.inOut"
+
+        },
+        phase
+    );
+
+});
+
 
 
 
