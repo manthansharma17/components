@@ -1507,6 +1507,31 @@ JS animates every word toward these positions.
     justify-content: center;
 }
 
+.liquid-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0;
+
+    font-size: clamp(6rem, 20vw, 20rem);
+    font-weight: 900;
+
+    line-height: .8;
+    letter-spacing: -.08em;
+
+    white-space: nowrap;
+}
+
+.liquid-char {
+    display: inline-block;
+
+    transform-origin: center center;
+
+    will-change: transform, filter;
+
+    backface-visibility: hidden;
+}
 
 
 
