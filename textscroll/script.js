@@ -2452,6 +2452,40 @@ const tl25 = gsap.timeline({
   },
 });
 
+/* =========================================================
+   PHASE 1
+   WAVE STARTS FROM LEFT
+========================================================= */
+
+liquidChars.forEach((char, index) => {
+
+    const phase = index * 0.12;
+
+    tl25.to(
+        char,
+        {
+
+            y: -70,
+
+            rotation: 8,
+
+            scaleX: 1.15,
+
+            scaleY: 0.9,
+
+            skewX: 8,
+
+            filter: "blur(1px)",
+
+            duration: 0.35,
+
+            ease: "power2.inOut"
+
+        },
+        phase
+    );
+
+});
 
 
 
