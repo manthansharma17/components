@@ -2413,6 +2413,44 @@ liquidText.innerHTML = "";
 
 });
 
+const liquidChars = gsap.utils.toArray(".liquid-char");
+
+/* =========================================================
+   INITIAL STATE
+========================================================= */
+
+gsap.set(liquidChars, {
+  x: 0,
+  y: 0,
+  rotation: 0,
+  scaleX: 1,
+  scaleY: 1,
+  skewX: 0,
+  opacity: 1,
+  filter: "blur(0px)",
+});
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+const tl25 = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".section-twenty-five",
+
+    start: "top top",
+
+    end: "+=2800",
+
+    scrub: 0.8,
+
+    pin: true,
+
+    anticipatePin: 1,
+
+    // markers: true
+  },
+});
 
 
 
