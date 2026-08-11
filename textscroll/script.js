@@ -2558,6 +2558,35 @@ liquidChars.forEach((char, index) => {
 });
 
 
+/* =========================================================
+   PHASE 4
+   SNAP BACK TO NORMAL
+========================================================= */
+
+tl25.to(liquidChars, {
+
+    x: 0,
+    y: 0,
+
+    rotation: 0,
+
+    scaleX: 1,
+    scaleY: 1,
+
+    skewX: 0,
+
+    opacity: 1,
+
+    filter: "blur(0px)",
+
+    duration: 1.2,
+
+    stagger: 0.04,
+
+    ease: "power3.out"
+
+});
+
 
 
 /* =========================================================
