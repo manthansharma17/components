@@ -2386,6 +2386,37 @@ tl24.to(
     }
 );
 
+/* =========================================================
+   SECTION 25
+   LIQUID DISTORTION
+========================================================= */
+
+const liquidText = document.querySelector(".liquid-text");
+
+const liquidValue = liquidText.textContent.trim();
+
+liquidText.innerHTML = "";
+
+
+/* =========================================================
+   SPLIT INTO CHARACTERS
+========================================================= */
+
+[...liquidValue].forEach((letter) => {
+
+    const char = document.createElement("span");
+
+    char.className = "liquid-char";
+    char.textContent = letter;
+
+    liquidText.appendChild(char);
+
+});
+
+
+
+
+
 
 /* =========================================================
    REFRESH
