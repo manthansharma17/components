@@ -2587,6 +2587,18 @@ tl25.to(liquidChars, {
 
 });
 
+/* =========================================================
+   SECTION 26
+   MECHANICAL TYPOGRAPHY
+========================================================= */
+
+const mechanicalText =
+    document.querySelector(".mechanical-text");
+
+const mechanicalValue =
+    mechanicalText.textContent.trim();
+
+mechanicalText.innerHTML = "";
 
 
 
