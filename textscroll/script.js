@@ -2642,6 +2642,31 @@ gsap.set(mechanicalChars, {
 });
 
 
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+const tl26 = gsap.timeline({
+
+    scrollTrigger: {
+
+        trigger: ".section-twenty-six",
+
+        start: "top top",
+
+        end: "+=3000",
+
+        scrub: .8,
+
+        pin: true,
+
+        anticipatePin: 1
+
+        // markers: true
+    }
+
+});
+
 
 /* =========================================================
    REFRESH
