@@ -1554,6 +1554,35 @@ JS animates every word toward these positions.
     perspective: 1800px;
 }
 
+.mechanical-stage {
+    position: relative;
+
+    width: 90%;
+    max-width: 1500px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mechanical-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0;
+
+    font-size: clamp(4rem, 12vw, 12rem);
+    font-weight: 900;
+
+    line-height: .8;
+    letter-spacing: -.07em;
+
+    white-space: nowrap;
+
+    transform-style: preserve-3d;
+}
+
 
 
 
