@@ -1583,6 +1583,51 @@ JS animates every word toward these positions.
     transform-style: preserve-3d;
 }
 
+.mechanical-char {
+    display: inline-block;
+
+    transform-origin: center center;
+
+    will-change: transform, opacity;
+
+    backface-visibility: hidden;
+}
+
+
+/* =========================================================
+   MECHANICAL LINES
+========================================================= */
+
+.mechanical-lines {
+    position: absolute;
+
+    top: 50%;
+
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+
+    pointer-events: none;
+}
+
+.mechanical-lines span {
+    width: 35px;
+    height: 1px;
+
+    background: rgba(255,255,255,.3);
+
+    transform-origin: left center;
+}
+
+.mechanical-lines:first-child {
+    transform: translateY(-130px);
+}
+
+.mechanical-lines:last-child {
+    transform: translateY(130px);
+}
+
 
 
 
