@@ -2696,6 +2696,35 @@ tl26.to(mechanicalChars, {
 
 });
 
+/* =========================================================
+   PHASE 2
+   MECHANICAL ROTATION
+========================================================= */
+
+mechanicalChars.forEach((char, index) => {
+
+    const direction =
+        index % 2 === 0 ? 1 : -1;
+
+    tl26.to(
+        char,
+        {
+
+            rotationY: direction * 18,
+
+            y: direction * 12,
+
+            scaleX: 1.04,
+
+            duration: .5,
+
+            ease: "power2.inOut"
+
+        },
+        1.2 + index * .04
+    );
+
+});
 
 
 
