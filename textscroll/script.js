@@ -2600,7 +2600,24 @@ const mechanicalValue =
 
 mechanicalText.innerHTML = "";
 
+/* =========================================================
+   SPLIT INTO CHARACTERS
+========================================================= */
 
+[...mechanicalValue].forEach((letter) => {
+
+    const char = document.createElement("span");
+
+    char.className = "mechanical-char";
+    char.textContent = letter;
+
+    mechanicalText.appendChild(char);
+
+});
+
+
+const mechanicalChars =
+    gsap.utils.toArray(".mechanical-char");
 
 
 /* =========================================================
