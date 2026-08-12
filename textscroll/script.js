@@ -2667,6 +2667,39 @@ const tl26 = gsap.timeline({
 
 });
 
+/* =========================================================
+   PHASE 1
+   MECHANISM STARTS
+========================================================= */
+
+tl26.to(mechanicalChars, {
+
+    y: 0,
+
+    rotationX: 0,
+
+    scale: 1,
+
+    opacity: 1,
+
+    duration: 1.2,
+
+    stagger: {
+
+        each: .08,
+
+        from: "center"
+
+    },
+
+    ease: "power3.out"
+
+});
+
+
+
+
+
 
 /* =========================================================
    REFRESH
