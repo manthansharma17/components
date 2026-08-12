@@ -2726,6 +2726,33 @@ mechanicalChars.forEach((char, index) => {
 
 });
 
+/* =========================================================
+   PHASE 3
+   RETURN / LOCK
+========================================================= */
+
+tl26.to(mechanicalChars, {
+
+    rotationY: 0,
+
+    y: 0,
+
+    scaleX: 1,
+
+    duration: .8,
+
+    stagger: {
+
+        each: .05,
+
+        from: "edges"
+
+    },
+
+    ease: "power3.out"
+
+});
+
 
 
 
