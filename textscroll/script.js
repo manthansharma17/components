@@ -2753,7 +2753,35 @@ tl26.to(mechanicalChars, {
 
 });
 
+/* =========================================================
+   PHASE 4
+   SMALL PRECISION SNAP
+========================================================= */
 
+tl26.to(mechanicalChars, {
+
+    y: -4,
+
+    duration: .25,
+
+    stagger: .03,
+
+    ease: "power2.out"
+
+});
+
+
+tl26.to(mechanicalChars, {
+
+    y: 0,
+
+    duration: .25,
+
+    stagger: .03,
+
+    ease: "power2.in"
+
+});
 
 
 
