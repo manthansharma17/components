@@ -2894,6 +2894,43 @@ tl27.to(floatingChars, {
 
 });
 
+/* =========================================================
+   PHASE 2
+   FLOATING MOVEMENT
+========================================================= */
+
+floatingChars.forEach((char, index) => {
+
+    const direction =
+        index % 2 === 0 ? 1 : -1;
+
+    tl27.to(
+        char,
+        {
+
+            y: direction * (35 + index * 8),
+
+            x: direction * (15 + index * 5),
+
+            rotation:
+                direction * (3 + index),
+
+            rotationZ:
+                direction * 2,
+
+            scale:
+                1 + index * .015,
+
+            duration: .9,
+
+            ease: "sine.inOut"
+
+        },
+        1.3 + index * .04
+    );
+
+});
+
 
 
 
