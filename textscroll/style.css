@@ -1628,6 +1628,39 @@ JS animates every word toward these positions.
     transform: translateY(130px);
 }
 
+/* =========================================================
+   SECTION 27
+   FLOATING / DREAMY TYPOGRAPHY
+========================================================= */
+
+.section-twenty-seven {
+    width: 100%;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #dfe8ef;
+    color: #17212b;
+
+    perspective: 1800px;
+}
+
+.floating-stage {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
 
 
 
