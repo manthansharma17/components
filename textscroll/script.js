@@ -2962,7 +2962,36 @@ floatingChars.forEach((char, index) => {
 
 });
 
+/* =========================================================
+   PHASE 4
+   SETTLE
+========================================================= */
 
+tl27.to(floatingChars, {
+
+    x: 0,
+
+    y: 0,
+
+    rotation: 0,
+
+    rotationZ: 0,
+
+    scale: 1,
+
+    duration: 1.1,
+
+    stagger: {
+
+        each: .05,
+
+        from: "center"
+
+    },
+
+    ease: "power2.out"
+
+});
 
 
 
