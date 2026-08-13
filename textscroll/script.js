@@ -2931,6 +2931,37 @@ floatingChars.forEach((char, index) => {
 
 });
 
+/* =========================================================
+   PHASE 3
+   WAVE THROUGH TEXT
+========================================================= */
+
+floatingChars.forEach((char, index) => {
+
+    const direction =
+        index % 2 === 0 ? -1 : 1;
+
+    tl27.to(
+        char,
+        {
+
+            y: direction * 55,
+
+            x: direction * 25,
+
+            rotation:
+                direction * 5,
+
+            duration: .7,
+
+            ease: "sine.inOut"
+
+        },
+        2.2 + index * .06
+    );
+
+});
+
 
 
 
