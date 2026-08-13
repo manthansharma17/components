@@ -2783,6 +2783,45 @@ tl26.to(mechanicalChars, {
 
 });
 
+/* =========================================================
+   SECTION 27
+   FLOATING / DREAMY TYPOGRAPHY
+========================================================= */
+
+const floatingText =
+    document.querySelector(".floating-text");
+
+const floatingValue =
+    floatingText.textContent.trim();
+
+floatingText.innerHTML = "";
+
+
+/* =========================================================
+   SPLIT INTO CHARACTERS
+========================================================= */
+
+[...floatingValue].forEach((letter) => {
+
+    const char = document.createElement("span");
+
+    char.className = "floating-char";
+    char.textContent = letter;
+
+    floatingText.appendChild(char);
+
+});
+
+
+const floatingChars =
+    gsap.utils.toArray(".floating-char");
+
+
+
+
+
+
+
 
 
 /* =========================================================
