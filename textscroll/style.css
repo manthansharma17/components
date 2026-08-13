@@ -1663,6 +1663,38 @@ JS animates every word toward these positions.
 }
 
 
+/* =========================================================
+   SOFT ATMOSPHERE
+========================================================= */
+
+.floating-atmosphere {
+    position: absolute;
+
+    width: 60vw;
+    height: 60vw;
+
+    max-width: 800px;
+    max-height: 800px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.8) 0%,
+            rgba(255,255,255,.35) 35%,
+            transparent 70%
+        );
+
+    filter: blur(30px);
+
+    opacity: .7;
+
+    pointer-events: none;
+}
+
+
+
 
 /* =========================================================
    RESPONSIVE
