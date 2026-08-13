@@ -2838,6 +2838,31 @@ gsap.set(floatingChars, {
 
 });
 
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+const tl27 = gsap.timeline({
+
+    scrollTrigger: {
+
+        trigger: ".section-twenty-seven",
+
+        start: "top top",
+
+        end: "+=2800",
+
+        scrub: .8,
+
+        pin: true,
+
+        anticipatePin: 1
+
+        // markers: true
+    }
+
+});
+
 
 
 
