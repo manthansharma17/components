@@ -2863,6 +2863,37 @@ const tl27 = gsap.timeline({
 
 });
 
+/* =========================================================
+   PHASE 1
+   TEXT EMERGES FROM MIST
+========================================================= */
+
+tl27.to(floatingChars, {
+
+    y: 0,
+
+    rotationX: 0,
+
+    scale: 1,
+
+    opacity: 1,
+
+    filter: "blur(0px)",
+
+    duration: 1.3,
+
+    stagger: {
+
+        each: .08,
+
+        from: "center"
+
+    },
+
+    ease: "power3.out"
+
+});
+
 
 
 
