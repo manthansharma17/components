@@ -2816,6 +2816,27 @@ floatingText.innerHTML = "";
 const floatingChars =
     gsap.utils.toArray(".floating-char");
 
+/* =========================================================
+   INITIAL STATE
+========================================================= */
+
+gsap.set(floatingChars, {
+
+    y: 120,
+
+    x: 0,
+
+    rotation: 0,
+
+    rotationX: 25,
+
+    scale: .85,
+
+    opacity: 0,
+
+    filter: "blur(12px)"
+
+});
 
 
 
