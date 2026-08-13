@@ -1693,7 +1693,39 @@ JS animates every word toward these positions.
     pointer-events: none;
 }
 
+/* =========================================================
+   TEXT
+========================================================= */
 
+.floating-text {
+    position: relative;
+
+    display: flex;
+
+    margin: 0;
+
+    font-size: clamp(6rem, 18vw, 18rem);
+    font-weight: 900;
+
+    line-height: .8;
+    letter-spacing: -.08em;
+
+    white-space: nowrap;
+
+    transform-style: preserve-3d;
+
+    will-change: transform;
+}
+
+.floating-char {
+    display: inline-block;
+
+    transform-origin: center center;
+
+    will-change: transform, opacity, filter;
+
+    backface-visibility: hidden;
+}
 
 
 /* =========================================================
