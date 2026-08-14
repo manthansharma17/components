@@ -1814,7 +1814,20 @@ JS animates every word toward these positions.
     will-change: filter;
 }
 
+.neon-char {
+    display: inline-block;
 
+    color: #111;
+
+    opacity: .08;
+
+    will-change:
+        color,
+        opacity,
+        text-shadow,
+        transform,
+        filter;
+}
 
 
 
