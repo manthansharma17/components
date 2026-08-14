@@ -3166,7 +3166,58 @@ tl28.to(neonChars, {
 
 });
 
+/* =========================================================
+   PHASE 3
+   ELECTRIC PULSE
+========================================================= */
 
+tl28.to(neonChars, {
+
+    filter: "brightness(2)",
+
+    scale: 1.025,
+
+    duration: .2,
+
+    stagger: .025,
+
+    ease: "power2.out"
+
+});
+
+
+tl28.to(neonChars, {
+
+    filter: "brightness(1)",
+
+    scale: 1,
+
+    duration: .3,
+
+    stagger: .025,
+
+    ease: "power2.inOut"
+
+});
+
+
+/* =========================================================
+   PHASE 4
+   SETTLE
+========================================================= */
+
+tl28.to(neonChars, {
+
+    textShadow:
+        "0 0 3px rgba(255,255,255,.8), " +
+        "0 0 12px rgba(255,255,255,.45), " +
+        "0 0 30px rgba(255,255,255,.2)",
+
+    duration: 1,
+
+    ease: "power2.out"
+
+});
 
 
 
