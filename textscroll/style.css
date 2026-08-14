@@ -1788,7 +1788,31 @@ JS animates every word toward these positions.
 
     pointer-events: none;
 }
+/* =========================================================
+   TEXT
+========================================================= */
 
+.neon-text {
+    position: relative;
+
+    display: flex;
+
+    margin: 0;
+
+    font-size: clamp(7rem, 20vw, 20rem);
+    font-weight: 900;
+
+    line-height: .8;
+    letter-spacing: -.08em;
+
+    white-space: nowrap;
+
+    color: #151515;
+
+    text-shadow: none;
+
+    will-change: filter;
+}
 
 
 
