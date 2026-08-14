@@ -2993,6 +2993,181 @@ tl27.to(floatingChars, {
 
 });
 
+/* =========================================================
+   SECTION 28
+   NEON POWER ON
+========================================================= */
+
+const neonText =
+    document.querySelector(".neon-text");
+
+const neonValue =
+    neonText.textContent.trim();
+
+neonText.innerHTML = "";
+
+
+/* =========================================================
+   SPLIT TEXT
+========================================================= */
+
+[...neonValue].forEach((letter) => {
+
+    const char = document.createElement("span");
+
+    char.className = "neon-char";
+    char.textContent = letter;
+
+    neonText.appendChild(char);
+
+});
+
+
+const neonChars =
+    gsap.utils.toArray(".neon-char");
+
+
+/* =========================================================
+   INITIAL STATE
+========================================================= */
+
+gsap.set(neonChars, {
+
+    opacity: .08,
+
+    color: "#111",
+
+    scale: .95,
+
+    filter: "brightness(.3)"
+
+});
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+const tl28 = gsap.timeline({
+
+    scrollTrigger: {
+
+        trigger: ".section-twenty-eight",
+
+        start: "top top",
+
+        end: "+=2800",
+
+        scrub: .8,
+
+        pin: true,
+
+        anticipatePin: 1
+
+        // markers: true
+    }
+
+});
+
+
+/* =========================================================
+   PHASE 1
+   LETTERS POWER ON
+========================================================= */
+
+neonChars.forEach((char, index) => {
+
+    tl28.to(
+        char,
+        {
+
+            opacity: 1,
+
+            color: "#ffffff",
+
+            scale: 1,
+
+            filter: "brightness(1.5)",
+
+            textShadow:
+                "0 0 5px rgba(255,255,255,.9), " +
+                "0 0 20px rgba(255,255,255,.8), " +
+                "0 0 50px rgba(255,255,255,.5)",
+
+            duration: .35,
+
+            ease: "power2.out"
+
+        },
+        index * .18
+    );
+
+
+    /* brief flicker */
+
+    tl28.to(
+        char,
+        {
+
+            opacity: .35,
+
+            filter: "brightness(.8)",
+
+            duration: .08,
+
+            ease: "none"
+
+        }
+    );
+
+
+    tl28.to(
+        char,
+        {
+
+            opacity: 1,
+
+            filter: "brightness(1.2)",
+
+            duration: .08,
+
+            ease: "none"
+
+        }
+    );
+
+});
+
+
+/* =========================================================
+   PHASE 2
+   FULL NEON POWER
+========================================================= */
+
+tl28.to(neonChars, {
+
+    color: "#ffffff",
+
+    opacity: 1,
+
+    filter: "brightness(1)",
+
+    textShadow:
+        "0 0 4px rgba(255,255,255,.95), " +
+        "0 0 15px rgba(255,255,255,.85), " +
+        "0 0 35px rgba(255,255,255,.65), " +
+        "0 0 80px rgba(255,255,255,.35)",
+
+    duration: .8,
+
+    stagger: .03,
+
+    ease: "power2.out"
+
+});
+
+
+
 
 
 
