@@ -1829,6 +1829,37 @@ JS animates every word toward these positions.
         filter;
 }
 
+/* =========================================================
+   SECTION 29
+   WIREFRAME TYPOGRAPHY
+========================================================= */
+
+.section-twenty-nine {
+    width: 100%;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #050505;
+    color: #fff;
+
+    perspective: 1800px;
+}
+
+.wireframe-stage {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 
 
