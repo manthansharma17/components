@@ -3219,7 +3219,284 @@ tl28.to(neonChars, {
 
 });
 
+/* =========================================================
+   SECTION 29
+   WIREFRAME TYPOGRAPHY
+========================================================= */
 
+const wireframeSection =
+    document.querySelector(".section-twenty-nine");
+
+const wireframeSolid =
+    document.querySelector(".wireframe-solid");
+
+const wireframeOutline =
+    document.querySelector(".wireframe-outline");
+
+
+/* =========================================================
+   INITIAL STATE
+========================================================= */
+
+gsap.set(wireframeSolid, {
+
+    opacity: 1,
+
+    scale: 1,
+
+    rotationX: 0,
+
+    y: 0,
+
+    filter: "blur(0px)"
+
+});
+
+
+gsap.set(wireframeOutline, {
+
+    opacity: 0,
+
+    scale: .96,
+
+    rotationX: 0,
+
+    y: 0
+
+});
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+const tl29 = gsap.timeline({
+
+    scrollTrigger: {
+
+        trigger: wireframeSection,
+
+        start: "top top",
+
+        end: "+=3000",
+
+        scrub: .8,
+
+        pin: true,
+
+        anticipatePin: 1
+
+        // markers: true
+    }
+
+});
+
+
+/* =========================================================
+   PHASE 1
+   OUTLINE EMERGES
+========================================================= */
+
+tl29.to(wireframeOutline, {
+
+    opacity: 1,
+
+    scale: 1,
+
+    duration: 1,
+
+    ease: "none"
+
+});
+
+
+/* =========================================================
+   PHASE 2
+   SOLID FADES
+========================================================= */
+
+tl29.to(wireframeSolid, {
+
+    opacity: 0,
+
+    scale: 1.04,
+
+    filter: "blur(2px)",
+
+    duration: 1,
+
+    ease: "none"
+
+}, "<");
+
+
+/* =========================================================
+   PHASE 3
+   WIREFRAME EXPANDS
+========================================================= */
+
+tl29.to(wireframeOutline, {
+
+    scale: 1.08,
+
+    rotationX: 12,
+
+    y: -20,
+
+    duration: .8,
+
+    ease: "none"
+
+});
+
+
+/* =========================================================
+   PHASE 4
+   DIGITAL STRETCH
+========================================================= */
+
+tl29.to(wireframeOutline, {
+
+    scaleX: 1.25,
+
+    scaleY: .9,
+
+    rotationY: -8,
+
+    duration: .8,
+
+    ease: "none"
+
+});
+
+
+/* =========================================================
+   PHASE 5
+   LINE GRID APPEARS
+========================================================= */
+
+tl29.to(
+
+    ".wireframe-stage::before",
+
+    {
+
+        scaleX: 1,
+
+        duration: .5,
+
+        ease: "none"
+
+    }
+
+);
+
+
+/*
+   Pseudo-elements cannot be animated directly by GSAP.
+   Instead, animate the stage and use CSS variables.
+*/
+
+tl29.to(wireframeStage, {
+
+    "--line-scale": 1,
+
+    duration: .5,
+
+    ease: "none"
+
+});
+
+
+/* =========================================================
+   PHASE 6
+   WIREFRAME BREAKS APART
+========================================================= */
+
+tl29.to(wireframeOutline, {
+
+    scaleX: 1.5,
+
+    scaleY: .7,
+
+    rotationZ: 2,
+
+    opacity: .55,
+
+    filter: "blur(1px)",
+
+    duration: .8,
+
+    ease: "none"
+
+});
+
+
+/* =========================================================
+   PHASE 7
+   RECONSTRUCT
+========================================================= */
+
+tl29.to(wireframeOutline, {
+
+    scale: 1,
+
+    scaleX: 1,
+
+    scaleY: 1,
+
+    rotationX: 0,
+
+    rotationY: 0,
+
+    rotationZ: 0,
+
+    y: 0,
+
+    opacity: 1,
+
+    filter: "blur(0px)",
+
+    duration: 1,
+
+    ease: "power2.out"
+
+});
+
+
+/* =========================================================
+   PHASE 8
+   SOLID RETURNS
+========================================================= */
+
+tl29.to(wireframeSolid, {
+
+    opacity: 1,
+
+    scale: 1,
+
+    filter: "blur(0px)",
+
+    duration: 1,
+
+    ease: "power2.out"
+
+}, "-=0.6");
+
+
+/* OUTLINE FADES */
+
+tl29.to(wireframeOutline, {
+
+    opacity: 0,
+
+    scale: .98,
+
+    duration: .6,
+
+    ease: "none"
+
+}, "<");
 
 
 
