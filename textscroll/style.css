@@ -1913,7 +1913,37 @@ JS animates every word toward these positions.
     transform: scale(.96);
 }
 
+/* =========================================================
+   DIGITAL LINES
+========================================================= */
 
+.wireframe-stage::before,
+.wireframe-stage::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 100vw;
+
+    height: 1px;
+
+    background: rgba(255,255,255,.15);
+
+    transform: scaleX(0);
+
+    transform-origin: center;
+
+    pointer-events: none;
+}
+
+.wireframe-stage::before {
+    top: 35%;
+}
+
+.wireframe-stage::after {
+    bottom: 35%;
+}
 
 
 /* =========================================================
