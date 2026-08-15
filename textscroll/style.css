@@ -1860,6 +1860,29 @@ JS animates every word toward these positions.
     align-items: center;
     justify-content: center;
 }
+/* =========================================================
+   TEXT
+========================================================= */
+
+.wireframe-text {
+    position: absolute;
+
+    margin: 0;
+
+    font-size: clamp(5rem, 15vw, 15rem);
+    font-weight: 900;
+
+    line-height: .8;
+    letter-spacing: -.08em;
+
+    white-space: nowrap;
+
+    will-change:
+        transform,
+        opacity,
+        clip-path,
+        filter;
+}
 
 
 
