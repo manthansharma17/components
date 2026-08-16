@@ -3629,6 +3629,68 @@ convergenceWords.forEach((word) => {
 
 });
 
+/* =========================================================
+   PHASE 3
+   EVERYTHING COLLIDES
+========================================================= */
+
+tl30.to(convergenceWords, {
+
+    scale: .3,
+
+    opacity: 0,
+
+    filter: "blur(12px)",
+
+    duration: .8,
+
+    stagger: .03,
+
+    ease: "power3.in"
+
+});
+
+
+/* =========================================================
+   PHASE 4
+   FINAL STATEMENT APPEARS
+========================================================= */
+
+tl30.to(finalStatement, {
+
+    opacity: 1,
+
+    scale: 1,
+
+    duration: 1,
+
+    ease: "power3.out"
+
+});
+
+
+/* =========================================================
+   PHASE 5
+   FINAL WORDS REVEAL
+========================================================= */
+
+tl30.to(finalLines, {
+
+    y: 0,
+
+    opacity: 1,
+
+    filter: "blur(0px)",
+
+    duration: 1,
+
+    stagger: .12,
+
+    ease: "power3.out"
+
+});
+
+
 
 
 /* =========================================================
