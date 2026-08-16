@@ -3498,6 +3498,39 @@ tl29.to(wireframeOutline, {
 
 }, "<");
 
+/* =========================================================
+   SECTION 30
+   TYPOGRAPHY CONVERGENCE
+========================================================= */
+
+const convergenceSection =
+    document.querySelector(".section-thirty");
+
+const convergenceWords =
+    gsap.utils.toArray(".convergence-word");
+
+const finalStatement =
+    document.querySelector(".final-statement");
+
+const finalLines =
+    gsap.utils.toArray(".final-statement span");
+
+
+/* =========================================================
+   INITIAL STATE
+========================================================= */
+
+gsap.set(finalStatement, {
+    opacity: 0,
+    scale: .7
+});
+
+gsap.set(finalLines, {
+    y: 80,
+    opacity: 0,
+    filter: "blur(10px)"
+});
+
 
 
 
