@@ -2007,6 +2007,43 @@ JS animates every word toward these positions.
         opacity,
         filter;
 }
+/* Initial positions */
+
+.word-1 {
+    top: 15%;
+    left: 12%;
+}
+
+.word-2 {
+    top: 25%;
+    right: 10%;
+}
+
+.word-3 {
+    top: 55%;
+    left: 8%;
+}
+
+.word-4 {
+    top: 70%;
+    right: 15%;
+}
+
+.word-5 {
+    top: 10%;
+    left: 55%;
+}
+
+.word-6 {
+    bottom: 12%;
+    left: 30%;
+}
+
+.word-7 {
+    top: 45%;
+    right: 5%;
+}
+
 
 
 
