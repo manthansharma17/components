@@ -3531,6 +3531,103 @@ gsap.set(finalLines, {
     filter: "blur(10px)"
 });
 
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+const tl30 = gsap.timeline({
+
+    scrollTrigger: {
+
+        trigger: convergenceSection,
+
+        start: "top top",
+
+        end: "+=3600",
+
+        scrub: .8,
+
+        pin: true,
+
+        anticipatePin: 1
+
+        // markers: true
+    }
+
+});
+
+
+/* =========================================================
+   PHASE 1
+   SCATTERED WORDS BECOME ACTIVE
+========================================================= */
+
+tl30.to(convergenceWords, {
+
+    scale: 1.15,
+
+    opacity: 1,
+
+    duration: .6,
+
+    stagger: .05,
+
+    ease: "power2.out"
+
+});
+
+
+/* =========================================================
+   PHASE 2
+   WORDS CONVERGE TOWARD CENTER
+========================================================= */
+
+convergenceWords.forEach((word) => {
+
+    const rect =
+        word.getBoundingClientRect();
+
+    const centerX =
+        window.innerWidth / 2;
+
+    const centerY =
+        window.innerHeight / 2;
+
+    const wordX =
+        rect.left + rect.width / 2;
+
+    const wordY =
+        rect.top + rect.height / 2;
+
+    const x =
+        centerX - wordX;
+
+    const y =
+        centerY - wordY;
+
+    tl30.to(
+        word,
+        {
+
+            x,
+            y,
+
+            rotation:
+                gsap.utils.random(-8, 8),
+
+            scale: .6,
+
+            filter: "blur(2px)",
+
+            duration: 1.2,
+
+            ease: "power2.inOut"
+
+        },
+        1
+    );
+
+});
 
 
 
