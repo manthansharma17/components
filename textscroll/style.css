@@ -2087,6 +2087,21 @@ JS animates every word toward these positions.
 
     white-space: nowrap;
 }
+/* =========================================================
+   PLUS SIGN
+========================================================= */
+
+.final-statement span:nth-child(4) {
+
+    font-size: clamp(2rem, 5vw, 5rem);
+
+    line-height: 1;
+
+    margin: .08em 0;
+}
+
+
+
 
 
 
