@@ -1977,7 +1977,36 @@ JS animates every word toward these positions.
     overflow: hidden;
 }
 
+/* =========================================================
+   SCATTERED WORDS
+========================================================= */
 
+.convergence-words {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+}
+
+.convergence-word {
+    position: absolute;
+
+    font-size: clamp(2rem, 5vw, 5rem);
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    letter-spacing: -.05em;
+
+    white-space: nowrap;
+
+    will-change:
+        transform,
+        opacity,
+        filter;
+}
 
 
 
