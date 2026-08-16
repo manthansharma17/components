@@ -3690,6 +3690,20 @@ tl30.to(finalLines, {
 
 });
 
+/* =========================================================
+   PHASE 6
+   FINAL CINEMATIC SCALE
+========================================================= */
+
+tl30.to(finalStatement, {
+
+    scale: .82,
+
+    duration: 1.2,
+
+    ease: "power2.inOut"
+
+});
 
 
 
