@@ -2063,6 +2063,30 @@ JS animates every word toward these positions.
 
     gap: .02em;
 
+     text-align: center;
+
+    opacity: 0;
+
+    transform: scale(.7);
+
+    will-change:
+        transform,
+        opacity;
+}
+
+.final-statement span {
+    display: block;
+
+    font-size: clamp(4rem, 11vw, 11rem);
+
+    font-weight: 900;
+
+    line-height: .8;
+
+    letter-spacing: -.08em;
+
+    white-space: nowrap;
+}
 
 
 
