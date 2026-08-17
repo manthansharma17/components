@@ -2135,6 +2135,36 @@ JS animates every word toward these positions.
     justify-content: center;
 }
 
+/* =========================================================
+   CENTER POINT
+========================================================= */
+
+.identity-point {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    box-shadow:
+        0 0 20px rgba(255,255,255,.8),
+        0 0 60px rgba(255,255,255,.3);
+
+    will-change: transform, opacity;
+}
 
 
 
