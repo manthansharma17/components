@@ -3783,7 +3783,48 @@ gsap.set(identityCTA, {
     opacity: 0
 
 });
+/* =========================================================
+   TIMELINE
+========================================================= */
 
+const tl31 = gsap.timeline({
+
+    scrollTrigger: {
+
+        trigger: identitySection,
+
+        start: "top top",
+
+        end: "+=3000",
+
+        scrub: .8,
+
+        pin: true,
+
+        anticipatePin: 1
+
+        // markers: true
+    }
+
+});
+
+
+/* =========================================================
+   PHASE 1
+   POINT APPEARS
+========================================================= */
+
+tl31.to(identityPoint, {
+
+    scale: 1,
+
+    opacity: 1,
+
+    duration: .5,
+
+    ease: "power3.out"
+
+});
 
 
 
