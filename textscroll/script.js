@@ -3734,6 +3734,59 @@ const identityLine =
 const identityCTA =
     document.querySelector(".identity-cta");
 
+/* =========================================================
+   INITIAL STATE
+========================================================= */
+
+gsap.set(identityPoint, {
+
+    scale: 0,
+
+    opacity: 0
+
+});
+
+
+gsap.set(identityContent, {
+
+    scale: .8,
+
+    opacity: 0
+
+});
+
+
+gsap.set(identityNameLines, {
+
+    yPercent: 110,
+
+    opacity: 0,
+
+    filter: "blur(12px)"
+
+});
+
+
+gsap.set(identityRole, {
+
+    y: 30,
+
+    opacity: 0
+
+});
+
+
+gsap.set(identityCTA, {
+
+    y: 30,
+
+    opacity: 0
+
+});
+
+
+
+
 
 
 /* =========================================================
