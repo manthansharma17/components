@@ -3861,6 +3861,44 @@ tl31.to(identityContent, {
 
 });
 
+/* =========================================================
+   PHASE 4
+   NAME REVEAL
+========================================================= */
+
+tl31.to(identityNameLines, {
+
+    yPercent: 0,
+
+    opacity: 1,
+
+    filter: "blur(0px)",
+
+    duration: 1,
+
+    stagger: .12,
+
+    ease: "power4.out"
+
+});
+
+
+/* =========================================================
+   PHASE 5
+   ROLE
+========================================================= */
+
+tl31.to(identityRole, {
+
+    y: 0,
+
+    opacity: 1,
+
+    duration: .7,
+
+    ease: "power3.out"
+
+});
 
 
 
