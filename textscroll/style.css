@@ -2190,6 +2190,93 @@ JS animates every word toward these positions.
     will-change: transform, opacity;
 }
 
+/* =========================================================
+   NAME
+========================================================= */
+
+.identity-name {
+
+    margin: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    overflow: hidden;
+
+    font-size: clamp(5rem, 15vw, 15rem);
+
+    font-weight: 900;
+
+    line-height: .78;
+
+    letter-spacing: -.09em;
+}
+
+.identity-name span {
+
+    display: block;
+
+    will-change:
+        transform,
+        opacity,
+        filter;
+}
+
+
+/* =========================================================
+   ROLE
+========================================================= */
+
+.identity-role {
+
+    margin-top: 2rem;
+
+    font-size: .8rem;
+
+    letter-spacing: .4em;
+
+    opacity: .45;
+
+    will-change: transform, opacity;
+}
+
+
+/* =========================================================
+   LINE
+========================================================= */
+
+.identity-line {
+
+    width: 0;
+    height: 1px;
+
+    margin-top: 2rem;
+
+    background: rgba(255,255,255,.5);
+
+    will-change: width;
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.identity-cta {
+
+    margin-top: 2rem;
+
+    font-size: clamp(1rem, 2vw, 1.5rem);
+
+    letter-spacing: .12em;
+
+    opacity: .7;
+
+    will-change: transform, opacity;
+}
 
 /* =========================================================
    RESPONSIVE
