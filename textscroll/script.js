@@ -3826,6 +3826,40 @@ tl31.to(identityPoint, {
 
 });
 
+/* =========================================================
+   PHASE 2
+   POINT EXPANDS
+========================================================= */
+
+tl31.to(identityPoint, {
+
+    scale: 25,
+
+    opacity: 0,
+
+    duration: 1,
+
+    ease: "power3.inOut"
+
+});
+
+
+/* =========================================================
+   PHASE 3
+   CONTENT APPEARS
+========================================================= */
+
+tl31.to(identityContent, {
+
+    scale: 1,
+
+    opacity: 1,
+
+    duration: .8,
+
+    ease: "power3.out"
+
+});
 
 
 
