@@ -3705,6 +3705,35 @@ tl30.to(finalStatement, {
 
 });
 
+/* =========================================================
+   SECTION 31
+   FINAL IDENTITY REVEAL
+========================================================= */
+
+const identitySection =
+    document.querySelector(".section-thirty-one");
+
+const identityPoint =
+    document.querySelector(".identity-point");
+
+const identityContent =
+    document.querySelector(".identity-content");
+
+const identityName =
+    document.querySelector(".identity-name");
+
+const identityNameLines =
+    gsap.utils.toArray(".identity-name span");
+
+const identityRole =
+    document.querySelector(".identity-role");
+
+const identityLine =
+    document.querySelector(".identity-line");
+
+const identityCTA =
+    document.querySelector(".identity-cta");
+
 
 
 /* =========================================================
