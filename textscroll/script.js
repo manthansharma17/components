@@ -4021,6 +4021,81 @@ gsap.set(contactLinks, {
 
 });
 
+/* =========================================================
+   SCROLL TIMELINE
+========================================================= */
+
+const tl32 = gsap.timeline({
+
+    scrollTrigger: {
+
+        trigger: magneticSection,
+
+        start: "top top",
+
+        end: "+=2600",
+
+        scrub: .8,
+
+        pin: true,
+
+        anticipatePin: 1
+
+        // markers: true
+
+    }
+
+});
+
+
+/* =========================================================
+   TITLE ENTERS
+========================================================= */
+
+tl32.to(magneticTitle, {
+
+    opacity: 1,
+
+    scale: 1,
+
+    y: 0,
+
+    duration: 1,
+
+    ease: "power3.out"
+
+});
+
+
+/* =========================================================
+   CHARACTERS SEPARATE
+========================================================= */
+
+magneticChars.forEach((char, index) => {
+
+    const direction =
+        index % 2 === 0 ? -1 : 1;
+
+    tl32.to(
+        char,
+        {
+
+            x: direction * 18,
+
+            y: (index % 3 - 1) * 12,
+
+            rotation:
+                direction * 2,
+
+            duration: .5,
+
+            ease: "power2.out"
+
+        },
+        1 + index * .025
+    );
+
+});
 
 
 
