@@ -2440,6 +2440,39 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .magnetic-stage {
+
+        gap: 3rem;
+
+    }
+
+    .magnetic-line {
+
+        font-size: clamp(
+            4rem,
+            18vw,
+            8rem
+        );
+
+    }
+
+    .contact-links {
+
+        gap: 1.5rem;
+
+        flex-wrap: wrap;
+
+        justify-content: center;
+
+    }
+
+}
 
 
 
