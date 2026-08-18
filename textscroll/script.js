@@ -3950,6 +3950,82 @@ tl31.to(identityContent, {
 });
 
 
+
+/* =========================================================
+   SECTION 32
+   MAGNETIC CONTACT
+========================================================= */
+
+const magneticSection =
+    document.querySelector(".section-thirty-two");
+
+const magneticLines =
+    gsap.utils.toArray(".magnetic-line");
+
+const magneticTitle =
+    document.querySelector(".magnetic-title");
+
+const contactLinks =
+    document.querySelector(".contact-links");
+
+
+/* =========================================================
+   SPLIT TITLE INTO CHARACTERS
+========================================================= */
+
+magneticLines.forEach((line) => {
+
+    const text = line.textContent.trim();
+
+    line.innerHTML = "";
+
+    [...text].forEach((letter) => {
+
+        const char =
+            document.createElement("span");
+
+        char.className = "magnetic-char";
+
+        char.textContent = letter;
+
+        line.appendChild(char);
+
+    });
+
+});
+
+
+const magneticChars =
+    gsap.utils.toArray(".magnetic-char");
+
+
+/* =========================================================
+   INITIAL STATE
+========================================================= */
+
+gsap.set(magneticTitle, {
+
+    opacity: 0,
+
+    scale: .8,
+
+    y: 80
+
+});
+
+gsap.set(contactLinks, {
+
+    opacity: 0,
+
+    y: 40
+
+});
+
+
+
+
+
+
 /* =========================================================
    REFRESH
 ========================================================= */
