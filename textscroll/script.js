@@ -4097,7 +4097,144 @@ magneticChars.forEach((char, index) => {
 
 });
 
+/* =========================================================
+   CONTACT LINKS
+========================================================= */
 
+tl32.to(contactLinks, {
+
+    opacity: 1,
+
+    y: 0,
+
+    duration: .8,
+
+    ease: "power3.out"
+
+});
+
+
+/* =========================================================
+   MAGNETIC MOUSE EFFECT
+========================================================= */
+
+const magneticStrength = 45;
+
+let mouseX = 0;
+let mouseY = 0;
+
+let currentX = 0;
+let currentY = 0;
+
+
+/* Mouse position */
+
+window.addEventListener("mousemove", (event) => {
+
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+
+});
+
+
+/* Smooth magnetic movement */
+
+function updateMagnetic() {
+
+    currentX +=
+        (mouseX - currentX) * .12;
+
+    currentY +=
+        (mouseY - currentY) * .12;
+
+
+    magneticChars.forEach((char) => {
+
+        const rect =
+            char.getBoundingClientRect();
+
+        const centerX =
+            rect.left + rect.width / 2;
+
+        const centerY =
+            rect.top + rect.height / 2;
+
+
+        const dx =
+            currentX - centerX;
+
+        const dy =
+            currentY - centerY;
+
+
+        const distance =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        const radius = 220;
+
+
+        if (distance < radius) {
+
+            const strength =
+                1 - distance / radius;
+
+
+            const moveX =
+                dx * strength *
+                magneticStrength /
+                radius;
+
+            const moveY =
+                dy * strength *
+                magneticStrength /
+                radius;
+
+
+            gsap.to(char, {
+
+                x: moveX,
+
+                y: moveY,
+
+                duration: .35,
+
+                overwrite: true,
+
+                ease: "power3.out"
+
+            });
+
+        } else {
+
+            gsap.to(char, {
+
+                x: 0,
+
+                y: 0,
+
+                duration: .5,
+
+                overwrite: true,
+
+                ease: "power3.out"
+
+            });
+
+        }
+
+    });
+
+
+    requestAnimationFrame(updateMagnetic);
+
+}
+
+
+updateMagnetic();
 
 
 
