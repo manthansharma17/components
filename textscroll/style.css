@@ -2356,6 +2356,89 @@ JS animates every word toward these positions.
     will-change: transform;
 }
 
+/* =========================================================
+   CHARACTERS
+========================================================= */
+
+.magnetic-char {
+
+    display: inline-block;
+
+    will-change:
+        transform,
+        opacity;
+
+    transition:
+        transform .15s cubic-bezier(.2,.8,.2,1);
+}
+
+
+/* =========================================================
+   CONTACT LINKS
+========================================================= */
+
+.contact-links {
+
+    display: flex;
+
+    gap: 3rem;
+
+    opacity: 0;
+
+    transform: translateY(40px);
+
+    will-change:
+        transform,
+        opacity;
+}
+
+.contact-link {
+
+    position: relative;
+
+    color: rgba(255,255,255,.6);
+
+    text-decoration: none;
+
+    font-size: .75rem;
+
+    letter-spacing: .25em;
+
+    transition:
+        color .3s ease;
+
+}
+
+.contact-link::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -7px;
+
+    width: 0;
+    height: 1px;
+
+    background: #fff;
+
+    transition:
+        width .3s ease;
+
+}
+
+.contact-link:hover {
+
+    color: #fff;
+
+}
+
+.contact-link:hover::after {
+
+    width: 100%;
+
+}
 
 
 
