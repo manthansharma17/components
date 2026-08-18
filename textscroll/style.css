@@ -2279,6 +2279,91 @@ JS animates every word toward these positions.
 }
 
 /* =========================================================
+   SECTION 32
+   MAGNETIC CONTACT
+========================================================= */
+
+.section-thirty-two {
+
+    width: 100%;
+    height: 100dvh;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #050505;
+    color: #fff;
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.magnetic-stage {
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 4rem;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.magnetic-title {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+
+    cursor: default;
+
+    user-select: none;
+}
+
+.magnetic-line {
+
+    display: flex;
+
+    font-size: clamp(5rem, 15vw, 15rem);
+
+    font-weight: 900;
+
+    line-height: .78;
+
+    letter-spacing: -.09em;
+
+    white-space: nowrap;
+
+    will-change: transform;
+}
+
+
+
+
+
+
+
+
+/* =========================================================
    RESPONSIVE
 ========================================================= */
 
