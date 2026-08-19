@@ -4276,6 +4276,23 @@ fieldText.innerHTML = "";
 const fieldChars =
     gsap.utils.toArray(".field-char");
 
+    /* =========================================================
+   INITIAL STATE
+========================================================= */
+
+gsap.set(fieldChars, {
+
+    y: 100,
+
+    opacity: 0,
+
+    scale: .85,
+
+    rotation: 0,
+
+    filter: "blur(8px)"
+
+});
 
 
 
