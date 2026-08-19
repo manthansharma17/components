@@ -4379,68 +4379,87 @@ const MAX_DISTANCE = 75;
 ========================================================= */
 
 function updateField() {
+  smoothMouseX += (mouseX - smoothMouseX) * 0.08;
 
-    smoothMouseX +=
-        (mouseX - smoothMouseX) * .08;
+  smoothMouseY += (mouseY - smoothMouseY) * 0.08;
 
-    smoothMouseY +=
-        (mouseY - smoothMouseY) * .08;
+  fieldChars.forEach((char) => {
+    const rect = char.getBoundingClientRect();
 
+    const centerX = rect.left + rect.width / 2;
 
-    fieldChars.forEach((char) => {
+    const centerY = rect.top + rect.height / 2;
 
-        const rect =
-            char.getBoundingClientRect();
+    const dx = smoothMouseX - centerX;
 
-        const centerX =
-            rect.left + rect.width / 2;
+    const dy = smoothMouseY - centerY;
 
-        const centerY =
-            rect.top + rect.height / 2;
+    const distance = Math.sqrt(dx * dx + dy * dy);
 
+    /* Outside field */
 
-        const dx =
-            smoothMouseX - centerX;
+    if (distance > FIELD_RADIUS) {
+      gsap.to(char, {
+        x: 0,
+        y: 0,
 
-        const dy =
-            smoothMouseY - centerY;
+        rotation: 0,
 
+        scale: 1,
 
-        const distance =
-            Math.sqrt(
-                dx * dx +
-                dy * dy
-            );
+        filter: "blur(0px)",
 
+        duration: 0.6,
 
-        /* Outside field */
+        overwrite: "auto",
 
-        if (distance > FIELD_RADIUS) {
+        ease: "power3.out",
+      });
 
-            gsap.to(char, {
+      return;
+    }
 
-                x: 0,
-                y: 0,
+    /* =================================================
+           MAGNETIC STRENGTH
+        ================================================= */
 
-                rotation: 0,
+    const strength = 1 - distance / FIELD_RADIUS;
 
-                scale: 1,
+    const force = strength * strength;
 
-                filter: "blur(0px)",
+    const moveX = (dx * force * MAX_DISTANCE) / Math.max(distance, 1);
 
-                duration: .6,
+    const moveY = (dy * force * MAX_DISTANCE) / Math.max(distance, 1);
 
-                overwrite: "auto",
+    const rotation = moveX * 0.12;
 
-                ease: "power3.out"
+    const scale = 1 + force * 0.18;
 
-            });
+    const blur = force * 1.5;
 
-            return;
+    gsap.to(char, {
+      x: moveX,
 
-        }
+      y: moveY,
 
+      rotation,
 
+      scale,
+
+      filter: `blur(${blur}px)`,
+
+      duration: 0.25,
+
+      overwrite: "auto",
+
+      ease: "power3.out",
+    });
+  });
+
+  requestAnimationFrame(updateField);
+}
+
+updateField();
 
 
 
