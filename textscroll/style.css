@@ -2570,6 +2570,29 @@ JS animates every word toward these positions.
     backface-visibility: hidden;
 }
 
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .field-text {
+
+        font-size: clamp(
+            4rem,
+            18vw,
+            8rem
+        );
+
+    }
+
+    .field-label {
+
+        font-size: .55rem;
+
+    }
+
+}
 
 
 
