@@ -4345,7 +4345,26 @@ tl33.to(fieldChars, {
 
 });
 
+/* =========================================================
+   MOUSE FIELD
+========================================================= */
 
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
+
+let smoothMouseX = mouseX;
+let smoothMouseY = mouseY;
+
+
+/* Mouse position */
+
+window.addEventListener("mousemove", (event) => {
+
+    mouseX = event.clientX;
+
+    mouseY = event.clientY;
+
+});
 
 
 
