@@ -4237,6 +4237,52 @@ function updateMagnetic() {
 updateMagnetic();
 
 
+/* =========================================================
+   SECTION 33
+   MAGNETIC FIELD TYPOGRAPHY
+========================================================= */
+
+const fieldSection =
+    document.querySelector(".section-thirty-three");
+
+const fieldText =
+    document.querySelector(".field-text");
+
+
+/* =========================================================
+   SPLIT TEXT
+========================================================= */
+
+const fieldValue =
+    fieldText.textContent.trim();
+
+fieldText.innerHTML = "";
+
+
+[...fieldValue].forEach((letter) => {
+
+    const char =
+        document.createElement("span");
+
+    char.className = "field-char";
+
+    char.textContent = letter;
+
+    fieldText.appendChild(char);
+
+});
+
+
+const fieldChars =
+    gsap.utils.toArray(".field-char");
+
+
+
+
+
+
+
+
 
 /* =========================================================
    REFRESH
