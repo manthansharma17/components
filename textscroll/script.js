@@ -4294,6 +4294,57 @@ gsap.set(fieldChars, {
 
 });
 
+/* =========================================================
+   SCROLL ENTRANCE
+========================================================= */
+
+const tl33 = gsap.timeline({
+
+    scrollTrigger: {
+
+        trigger: fieldSection,
+
+        start: "top top",
+
+        end: "+=2200",
+
+        scrub: .8,
+
+        pin: true,
+
+        anticipatePin: 1
+
+        // markers: true
+
+    }
+
+});
+
+
+tl33.to(fieldChars, {
+
+    y: 0,
+
+    opacity: 1,
+
+    scale: 1,
+
+    filter: "blur(0px)",
+
+    duration: 1,
+
+    stagger: {
+
+        each: .06,
+
+        from: "center"
+
+    },
+
+    ease: "power3.out"
+
+});
+
 
 
 
