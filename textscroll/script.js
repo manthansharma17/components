@@ -4366,6 +4366,80 @@ window.addEventListener("mousemove", (event) => {
 
 });
 
+/* =========================================================
+   FIELD SETTINGS
+========================================================= */
+
+const FIELD_RADIUS = 280;
+const MAX_DISTANCE = 75;
+
+
+/* =========================================================
+   UPDATE FIELD
+========================================================= */
+
+function updateField() {
+
+    smoothMouseX +=
+        (mouseX - smoothMouseX) * .08;
+
+    smoothMouseY +=
+        (mouseY - smoothMouseY) * .08;
+
+
+    fieldChars.forEach((char) => {
+
+        const rect =
+            char.getBoundingClientRect();
+
+        const centerX =
+            rect.left + rect.width / 2;
+
+        const centerY =
+            rect.top + rect.height / 2;
+
+
+        const dx =
+            smoothMouseX - centerX;
+
+        const dy =
+            smoothMouseY - centerY;
+
+
+        const distance =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        /* Outside field */
+
+        if (distance > FIELD_RADIUS) {
+
+            gsap.to(char, {
+
+                x: 0,
+                y: 0,
+
+                rotation: 0,
+
+                scale: 1,
+
+                filter: "blur(0px)",
+
+                duration: .6,
+
+                overwrite: "auto",
+
+                ease: "power3.out"
+
+            });
+
+            return;
+
+        }
+
 
 
 
