@@ -4609,6 +4609,96 @@ liquidStage.addEventListener("mousemove",(e)=>{
 });
 
 
+/* =========================================================
+   RIPPLE LOOP
+========================================================= */
+
+function liquidLoop(){
+
+    smoothX += (mouseX - smoothX) * .12;
+    smoothY += (mouseY - smoothY) * .12;
+
+
+    gsap.set(liquidGlow,{
+        left:smoothX,
+        top:smoothY
+    });
+
+
+    liquidChars.forEach((char)=>{
+
+        const rect = char.getBoundingClientRect();
+
+        const stageRect = liquidStage.getBoundingClientRect();
+
+        const cx = rect.left - stageRect.left + rect.width/2;
+        const cy = rect.top - stageRect.top + rect.height/2;
+
+        const dx = smoothX - cx;
+        const dy = smoothY - cy;
+
+        const distance = Math.sqrt(dx*dx + dy*dy);
+
+        const radius = 220;
+
+
+        if(inside && distance < radius){
+
+            const strength = 1 - distance/radius;
+
+            const force = strength*strength;
+
+            const moveX = dx * force * .22;
+            const moveY = dy * force * .22;
+
+            const stretch = 1 + force*.45;
+            const squash = 1 - force*.18;
+
+            const rotate = moveX*.18;
+
+            const blur = force*2.5;
+
+
+            gsap.to(char,{
+                x:moveX,
+                y:moveY,
+                rotation:rotate,
+                scaleX:stretch,
+                scaleY:squash,
+                filter:`blur(${blur}px)`,
+                duration:.18,
+                overwrite:"auto",
+                ease:"power3.out"
+            });
+
+        }
+
+        else{
+
+            gsap.to(char,{
+                x:0,
+                y:0,
+                rotation:0,
+                scaleX:1,
+                scaleY:1,
+                filter:"blur(0px)",
+                duration:.5,
+                overwrite:"auto",
+                ease:"elastic.out(1,.5)"
+            });
+
+        }
+
+    });
+
+
+    requestAnimationFrame(liquidLoop);
+
+}
+
+
+liquidLoop();
+
 
 
 
