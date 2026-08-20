@@ -4497,7 +4497,40 @@ liquidText.innerHTML = "";
 
 const liquidChars = gsap.utils.toArray(".liquid-cursor-char");
 
+/* =========================================================
+   INITIAL STATE
+========================================================= */
 
+gsap.set(liquidChars,{
+    opacity:0,
+    y:80,
+    scale:.9,
+    filter:"blur(10px)"
+});
+
+gsap.set(liquidGlow,{
+    opacity:0,
+    left:"50%",
+    top:"50%"
+});
+
+
+/* =========================================================
+   SCROLL TIMELINE
+========================================================= */
+
+const tl34 = gsap.timeline({
+
+    scrollTrigger:{
+        trigger:".section-thirty-four",
+        start:"top top",
+        end:"+=2200",
+        scrub:.8,
+        pin:true,
+        anticipatePin:1
+    }
+
+});
 
 
 
