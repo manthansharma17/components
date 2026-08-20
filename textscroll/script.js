@@ -4532,6 +4532,35 @@ const tl34 = gsap.timeline({
 
 });
 
+/* Text reveal */
+
+tl34.to(liquidChars,{
+    opacity:1,
+    y:0,
+    scale:1,
+    filter:"blur(0px)",
+    duration:1,
+    stagger:{
+        each:.08,
+        from:"center"
+    },
+    ease:"power3.out"
+});
+
+
+/* Slight cinematic breathing */
+
+tl34.to(liquidText,{
+    scale:1.03,
+    duration:1,
+    ease:"sine.inOut"
+});
+
+tl34.to(liquidText,{
+    scale:1,
+    duration:1,
+    ease:"sine.inOut"
+});
 
 
 /* =========================================================
