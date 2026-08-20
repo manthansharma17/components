@@ -4562,6 +4562,56 @@ tl34.to(liquidText,{
     ease:"sine.inOut"
 });
 
+/* =========================================================
+   LIQUID CURSOR ENGINE
+========================================================= */
+
+let mouseX = 0;
+let mouseY = 0;
+
+let smoothX = 0;
+let smoothY = 0;
+
+let inside = false;
+
+
+liquidStage.addEventListener("mouseenter",()=>{
+
+    inside = true;
+
+    gsap.to(liquidGlow,{
+        opacity:1,
+        duration:.3
+    });
+
+});
+
+
+liquidStage.addEventListener("mouseleave",()=>{
+
+    inside = false;
+
+    gsap.to(liquidGlow,{
+        opacity:0,
+        duration:.4
+    });
+
+});
+
+
+liquidStage.addEventListener("mousemove",(e)=>{
+
+    const rect = liquidStage.getBoundingClientRect();
+
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+
+});
+
+
+
+
+
 
 /* =========================================================
    REFRESH
