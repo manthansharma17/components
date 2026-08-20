@@ -4461,6 +4461,43 @@ function updateField() {
 
 updateField();
 
+/* =========================================================
+   SECTION 34
+   LIQUID CURSOR DISTORTION
+========================================================= */
+
+const liquidSection = document.querySelector(".section-thirty-four");
+
+const liquidStage = document.querySelector(".liquid-cursor-stage");
+
+const liquidText = document.querySelector(".liquid-cursor-text");
+
+const liquidGlow = document.querySelector(".liquid-glow");
+
+
+/* =========================================================
+   SPLIT TEXT
+========================================================= */
+
+const liquidValue = liquidText.textContent.trim();
+
+liquidText.innerHTML = "";
+
+[...liquidValue].forEach((letter)=>{
+
+    const span = document.createElement("span");
+
+    span.className = "liquid-cursor-char";
+
+    span.textContent = letter;
+
+    liquidText.appendChild(span);
+
+});
+
+const liquidChars = gsap.utils.toArray(".liquid-cursor-char");
+
+
 
 
 
