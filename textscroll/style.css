@@ -2594,6 +2594,98 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   SECTION 34
+========================================================= */
+
+.section-thirty-four{
+    width:100%;
+    height:100dvh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+
+    background:#050505;
+    color:#fff;
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.liquid-cursor-stage{
+    width:100%;
+    height:100%;
+
+    position:relative;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+}
+
+
+/* =========================================================
+   CAPTION
+========================================================= */
+
+.liquid-caption{
+    position:absolute;
+
+    top:12%;
+
+    font-size:.65rem;
+    letter-spacing:.35em;
+
+    color:rgba(255,255,255,.35);
+
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+.liquid-cursor-text{
+    margin:0;
+
+    display:flex;
+
+    font-size:clamp(5rem,16vw,16rem);
+    font-weight:900;
+
+    line-height:.8;
+    letter-spacing:-.08em;
+
+    white-space:nowrap;
+
+    user-select:none;
+}
+
+
+/* =========================================================
+   CHARACTERS
+========================================================= */
+
+.liquid-cursor-char{
+    display:inline-block;
+
+    transform-origin:center center;
+
+    will-change:
+        transform,
+        filter;
+
+    backface-visibility:hidden;
+}
 
 
 
