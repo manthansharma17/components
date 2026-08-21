@@ -4739,6 +4739,77 @@ const shatterChars =
 
 
 /* =========================================================
+   RANDOM EXPLOSION VALUES
+========================================================= */
+
+const shatterData =
+    shatterChars.map((char, index) => {
+
+        const angle =
+            gsap.utils.random(
+                0,
+                Math.PI * 2
+            );
+
+        const distance =
+            gsap.utils.random(
+                350,
+                850
+            );
+
+        return {
+
+            x:
+                Math.cos(angle) *
+                distance,
+
+            y:
+                Math.sin(angle) *
+                distance,
+
+            z:
+                gsap.utils.random(
+                    -1000,
+                    1000
+                ),
+
+            rotationX:
+                gsap.utils.random(
+                    -540,
+                    540
+                ),
+
+            rotationY:
+                gsap.utils.random(
+                    -540,
+                    540
+                ),
+
+            rotationZ:
+                gsap.utils.random(
+                    -360,
+                    360
+                ),
+
+            scale:
+                gsap.utils.random(
+                    .15,
+                    .7
+                ),
+
+            delay:
+                index * .035
+
+        };
+
+    });
+
+
+
+
+
+
+/* =========================================================
    REFRESH
 ========================================================= */
 
