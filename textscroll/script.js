@@ -4973,6 +4973,77 @@ tl35.to(shatterChars, {
 
 });
 
+/* =========================================================
+   SECTION 36
+   CONTACT / FOOTER REVEAL
+========================================================= */
+
+const contact36 =
+    document.querySelector(".section-thirty-six");
+
+const contact36Heading =
+    gsap.utils.toArray(
+        ".contact36-heading span"
+    );
+
+const contact36Info =
+    document.querySelector(
+        ".contact36-info"
+    );
+
+const contact36Links =
+    document.querySelector(
+        ".contact36-links"
+    );
+
+const contact36Bottom =
+    document.querySelector(
+        ".contact36-bottom"
+    );
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+const tl36 = gsap.timeline({
+
+    scrollTrigger: {
+
+        trigger: contact36,
+
+        start: "top 80%",
+
+        end: "bottom bottom",
+
+        scrub: .8
+
+        // markers: true
+
+    }
+
+});
+
+
+/* =========================================================
+   PHASE 1
+   LET'S
+========================================================= */
+
+tl36.to(
+    contact36Heading[0],
+    {
+
+        y: "0%",
+
+        opacity: 1,
+
+        duration: 1,
+
+        ease: "power4.out"
+
+    }
+);
 
 
 
