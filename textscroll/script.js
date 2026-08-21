@@ -4922,6 +4922,56 @@ shatterChars.forEach((char, index) => {
 
 });
 
+/* =========================================================
+   PHASE 3
+   FLOATING HOLD
+========================================================= */
+
+tl35.to({}, {
+
+    duration: .7
+
+});
+
+
+/* =========================================================
+   PHASE 4
+   REBUILD
+========================================================= */
+
+tl35.to(shatterChars, {
+
+    x: 0,
+
+    y: 0,
+
+    z: 0,
+
+    rotationX: 0,
+
+    rotationY: 0,
+
+    rotationZ: 0,
+
+    scale: 1,
+
+    opacity: 1,
+
+    filter: "blur(0px)",
+
+    duration: 1.4,
+
+    stagger: {
+
+        each: .06,
+
+        from: "center"
+
+    },
+
+    ease: "power3.out"
+
+});
 
 
 
