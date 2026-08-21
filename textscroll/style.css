@@ -2792,6 +2792,21 @@ JS animates every word toward these positions.
     transform-style: preserve-3d;
 }
 
+.shatter-char {
+
+    display: inline-block;
+
+    transform-origin: center center;
+
+    will-change:
+        transform,
+        opacity,
+        filter;
+
+    backface-visibility: hidden;
+
+    transform-style: preserve-3d;
+}
 
 
 
