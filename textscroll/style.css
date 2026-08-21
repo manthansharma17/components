@@ -2967,6 +2967,55 @@ JS animates every word toward these positions.
     width: 100%;
 }
 
+/* =========================================================
+   LINKS
+========================================================= */
+
+.contact36-links {
+
+    position: absolute;
+
+    right: 8vw;
+    bottom: 12vw;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: .8rem;
+
+    opacity: 0;
+
+    transform: translateY(30px);
+
+    will-change:
+        transform,
+        opacity;
+}
+
+
+.contact36-links a {
+
+    color: rgba(255,255,255,.5);
+
+    text-decoration: none;
+
+    font-size: .7rem;
+
+    letter-spacing: .25em;
+
+    transition:
+        color .3s ease,
+        transform .3s ease;
+}
+
+
+.contact36-links a:hover {
+
+    color: #fff;
+
+    transform: translateX(8px);
+}
 
 
 
