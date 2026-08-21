@@ -2943,6 +2943,29 @@ JS animates every word toward these positions.
 
     position: relative;
 }
+.contact36-email::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -6px;
+
+    width: 0;
+    height: 1px;
+
+    background: #fff;
+
+    transition:
+        width .4s ease;
+}
+
+
+.contact36-email:hover::after {
+
+    width: 100%;
+}
 
 
 
