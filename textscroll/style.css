@@ -3017,6 +3017,97 @@ JS animates every word toward these positions.
     transform: translateX(8px);
 }
 
+/* =========================================================
+   BOTTOM
+========================================================= */
+
+.contact36-bottom {
+
+    position: absolute;
+
+    left: 8vw;
+    right: 8vw;
+    bottom: 3rem;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    padding-top: 1.5rem;
+
+    border-top:
+        1px solid rgba(255,255,255,.12);
+
+    color: rgba(255,255,255,.3);
+
+    font-size: .6rem;
+
+    letter-spacing: .2em;
+
+    opacity: 0;
+
+    transform: translateY(20px);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .contact36-stage {
+
+        padding: 8vw 6vw;
+
+    }
+
+
+    .contact36-heading {
+
+        font-size: clamp(
+            5rem,
+            23vw,
+            10rem
+        );
+
+    }
+
+
+    .contact36-info {
+
+        margin-top: 3rem;
+
+    }
+
+
+    .contact36-links {
+
+        position: static;
+
+        margin-top: 4rem;
+
+        flex-direction: row;
+
+        flex-wrap: wrap;
+
+        gap: 1.5rem;
+
+    }
+
+
+    .contact36-bottom {
+
+        left: 6vw;
+        right: 6vw;
+
+        bottom: 2rem;
+
+        font-size: .5rem;
+
+    }
+
+}
 
 
 
