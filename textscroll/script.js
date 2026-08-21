@@ -4826,6 +4826,101 @@ gsap.set(shatterChars, {
 
 });
 
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+const tl35 = gsap.timeline({
+
+    scrollTrigger: {
+
+        trigger: shatterSection,
+
+        start: "top top",
+
+        end: "+=3200",
+
+        scrub: .8,
+
+        pin: true,
+
+        anticipatePin: 1
+
+        // markers: true
+
+    }
+
+});
+
+
+/* =========================================================
+   PHASE 1
+   SMALL VIBRATION
+========================================================= */
+
+tl35.to(shatterChars, {
+
+    x: 3,
+
+    duration: .05,
+
+    repeat: 8,
+
+    yoyo: true,
+
+    ease: "none"
+
+});
+
+
+/* =========================================================
+   PHASE 2
+   SHATTER
+========================================================= */
+
+shatterChars.forEach((char, index) => {
+
+    const data =
+        shatterData[index];
+
+    tl35.to(
+        char,
+        {
+
+            x: data.x,
+
+            y: data.y,
+
+            z: data.z,
+
+            rotationX:
+                data.rotationX,
+
+            rotationY:
+                data.rotationY,
+
+            rotationZ:
+                data.rotationZ,
+
+            scale:
+                data.scale,
+
+            opacity: 0,
+
+            filter:
+                "blur(8px)",
+
+            duration: 1.1,
+
+            ease: "power3.out"
+
+        },
+
+        0.5 + data.delay
+
+    );
+
+});
 
 
 
