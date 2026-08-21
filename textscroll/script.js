@@ -4699,6 +4699,16 @@ function liquidLoop(){
 
 liquidLoop();
 
+/* =========================================================
+   SECTION 35
+   TEXT SHATTER / REBUILD
+========================================================= */
+
+const shatterSection =
+    document.querySelector(".section-thirty-five");
+
+const shatterText =
+    document.querySelector(".shatter-text");
 
 
 
