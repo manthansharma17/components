@@ -4710,7 +4710,32 @@ const shatterSection =
 const shatterText =
     document.querySelector(".shatter-text");
 
+/* =========================================================
+   SPLIT TEXT
+========================================================= */
 
+const shatterValue =
+    shatterText.textContent.trim();
+
+shatterText.innerHTML = "";
+
+
+[...shatterValue].forEach((letter) => {
+
+    const char =
+        document.createElement("span");
+
+    char.className = "shatter-char";
+
+    char.textContent = letter;
+
+    shatterText.appendChild(char);
+
+});
+
+
+const shatterChars =
+    gsap.utils.toArray(".shatter-char");
 
 
 /* =========================================================
