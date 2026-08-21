@@ -4804,6 +4804,28 @@ const shatterData =
 
     });
 
+/* =========================================================
+   INITIAL STATE
+========================================================= */
+
+gsap.set(shatterChars, {
+
+    x: 0,
+    y: 0,
+    z: 0,
+
+    rotationX: 0,
+    rotationY: 0,
+    rotationZ: 0,
+
+    scale: 1,
+
+    opacity: 1,
+
+    filter: "blur(0px)"
+
+});
+
 
 
 
