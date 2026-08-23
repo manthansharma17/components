@@ -5186,6 +5186,90 @@ spotlight38Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
+
+spotlight38Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        const rect =
+            spotlight38Stage.getBoundingClientRect();
+
+        spotlight38X =
+            event.clientX - rect.left;
+
+        spotlight38Y =
+            event.clientY - rect.top;
+
+
+        /* CSS mask position */
+
+        spotlight38Text.style.setProperty(
+            "--spot-x",
+            `${spotlight38X}px`
+        );
+
+        spotlight38Text.style.setProperty(
+            "--spot-y",
+            `${spotlight38Y}px`
+        );
+
+    }
+);
+
+
+/* =========================================================
+   LEAVE
+========================================================= */
+
+spotlight38Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        spotlight38Stage.classList.remove(
+            "is-active"
+        );
+
+    }
+);
+
+
+/* =========================================================
+   SMOOTH LIGHT
+========================================================= */
+
+function updateSpotlight38() {
+
+    spotlight38CurrentX +=
+        (
+            spotlight38X -
+            spotlight38CurrentX
+        ) * .12;
+
+    spotlight38CurrentY +=
+        (
+            spotlight38Y -
+            spotlight38CurrentY
+        ) * .12;
+
+
+    spotlight38Light.style.left =
+        `${spotlight38CurrentX}px`;
+
+    spotlight38Light.style.top =
+        `${spotlight38CurrentY}px`;
+
+
+    requestAnimationFrame(
+        updateSpotlight38
+    );
+
+}
+
+updateSpotlight38();
+
 
 
 
