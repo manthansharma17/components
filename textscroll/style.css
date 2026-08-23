@@ -3224,7 +3224,49 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   SPOTLIGHT
+========================================================= */
 
+.spotlight38-light {
+
+    position: absolute;
+
+    z-index: 3;
+
+    width: 320px;
+    height: 320px;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.95) 0%,
+            rgba(255,255,255,.55) 18%,
+            rgba(255,255,255,.18) 38%,
+            rgba(255,255,255,.05) 55%,
+            transparent 72%
+        );
+
+    filter: blur(8px);
+
+    mix-blend-mode: screen;
+
+    transition:
+        opacity .35s ease;
+
+}
 
 
 /* =========================================================
