@@ -5132,6 +5132,67 @@ tl36.to(
 
 
 /* =========================================================
+   SECTION 38
+   SPOTLIGHT TYPOGRAPHY
+========================================================= */
+
+const spotlight38Stage =
+    document.querySelector(
+        ".spotlight38-stage"
+    );
+
+const spotlight38Light =
+    document.querySelector(
+        ".spotlight38-light"
+    );
+
+const spotlight38Text =
+    document.querySelector(
+        ".spotlight38-text"
+    );
+
+
+/* =========================================================
+   MOUSE STATE
+========================================================= */
+
+let spotlight38X = 0;
+let spotlight38Y = 0;
+
+let spotlight38CurrentX = 0;
+let spotlight38CurrentY = 0;
+
+
+/* =========================================================
+   ENTER
+========================================================= */
+
+spotlight38Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        if (
+            window.matchMedia(
+                "(hover: hover) and (pointer: fine)"
+            ).matches
+        ) {
+
+            spotlight38Stage.classList.add(
+                "is-active"
+            );
+
+        }
+
+    }
+);
+
+
+
+
+
+
+
+/* =========================================================
    REFRESH
 ========================================================= */
 
