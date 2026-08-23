@@ -5270,7 +5270,29 @@ function updateSpotlight38() {
 
 updateSpotlight38();
 
+/* =========================================================
+   CLICK
+========================================================= */
 
+spotlight38Stage.addEventListener(
+    "click",
+    () => {
+
+        spotlight38Stage.classList.add(
+            "is-expanded"
+        );
+
+
+        setTimeout(() => {
+
+            spotlight38Stage.classList.remove(
+                "is-expanded"
+            );
+
+        }, 1200);
+
+    }
+);
 
 
 
