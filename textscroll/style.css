@@ -3109,6 +3109,122 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   SECTION 38
+   SPOTLIGHT TYPOGRAPHY
+========================================================= */
+
+.section-thirty-eight {
+
+    width: 100%;
+    height: 100dvh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #050505;
+    color: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.spotlight38-stage {
+
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    cursor: none;
+
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.spotlight38-label {
+
+    position: absolute;
+
+    top: 12%;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    margin: 0;
+
+    font-size: .65rem;
+
+    letter-spacing: .35em;
+
+    color: rgba(255,255,255,.25);
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+.spotlight38-text {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    font-size: clamp(
+        5rem,
+        15vw,
+        15rem
+    );
+
+    font-weight: 900;
+
+    line-height: .78;
+
+    letter-spacing: -.09em;
+
+    color: rgba(255,255,255,.12);
+
+    filter: blur(1px);
+
+    transition:
+        filter .4s ease;
+
+    pointer-events: none;
+
+}
+
+
 
 
 /* =========================================================
