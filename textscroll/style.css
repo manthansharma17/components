@@ -3621,7 +3621,26 @@ JS animates every word toward these positions.
 .gravity39-char {
     transition: none;
 }
+/* =========================================================
+   MOBILE
+========================================================= */
 
+@media (max-width: 700px) {
+
+    .gravity39-stage {
+        cursor: default;
+    }
+
+    .gravity39-text {
+        font-size:
+            clamp(
+                4rem,
+                19vw,
+                9rem
+            );
+    }
+
+}
 
 
 
