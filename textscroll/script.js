@@ -5293,6 +5293,57 @@ spotlight38Stage.addEventListener(
 
     }
 );
+/* =========================================================
+   SECTION 39
+   GRAVITY TYPOGRAPHY
+========================================================= */
+
+const gravity39Stage =
+    document.querySelector(
+        ".gravity39-stage"
+    );
+
+const gravity39Text =
+    document.querySelector(
+        ".gravity39-text"
+    );
+
+const gravity39Field =
+    document.querySelector(
+        ".gravity39-field"
+    );
+
+
+/* =========================================================
+   SPLIT TEXT
+========================================================= */
+
+const gravity39Value =
+    gravity39Text.textContent.trim();
+
+gravity39Text.innerHTML = "";
+
+
+[...gravity39Value].forEach((letter) => {
+
+    const char =
+        document.createElement("span");
+
+    char.className =
+        "gravity39-char";
+
+    char.textContent = letter;
+
+    gravity39Text.appendChild(char);
+
+});
+
+
+const gravity39Chars =
+    gsap.utils.toArray(
+        ".gravity39-char"
+    );
+
 
 
 
