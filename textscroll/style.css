@@ -3527,6 +3527,102 @@ JS animates every word toward these positions.
 
     pointer-events: none;
 }
+/* =========================================================
+   TEXT
+========================================================= */
+
+.gravity39-text {
+    display: flex;
+
+    margin: 0;
+
+    font-size: clamp(
+        5rem,
+        17vw,
+        17rem
+    );
+
+    font-weight: 900;
+
+    line-height: .8;
+
+    letter-spacing: -.09em;
+
+    white-space: nowrap;
+
+    transform-style: preserve-3d;
+
+    user-select: none;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   CHARACTERS
+========================================================= */
+
+.gravity39-char {
+    display: inline-block;
+
+    transform-origin: center center;
+
+    will-change:
+        transform,
+        filter;
+
+    backface-visibility: hidden;
+
+    transform-style: preserve-3d;
+}
+
+
+/* =========================================================
+   GRAVITY CURSOR
+========================================================= */
+
+.gravity39-cursor {
+    position: absolute;
+
+    width: 18px;
+    height: 18px;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    pointer-events: none;
+
+    z-index: 10;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    box-shadow:
+        0 0 20px rgba(255,255,255,.8),
+        0 0 50px rgba(255,255,255,.35);
+
+    will-change:
+        left,
+        top,
+        transform,
+        opacity;
+}
+
+
+/* =========================================================
+   ORBIT STATE
+========================================================= */
+
+.gravity39-stage.is-orbiting
+.gravity39-char {
+    transition: none;
+}
+
+
 
 
 /* =========================================================
