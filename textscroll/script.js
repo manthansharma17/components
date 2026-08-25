@@ -5387,6 +5387,40 @@ gravity39Stage.addEventListener(
 
     }
 );
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
+
+gravity39Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        const rect =
+            gravity39Stage.getBoundingClientRect();
+
+        gravity39MouseX =
+            event.clientX - rect.left;
+
+        gravity39MouseY =
+            event.clientY - rect.top;
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE LEAVE
+========================================================= */
+
+gravity39Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        gravity39Inside = false;
+
+    }
+);
+
 
 
 
