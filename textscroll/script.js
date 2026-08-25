@@ -5420,6 +5420,183 @@ gravity39Stage.addEventListener(
 
     }
 );
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+const GRAVITY_RADIUS = 420;
+const MAX_PULL = 100;
+
+
+/* =========================================================
+   GRAVITY LOOP
+========================================================= */
+
+function updateGravity39() {
+
+    gravity39CurrentX +=
+        (
+            gravity39MouseX -
+            gravity39CurrentX
+        ) * .1;
+
+    gravity39CurrentY +=
+        (
+            gravity39MouseY -
+            gravity39CurrentY
+        ) * .1;
+
+
+    gravity39Chars.forEach((char) => {
+
+        const rect =
+            char.getBoundingClientRect();
+
+        const stageRect =
+            gravity39Stage.getBoundingClientRect();
+
+
+        const centerX =
+            rect.left -
+            stageRect.left +
+            rect.width / 2;
+
+        const centerY =
+            rect.top -
+            stageRect.top +
+            rect.height / 2;
+
+
+        const dx =
+            gravity39CurrentX -
+            centerX;
+
+        const dy =
+            gravity39CurrentY -
+            centerY;
+
+
+        const distance =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        /* =================================================
+           OUTSIDE GRAVITY FIELD
+        ================================================= */
+
+        if (
+            !gravity39Inside ||
+            distance > GRAVITY_RADIUS
+        ) {
+
+            gsap.to(char, {
+
+                x: 0,
+                y: 0,
+
+                rotation: 0,
+
+                scale: 1,
+
+                filter:
+                    "blur(0px)",
+
+                duration: .7,
+
+                overwrite: "auto",
+
+                ease:
+                    "elastic.out(1,.5)"
+
+            });
+
+            return;
+
+        }
+
+
+        /* =================================================
+           GRAVITY FORCE
+        ================================================= */
+
+        const strength =
+            1 -
+            distance /
+            GRAVITY_RADIUS;
+
+
+        const force =
+            strength * strength;
+
+
+        /* Pull toward cursor */
+
+        const pullX =
+            dx *
+            force *
+            MAX_PULL /
+            Math.max(distance, 1);
+
+        const pullY =
+            dy *
+            force *
+            MAX_PULL /
+            Math.max(distance, 1);
+
+
+        /* Rotation follows direction */
+
+        const rotation =
+            pullX * .18;
+
+
+        /* Slight stretching */
+
+        const scale =
+            1 +
+            force * .18;
+
+
+        const blur =
+            force * 1.2;
+
+
+        gsap.to(char, {
+
+            x: pullX,
+
+            y: pullY,
+
+            rotation,
+
+            scale,
+
+            filter:
+                `blur(${blur}px)`,
+
+            duration: .22,
+
+            overwrite: "auto",
+
+            ease:
+                "power3.out"
+
+        });
+
+    });
+
+
+    requestAnimationFrame(
+        updateGravity39
+    );
+
+}
+
+
+updateGravity39();
 
 
 
