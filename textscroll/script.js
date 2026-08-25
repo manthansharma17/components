@@ -5344,6 +5344,49 @@ const gravity39Chars =
         ".gravity39-char"
     );
 
+/* =========================================================
+   INITIAL STATE
+========================================================= */
+
+gsap.set(gravity39Chars, {
+
+    x: 0,
+    y: 0,
+
+    rotation: 0,
+
+    scale: 1,
+
+    filter: "blur(0px)"
+
+});
+
+
+/* =========================================================
+   MOUSE
+========================================================= */
+
+let gravity39MouseX = 0;
+let gravity39MouseY = 0;
+
+let gravity39CurrentX = 0;
+let gravity39CurrentY = 0;
+
+let gravity39Inside = false;
+
+
+/* =========================================================
+   MOUSE ENTER
+========================================================= */
+
+gravity39Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        gravity39Inside = true;
+
+    }
+);
 
 
 
