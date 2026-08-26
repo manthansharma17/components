@@ -5774,6 +5774,59 @@ const ripple40Chars =
         ".ripple40-char"
     );
 
+/* =========================================================
+   CHARACTER POSITIONS
+========================================================= */
+
+const ripple40Data =
+    ripple40Chars.map((char) => {
+
+        return {
+            baseX: 0,
+            baseY: 0,
+            baseRotation: 0
+        };
+
+    });
+
+
+/* =========================================================
+   MOUSE
+========================================================= */
+
+let ripple40MouseX = 0;
+let ripple40MouseY = 0;
+
+let ripple40CurrentX = 0;
+let ripple40CurrentY = 0;
+
+let ripple40Inside = false;
+
+
+/* =========================================================
+   MOUSE ENTER
+========================================================= */
+
+ripple40Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        ripple40Inside = true;
+
+        gsap.to(ripple40Cursor, {
+
+            scale: 1,
+
+            opacity: 1,
+
+            duration: .3,
+
+            ease: "power3.out"
+
+        });
+
+    }
+);
 
 
 
