@@ -5598,7 +5598,130 @@ function updateGravity39() {
 
 updateGravity39();
 
+/* =========================================================
+   CLICK — ORBIT BURST
+========================================================= */
 
+gravity39Stage.addEventListener(
+    "click",
+    () => {
+
+        if (!gravity39Inside) return;
+
+
+        gravity39Stage.classList.add(
+            "is-orbiting"
+        );
+
+
+        const rect =
+            gravity39Stage.getBoundingClientRect();
+
+
+        const centerX =
+            gravity39MouseX -
+            rect.width / 2;
+
+        const centerY =
+            gravity39MouseY -
+            rect.height / 2;
+
+
+        gravity39Chars.forEach(
+            (char, index) => {
+
+                const angle =
+                    (index /
+                        gravity39Chars.length) *
+                    Math.PI * 2;
+
+                const radius =
+                    gsap.utils.random(
+                        100,
+                        220
+                    );
+
+
+                const orbitX =
+                    centerX +
+                    Math.cos(angle) *
+                    radius;
+
+                const orbitY =
+                    centerY +
+                    Math.sin(angle) *
+                    radius;
+
+
+                gsap.to(char, {
+
+                    x: orbitX,
+
+                    y: orbitY,
+
+                    rotation:
+                        gsap.utils.random(
+                            -180,
+                            180
+                        ),
+
+                    scale:
+                        gsap.utils.random(
+                            .7,
+                            1.2
+                        ),
+
+                    duration: .7,
+
+                    delay:
+                        index * .03,
+
+                    ease:
+                        "power3.out"
+
+                });
+
+            }
+        );
+
+
+        /* =================================================
+           SNAP BACK
+        ================================================= */
+
+        gsap.to(gravity39Chars, {
+
+            x: 0,
+            y: 0,
+
+            rotation: 0,
+
+            scale: 1,
+
+            filter:
+                "blur(0px)",
+
+            duration: 1.2,
+
+            delay: .7,
+
+            stagger: .04,
+
+            ease:
+                "elastic.out(1,.5)",
+
+            onComplete: () => {
+
+                gravity39Stage.classList.remove(
+                    "is-orbiting"
+                );
+
+            }
+
+        });
+
+    }
+);
 
 
 
