@@ -5935,7 +5935,76 @@ function updateRipple40() {
     ripple40Cursor.style.top =
         `${ripple40CurrentY}px`;
 
+/* =====================================================
+       LETTER WAVE
+    ===================================================== */
 
+    ripple40Chars.forEach((char) => {
+
+        if (!ripple40Inside) return;
+
+
+        const rect =
+            char.getBoundingClientRect();
+
+        const stageRect =
+            ripple40Stage.getBoundingClientRect();
+
+
+        const charX =
+            rect.left -
+            stageRect.left +
+            rect.width / 2;
+
+        const charY =
+            rect.top -
+            stageRect.top +
+            rect.height / 2;
+
+
+        const dx =
+            ripple40CurrentX -
+            charX;
+
+        const dy =
+            ripple40CurrentY -
+            charY;
+
+
+        const distance =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        if (distance > RIPPLE_RADIUS) {
+
+            gsap.to(char, {
+
+                x: 0,
+                y: 0,
+
+                rotation: 0,
+
+                scaleX: 1,
+                scaleY: 1,
+
+                filter:
+                    "blur(0px)",
+
+                duration: .5,
+
+                overwrite: "auto",
+
+                ease:
+                    "power3.out"
+
+            });
+
+            return;
+
+        }
 
 
 /* =========================================================
