@@ -6189,7 +6189,59 @@ ripple40Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   CREATE RIPPLE RING
+========================================================= */
 
+function createRipple40(x, y) {
+
+    const ring =
+        document.createElement("span");
+
+    ring.className =
+        "ripple40-ring";
+
+
+    ring.style.left =
+        `${x}px`;
+
+    ring.style.top =
+        `${y}px`;
+
+
+    ripple40Stage.appendChild(ring);
+
+
+    gsap.fromTo(
+        ring,
+
+        {
+            scale: 0,
+
+            opacity: .8
+
+        },
+
+        {
+            scale: 12,
+
+            opacity: 0,
+
+            duration: 1.2,
+
+            ease:
+                "power2.out",
+
+            onComplete: () => {
+
+                ring.remove();
+
+            }
+
+        }
+    );
+
+}
 
 
 
