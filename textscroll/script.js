@@ -5827,6 +5827,114 @@ ripple40Stage.addEventListener(
 
     }
 );
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
+
+ripple40Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        const rect =
+            ripple40Stage.getBoundingClientRect();
+
+        ripple40MouseX =
+            event.clientX - rect.left;
+
+        ripple40MouseY =
+            event.clientY - rect.top;
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE LEAVE
+========================================================= */
+
+ripple40Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        ripple40Inside = false;
+
+        gsap.to(ripple40Cursor, {
+
+            scale: 0,
+
+            opacity: 0,
+
+            duration: .4,
+
+            ease: "power3.out"
+
+        });
+
+
+        /* Reset letters */
+
+        gsap.to(ripple40Chars, {
+
+            x: 0,
+            y: 0,
+
+            rotation: 0,
+
+            scaleX: 1,
+            scaleY: 1,
+
+            filter:
+                "blur(0px)",
+
+            duration: .7,
+
+            stagger: .02,
+
+            ease:
+                "elastic.out(1,.5)"
+
+        });
+
+    }
+);
+
+
+/* =========================================================
+   RIPPLE SETTINGS
+========================================================= */
+
+const RIPPLE_RADIUS = 350;
+
+const RIPPLE_STRENGTH = 80;
+
+
+/* =========================================================
+   ANIMATION LOOP
+========================================================= */
+
+function updateRipple40() {
+
+    ripple40CurrentX +=
+        (
+            ripple40MouseX -
+            ripple40CurrentX
+        ) * .12;
+
+    ripple40CurrentY +=
+        (
+            ripple40MouseY -
+            ripple40CurrentY
+        ) * .12;
+
+
+    /* Cursor */
+
+    ripple40Cursor.style.left =
+        `${ripple40CurrentX}px`;
+
+    ripple40Cursor.style.top =
+        `${ripple40CurrentY}px`;
+
 
 
 
