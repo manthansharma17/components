@@ -3835,7 +3835,26 @@ JS animates every word toward these positions.
         transform,
         opacity;
 }
+/* =========================================================
+   MOBILE
+========================================================= */
 
+@media (max-width: 700px) {
+
+    .ripple40-stage {
+        cursor: default;
+    }
+
+    .ripple40-text {
+        font-size:
+            clamp(
+                4rem,
+                19vw,
+                9rem
+            );
+    }
+
+}
 
 
 /* =========================================================
