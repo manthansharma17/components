@@ -5723,6 +5723,57 @@ gravity39Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   SECTION 40
+   TEXT RIPPLE
+========================================================= */
+
+const ripple40Stage =
+    document.querySelector(
+        ".ripple40-stage"
+    );
+
+const ripple40Text =
+    document.querySelector(
+        ".ripple40-text"
+    );
+
+const ripple40Cursor =
+    document.querySelector(
+        ".ripple40-cursor"
+    );
+
+
+/* =========================================================
+   SPLIT TEXT
+========================================================= */
+
+const ripple40Value =
+    ripple40Text.textContent.trim();
+
+ripple40Text.innerHTML = "";
+
+
+[...ripple40Value].forEach((letter) => {
+
+    const char =
+        document.createElement("span");
+
+    char.className =
+        "ripple40-char";
+
+    char.textContent = letter;
+
+    ripple40Text.appendChild(char);
+
+});
+
+
+const ripple40Chars =
+    gsap.utils.toArray(
+        ".ripple40-char"
+    );
+
 
 
 
