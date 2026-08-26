@@ -6005,6 +6005,193 @@ function updateRipple40() {
             return;
 
         }
+ /* =================================================
+           RIPPLE FORCE
+        ================================================= */
+
+        const strength =
+            1 -
+            distance /
+            RIPPLE_RADIUS;
+
+
+        const wave =
+            Math.sin(
+                distance * .045
+            );
+
+
+        const force =
+            strength *
+            strength;
+
+
+        const moveY =
+            wave *
+            force *
+            RIPPLE_STRENGTH;
+
+
+        const moveX =
+            dx *
+            force *
+            .12;
+
+
+        const rotation =
+            wave *
+            force *
+            8;
+
+
+        const scaleX =
+            1 +
+            force *
+            .25;
+
+
+        const scaleY =
+            1 -
+            force *
+            .12;
+
+
+        const blur =
+            force *
+            2;
+
+
+        gsap.to(char, {
+
+            x: moveX,
+
+            y: moveY,
+
+            rotation,
+
+            scaleX,
+
+            scaleY,
+
+            filter:
+                `blur(${blur}px)`,
+
+            duration: .18,
+
+            overwrite: "auto",
+
+            ease:
+                "power2.out"
+
+        });
+
+    });
+
+
+    requestAnimationFrame(
+        updateRipple40
+    );
+
+}
+
+
+updateRipple40();
+
+
+/* =========================================================
+   CLICK — LARGE RIPPLE
+========================================================= */
+
+ripple40Stage.addEventListener(
+    "click",
+    () => {
+
+        if (!ripple40Inside) return;
+
+
+        createRipple40(
+            ripple40MouseX,
+            ripple40MouseY
+        );
+
+
+        /* Strong wave through letters */
+
+        ripple40Chars.forEach(
+            (char, index) => {
+
+                const direction =
+                    index % 2 === 0
+                        ? 1
+                        : -1;
+
+
+                gsap.to(char, {
+
+                    y:
+                        direction *
+                        gsap.utils.random(
+                            30,
+                            80
+                        ),
+
+                    rotation:
+                        direction *
+                        gsap.utils.random(
+                            5,
+                            12
+                        ),
+
+                    scaleX:
+                        gsap.utils.random(
+                            1.1,
+                            1.3
+                        ),
+
+                    duration: .35,
+
+                    delay:
+                        index * .04,
+
+                    ease:
+                        "power2.out"
+
+                });
+
+
+                gsap.to(char, {
+
+                    y: 0,
+
+                    rotation: 0,
+
+                    scaleX: 1,
+
+                    scaleY: 1,
+
+                    filter:
+                        "blur(0px)",
+
+                    duration: .8,
+
+                    delay:
+                        .35 +
+                        index * .04,
+
+                    ease:
+                        "elastic.out(1,.5)"
+
+                });
+
+            }
+        );
+
+    }
+);
+
+
+
+
 
 
 /* =========================================================
