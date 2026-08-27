@@ -4166,6 +4166,84 @@ JS animates every word toward these positions.
     overflow: visible;
 }
 
+/* =========================================================
+   LIQUID TEXT
+========================================================= */
+
+.liquid42-text {
+    margin: 0;
+
+    font-size: clamp(
+        5rem,
+        18vw,
+        18rem
+    );
+
+    font-weight: 900;
+
+    line-height: 0.8;
+
+    letter-spacing: -0.1em;
+
+    white-space: nowrap;
+
+    color: #fff;
+
+    user-select: none;
+
+    pointer-events: none;
+
+    filter:
+        url(#liquid42Filter);
+
+    will-change:
+        filter,
+        transform;
+
+    text-shadow:
+        0 0 0 transparent;
+
+    transition:
+        text-shadow 0.4s ease;
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.liquid42-cursor {
+    position: absolute;
+
+    width: 18px;
+    height: 18px;
+
+    left: 50%;
+    top: 50%;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    pointer-events: none;
+
+    z-index: 10;
+
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    box-shadow:
+        0 0 15px rgba(255,255,255,.9),
+        0 0 40px rgba(255,255,255,.35);
+
+    will-change:
+        left,
+        top,
+        transform;
+}
 
 
 
