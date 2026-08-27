@@ -6397,6 +6397,44 @@ motion41Stage.addEventListener("mousemove", (event) => {
 
 
 /* =========================================================
+   MOUSE LEAVE
+========================================================= */
+
+motion41Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        motion41Inside = false;
+
+        motion41Stage.classList.remove(
+            "is-active"
+        );
+
+
+        /* Fade trail */
+
+        gsap.to(
+            motion41Items.map(
+                item => item.element
+            ),
+            {
+
+                opacity: 0,
+
+                duration: .5,
+
+                stagger: .02
+
+            }
+        );
+
+    }
+);
+
+
+
+
+/* =========================================================
    REFRESH
 ========================================================= */
 
