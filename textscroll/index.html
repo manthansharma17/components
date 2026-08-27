@@ -925,6 +925,74 @@
 
 </section>
 
+<!-- =====================================================
+     SECTION 42 — LIQUID TEXT DISTORTION
+===================================================== -->
+
+<section class="section-forty-two">
+
+    <!-- SVG LIQUID FILTER -->
+    <svg
+        class="liquid42-svg"
+        aria-hidden="true"
+    >
+        <filter
+            id="liquid42Filter"
+            x="-50%"
+            y="-50%"
+            width="200%"
+            height="200%"
+        >
+
+            <feTurbulence
+                id="liquid42Turbulence"
+                type="turbulence"
+                baseFrequency="0.008 0.018"
+                numOctaves="2"
+                seed="2"
+                result="noise"
+            />
+
+            <feDisplacementMap
+                id="liquid42Displacement"
+                in="SourceGraphic"
+                in2="noise"
+                scale="0"
+                xChannelSelector="R"
+                yChannelSelector="G"
+            />
+
+        </filter>
+    </svg>
+
+
+    <div class="liquid42-stage">
+
+        <p class="liquid42-label">
+            DISTURB THE SURFACE
+        </p>
+
+
+        <div class="liquid42-text-wrap">
+
+            <h2
+                class="liquid42-text"
+                id="liquid42Text"
+            >
+                LIQUID
+            </h2>
+
+        </div>
+
+
+        <div
+            class="liquid42-cursor"
+            id="liquid42Cursor"
+        ></div>
+
+    </div>
+
+</section>
 
 <script src="script.js"></script>
 
