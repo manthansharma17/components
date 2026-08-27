@@ -6837,7 +6837,52 @@ liquid42Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   ANIMATION LOOP
+========================================================= */
 
+function updateLiquid42() {
+
+    /* =============================================
+       SMOOTH CURSOR
+    ============================================= */
+
+    liquid42CurrentX +=
+        (
+            liquid42MouseX -
+            liquid42CurrentX
+        ) * 0.16;
+
+
+    liquid42CurrentY +=
+        (
+            liquid42MouseY -
+            liquid42CurrentY
+        ) * 0.16;
+
+
+    liquid42Cursor.style.left =
+        `${liquid42CurrentX}px`;
+
+
+    liquid42Cursor.style.top =
+        `${liquid42CurrentY}px`;
+
+
+    /* =============================================
+       DECAY DISTORTION
+    ============================================= */
+
+    liquid42Distortion *=
+        0.94;
+
+
+    if (!liquid42Inside) {
+
+        liquid42Distortion *=
+            0.9;
+
+    }
 
 
 
