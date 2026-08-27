@@ -6663,6 +6663,44 @@ motion41Stage.addEventListener("click", () => {
   }, 1000);
 });
 
+/* =========================================================
+   SECTION 42
+   LIQUID TEXT DISTORTION
+========================================================= */
+
+const liquid42Stage =
+    document.querySelector(
+        ".liquid42-stage"
+    );
+
+const liquid42Text =
+    document.querySelector(
+        "#liquid42Text"
+    );
+
+const liquid42Cursor =
+    document.querySelector(
+        "#liquid42Cursor"
+    );
+
+const liquid42Displacement =
+    document.querySelector(
+        "#liquid42Displacement"
+    );
+
+const liquid42Turbulence =
+    document.querySelector(
+        "#liquid42Turbulence"
+    );
+
+
+
+
+
+
+
+
+
 
 /* =========================================================
    REFRESH
