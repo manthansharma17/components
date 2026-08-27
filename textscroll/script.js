@@ -6328,7 +6328,67 @@ for (
     });
 
 }
+/* =========================================================
+   MOUSE POSITION
+========================================================= */
 
+let motion41MouseX =
+    window.innerWidth / 2;
+
+let motion41MouseY =
+    window.innerHeight / 2;
+
+
+let motion41PreviousX =
+    motion41MouseX;
+
+let motion41PreviousY =
+    motion41MouseY;
+
+
+let motion41Speed = 0;
+
+let motion41Inside = false;
+
+
+/* =========================================================
+   MOUSE ENTER
+========================================================= */
+
+motion41Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        motion41Inside = true;
+
+        motion41Stage.classList.add(
+            "is-active"
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
+
+motion41Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        const rect =
+            motion41Stage.getBoundingClientRect();
+
+
+        motion41MouseX =
+            event.clientX -
+            rect.left;
+
+
+        motion41MouseY =
+            event.clientY -
+            rect.top;
 
 
 
