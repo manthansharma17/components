@@ -6604,76 +6604,64 @@ updateMotion41();
    COLLAPSE TRAIL TO CENTER
 ========================================================= */
 
-motion41Stage.addEventListener(
-    "click",
-    () => {
+motion41Stage.addEventListener("click", () => {
+  const rect = motion41Stage.getBoundingClientRect();
 
-        const rect =
-            motion41Stage.getBoundingClientRect();
+  const centerX = rect.width / 2;
 
+  const centerY = rect.height / 2;
 
-        const centerX =
-            rect.width / 2;
+  motion41Stage.classList.add("is-collapsing");
 
-        const centerY =
-            rect.height / 2;
-
-
-        motion41Stage.classList.add(
-            "is-collapsing"
-        );
-
-
-        /* =============================================
+  /* =============================================
            COLLAPSE ALL COPIES
         ============================================= */
 
-        motion41Items.forEach(
-            (item, index) => {
+  motion41Items.forEach((item, index) => {
+    gsap.to(item, {
+      x: centerX,
 
-                gsap.to(
-                    item,
-                    {
+      y: centerY,
 
-                        x: centerX,
+      duration: 0.7,
 
-                        y: centerY,
+      delay: index * 0.025,
 
-                        duration: .7,
+      ease: "power4.inOut",
+    });
 
-                        delay:
-                            index *
-                            .025,
+    gsap.to(item.element, {
+      opacity: 0,
 
-                        ease:
-                            "power4.inOut"
+      scale: 0.5,
 
-                    }
-                );
+      duration: 0.6,
 
+      delay: index * 0.025,
 
-                gsap.to(
-                    item.element,
-                    {
+      ease: "power3.in",
+    });
+  });
+  /* =============================================
+           RESET
+        ============================================= */
 
-                        opacity: 0,
+  setTimeout(() => {
+    motion41Stage.classList.remove("is-collapsing");
 
-                        scale: .5,
+    motion41Items.forEach((item, index) => {
+      item.x = motion41MouseX;
 
-                        duration: .6,
+      item.y = motion41MouseY;
 
-                        delay:
-                            index *
-                            .025,
+      gsap.set(item.element, {
+        opacity: 0.45 * (1 - index / MOTION41_TRAIL_COUNT),
 
-                        ease:
-                            "power3.in"
-
-                    }
-                );
-
-            }
-        );
+        scale: 1,
+      });
+    });
+  }, 1000);
+});
 
 
 /* =========================================================
