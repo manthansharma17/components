@@ -6564,7 +6564,116 @@ function updateMotion41() {
                     10
                 );
 
+ /* =============================================
+               APPLY POSITION
+            ============================================= */
 
+            item.element.style.transform =
+                `
+                translate(
+                    ${item.x}px,
+                    ${item.y}px
+                )
+                translate(-50%, -50%)
+                scaleX(${scaleX})
+                rotate(${rotation}deg)
+                `;
+
+        }
+    );
+
+
+    /* Smooth speed reduction */
+
+    motion41Speed *=
+        .88;
+
+
+    requestAnimationFrame(
+        updateMotion41
+    );
+
+}
+
+
+updateMotion41();
+
+
+/* =========================================================
+   CLICK
+   COLLAPSE TRAIL TO CENTER
+========================================================= */
+
+motion41Stage.addEventListener(
+    "click",
+    () => {
+
+        const rect =
+            motion41Stage.getBoundingClientRect();
+
+
+        const centerX =
+            rect.width / 2;
+
+        const centerY =
+            rect.height / 2;
+
+
+        motion41Stage.classList.add(
+            "is-collapsing"
+        );
+
+
+        /* =============================================
+           COLLAPSE ALL COPIES
+        ============================================= */
+
+        motion41Items.forEach(
+            (item, index) => {
+
+                gsap.to(
+                    item,
+                    {
+
+                        x: centerX,
+
+                        y: centerY,
+
+                        duration: .7,
+
+                        delay:
+                            index *
+                            .025,
+
+                        ease:
+                            "power4.inOut"
+
+                    }
+                );
+
+
+                gsap.to(
+                    item.element,
+                    {
+
+                        opacity: 0,
+
+                        scale: .5,
+
+                        duration: .6,
+
+                        delay:
+                            index *
+                            .025,
+
+                        ease:
+                            "power3.in"
+
+                    }
+                );
+
+            }
+        );
 
 
 /* =========================================================
