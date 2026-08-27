@@ -6996,7 +6996,670 @@ liquid42Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   SECTION 43
+   PARTICLE TEXT DISSOLVE
+========================================================= */
 
+const particle43Stage =
+    document.querySelector(
+        ".particle43-stage"
+    );
+
+const particle43Canvas =
+    document.querySelector(
+        "#particle43Canvas"
+    );
+
+const particle43Cursor =
+    document.querySelector(
+        ".particle43-cursor"
+    );
+
+const particle43Ctx =
+    particle43Canvas.getContext("2d");
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+const PARTICLE43_TEXT =
+    "DISAPPEAR";
+
+const PARTICLE43_RADIUS =
+    140;
+
+const PARTICLE43_DENSITY =
+    7;
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let particle43Width = 0;
+let particle43Height = 0;
+
+let particle43MouseX = -9999;
+let particle43MouseY = -9999;
+
+let particle43TargetX = 0;
+let particle43TargetY = 0;
+
+let particle43Inside = false;
+
+let particle43Exploding = false;
+
+let particle43Particles = [];
+
+
+/* =========================================================
+   PARTICLE CLASS
+========================================================= */
+
+class Particle43 {
+
+    constructor(x, y) {
+
+        this.baseX = x;
+        this.baseY = y;
+
+        this.x = x;
+        this.y = y;
+
+        this.vx = 0;
+        this.vy = 0;
+
+        this.size =
+            Math.random() * 1.8 +
+            1.2;
+
+        this.opacity = 1;
+
+    }
+
+
+    update() {
+
+        /* =============================================
+           DISTANCE FROM CURSOR
+        ============================================= */
+
+        const dx =
+            particle43MouseX -
+            this.x;
+
+        const dy =
+            particle43MouseY -
+            this.y;
+
+
+        const distance =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        /* =============================================
+           CURSOR DISSOLVE
+        ============================================= */
+
+        if (
+            particle43Inside &&
+            !particle43Exploding &&
+            distance <
+            PARTICLE43_RADIUS
+        ) {
+
+            const force =
+                1 -
+                distance /
+                PARTICLE43_RADIUS;
+
+
+            const angle =
+                Math.atan2(
+                    dy,
+                    dx
+                );
+
+
+            /* Push particles away */
+
+            this.vx -=
+                Math.cos(angle) *
+                force *
+                3;
+
+
+            this.vy -=
+                Math.sin(angle) *
+                force *
+                3;
+
+
+            /* Fade slightly */
+
+            this.opacity -=
+                force *
+                0.025;
+
+        }
+
+
+        /* =============================================
+           RETURN TO ORIGINAL TEXT
+        ============================================= */
+
+        if (
+            !particle43Exploding
+        ) {
+
+            const returnX =
+                this.baseX -
+                this.x;
+
+            const returnY =
+                this.baseY -
+                this.y;
+
+
+            this.vx +=
+                returnX *
+                0.015;
+
+
+            this.vy +=
+                returnY *
+                0.015;
+
+
+            this.opacity +=
+                (1 - this.opacity) *
+                0.08;
+
+        }
+
+
+        /* =============================================
+           PHYSICS
+        ============================================= */
+
+        this.vx *= 0.88;
+        this.vy *= 0.88;
+
+
+        this.x +=
+            this.vx;
+
+        this.y +=
+            this.vy;
+
+
+        this.opacity =
+            Math.max(
+                0,
+                Math.min(
+                    1,
+                    this.opacity
+                )
+            );
+
+    }
+
+
+    draw() {
+
+        particle43Ctx.save();
+
+
+        particle43Ctx.globalAlpha =
+            this.opacity;
+
+
+        particle43Ctx.fillStyle =
+            "#ffffff";
+
+
+        particle43Ctx.beginPath();
+
+
+        particle43Ctx.arc(
+            this.x,
+            this.y,
+            this.size,
+            0,
+            Math.PI * 2
+        );
+
+
+        particle43Ctx.fill();
+
+
+        particle43Ctx.restore();
+
+    }
+
+}
+
+
+/* =========================================================
+   CREATE TEXT PARTICLES
+========================================================= */
+
+function createParticle43Text() {
+
+    particle43Particles = [];
+
+
+    const offscreen =
+        document.createElement(
+            "canvas"
+        );
+
+    const offCtx =
+        offscreen.getContext(
+            "2d",
+            {
+                willReadFrequently: true
+            }
+        );
+
+
+    offscreen.width =
+        particle43Width;
+
+    offscreen.height =
+        particle43Height;
+
+
+    /* =============================================
+       FONT SIZE
+    ============================================= */
+
+    const fontSize =
+        Math.min(
+            particle43Width * 0.17,
+            260
+        );
+
+
+    offCtx.fillStyle =
+        "#ffffff";
+
+
+    offCtx.font =
+        `900 ${fontSize}px Arial`;
+
+
+    offCtx.textAlign =
+        "center";
+
+
+    offCtx.textBaseline =
+        "middle";
+
+
+    offCtx.fillText(
+        PARTICLE43_TEXT,
+        particle43Width / 2,
+        particle43Height / 2
+    );
+
+
+    /* =============================================
+       READ PIXELS
+    ============================================= */
+
+    const imageData =
+        offCtx.getImageData(
+            0,
+            0,
+            particle43Width,
+            particle43Height
+        );
+
+
+    const pixels =
+        imageData.data;
+
+
+    /* =============================================
+       CREATE PARTICLES
+    ============================================= */
+
+    for (
+        let y = 0;
+        y < particle43Height;
+        y += PARTICLE43_DENSITY
+    ) {
+
+        for (
+            let x = 0;
+            x < particle43Width;
+            x += PARTICLE43_DENSITY
+        ) {
+
+            const index =
+                (
+                    y *
+                    particle43Width +
+                    x
+                ) * 4;
+
+
+            const alpha =
+                pixels[
+                    index + 3
+                ];
+
+
+            if (
+                alpha > 128
+            ) {
+
+                particle43Particles.push(
+                    new Particle43(
+                        x,
+                        y
+                    )
+                );
+
+            }
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   RESIZE
+========================================================= */
+
+function resizeParticle43() {
+
+    const rect =
+        particle43Stage.getBoundingClientRect();
+
+
+    const dpr =
+        Math.min(
+            window.devicePixelRatio,
+            2
+        );
+
+
+    particle43Width =
+        Math.floor(
+            rect.width
+        );
+
+    particle43Height =
+        Math.floor(
+            rect.height
+        );
+
+
+    particle43Canvas.width =
+        particle43Width *
+        dpr;
+
+
+    particle43Canvas.height =
+        particle43Height *
+        dpr;
+
+
+    particle43Canvas.style.width =
+        `${particle43Width}px`;
+
+
+    particle43Canvas.style.height =
+        `${particle43Height}px`;
+
+
+    particle43Ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+    );
+
+
+    createParticle43Text();
+
+}
+
+
+window.addEventListener(
+    "resize",
+    resizeParticle43
+);
+
+
+resizeParticle43();
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+particle43Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        particle43Inside = true;
+
+
+        gsap.to(
+            particle43Cursor,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: 0.3
+
+            }
+        );
+
+    }
+);
+
+
+particle43Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        const rect =
+            particle43Stage.getBoundingClientRect();
+
+
+        particle43MouseX =
+            event.clientX -
+            rect.left;
+
+
+        particle43MouseY =
+            event.clientY -
+            rect.top;
+
+
+        particle43TargetX =
+            particle43MouseX;
+
+
+        particle43TargetY =
+            particle43MouseY;
+
+
+        particle43Cursor.style.left =
+            `${particle43TargetX}px`;
+
+
+        particle43Cursor.style.top =
+            `${particle43TargetY}px`;
+
+    }
+);
+
+
+particle43Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        particle43Inside = false;
+
+
+        particle43MouseX =
+            -9999;
+
+        particle43MouseY =
+            -9999;
+
+
+        gsap.to(
+            particle43Cursor,
+            {
+
+                opacity: 0,
+
+                scale: 0,
+
+                duration: 0.3
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   CLICK — EXPLODE ENTIRE TEXT
+========================================================= */
+
+particle43Stage.addEventListener(
+    "click",
+    () => {
+
+        if (
+            particle43Exploding
+        ) return;
+
+
+        particle43Exploding =
+            true;
+
+
+        particle43Particles.forEach(
+            (particle) => {
+
+
+                const angle =
+                    Math.atan2(
+                        particle.y -
+                        particle43MouseY,
+
+                        particle.x -
+                        particle43MouseX
+                    );
+
+
+                const force =
+                    Math.random() *
+                    16 +
+                    6;
+
+
+                particle.vx =
+                    Math.cos(angle) *
+                    force;
+
+
+                particle.vy =
+                    Math.sin(angle) *
+                    force;
+
+
+                particle.opacity =
+                    1;
+
+            }
+        );
+
+
+        /* =============================================
+           REBUILD
+        ============================================= */
+
+        setTimeout(
+            () => {
+
+                particle43Exploding =
+                    false;
+
+
+                particle43Particles.forEach(
+                    (particle) => {
+
+                        particle.vx =
+                            0;
+
+                        particle.vy =
+                            0;
+
+                    }
+                );
+
+            },
+            900
+        );
+
+    }
+);
+
+
+/* =========================================================
+   ANIMATION LOOP
+========================================================= */
+
+function animateParticle43() {
+
+    particle43Ctx.clearRect(
+        0,
+        0,
+        particle43Width,
+        particle43Height
+    );
+
+
+    particle43Particles.forEach(
+        (particle) => {
+
+            particle.update();
+
+            particle.draw();
+
+        }
+    );
+
+
+    requestAnimationFrame(
+        animateParticle43
+    );
+
+}
+
+
+animateParticle43();
 
 
 
