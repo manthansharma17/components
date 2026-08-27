@@ -4283,7 +4283,59 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   CUSTOM CURSOR
+========================================================= */
 
+.particle43-cursor {
+    position: absolute;
+
+    width: 22px;
+    height: 22px;
+
+    left: 50%;
+    top: 50%;
+
+    border: 1px solid rgba(255,255,255,.7);
+
+    border-radius: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 5;
+
+    box-shadow:
+        0 0 20px rgba(255,255,255,.25);
+
+    will-change:
+        left,
+        top,
+        transform,
+        opacity;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .particle43-stage {
+        cursor: default;
+    }
+
+    .particle43-cursor {
+        display: none;
+    }
+
+}
 
 
 
