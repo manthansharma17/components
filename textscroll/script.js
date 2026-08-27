@@ -6745,6 +6745,65 @@ liquid42Stage.addEventListener(
 
     }
 );
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
+
+liquid42Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        const rect =
+            liquid42Stage.getBoundingClientRect();
+
+
+        liquid42MouseX =
+            event.clientX -
+            rect.left;
+
+
+        liquid42MouseY =
+            event.clientY -
+            rect.top;
+
+
+        /* =============================================
+           MOUSE SPEED
+        ============================================= */
+
+        const dx =
+            liquid42MouseX -
+            liquid42PreviousX;
+
+        const dy =
+            liquid42MouseY -
+            liquid42PreviousY;
+
+
+        liquid42Speed =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        liquid42PreviousX =
+            liquid42MouseX;
+
+        liquid42PreviousY =
+            liquid42MouseY;
+
+
+        /* Faster mouse = stronger distortion */
+
+        liquid42Distortion =
+            Math.min(
+                liquid42Speed * 1.5,
+                90
+            );
+
+    }
+);
 
 
 
