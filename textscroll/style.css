@@ -4011,7 +4011,68 @@ JS animates every word toward these positions.
     transform:
         translate(-50%, -50%);
 }
+/* =========================================================
+   HOVER / ACTIVE GLOW
+========================================================= */
 
+.motion41-stage.is-active
+.motion41-center {
+
+    transform:
+        scale(1.03);
+
+    text-shadow:
+        0 0 12px rgba(255,255,255,.7),
+        0 0 45px rgba(255,255,255,.25);
+}
+
+
+/* =========================================================
+   CLICK COLLAPSE
+========================================================= */
+
+.motion41-stage.is-collapsing
+.motion41-center {
+
+    transform:
+        scale(.94);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .motion41-stage {
+        cursor: default;
+    }
+
+    .motion41-center {
+
+        font-size:
+            clamp(
+                4rem,
+                18vw,
+                9rem
+            );
+
+    }
+
+    .motion41-item {
+
+        font-size:
+            clamp(
+                1.8rem,
+                8vw,
+                4rem
+            );
+
+    }
+
+}
 
 /* =========================================================
    REDUCED MOTION
