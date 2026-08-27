@@ -6804,6 +6804,39 @@ liquid42Stage.addEventListener(
 
     }
 );
+/* =========================================================
+   MOUSE LEAVE
+========================================================= */
+
+liquid42Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        liquid42Inside = false;
+
+        liquid42Stage.classList.remove(
+            "is-active"
+        );
+
+
+        gsap.to(
+            liquid42Cursor,
+            {
+
+                opacity: 0,
+
+                scale: 0,
+
+                duration: 0.4,
+
+                ease: "power3.out"
+
+            }
+        );
+
+    }
+);
+
 
 
 
