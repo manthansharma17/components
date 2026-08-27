@@ -6431,6 +6431,139 @@ motion41Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   MOUSE ENTER
+   RESTORE TRAIL
+========================================================= */
+
+motion41Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        gsap.to(
+            motion41Items.map(
+                item => item.element
+            ),
+            {
+
+                opacity: (index) => {
+
+                    return (
+                        .45 *
+                        (
+                            1 -
+                            index /
+                            MOTION41_TRAIL_COUNT
+                        )
+                    );
+
+                },
+
+                duration: .4
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   ANIMATION LOOP
+========================================================= */
+
+function updateMotion41() {
+
+    motion41Items.forEach(
+        (item, index) => {
+
+
+            /* =============================================
+               FIRST TRAIL FOLLOWS MOUSE
+            ============================================= */
+
+            if (index === 0) {
+
+                item.targetX =
+                    motion41MouseX;
+
+                item.targetY =
+                    motion41MouseY;
+
+            }
+
+
+            /* =============================================
+               EACH COPY FOLLOWS PREVIOUS COPY
+            ============================================= */
+
+            else {
+
+                item.targetX =
+                    motion41Items[
+                        index - 1
+                    ].x;
+
+                item.targetY =
+                    motion41Items[
+                        index - 1
+                    ].y;
+
+            }
+
+
+            /* =============================================
+               SMOOTHNESS
+            ============================================= */
+
+            const delay =
+                0.22 -
+                (
+                    index *
+                    0.012
+                );
+
+
+            item.x +=
+                (
+                    item.targetX -
+                    item.x
+                ) *
+                delay;
+
+
+            item.y +=
+                (
+                    item.targetY -
+                    item.y
+                ) *
+                delay;
+
+
+            /* =============================================
+               SPEED EFFECT
+            ============================================= */
+
+            const speedStretch =
+                Math.min(
+                    motion41Speed *
+                    .004,
+                    .25
+                );
+
+
+            const scaleX =
+                1 +
+                speedStretch;
+
+
+            const rotation =
+                Math.min(
+                    motion41Speed *
+                    .08,
+                    10
+                );
+
 
 
 
