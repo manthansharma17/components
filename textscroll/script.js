@@ -6243,6 +6243,92 @@ function createRipple40(x, y) {
 
 }
 
+/* =========================================================
+   SECTION 41
+   MOTION TRAIL
+========================================================= */
+
+const motion41Stage =
+    document.querySelector(
+        ".motion41-stage"
+    );
+
+const motion41Trail =
+    document.querySelector(
+        ".motion41-trail"
+    );
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+const MOTION41_WORD =
+    "MOTION";
+
+const MOTION41_TRAIL_COUNT =
+    12;
+
+
+/* =========================================================
+   CREATE TRAIL ELEMENTS
+========================================================= */
+
+const motion41Items = [];
+
+
+for (
+    let i = 0;
+    i < MOTION41_TRAIL_COUNT;
+    i++
+) {
+
+    const item =
+        document.createElement("span");
+
+    item.className =
+        "motion41-item";
+
+    item.textContent =
+        MOTION41_WORD;
+
+
+    /* Fade trail */
+
+    const opacity =
+        0.5 *
+        (
+            1 -
+            i /
+            MOTION41_TRAIL_COUNT
+        );
+
+
+    item.style.opacity =
+        opacity;
+
+
+    motion41Trail.appendChild(
+        item
+    );
+
+
+    motion41Items.push({
+        element: item,
+
+        x: window.innerWidth / 2,
+
+        y: window.innerHeight / 2,
+
+        targetX:
+            window.innerWidth / 2,
+
+        targetY:
+            window.innerHeight / 2
+    });
+
+}
+
 
 
 
