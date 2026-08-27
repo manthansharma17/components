@@ -6373,23 +6373,27 @@ motion41Stage.addEventListener(
    MOUSE MOVE
 ========================================================= */
 
-motion41Stage.addEventListener(
-    "mousemove",
-    (event) => {
+motion41Stage.addEventListener("mousemove", (event) => {
+  const rect = motion41Stage.getBoundingClientRect();
 
-        const rect =
-            motion41Stage.getBoundingClientRect();
+  motion41MouseX = event.clientX - rect.left;
 
+  motion41MouseY = event.clientY - rect.top;
 
-        motion41MouseX =
-            event.clientX -
-            rect.left;
+  /* =============================================
+           CALCULATE SPEED
+        ============================================= */
 
+  const dx = motion41MouseX - motion41PreviousX;
 
-        motion41MouseY =
-            event.clientY -
-            rect.top;
+  const dy = motion41MouseY - motion41PreviousY;
 
+  motion41Speed = Math.sqrt(dx * dx + dy * dy);
+
+  motion41PreviousX = motion41MouseX;
+
+  motion41PreviousY = motion41MouseY;
+});
 
 
 /* =========================================================
