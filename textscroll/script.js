@@ -6693,6 +6693,59 @@ const liquid42Turbulence =
         "#liquid42Turbulence"
     );
 
+/* =========================================================
+   STATE
+========================================================= */
+
+let liquid42MouseX = 0;
+let liquid42MouseY = 0;
+
+let liquid42CurrentX = 0;
+let liquid42CurrentY = 0;
+
+let liquid42PreviousX = 0;
+let liquid42PreviousY = 0;
+
+let liquid42Speed = 0;
+
+let liquid42Distortion = 0;
+
+let liquid42Inside = false;
+
+
+/* =========================================================
+   MOUSE ENTER
+========================================================= */
+
+liquid42Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        liquid42Inside = true;
+
+        liquid42Stage.classList.add(
+            "is-active"
+        );
+
+
+        gsap.to(
+            liquid42Cursor,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: 0.3,
+
+                ease: "power3.out"
+
+            }
+        );
+
+    }
+);
+
 
 
 
