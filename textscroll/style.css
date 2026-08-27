@@ -4245,7 +4245,43 @@ JS animates every word toward these positions.
         transform;
 }
 
+/* =========================================================
+   ACTIVE
+========================================================= */
 
+.liquid42-stage.is-active
+.liquid42-text {
+
+    text-shadow:
+        0 0 12px rgba(255,255,255,.5),
+        0 0 45px rgba(255,255,255,.15);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .liquid42-stage {
+        cursor: default;
+    }
+
+    .liquid42-text {
+        font-size: clamp(
+            4rem,
+            18vw,
+            8rem
+        );
+    }
+
+    .liquid42-cursor {
+        display: none;
+    }
+
+}
 
 /* =========================================================
    REDUCED MOTION
