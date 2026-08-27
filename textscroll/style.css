@@ -3957,6 +3957,60 @@ JS animates every word toward these positions.
         opacity;
 }
 
+/* =========================================================
+   TRAIL CONTAINER
+========================================================= */
+
+.motion41-trail {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   TRAIL TEXT
+========================================================= */
+
+.motion41-item {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    font-size: clamp(
+        2rem,
+        6vw,
+        7rem
+    );
+
+    font-weight: 900;
+
+    line-height: 1;
+
+    letter-spacing: -.08em;
+
+    white-space: nowrap;
+
+    color: #fff;
+
+    pointer-events: none;
+
+    user-select: none;
+
+    will-change:
+        transform,
+        opacity;
+
+    transform:
+        translate(-50%, -50%);
+}
 
 
 /* =========================================================
