@@ -6887,7 +6887,114 @@ function updateLiquid42() {
 
 updateLiquid42();
 
+/* =========================================================
+   CLICK — LIQUID PULSE
+========================================================= */
 
+liquid42Stage.addEventListener(
+    "click",
+    () => {
+
+        if (!liquid42Inside) return;
+
+
+        /* =============================================
+           POWERFUL DISTORTION PULSE
+        ============================================= */
+
+        const pulse = {
+            value: 110
+        };
+
+
+        gsap.to(
+            pulse,
+            {
+
+                value: 0,
+
+                duration: 1.4,
+
+                ease:
+                    "elastic.out(1,0.35)",
+
+
+                onUpdate: () => {
+
+                    liquid42Distortion =
+                        Math.max(
+                            liquid42Distortion,
+                            pulse.value
+                        );
+
+                }
+
+            }
+        );
+
+
+        /* =============================================
+           TEXT WOBBLE
+        ============================================= */
+
+        gsap.timeline()
+
+            .to(
+                liquid42Text,
+                {
+
+                    scaleX: 1.08,
+
+                    scaleY: 0.93,
+
+                    skewX: -4,
+
+                    duration: 0.18,
+
+                    ease:
+                        "power2.out"
+
+                }
+            )
+
+            .to(
+                liquid42Text,
+                {
+
+                    scaleX: 0.96,
+
+                    scaleY: 1.05,
+
+                    skewX: 3,
+
+                    duration: 0.25,
+
+                    ease:
+                        "power2.inOut"
+
+                }
+            )
+
+            .to(
+                liquid42Text,
+                {
+
+                    scaleX: 1,
+
+                    scaleY: 1,
+
+                    skewX: 0,
+
+                    duration: 0.8,
+
+                    ease:
+                        "elastic.out(1,.35)"
+
+                }
+            );
+
+    }
+);
 
 
 
