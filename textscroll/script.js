@@ -6842,47 +6842,51 @@ liquid42Stage.addEventListener(
 ========================================================= */
 
 function updateLiquid42() {
-
-    /* =============================================
+  /* =============================================
        SMOOTH CURSOR
     ============================================= */
 
-    liquid42CurrentX +=
-        (
-            liquid42MouseX -
-            liquid42CurrentX
-        ) * 0.16;
+  liquid42CurrentX += (liquid42MouseX - liquid42CurrentX) * 0.16;
 
+  liquid42CurrentY += (liquid42MouseY - liquid42CurrentY) * 0.16;
 
-    liquid42CurrentY +=
-        (
-            liquid42MouseY -
-            liquid42CurrentY
-        ) * 0.16;
+  liquid42Cursor.style.left = `${liquid42CurrentX}px`;
 
+  liquid42Cursor.style.top = `${liquid42CurrentY}px`;
 
-    liquid42Cursor.style.left =
-        `${liquid42CurrentX}px`;
-
-
-    liquid42Cursor.style.top =
-        `${liquid42CurrentY}px`;
-
-
-    /* =============================================
+  /* =============================================
        DECAY DISTORTION
     ============================================= */
 
-    liquid42Distortion *=
-        0.94;
+  liquid42Distortion *= 0.94;
 
+  if (!liquid42Inside) {
+    liquid42Distortion *= 0.9;
+  }
+  /* =============================================
+       APPLY SVG DISPLACEMENT
+    ============================================= */
 
-    if (!liquid42Inside) {
+  liquid42Displacement.setAttribute("scale", liquid42Distortion);
 
-        liquid42Distortion *=
-            0.9;
+  /* =============================================
+       ANIMATE TURBULENCE
+    ============================================= */
 
-    }
+  const frequencyX = 0.008 + liquid42Distortion * 0.00004;
+
+  const frequencyY = 0.018 + liquid42Distortion * 0.00008;
+
+  liquid42Turbulence.setAttribute(
+    "baseFrequency",
+    `${frequencyX} ${frequencyY}`,
+  );
+
+  requestAnimationFrame(updateLiquid42);
+}
+
+updateLiquid42();
+
 
 
 
