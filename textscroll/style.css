@@ -4374,7 +4374,78 @@ JS animates every word toward these positions.
     cursor: none;
 }
 
+/* =========================================================
+   LABEL
+========================================================= */
 
+.shatter44-label {
+    position: absolute;
+
+    top: 12%;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    margin: 0;
+
+    font-size: 0.65rem;
+
+    letter-spacing: 0.35em;
+
+    color: rgba(255,255,255,.3);
+
+    white-space: nowrap;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   WORD
+========================================================= */
+
+.shatter44-word {
+    display: flex;
+
+    position: relative;
+
+    font-size: clamp(
+        4.5rem,
+        15vw,
+        16rem
+    );
+
+    font-weight: 900;
+
+    line-height: 0.8;
+
+    letter-spacing: -0.09em;
+
+    white-space: nowrap;
+
+    user-select: none;
+
+    transform-style: preserve-3d;
+}
+
+
+/* =========================================================
+   LETTER
+========================================================= */
+
+.shatter44-char {
+    display: inline-block;
+
+    position: relative;
+
+    transform-origin: center center;
+
+    will-change:
+        transform,
+        filter;
+
+    backface-visibility: hidden;
+}
 
 
 /* =========================================================
