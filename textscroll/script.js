@@ -7750,6 +7750,154 @@ let shatter44Inside = false;
 
 let shatter44Exploding = false;
 
+/* =========================================================
+   MOUSE ENTER
+========================================================= */
+
+shatter44Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        shatter44Inside = true;
+
+
+        shatter44Stage.classList.add(
+            "is-active"
+        );
+
+
+        gsap.to(
+            shatter44Cursor,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: 0.3,
+
+                ease: "power3.out"
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
+
+shatter44Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        const rect =
+            shatter44Stage.getBoundingClientRect();
+
+
+        shatter44MouseX =
+            event.clientX -
+            rect.left;
+
+
+        shatter44MouseY =
+            event.clientY -
+            rect.top;
+
+
+        /* Mouse speed */
+
+        const dx =
+            shatter44MouseX -
+            shatter44PreviousX;
+
+        const dy =
+            shatter44MouseY -
+            shatter44PreviousY;
+
+
+        shatter44Speed =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        shatter44PreviousX =
+            shatter44MouseX;
+
+        shatter44PreviousY =
+            shatter44MouseY;
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE LEAVE
+========================================================= */
+
+shatter44Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        shatter44Inside = false;
+
+
+        shatter44Stage.classList.remove(
+            "is-active"
+        );
+
+
+        gsap.to(
+            shatter44Cursor,
+            {
+
+                opacity: 0,
+
+                scale: 0,
+
+                duration: 0.3
+
+            }
+        );
+
+
+        /* Return all letters */
+
+        if (!shatter44Exploding) {
+
+            gsap.to(
+                shatter44Chars,
+                {
+
+                    x: 0,
+                    y: 0,
+
+                    rotation: 0,
+
+                    scale: 1,
+
+                    filter:
+                        "blur(0px)",
+
+                    duration: 1,
+
+                    stagger: 0.03,
+
+                    ease:
+                        "elastic.out(1,.5)"
+
+                }
+            );
+
+        }
+
+    }
+);
+
 
 
 
