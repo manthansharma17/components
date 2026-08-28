@@ -8143,87 +8143,78 @@ updateShatter44();
    SHATTER EXPLOSION
 ========================================================= */
 
-shatter44Stage.addEventListener(
-    "click",
-    () => {
+shatter44Stage.addEventListener("click", () => {
+  if (shatter44Exploding) return;
 
-        if (
-            shatter44Exploding
-        ) return;
+  shatter44Exploding = true;
 
-
-        shatter44Exploding = true;
-
-
-        /* =============================================
+  /* =============================================
            EXPLODE LETTERS
         ============================================= */
 
-        shatter44Chars.forEach(
-            (
-                char,
-                index
-            ) => {
+  shatter44Chars.forEach((char, index) => {
+    const angle = gsap.utils.random(0, Math.PI * 2);
 
-                const angle =
-                    gsap.utils.random(
-                        0,
-                        Math.PI * 2
-                    );
+    const distance = gsap.utils.random(250, 600);
+
+    const x = Math.cos(angle) * distance;
+
+    const y = Math.sin(angle) * distance;
+
+    gsap.to(char, {
+      x,
+
+      y,
+
+      rotation: gsap.utils.random(-360, 360),
+
+      scale: gsap.utils.random(0.7, 1.3),
+
+      opacity: 0,
+
+      duration: 0.8,
+
+      delay: index * 0.03,
+
+      ease: "power3.out",
+    });
+  });
+
+  /* =============================================
+           REBUILD
+        ============================================= */
+
+  setTimeout(() => {
+    gsap.to(shatter44Chars, {
+      x: 0,
+
+      y: 0,
+
+      rotation: 0,
+
+      scale: 1,
+
+      opacity: 1,
+
+      duration: 1.4,
+
+      stagger: {
+        each: 0.06,
+
+        from: "random",
+      },
+
+      ease: "elastic.out(1,.45)",
+
+      onComplete: () => {
+        shatter44Exploding = false;
+      },
+    });
+  }, 1000);
+});
 
 
-                const distance =
-                    gsap.utils.random(
-                        250,
-                        600
-                    );
 
-
-                const x =
-                    Math.cos(angle) *
-                    distance;
-
-
-                const y =
-                    Math.sin(angle) *
-                    distance;
-
-
-                gsap.to(
-                    char,
-                    {
-
-                        x,
-
-                        y,
-
-                        rotation:
-                            gsap.utils.random(
-                                -360,
-                                360
-                            ),
-
-                        scale:
-                            gsap.utils.random(
-                                0.7,
-                                1.3
-                            ),
-
-                        opacity: 0,
-
-                        duration: 0.8,
-
-                        delay:
-                            index * 0.03,
-
-                        ease:
-                            "power3.out"
-
-                    }
-                );
-
-            }
-        );
 
 
 
