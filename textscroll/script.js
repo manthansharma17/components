@@ -7898,7 +7898,245 @@ shatter44Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   ANIMATION LOOP
+========================================================= */
 
+function updateShatter44() {
+
+    /* Smooth cursor */
+
+    shatter44CurrentX +=
+        (
+            shatter44MouseX -
+            shatter44CurrentX
+        ) * 0.15;
+
+
+    shatter44CurrentY +=
+        (
+            shatter44MouseY -
+            shatter44CurrentY
+        ) * 0.15;
+
+
+    shatter44Cursor.style.left =
+        `${shatter44CurrentX}px`;
+
+
+    shatter44Cursor.style.top =
+        `${shatter44CurrentY}px`;
+
+
+    /* Don't interact during explosion */
+
+    if (!shatter44Exploding) {
+
+        shatter44Chars.forEach(
+            (char) => {
+
+                if (
+                    !shatter44Inside
+                ) return;
+
+
+                const charRect =
+                    char.getBoundingClientRect();
+
+
+                const stageRect =
+                    shatter44Stage.getBoundingClientRect();
+
+
+                const charX =
+                    charRect.left -
+                    stageRect.left +
+                    charRect.width / 2;
+
+
+                const charY =
+                    charRect.top -
+                    stageRect.top +
+                    charRect.height / 2;
+
+
+                /* =========================================
+                   DISTANCE
+                ========================================= */
+
+                const dx =
+                    charX -
+                    shatter44CurrentX;
+
+
+                const dy =
+                    charY -
+                    shatter44CurrentY;
+
+
+                const distance =
+                    Math.sqrt(
+                        dx * dx +
+                        dy * dy
+                    );
+
+
+                /* =========================================
+                   OUTSIDE RANGE
+                ========================================= */
+
+                if (
+                    distance >
+                    SHATTER44_RADIUS
+                ) {
+
+                    gsap.to(
+                        char,
+                        {
+
+                            x: 0,
+                            y: 0,
+
+                            rotation: 0,
+
+                            scale: 1,
+
+                            duration: 0.5,
+
+                            overwrite:
+                                "auto",
+
+                            ease:
+                                "power3.out"
+
+                        }
+                    );
+
+                    return;
+
+                }
+
+
+                /* =========================================
+                   MAGNETIC FORCE
+                ========================================= */
+
+                const strength =
+                    1 -
+                    distance /
+                    SHATTER44_RADIUS;
+
+
+                const force =
+                    strength *
+                    strength;
+
+
+                /* Push away */
+
+                const angle =
+                    Math.atan2(
+                        dy,
+                        dx
+                    );
+
+
+                const moveX =
+                    Math.cos(angle) *
+                    force *
+                    SHATTER44_FORCE;
+
+
+                const moveY =
+                    Math.sin(angle) *
+                    force *
+                    SHATTER44_FORCE;
+
+
+                /* Rotation */
+
+                const rotation =
+                    (
+                        Math.sin(
+                            angle
+                        ) *
+                        force *
+                        25
+                    );
+
+
+                /* Scale */
+
+                const scale =
+                    1 +
+                    force *
+                    0.12;
+
+
+                /* Fast movement shake */
+
+                const shake =
+                    Math.min(
+                        shatter44Speed *
+                        force *
+                        0.04,
+                        8
+                    );
+
+
+                gsap.to(
+                    char,
+                    {
+
+                        x:
+                            moveX +
+                            gsap.utils.random(
+                                -shake,
+                                shake
+                            ),
+
+                        y:
+                            moveY +
+                            gsap.utils.random(
+                                -shake,
+                                shake
+                            ),
+
+                        rotation,
+
+                        scale,
+
+                        duration: 0.18,
+
+                        overwrite:
+                            "auto",
+
+                        ease:
+                            "power2.out"
+
+                    }
+                );
+
+            }
+        );
+
+    }
+
+
+    /* Slow speed decay */
+
+    shatter44Speed *=
+        0.88;
+
+
+    requestAnimationFrame(
+        updateShatter44
+    );
+
+}
+
+
+updateShatter44();
 
 
 
