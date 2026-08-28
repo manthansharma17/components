@@ -4447,6 +4447,85 @@ JS animates every word toward these positions.
     backface-visibility: hidden;
 }
 
+/* =========================================================
+   CUSTOM CURSOR
+========================================================= */
+
+.shatter44-cursor {
+    position: absolute;
+
+    width: 20px;
+    height: 20px;
+
+    left: 50%;
+    top: 50%;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    pointer-events: none;
+
+    z-index: 10;
+
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    box-shadow:
+        0 0 15px rgba(255,255,255,.9),
+        0 0 50px rgba(255,255,255,.25);
+
+    will-change:
+        left,
+        top,
+        transform;
+}
+
+
+/* =========================================================
+   ACTIVE STATE
+========================================================= */
+
+.shatter44-stage.is-active
+.shatter44-word {
+
+    text-shadow:
+        0 0 30px rgba(255,255,255,.08);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .shatter44-stage {
+        cursor: default;
+    }
+
+    .shatter44-word {
+
+        font-size: clamp(
+            3.2rem,
+            15vw,
+            7rem
+        );
+
+    }
+
+    .shatter44-cursor {
+        display: none;
+    }
+
+}
+
+
+
 
 /* =========================================================
    REDUCED MOTION
