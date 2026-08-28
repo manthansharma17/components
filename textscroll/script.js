@@ -8138,6 +8138,92 @@ function updateShatter44() {
 
 updateShatter44();
 
+/* =========================================================
+   CLICK
+   SHATTER EXPLOSION
+========================================================= */
+
+shatter44Stage.addEventListener(
+    "click",
+    () => {
+
+        if (
+            shatter44Exploding
+        ) return;
+
+
+        shatter44Exploding = true;
+
+
+        /* =============================================
+           EXPLODE LETTERS
+        ============================================= */
+
+        shatter44Chars.forEach(
+            (
+                char,
+                index
+            ) => {
+
+                const angle =
+                    gsap.utils.random(
+                        0,
+                        Math.PI * 2
+                    );
+
+
+                const distance =
+                    gsap.utils.random(
+                        250,
+                        600
+                    );
+
+
+                const x =
+                    Math.cos(angle) *
+                    distance;
+
+
+                const y =
+                    Math.sin(angle) *
+                    distance;
+
+
+                gsap.to(
+                    char,
+                    {
+
+                        x,
+
+                        y,
+
+                        rotation:
+                            gsap.utils.random(
+                                -360,
+                                360
+                            ),
+
+                        scale:
+                            gsap.utils.random(
+                                0.7,
+                                1.3
+                            ),
+
+                        opacity: 0,
+
+                        duration: 0.8,
+
+                        delay:
+                            index * 0.03,
+
+                        ease:
+                            "power3.out"
+
+                    }
+                );
+
+            }
+        );
 
 
 
