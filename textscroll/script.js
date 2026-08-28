@@ -7720,6 +7720,36 @@ const shatter44Chars =
         ".shatter44-char"
     );
 
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+const SHATTER44_RADIUS =
+    320;
+
+const SHATTER44_FORCE =
+    120;
+
+
+/* =========================================================
+   MOUSE STATE
+========================================================= */
+
+let shatter44MouseX = 0;
+let shatter44MouseY = 0;
+
+let shatter44CurrentX = 0;
+let shatter44CurrentY = 0;
+
+let shatter44PreviousX = 0;
+let shatter44PreviousY = 0;
+
+let shatter44Speed = 0;
+
+let shatter44Inside = false;
+
+let shatter44Exploding = false;
+
 
 
 
