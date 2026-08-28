@@ -7661,6 +7661,65 @@ function animateParticle43() {
 
 animateParticle43();
 
+/* =========================================================
+   SECTION 44
+   MAGNETIC TEXT SHATTER
+========================================================= */
+
+const shatter44Stage =
+    document.querySelector(
+        ".shatter44-stage"
+    );
+
+const shatter44Word =
+    document.querySelector(
+        ".shatter44-word"
+    );
+
+const shatter44Cursor =
+    document.querySelector(
+        ".shatter44-cursor"
+    );
+
+
+/* =========================================================
+   SPLIT TEXT
+========================================================= */
+
+const shatter44Value =
+    shatter44Word.textContent.trim();
+
+
+shatter44Word.innerHTML = "";
+
+
+[...shatter44Value].forEach(
+    (letter) => {
+
+        const char =
+            document.createElement(
+                "span"
+            );
+
+        char.className =
+            "shatter44-char";
+
+        char.textContent =
+            letter;
+
+        shatter44Word.appendChild(
+            char
+        );
+
+    }
+);
+
+
+const shatter44Chars =
+    gsap.utils.toArray(
+        ".shatter44-char"
+    );
+
 
 
 
