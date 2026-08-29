@@ -8634,7 +8634,191 @@ function updateTunnel45() {
 }
 
 updateTunnel45();
+/* =========================================================
+   CLICK
+   TUNNEL COLLAPSE
+========================================================= */
 
+tunnel45Stage.addEventListener(
+    "click",
+    () => {
+
+        if (
+            tunnel45Collapsing
+        ) return;
+
+
+        tunnel45Collapsing = true;
+
+
+        /* =============================================
+           TEXT FLIES THROUGH SCREEN
+        ============================================= */
+
+        gsap.to(
+            tunnel45Texts,
+            {
+
+                z: 1800,
+
+                scale: 2.5,
+
+                opacity: 0,
+
+                duration: 1,
+
+                stagger: {
+
+                    each: 0.035,
+
+                    from: "center"
+
+                },
+
+                ease:
+                    "power4.in"
+
+            }
+        );
+
+
+        /* =============================================
+           SCENE PUSH
+        ============================================= */
+
+        gsap.to(
+            tunnel45Scene,
+            {
+
+                scale: 0.7,
+
+                duration: 0.7,
+
+                ease:
+                    "power4.in"
+
+            }
+        );
+
+
+        /* =============================================
+           REBUILD
+        ============================================= */
+
+        setTimeout(
+            () => {
+
+                gsap.set(
+                    tunnel45Scene,
+                    {
+
+                        scale: 1
+
+                    }
+                );
+
+
+                setupTunnel45();
+
+
+                gsap.fromTo(
+                    tunnel45Texts,
+
+                    {
+
+                        z: -1500,
+
+                        opacity: 0,
+
+                        scale: 0.5
+
+                    },
+
+                    {
+
+                        z: (index) => {
+
+                            const center =
+                                (
+                                    TUNNEL45_COUNT - 1
+                                ) / 2;
+
+
+                            return (
+                                index -
+                                center
+                            ) * 100;
+
+                        },
+
+                        opacity: (index) => {
+
+                            const center =
+                                (
+                                    TUNNEL45_COUNT - 1
+                                ) / 2;
+
+
+                            return Math.max(
+                                0.08,
+                                1 -
+                                Math.abs(
+                                    index -
+                                    center
+                                ) *
+                                0.08
+                            );
+
+                        },
+
+                        scale: (index) => {
+
+                            const center =
+                                (
+                                    TUNNEL45_COUNT - 1
+                                ) / 2;
+
+
+                            return (
+                                1 -
+                                Math.abs(
+                                    index -
+                                    center
+                                ) *
+                                0.025
+                            );
+
+                        },
+
+                        duration: 1.4,
+
+                        stagger: {
+
+                            each: 0.04,
+
+                            from: "center"
+
+                        },
+
+                        ease:
+                            "power3.out",
+
+                        onComplete: () => {
+
+                            tunnel45Collapsing =
+                                false;
+
+                        }
+
+                    }
+                );
+
+            },
+            1200
+        );
+
+    }
+);
 
 
 /* =========================================================
