@@ -8554,7 +8554,61 @@ tunnel45Stage.addEventListener(
 
     }
 );
+/* =========================================================
+   ANIMATION LOOP
+========================================================= */
 
+function updateTunnel45() {
+
+    /* =============================================
+       SMOOTH ROTATION
+    ============================================= */
+
+    tunnel45CurrentRotateX +=
+        (
+            tunnel45TargetRotateX -
+            tunnel45CurrentRotateX
+        ) *
+        0.08;
+
+
+    tunnel45CurrentRotateY +=
+        (
+            tunnel45TargetRotateY -
+            tunnel45CurrentRotateY
+        ) *
+        0.08;
+
+
+    /* =============================================
+       SPEED DEPTH EFFECT
+    ============================================= */
+
+    const speedDepth =
+        Math.min(
+            tunnel45Speed *
+            1.5,
+            120
+        );
+
+
+    /* =============================================
+       APPLY SCENE ROTATION
+    ============================================= */
+
+    if (!tunnel45Collapsing) {
+
+        tunnel45Scene.style.transform =
+            `
+            rotateX(
+                ${tunnel45CurrentRotateX}deg
+            )
+            rotateY(
+                ${tunnel45CurrentRotateY}deg
+            )
+            `;
+
+    }
 
 
 
