@@ -8305,6 +8305,128 @@ for (
 }
 
 
+/* =========================================================
+   INITIAL LAYER POSITIONS
+========================================================= */
+
+function setupTunnel45() {
+
+    tunnel45Texts.forEach(
+        (text, index) => {
+
+            const center =
+                (
+                    TUNNEL45_COUNT - 1
+                ) / 2;
+
+
+            const distance =
+                index -
+                center;
+
+
+            const z =
+                distance *
+                100;
+
+
+            const scale =
+                1 -
+                Math.abs(distance) *
+                0.025;
+
+
+            const opacity =
+                Math.max(
+                    0.08,
+                    1 -
+                    Math.abs(distance) *
+                    0.08
+                );
+
+
+            gsap.set(
+                text,
+                {
+
+                    xPercent: -50,
+
+                    yPercent: -50,
+
+                    z,
+
+                    scale,
+
+                    opacity
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+setupTunnel45();
+
+
+/* =========================================================
+   MOUSE STATE
+========================================================= */
+
+let tunnel45MouseX = 0;
+let tunnel45MouseY = 0;
+
+let tunnel45TargetRotateX = 0;
+let tunnel45TargetRotateY = 0;
+
+let tunnel45CurrentRotateX = 0;
+let tunnel45CurrentRotateY = 0;
+
+let tunnel45PreviousX = 0;
+let tunnel45PreviousY = 0;
+
+let tunnel45Speed = 0;
+
+let tunnel45Inside = false;
+
+let tunnel45Collapsing = false;
+
+
+/* =========================================================
+   MOUSE ENTER
+========================================================= */
+
+tunnel45Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        tunnel45Inside = true;
+
+
+        tunnel45Stage.classList.add(
+            "is-active"
+        );
+
+
+        gsap.to(
+            tunnel45Cursor,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: 0.3,
+
+                ease: "power3.out"
+
+            }
+        );
+
+    }
+);
 
 
 
