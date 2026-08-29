@@ -8428,6 +8428,132 @@ tunnel45Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
+
+tunnel45Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        const rect =
+            tunnel45Stage.getBoundingClientRect();
+
+
+        tunnel45MouseX =
+            event.clientX -
+            rect.left;
+
+
+        tunnel45MouseY =
+            event.clientY -
+            rect.top;
+
+
+        /* =============================================
+           NORMALIZED MOUSE
+        ============================================= */
+
+        const normalizedX =
+            (
+                tunnel45MouseX /
+                rect.width
+            ) *
+            2 -
+            1;
+
+
+        const normalizedY =
+            (
+                tunnel45MouseY /
+                rect.height
+            ) *
+            2 -
+            1;
+
+
+        /* =============================================
+           ROTATION TARGET
+        ============================================= */
+
+        tunnel45TargetRotateY =
+            normalizedX *
+            18;
+
+
+        tunnel45TargetRotateX =
+            normalizedY *
+            -12;
+
+
+        /* =============================================
+           SPEED
+        ============================================= */
+
+        const dx =
+            tunnel45MouseX -
+            tunnel45PreviousX;
+
+
+        const dy =
+            tunnel45MouseY -
+            tunnel45PreviousY;
+
+
+        tunnel45Speed =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        tunnel45PreviousX =
+            tunnel45MouseX;
+
+
+        tunnel45PreviousY =
+            tunnel45MouseY;
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE LEAVE
+========================================================= */
+
+tunnel45Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        tunnel45Inside = false;
+
+
+        tunnel45Stage.classList.remove(
+            "is-active"
+        );
+
+
+        tunnel45TargetRotateX = 0;
+
+        tunnel45TargetRotateY = 0;
+
+
+        gsap.to(
+            tunnel45Cursor,
+            {
+
+                opacity: 0,
+
+                scale: 0,
+
+                duration: 0.3
+
+            }
+        );
+
+    }
+);
 
 
 
