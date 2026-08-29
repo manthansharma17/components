@@ -4719,7 +4719,45 @@ JS animates every word toward these positions.
         transform;
 }
 
+/* =========================================================
+   ACTIVE GLOW
+========================================================= */
 
+.tunnel45-stage.is-active
+.tunnel45-text.is-main {
+
+    text-shadow:
+        0 0 25px rgba(255,255,255,.7),
+        0 0 90px rgba(255,255,255,.2);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .tunnel45-stage {
+        cursor: default;
+    }
+
+    .tunnel45-text {
+
+        font-size: clamp(
+            3rem,
+            14vw,
+            7rem
+        );
+
+    }
+
+    .tunnel45-cursor {
+        display: none;
+    }
+
+}
 
 
 
