@@ -4628,6 +4628,97 @@ JS animates every word toward these positions.
     justify-content: center;
 }
 
+/* =========================================================
+   INDIVIDUAL TEXT
+========================================================= */
+
+.tunnel45-text {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    margin: 0;
+
+    transform-style: preserve-3d;
+
+    font-size: clamp(
+        4rem,
+        13vw,
+        15rem
+    );
+
+    font-weight: 900;
+
+    line-height: 0.8;
+
+    letter-spacing: -0.09em;
+
+    white-space: nowrap;
+
+    color: #ffffff;
+
+    user-select: none;
+
+    pointer-events: none;
+
+    will-change:
+        transform,
+        opacity,
+        filter;
+}
+
+
+/* =========================================================
+   MAIN LAYER
+========================================================= */
+
+.tunnel45-text.is-main {
+
+    text-shadow:
+        0 0 20px rgba(255,255,255,.15),
+        0 0 80px rgba(255,255,255,.08);
+
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.tunnel45-cursor {
+    position: absolute;
+
+    width: 18px;
+    height: 18px;
+
+    left: 50%;
+    top: 50%;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    pointer-events: none;
+
+    z-index: 20;
+
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    box-shadow:
+        0 0 15px rgba(255,255,255,.8),
+        0 0 45px rgba(255,255,255,.3);
+
+    will-change:
+        left,
+        top,
+        transform;
+}
+
 
 
 
