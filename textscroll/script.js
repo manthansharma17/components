@@ -8559,47 +8559,28 @@ tunnel45Stage.addEventListener(
 ========================================================= */
 
 function updateTunnel45() {
-
-    /* =============================================
+  /* =============================================
        SMOOTH ROTATION
     ============================================= */
 
-    tunnel45CurrentRotateX +=
-        (
-            tunnel45TargetRotateX -
-            tunnel45CurrentRotateX
-        ) *
-        0.08;
+  tunnel45CurrentRotateX +=
+    (tunnel45TargetRotateX - tunnel45CurrentRotateX) * 0.08;
 
+  tunnel45CurrentRotateY +=
+    (tunnel45TargetRotateY - tunnel45CurrentRotateY) * 0.08;
 
-    tunnel45CurrentRotateY +=
-        (
-            tunnel45TargetRotateY -
-            tunnel45CurrentRotateY
-        ) *
-        0.08;
-
-
-    /* =============================================
+  /* =============================================
        SPEED DEPTH EFFECT
     ============================================= */
 
-    const speedDepth =
-        Math.min(
-            tunnel45Speed *
-            1.5,
-            120
-        );
+  const speedDepth = Math.min(tunnel45Speed * 1.5, 120);
 
-
-    /* =============================================
+  /* =============================================
        APPLY SCENE ROTATION
     ============================================= */
 
-    if (!tunnel45Collapsing) {
-
-        tunnel45Scene.style.transform =
-            `
+  if (!tunnel45Collapsing) {
+    tunnel45Scene.style.transform = `
             rotateX(
                 ${tunnel45CurrentRotateX}deg
             )
@@ -8607,10 +8588,52 @@ function updateTunnel45() {
                 ${tunnel45CurrentRotateY}deg
             )
             `;
+  }
 
-    }
+  /* =============================================
+       DYNAMIC LAYER DEPTH
+    ============================================= */
 
+  tunnel45Texts.forEach((text, index) => {
+    if (tunnel45Collapsing) return;
 
+    const center = (TUNNEL45_COUNT - 1) / 2;
+
+    const distance = index - center;
+
+    const z = distance * (100 + speedDepth * 0.25);
+
+    const blur = Math.abs(distance) * 0.15;
+
+    gsap.to(text, {
+      z,
+
+      filter: `blur(${blur}px)`,
+
+      duration: 0.3,
+
+      overwrite: "auto",
+
+      ease: "power2.out",
+    });
+  });
+
+  /* =============================================
+       CURSOR
+    ============================================= */
+
+  tunnel45Cursor.style.left = `${tunnel45MouseX}px`;
+
+  tunnel45Cursor.style.top = `${tunnel45MouseY}px`;
+
+  /* Speed decay */
+
+  tunnel45Speed *= 0.9;
+
+  requestAnimationFrame(updateTunnel45);
+}
+
+updateTunnel45();
 
 
 
