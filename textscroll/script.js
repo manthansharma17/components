@@ -8213,6 +8213,100 @@ shatter44Stage.addEventListener("click", () => {
   }, 1000);
 });
 
+/* =========================================================
+   SECTION 45
+   3D TEXT TUNNEL
+========================================================= */
+
+const tunnel45Stage =
+    document.querySelector(
+        ".tunnel45-stage"
+    );
+
+const tunnel45Scene =
+    document.querySelector(
+        ".tunnel45-scene"
+    );
+
+const tunnel45Layers =
+    document.querySelector(
+        ".tunnel45-layers"
+    );
+
+const tunnel45Cursor =
+    document.querySelector(
+        ".tunnel45-cursor"
+    );
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+const TUNNEL45_WORD =
+    "DIMENSION";
+
+const TUNNEL45_COUNT =
+    17;
+
+
+/* =========================================================
+   CREATE TEXT LAYERS
+========================================================= */
+
+const tunnel45Texts = [];
+
+
+for (
+    let i = 0;
+    i < TUNNEL45_COUNT;
+    i++
+) {
+
+    const text =
+        document.createElement("div");
+
+
+    text.className =
+        "tunnel45-text";
+
+
+    text.textContent =
+        TUNNEL45_WORD;
+
+
+    /* =============================================
+       CENTER LAYER
+    ============================================= */
+
+    if (
+        i ===
+        Math.floor(
+            TUNNEL45_COUNT / 2
+        )
+    ) {
+
+        text.classList.add(
+            "is-main"
+        );
+
+    }
+
+
+    tunnel45Layers.appendChild(
+        text
+    );
+
+
+    tunnel45Texts.push(
+        text
+    );
+
+}
+
+
+
+
 
 
 
