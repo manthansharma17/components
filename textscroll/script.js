@@ -9443,7 +9443,142 @@ let vortex47Inside = false;
 let vortex47Pulsing = false;
 
 
+/* =========================================================
+   MOUSE ENTER
+========================================================= */
 
+vortex47Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        vortex47Inside = true;
+
+
+        gsap.to(
+            vortex47Cursor,
+            {
+                opacity: 1,
+                scale: 1,
+                duration: 0.3,
+                ease: "power3.out"
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
+
+vortex47Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        const rect =
+            vortex47Stage.getBoundingClientRect();
+
+
+        vortex47MouseX =
+            event.clientX -
+            rect.left;
+
+
+        vortex47MouseY =
+            event.clientY -
+            rect.top;
+
+
+        vortex47VelocityX =
+            vortex47MouseX -
+            vortex47PreviousX;
+
+
+        vortex47VelocityY =
+            vortex47MouseY -
+            vortex47PreviousY;
+
+
+        vortex47Speed =
+            Math.sqrt(
+                vortex47VelocityX *
+                vortex47VelocityX +
+
+                vortex47VelocityY *
+                vortex47VelocityY
+            );
+
+
+        vortex47PreviousX =
+            vortex47MouseX;
+
+
+        vortex47PreviousY =
+            vortex47MouseY;
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE LEAVE
+========================================================= */
+
+vortex47Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        vortex47Inside = false;
+
+
+        gsap.to(
+            vortex47Cursor,
+            {
+                opacity: 0,
+                scale: 0,
+                duration: 0.3
+            }
+        );
+
+
+        gsap.to(
+            [
+                vortex47RingOne,
+                vortex47RingTwo
+            ],
+            {
+                opacity: 0,
+                duration: 0.4
+            }
+        );
+
+
+        if (!vortex47Pulsing) {
+
+            gsap.to(
+                vortex47Chars,
+                {
+                    x: 0,
+                    y: 0,
+
+                    rotation: 0,
+
+                    scale: 1,
+
+                    duration: 1,
+
+                    stagger: 0.03,
+
+                    ease:
+                        "elastic.out(1,.5)"
+                }
+            );
+
+        }
+
+    }
+);
 
 
 
