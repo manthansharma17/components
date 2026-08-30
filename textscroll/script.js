@@ -9162,7 +9162,180 @@ function updateScanner46() {
 
 updateScanner46();
 
+/* =========================================================
+   CLICK
+   REVEAL EVERYTHING
+========================================================= */
 
+scanner46Stage.addEventListener(
+    "click",
+    () => {
+
+        if (
+            scanner46Expanded
+        ) return;
+
+
+        scanner46Expanded = true;
+
+
+        const rect =
+            scanner46Stage.getBoundingClientRect();
+
+
+        const maxRadius =
+            Math.sqrt(
+                rect.width *
+                rect.width +
+
+                rect.height *
+                rect.height
+            );
+
+
+        /* =============================================
+           EXPAND REVEAL
+        ============================================= */
+
+        gsap.to(
+            scanner46Reveal,
+            {
+
+                clipPath:
+                    `
+                    circle(
+                        ${maxRadius}px
+                        at
+                        ${scanner46CurrentX}px
+                        ${scanner46CurrentY}px
+                    )
+                    `,
+
+                duration: 1.2,
+
+                ease:
+                    "power4.out"
+
+            }
+        );
+
+
+        /* =============================================
+           EXPAND LIGHT
+        ============================================= */
+
+        gsap.to(
+            scanner46Light,
+            {
+
+                scale: 8,
+
+                opacity: 0,
+
+                duration: 1,
+
+                ease:
+                    "power4.out"
+
+            }
+        );
+
+
+        /* =============================================
+           HIDE CURSOR
+        ============================================= */
+
+        gsap.to(
+            scanner46Cursor,
+            {
+
+                scale: 0,
+
+                opacity: 0,
+
+                duration: 0.3
+
+            }
+        );
+
+
+        /* =============================================
+           RETURN TO DARKNESS
+        ============================================= */
+
+        setTimeout(
+            () => {
+
+                gsap.to(
+                    scanner46Reveal,
+                    {
+
+                        clipPath:
+                            `
+                            circle(
+                                0px
+                                at
+                                ${rect.width / 2}px
+                                ${rect.height / 2}px
+                            )
+                            `,
+
+                        duration: 1.2,
+
+                        ease:
+                            "power3.inOut",
+
+                        onComplete:
+                            () => {
+
+                                scanner46Expanded =
+                                    false;
+
+
+                                if (
+                                    scanner46Inside
+                                ) {
+
+                                    gsap.to(
+                                        scanner46Light,
+                                        {
+
+                                            opacity: 1,
+
+                                            scale: 1,
+
+                                            duration: 0.4
+
+                                        }
+                                    );
+
+
+                                    gsap.to(
+                                        scanner46Cursor,
+                                        {
+
+                                            opacity: 1,
+
+                                            scale: 1,
+
+                                            duration: 0.3
+
+                                        }
+                                    );
+
+                                }
+
+                            }
+
+                    }
+                );
+
+            },
+            2500
+        );
+
+    }
+);
 
 
 
