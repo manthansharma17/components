@@ -9042,6 +9042,125 @@ scanner46Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   ANIMATION LOOP
+========================================================= */
+
+function updateScanner46() {
+
+    /* =============================================
+       SMOOTH MOVEMENT
+    ============================================= */
+
+    scanner46CurrentX +=
+        (
+            scanner46MouseX -
+            scanner46CurrentX
+        ) *
+        0.14;
+
+
+    scanner46CurrentY +=
+        (
+            scanner46MouseY -
+            scanner46CurrentY
+        ) *
+        0.14;
+
+
+    /* =============================================
+       CURSOR POSITION
+    ============================================= */
+
+    scanner46Cursor.style.left =
+        `${scanner46CurrentX}px`;
+
+
+    scanner46Cursor.style.top =
+        `${scanner46CurrentY}px`;
+
+
+    /* =============================================
+       LIGHT POSITION
+    ============================================= */
+
+    scanner46Light.style.left =
+        `${scanner46CurrentX}px`;
+
+
+    scanner46Light.style.top =
+        `${scanner46CurrentY}px`;
+
+
+    /* =============================================
+       SCANNER REVEAL
+    ============================================= */
+
+    if (
+        scanner46Inside &&
+        !scanner46Expanded
+    ) {
+
+        /* Dynamic scanner size */
+
+        const scannerSize =
+            Math.min(
+                115 +
+                scanner46Speed *
+                0.8,
+                220
+            );
+
+
+        scanner46Reveal.style.clipPath =
+            `
+            circle(
+                ${scannerSize}px
+                at
+                ${scanner46CurrentX}px
+                ${scanner46CurrentY}px
+            )
+            `;
+
+
+        /* =========================================
+           FAST MOVEMENT STRETCH
+        ========================================= */
+
+        const stretch =
+            Math.min(
+                scanner46Speed *
+                0.8,
+                2
+            );
+
+
+        scanner46Light.style.transform =
+            `
+            translate(-50%, -50%)
+            scaleX(${stretch})
+            scaleY(${1 / stretch})
+            `;
+
+    }
+
+
+    /* =============================================
+       SPEED DECAY
+    ============================================= */
+
+    scanner46Speed *=
+        0.88;
+
+
+    requestAnimationFrame(
+        updateScanner46
+    );
+
+}
+
+
+updateScanner46();
 
 
 
