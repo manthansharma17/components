@@ -9584,101 +9584,166 @@ vortex47Stage.addEventListener(
 ========================================================= */
 
 function updateVortex47() {
-
-    /* =============================================
+  /* =============================================
        SMOOTH CURSOR
     ============================================= */
 
-    vortex47CurrentX +=
-        (
-            vortex47MouseX -
-            vortex47CurrentX
-        ) *
-        0.16;
+  vortex47CurrentX += (vortex47MouseX - vortex47CurrentX) * 0.16;
 
+  vortex47CurrentY += (vortex47MouseY - vortex47CurrentY) * 0.16;
 
-    vortex47CurrentY +=
-        (
-            vortex47MouseY -
-            vortex47CurrentY
-        ) *
-        0.16;
+  vortex47Cursor.style.left = `${vortex47CurrentX}px`;
 
+  vortex47Cursor.style.top = `${vortex47CurrentY}px`;
 
-    vortex47Cursor.style.left =
-        `${vortex47CurrentX}px`;
-
-
-    vortex47Cursor.style.top =
-        `${vortex47CurrentY}px`;
-
-
-    /* =============================================
+  /* =============================================
        VORTEX RINGS
     ============================================= */
 
-    if (
-        vortex47Inside &&
-        !vortex47Pulsing
-    ) {
+  if (vortex47Inside && !vortex47Pulsing) {
+    vortex47RingOne.style.left = `${vortex47CurrentX}px`;
 
-        vortex47RingOne.style.left =
-            `${vortex47CurrentX}px`;
+    vortex47RingOne.style.top = `${vortex47CurrentY}px`;
 
+    vortex47RingTwo.style.left = `${vortex47CurrentX}px`;
 
-        vortex47RingOne.style.top =
-            `${vortex47CurrentY}px`;
+    vortex47RingTwo.style.top = `${vortex47CurrentY}px`;
 
+    const ringSize = Math.min(80 + vortex47Speed * 3, 250);
 
-        vortex47RingTwo.style.left =
-            `${vortex47CurrentX}px`;
+    gsap.to(vortex47RingOne, {
+      width: ringSize,
+      height: ringSize,
 
+      opacity: 0.6,
 
-        vortex47RingTwo.style.top =
-            `${vortex47CurrentY}px`;
+      duration: 0.25,
 
+      overwrite: "auto",
+    });
 
-        const ringSize =
-            Math.min(
-                80 +
-                vortex47Speed * 3,
-                250
-            );
+    gsap.to(vortex47RingTwo, {
+      width: ringSize * 1.7,
 
+      height: ringSize * 1.7,
 
-        gsap.to(
-            vortex47RingOne,
-            {
-                width: ringSize,
-                height: ringSize,
+      opacity: 0.25,
 
-                opacity: 0.6,
+      duration: 0.4,
 
-                duration: 0.25,
+      overwrite: "auto",
+    });
+  }
+  /* =============================================
+       LETTER VORTEX
+    ============================================= */
 
-                overwrite: "auto"
-            }
-        );
+  if (vortex47Inside && !vortex47Pulsing) {
+    vortex47Chars.forEach((char) => {
+      const charRect = char.getBoundingClientRect();
 
+      const stageRect = vortex47Stage.getBoundingClientRect();
 
-        gsap.to(
-            vortex47RingTwo,
-            {
-                width:
-                    ringSize * 1.7,
+      const charX = charRect.left - stageRect.left + charRect.width / 2;
 
-                height:
-                    ringSize * 1.7,
+      const charY = charRect.top - stageRect.top + charRect.height / 2;
 
-                opacity: 0.25,
+      const dx = charX - vortex47CurrentX;
 
-                duration: 0.4,
+      const dy = charY - vortex47CurrentY;
 
-                overwrite: "auto"
-            }
-        );
+      const distance = Math.sqrt(dx * dx + dy * dy);
 
-    }
+      /* Outside force field */
+
+      if (distance > VORTEX47_RADIUS) {
+        gsap.to(char, {
+          x: 0,
+          y: 0,
+
+          rotation: 0,
+
+          scale: 1,
+
+          duration: 0.5,
+
+          overwrite: "auto",
+
+          ease: "power3.out",
+        });
+
+        return;
+      }
+
+      /* =========================================
+                   FORCE
+                ========================================= */
+
+      const strength = 1 - distance / VORTEX47_RADIUS;
+
+      const force = strength * strength;
+
+      /* =========================================
+                   TANGENTIAL ANGLE
+                   Makes letters move around cursor
+                ========================================= */
+
+      const angle = Math.atan2(dy, dx);
+
+      const tangentAngle = angle + Math.PI / 2;
+
+      /* =========================================
+                   VORTEX MOVEMENT
+                ========================================= */
+
+      const vortexForce = force * VORTEX47_FORCE;
+
+      const moveX = Math.cos(tangentAngle) * vortexForce;
+
+      const moveY = Math.sin(tangentAngle) * vortexForce;
+
+      /* Pull slightly inward */
+
+      const pullX = -Math.cos(angle) * force * 35;
+
+      const pullY = -Math.sin(angle) * force * 35;
+
+      /* Rotation */
+
+      const rotation = force * 80;
+
+      /* Scale */
+
+      const scale = 1 + force * 0.12;
+
+      gsap.to(char, {
+        x: moveX + pullX,
+
+        y: moveY + pullY,
+
+        rotation,
+
+        scale,
+
+        duration: 0.25,
+
+        overwrite: "auto",
+
+        ease: "power2.out",
+      });
+    });
+  }
+
+  /* =============================================
+       SPEED DECAY
+    ============================================= */
+
+  vortex47Speed *= 0.9;
+
+  requestAnimationFrame(updateVortex47);
+}
+
+updateVortex47();
 
 
 
