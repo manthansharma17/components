@@ -8912,7 +8912,135 @@ scanner46Stage.addEventListener(
 
     }
 );
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
 
+scanner46Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        if (
+            scanner46Expanded
+        ) return;
+
+
+        const rect =
+            scanner46Stage.getBoundingClientRect();
+
+
+        scanner46MouseX =
+            event.clientX -
+            rect.left;
+
+
+        scanner46MouseY =
+            event.clientY -
+            rect.top;
+
+
+        /* =============================================
+           CALCULATE SPEED
+        ============================================= */
+
+        const dx =
+            scanner46MouseX -
+            scanner46PreviousX;
+
+
+        const dy =
+            scanner46MouseY -
+            scanner46PreviousY;
+
+
+        scanner46Speed =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        scanner46PreviousX =
+            scanner46MouseX;
+
+
+        scanner46PreviousY =
+            scanner46MouseY;
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE LEAVE
+========================================================= */
+
+scanner46Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        scanner46Inside = false;
+
+
+        if (
+            scanner46Expanded
+        ) return;
+
+
+        gsap.to(
+            scanner46Light,
+            {
+
+                opacity: 0,
+
+                scale: 0,
+
+                duration: 0.3
+
+            }
+        );
+
+
+        gsap.to(
+            scanner46Cursor,
+            {
+
+                opacity: 0,
+
+                scale: 0,
+
+                duration: 0.3
+
+            }
+        );
+
+
+        /* Hide reveal */
+
+        gsap.to(
+            scanner46Reveal,
+            {
+
+                duration: 0.5,
+
+                ease:
+                    "power2.out",
+
+                clipPath:
+                    `
+                    circle(
+                        0px
+                        at
+                        ${scanner46CurrentX}px
+                        ${scanner46CurrentY}px
+                    )
+                    `
+
+            }
+        );
+
+    }
+);
 
 
 
