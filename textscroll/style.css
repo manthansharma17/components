@@ -4825,7 +4825,92 @@ JS animates every word toward these positions.
     z-index: 10;
 }
 
+/* =========================================================
+   TEXT
+========================================================= */
 
+.scanner46-text {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    margin: 0;
+
+    transform:
+        translate(-50%, -50%);
+
+    font-size: clamp(
+        4rem,
+        15vw,
+        17rem
+    );
+
+    font-weight: 900;
+
+    line-height: 0.8;
+
+    letter-spacing: -0.09em;
+
+    white-space: nowrap;
+
+    user-select: none;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   DARK BASE TEXT
+========================================================= */
+
+.scanner46-base {
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
+
+    text-shadow:
+        0 0 30px
+        rgba(
+            255,
+            255,
+            255,
+            0.02
+        );
+}
+
+
+/* =========================================================
+   REVEAL CONTAINER
+========================================================= */
+
+.scanner46-reveal {
+    position: absolute;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 2;
+
+
+    /* Circular reveal area */
+
+    clip-path:
+        circle(
+            0px
+            at
+            50%
+            50%
+        );
+}
 
 
 
