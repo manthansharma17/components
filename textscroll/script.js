@@ -9745,7 +9745,238 @@ function updateVortex47() {
 
 updateVortex47();
 
+/* =========================================================
+   CLICK
+   VORTEX PULSE
+========================================================= */
 
+vortex47Stage.addEventListener(
+    "click",
+    () => {
+
+        if (
+            vortex47Pulsing
+        ) return;
+
+
+        vortex47Pulsing =
+            true;
+
+
+        /* =============================================
+           CENTER OF EXPLOSION
+        ============================================= */
+
+        const stageRect =
+            vortex47Stage.getBoundingClientRect();
+
+
+        vortex47Chars.forEach(
+            (char) => {
+
+                const charRect =
+                    char.getBoundingClientRect();
+
+
+                const charX =
+                    charRect.left -
+                    stageRect.left +
+                    charRect.width / 2;
+
+
+                const charY =
+                    charRect.top -
+                    stageRect.top +
+                    charRect.height / 2;
+
+
+                const dx =
+                    charX -
+                    vortex47CurrentX;
+
+
+                const dy =
+                    charY -
+                    vortex47CurrentY;
+
+
+                const angle =
+                    Math.atan2(
+                        dy,
+                        dx
+                    );
+
+
+                const distance =
+                    Math.random() *
+                    350 +
+                    180;
+
+
+                /* Spiral outward */
+
+                const spiralAngle =
+                    angle +
+                    gsap.utils.random(
+                        -1.5,
+                        1.5
+                    );
+
+
+                gsap.to(
+                    char,
+                    {
+
+                        x:
+                            Math.cos(
+                                spiralAngle
+                            ) *
+                            distance,
+
+
+                        y:
+                            Math.sin(
+                                spiralAngle
+                            ) *
+                            distance,
+
+
+                        rotation:
+                            gsap.utils.random(
+                                -720,
+                                720
+                            ),
+
+
+                        scale:
+                            gsap.utils.random(
+                                0.6,
+                                1.25
+                            ),
+
+
+                        opacity: 0,
+
+
+                        duration: 0.9,
+
+
+                        stagger: 0.03,
+
+
+                        ease:
+                            "power3.out"
+
+                    }
+                );
+
+            }
+        );
+
+
+        /* =============================================
+           VORTEX EXPANSION
+        ============================================= */
+
+        gsap.timeline()
+
+            .set(
+                [
+                    vortex47RingOne,
+                    vortex47RingTwo
+                ],
+                {
+                    opacity: 0.8
+                }
+            )
+
+            .to(
+                vortex47RingOne,
+                {
+                    width: "150vmax",
+                    height: "150vmax",
+
+                    opacity: 0,
+
+                    duration: 1,
+
+                    ease:
+                        "power4.out"
+                },
+                0
+            )
+
+            .to(
+                vortex47RingTwo,
+                {
+                    width: "200vmax",
+                    height: "200vmax",
+
+                    opacity: 0,
+
+                    duration: 1.2,
+
+                    ease:
+                        "power4.out"
+                },
+                0
+            );
+
+
+        /* =============================================
+           REBUILD
+        ============================================= */
+
+        setTimeout(
+            () => {
+
+                gsap.to(
+                    vortex47Chars,
+                    {
+
+                        x: 0,
+                        y: 0,
+
+                        rotation: 0,
+
+                        scale: 1,
+
+                        opacity: 1,
+
+
+                        duration: 1.5,
+
+
+                        stagger:
+                            {
+                                each: 0.07,
+
+                                from:
+                                    "random"
+                            },
+
+
+                        ease:
+                            "elastic.out(1,.45)",
+
+
+                        onComplete:
+                            () => {
+
+                                vortex47Pulsing =
+                                    false;
+
+                            }
+
+                    }
+                );
+
+            },
+            1100
+        );
+
+    }
+);
 
 
 
