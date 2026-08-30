@@ -9337,6 +9337,86 @@ scanner46Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   SECTION 47
+   TEXT WARP VORTEX
+========================================================= */
+
+const vortex47Stage =
+    document.querySelector(
+        ".vortex47-stage"
+    );
+
+const vortex47Word =
+    document.querySelector(
+        "#vortex47Word"
+    );
+
+const vortex47Cursor =
+    document.querySelector(
+        "#vortex47Cursor"
+    );
+
+const vortex47RingOne =
+    document.querySelector(
+        ".vortex47-ring-one"
+    );
+
+const vortex47RingTwo =
+    document.querySelector(
+        ".vortex47-ring-two"
+    );
+
+
+/* =========================================================
+   SPLIT TEXT
+========================================================= */
+
+const vortex47Text =
+    vortex47Word.textContent.trim();
+
+
+vortex47Word.innerHTML = "";
+
+
+[...vortex47Text].forEach(
+    (letter) => {
+
+        const span =
+            document.createElement(
+                "span"
+            );
+
+
+        span.className =
+            "vortex47-char";
+
+
+        span.textContent =
+            letter;
+
+
+        vortex47Word.appendChild(
+            span
+        );
+
+    }
+);
+
+
+const vortex47Chars =
+    gsap.utils.toArray(
+        ".vortex47-char"
+    );
+
+
+
+
+
+
+
+
+
 
 
 /* =========================================================
