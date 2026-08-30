@@ -5285,7 +5285,69 @@ JS animates every word toward these positions.
         rgba(255,255,255,.03);
 }
 
+/* =========================================================
+   CURSOR
+========================================================= */
 
+.vortex47-cursor {
+    position: absolute;
+
+    width: 18px;
+    height: 18px;
+
+    left: 50%;
+    top: 50%;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    pointer-events: none;
+
+    z-index: 20;
+
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    box-shadow:
+        0 0 15px rgba(255,255,255,.9),
+        0 0 50px rgba(255,255,255,.25);
+
+    will-change:
+        left,
+        top,
+        transform;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .vortex47-stage {
+        cursor: default;
+    }
+
+    .vortex47-word {
+
+        font-size: clamp(
+            3.2rem,
+            15vw,
+            7rem
+        );
+
+    }
+
+    .vortex47-cursor {
+        display: none;
+    }
+
+}
 
 
 /* =========================================================
