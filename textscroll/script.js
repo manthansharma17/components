@@ -9409,6 +9409,38 @@ const vortex47Chars =
         ".vortex47-char"
     );
 
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+const VORTEX47_RADIUS =
+    360;
+
+const VORTEX47_FORCE =
+    150;
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let vortex47MouseX = 0;
+let vortex47MouseY = 0;
+
+let vortex47CurrentX = 0;
+let vortex47CurrentY = 0;
+
+let vortex47PreviousX = 0;
+let vortex47PreviousY = 0;
+
+let vortex47VelocityX = 0;
+let vortex47VelocityY = 0;
+
+let vortex47Speed = 0;
+
+let vortex47Inside = false;
+
+let vortex47Pulsing = false;
 
 
 
