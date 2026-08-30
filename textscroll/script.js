@@ -9579,6 +9579,106 @@ vortex47Stage.addEventListener(
 
     }
 );
+/* =========================================================
+   ANIMATION LOOP
+========================================================= */
+
+function updateVortex47() {
+
+    /* =============================================
+       SMOOTH CURSOR
+    ============================================= */
+
+    vortex47CurrentX +=
+        (
+            vortex47MouseX -
+            vortex47CurrentX
+        ) *
+        0.16;
+
+
+    vortex47CurrentY +=
+        (
+            vortex47MouseY -
+            vortex47CurrentY
+        ) *
+        0.16;
+
+
+    vortex47Cursor.style.left =
+        `${vortex47CurrentX}px`;
+
+
+    vortex47Cursor.style.top =
+        `${vortex47CurrentY}px`;
+
+
+    /* =============================================
+       VORTEX RINGS
+    ============================================= */
+
+    if (
+        vortex47Inside &&
+        !vortex47Pulsing
+    ) {
+
+        vortex47RingOne.style.left =
+            `${vortex47CurrentX}px`;
+
+
+        vortex47RingOne.style.top =
+            `${vortex47CurrentY}px`;
+
+
+        vortex47RingTwo.style.left =
+            `${vortex47CurrentX}px`;
+
+
+        vortex47RingTwo.style.top =
+            `${vortex47CurrentY}px`;
+
+
+        const ringSize =
+            Math.min(
+                80 +
+                vortex47Speed * 3,
+                250
+            );
+
+
+        gsap.to(
+            vortex47RingOne,
+            {
+                width: ringSize,
+                height: ringSize,
+
+                opacity: 0.6,
+
+                duration: 0.25,
+
+                overwrite: "auto"
+            }
+        );
+
+
+        gsap.to(
+            vortex47RingTwo,
+            {
+                width:
+                    ringSize * 1.7,
+
+                height:
+                    ringSize * 1.7,
+
+                opacity: 0.25,
+
+                duration: 0.4,
+
+                overwrite: "auto"
+            }
+        );
+
+    }
 
 
 
