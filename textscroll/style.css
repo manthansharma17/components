@@ -5212,7 +5212,78 @@ JS animates every word toward these positions.
 
     z-index: 3;
 }
+/* =========================================================
+   INDIVIDUAL LETTER
+========================================================= */
 
+.vortex47-char {
+    display: inline-block;
+
+    position: relative;
+
+    transform-origin: center center;
+
+    will-change:
+        transform,
+        opacity,
+        filter;
+
+    backface-visibility: hidden;
+}
+
+
+/* =========================================================
+   VORTEX RINGS
+========================================================= */
+
+.vortex47-ring {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 0;
+    height: 0;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    transform:
+        translate(-50%, -50%);
+
+    opacity: 0;
+
+    z-index: 1;
+
+    will-change:
+        width,
+        height,
+        opacity;
+}
+
+
+.vortex47-ring-one {
+    border:
+        1px solid
+        rgba(255,255,255,.18);
+
+    box-shadow:
+        0 0 40px
+        rgba(255,255,255,.05);
+}
+
+
+.vortex47-ring-two {
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    box-shadow:
+        inset
+        0 0 40px
+        rgba(255,255,255,.03);
+}
 
 
 
