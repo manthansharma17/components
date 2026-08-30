@@ -8820,6 +8820,104 @@ tunnel45Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   SECTION 46
+   CURSOR TEXT SCANNER
+========================================================= */
+
+const scanner46Stage =
+    document.querySelector(
+        ".scanner46-stage"
+    );
+
+const scanner46Reveal =
+    document.querySelector(
+        "#scanner46Reveal"
+    );
+
+const scanner46Light =
+    document.querySelector(
+        "#scanner46Light"
+    );
+
+const scanner46Cursor =
+    document.querySelector(
+        "#scanner46Cursor"
+    );
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let scanner46MouseX = 0;
+let scanner46MouseY = 0;
+
+let scanner46CurrentX = 0;
+let scanner46CurrentY = 0;
+
+let scanner46PreviousX = 0;
+let scanner46PreviousY = 0;
+
+let scanner46Speed = 0;
+
+let scanner46Inside = false;
+
+let scanner46Expanded = false;
+
+
+/* =========================================================
+   MOUSE ENTER
+========================================================= */
+
+scanner46Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        scanner46Inside = true;
+
+
+        gsap.to(
+            scanner46Light,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: 0.4,
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+
+        gsap.to(
+            scanner46Cursor,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: 0.3,
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+    }
+);
+
+
+
+
+
+
 
 /* =========================================================
    REFRESH
