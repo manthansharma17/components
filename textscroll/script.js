@@ -10268,6 +10268,216 @@ glitch48Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   CURSOR LOOP
+========================================================= */
+
+function updateGlitch48() {
+
+    glitch48CurrentX +=
+        (
+            glitch48MouseX -
+            glitch48CurrentX
+        ) *
+        0.2;
+
+
+    glitch48CurrentY +=
+        (
+            glitch48MouseY -
+            glitch48CurrentY
+        ) *
+        0.2;
+
+
+    glitch48Cursor.style.left =
+        `${glitch48CurrentX}px`;
+
+
+    glitch48Cursor.style.top =
+        `${glitch48CurrentY}px`;
+
+
+    /* =============================================
+       FAST MOVEMENT EFFECT
+    ============================================= */
+
+    if (
+        glitch48Speed >
+        4 &&
+        !glitch48Corrupting
+    ) {
+
+        const intensity =
+            Math.min(
+                glitch48Speed,
+                40
+            );
+
+
+        /* Whole word distortion */
+
+        gsap.to(
+            glitch48Word,
+            {
+
+                x:
+                    glitch48VelocityX *
+                    0.4,
+
+                y:
+                    glitch48VelocityY *
+                    0.08,
+
+                skewX:
+                    glitch48VelocityX *
+                    0.08,
+
+                duration: 0.08,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
+
+        /* =========================================
+           INDIVIDUAL LETTER GLITCH
+        ========================================= */
+
+        glitch48Chars.forEach(
+            (char) => {
+
+                const charRect =
+                    char.getBoundingClientRect();
+
+
+                const stageRect =
+                    glitch48Stage.getBoundingClientRect();
+
+
+                const charX =
+                    charRect.left -
+                    stageRect.left +
+                    charRect.width /
+                    2;
+
+
+                const distance =
+                    Math.abs(
+                        charX -
+                        glitch48CurrentX
+                    );
+
+
+                /* Stronger near cursor */
+
+                if (
+                    distance <
+                    250
+                ) {
+
+                    const strength =
+                        1 -
+                        distance /
+                        250;
+
+
+                    gsap.to(
+                        char,
+                        {
+
+                            x:
+                                gsap.utils.random(
+                                    -intensity,
+                                    intensity
+                                ) *
+                                strength,
+
+
+                            y:
+                                gsap.utils.random(
+                                    -3,
+                                    3
+                                ),
+
+
+                            rotation:
+                                gsap.utils.random(
+                                    -3,
+                                    3
+                                ),
+
+
+                            duration:
+                                0.08,
+
+
+                            overwrite:
+                                "auto"
+
+                        }
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =============================================
+       SPEED DECAY
+    ============================================= */
+
+    glitch48Speed *=
+        0.85;
+
+
+    /* =============================================
+       RETURN WORD
+    ============================================= */
+
+    if (
+        glitch48Speed <
+        1 &&
+        !glitch48Corrupting
+    ) {
+
+        gsap.to(
+            glitch48Word,
+            {
+
+                x: 0,
+
+                y: 0,
+
+                skewX: 0,
+
+                duration: 0.25,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
+    }
+
+
+    requestAnimationFrame(
+        updateGlitch48
+    );
+
+}
+
+
+updateGlitch48();
+
+
+
 
 /* =========================================================
    REFRESH
