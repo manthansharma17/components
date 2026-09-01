@@ -10082,7 +10082,36 @@ let glitch48Corrupting = false;
 
 let glitch48GlitchTimeout;
 
+/* =========================================================
+   MOUSE ENTER
+========================================================= */
 
+glitch48Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        glitch48Inside =
+            true;
+
+
+        gsap.to(
+            glitch48Cursor,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: 0.3,
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+    }
+);
 
 
 
