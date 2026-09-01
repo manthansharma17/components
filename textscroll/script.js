@@ -9978,6 +9978,47 @@ vortex47Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   SECTION 48
+   NEON TEXT GLITCH MATRIX
+========================================================= */
+
+const glitch48Stage =
+    document.querySelector(
+        ".glitch48-stage"
+    );
+
+const glitch48Word =
+    document.querySelector(
+        "#glitch48Word"
+    );
+
+const glitch48Cursor =
+    document.querySelector(
+        "#glitch48Cursor"
+    );
+
+const glitch48Flash =
+    document.querySelector(
+        "#glitch48Flash"
+    );
+
+
+/* =========================================================
+   SET DATA TEXT
+   Required for ghost layers
+========================================================= */
+
+const glitch48Text =
+    glitch48Word
+        .textContent
+        .trim();
+
+
+glitch48Word.setAttribute(
+    "data-text",
+    glitch48Text
+);
 
 
 
