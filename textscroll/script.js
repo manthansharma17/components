@@ -10112,6 +10112,104 @@ glitch48Stage.addEventListener(
 
     }
 );
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
+
+glitch48Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        if (
+            glitch48Corrupting
+        ) return;
+
+
+        const rect =
+            glitch48Stage.getBoundingClientRect();
+
+
+        glitch48MouseX =
+            event.clientX -
+            rect.left;
+
+
+        glitch48MouseY =
+            event.clientY -
+            rect.top;
+
+
+        /* =============================================
+           VELOCITY
+        ============================================= */
+
+        glitch48VelocityX =
+            glitch48MouseX -
+            glitch48PreviousX;
+
+
+        glitch48VelocityY =
+            glitch48MouseY -
+            glitch48PreviousY;
+
+
+        glitch48Speed =
+            Math.sqrt(
+
+                glitch48VelocityX *
+                glitch48VelocityX
+
+                +
+
+                glitch48VelocityY *
+                glitch48VelocityY
+
+            );
+
+
+        glitch48PreviousX =
+            glitch48MouseX;
+
+
+        glitch48PreviousY =
+            glitch48MouseY;
+
+
+        /* =============================================
+           MOVEMENT STATE
+        ============================================= */
+
+        if (
+            glitch48Speed >
+            12
+        ) {
+
+            glitch48Stage.classList.add(
+                "is-moving"
+            );
+
+
+            clearTimeout(
+                glitch48GlitchTimeout
+            );
+
+
+            glitch48GlitchTimeout =
+                setTimeout(
+                    () => {
+
+                        glitch48Stage.classList.remove(
+                            "is-moving"
+                        );
+
+                    },
+                    120
+                );
+
+        }
+
+    }
+);
 
 
 
