@@ -10020,6 +10020,46 @@ glitch48Word.setAttribute(
     glitch48Text
 );
 
+/* =========================================================
+   SPLIT TEXT
+========================================================= */
+
+glitch48Word.innerHTML =
+    "";
+
+
+[...glitch48Text].forEach(
+    (letter) => {
+
+        const char =
+            document.createElement(
+                "span"
+            );
+
+
+        char.className =
+            "glitch48-char";
+
+
+        char.textContent =
+            letter;
+
+
+        glitch48Word.appendChild(
+            char
+        );
+
+    }
+);
+
+
+const glitch48Chars =
+    gsap.utils.toArray(
+        ".glitch48-char"
+    );
+
+
+
 
 
 
