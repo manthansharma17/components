@@ -10210,7 +10210,63 @@ glitch48Stage.addEventListener(
 
     }
 );
+/* =========================================================
+   MOUSE LEAVE
+========================================================= */
 
+glitch48Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        glitch48Inside =
+            false;
+
+
+        glitch48Stage.classList.remove(
+            "is-moving"
+        );
+
+
+        gsap.to(
+            glitch48Cursor,
+            {
+
+                opacity: 0,
+
+                scale: 0,
+
+                duration: 0.3
+
+            }
+        );
+
+
+        gsap.to(
+            glitch48Chars,
+            {
+
+                x: 0,
+                y: 0,
+
+                rotation: 0,
+
+                opacity: 1,
+
+                filter:
+                    "blur(0px)",
+
+                duration: 0.5,
+
+                stagger: 0.02,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
+    }
+);
 
 
 /* =========================================================
