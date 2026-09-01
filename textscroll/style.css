@@ -5623,6 +5623,7 @@ JS animates every word toward these positions.
 
     pointer-events: none;
 
+
     z-index: 20;
 
     opacity: 0;
@@ -5674,7 +5675,53 @@ JS animates every word toward these positions.
     z-index: 15;
 }
 
+/* =========================================================
+   ACTIVE GLITCH
+========================================================= */
 
+.glitch48-stage.is-moving
+.glitch48-word::before {
+
+    opacity: 0.8;
+
+}
+
+
+.glitch48-stage.is-moving
+.glitch48-word::after {
+
+    opacity: 0.6;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .glitch48-stage {
+        cursor: default;
+    }
+
+
+    .glitch48-word {
+
+        font-size: clamp(
+            3.8rem,
+            16vw,
+            8rem
+        );
+
+    }
+
+
+    .glitch48-cursor {
+        display: none;
+    }
+
+}
 
 
 
