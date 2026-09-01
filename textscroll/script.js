@@ -10476,6 +10476,152 @@ function updateGlitch48() {
 
 updateGlitch48();
 
+/* =========================================================
+   CLICK
+   SYSTEM CORRUPTION
+========================================================= */
+
+glitch48Stage.addEventListener(
+    "click",
+    () => {
+
+        if (
+            glitch48Corrupting
+        ) return;
+
+
+        glitch48Corrupting =
+            true;
+
+
+        /* =============================================
+           FLASH
+        ============================================= */
+
+        gsap.timeline()
+
+            .to(
+                glitch48Flash,
+                {
+
+                    opacity: 0.35,
+
+                    duration: 0.06
+
+                }
+            )
+
+            .to(
+                glitch48Flash,
+                {
+
+                    opacity: 0,
+
+                    duration: 0.15
+
+                }
+            );
+
+
+        /* =============================================
+           MASSIVE GLITCH
+        ============================================= */
+
+        const glitchTimeline =
+            gsap.timeline();
+
+
+        for (
+            let i = 0;
+            i < 10;
+            i++
+        ) {
+
+            glitchTimeline.to(
+                glitch48Chars,
+                {
+
+                    x: () =>
+                        gsap.utils.random(
+                            -80,
+                            80
+                        ),
+
+                    y: () =>
+                        gsap.utils.random(
+                            -20,
+                            20
+                        ),
+
+                    rotation: () =>
+                        gsap.utils.random(
+                            -15,
+                            15
+                        ),
+
+                    opacity: () =>
+                        gsap.utils.random(
+                            0.3,
+                            1
+                        ),
+
+                    duration:
+                        0.05,
+
+                    stagger:
+                        0.01,
+
+                    ease:
+                        "none"
+
+                }
+            );
+
+        }
+
+
+        /* =============================================
+           SYSTEM RESTORE
+        ============================================= */
+
+        glitchTimeline.to(
+            glitch48Chars,
+            {
+
+                x: 0,
+                y: 0,
+
+                rotation: 0,
+
+                opacity: 1,
+
+                duration: 0.8,
+
+                stagger:
+                    {
+                        each: 0.05,
+
+                        from:
+                            "random"
+                    },
+
+                ease:
+                    "power4.out",
+
+
+                onComplete:
+                    () => {
+
+                        glitch48Corrupting =
+                            false;
+
+                    }
+
+            }
+        );
+
+    }
+);
 
 
 
