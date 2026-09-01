@@ -5423,6 +5423,147 @@ JS animates every word toward these positions.
     z-index: 10;
 }
 
+/* =========================================================
+   MAIN WORD
+========================================================= */
+
+.glitch48-word {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: clamp(
+        5rem,
+        18vw,
+        20rem
+    );
+
+    font-weight: 900;
+
+    line-height: 0.8;
+
+    letter-spacing: -0.1em;
+
+    white-space: nowrap;
+
+    user-select: none;
+
+    z-index: 3;
+
+    will-change:
+        transform,
+        filter;
+
+    text-shadow:
+        0 0 20px
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
+}
+
+
+/* =========================================================
+   INDIVIDUAL CHARACTERS
+========================================================= */
+
+.glitch48-char {
+    display: inline-block;
+
+    position: relative;
+
+    transform-origin:
+        center center;
+
+    will-change:
+        transform,
+        opacity,
+        filter;
+}
+
+
+/* =========================================================
+   GHOST TEXT LAYERS
+========================================================= */
+
+.glitch48-word::before,
+.glitch48-word::after {
+    content:
+        attr(data-text);
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+}
+
+
+.glitch48-word::before {
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.45
+        );
+
+    transform:
+        translate(
+            -8px,
+            0
+        );
+
+    clip-path:
+        inset(
+            15% 0
+            65% 0
+        );
+
+}
+
+
+.glitch48-word::after {
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.25
+        );
+
+    transform:
+        translate(
+            8px,
+            0
+        );
+
+    clip-path:
+        inset(
+            65% 0
+            10% 0
+        );
+
+}
+
 
 
 
