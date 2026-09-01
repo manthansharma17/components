@@ -10058,6 +10058,29 @@ const glitch48Chars =
         ".glitch48-char"
     );
 
+/* =========================================================
+   STATE
+========================================================= */
+
+let glitch48MouseX = 0;
+let glitch48MouseY = 0;
+
+let glitch48CurrentX = 0;
+let glitch48CurrentY = 0;
+
+let glitch48PreviousX = 0;
+let glitch48PreviousY = 0;
+
+let glitch48VelocityX = 0;
+let glitch48VelocityY = 0;
+
+let glitch48Speed = 0;
+
+let glitch48Inside = false;
+
+let glitch48Corrupting = false;
+
+let glitch48GlitchTimeout;
 
 
 
