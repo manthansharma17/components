@@ -10959,259 +10959,297 @@ liquid49Stage.addEventListener(
 ========================================================= */
 
 function updateLiquid49() {
-
-    /* =============================================
+  /* =============================================
        SMOOTH CURSOR
     ============================================= */
 
-    liquid49CurrentX +=
-        (
-            liquid49MouseX -
-            liquid49CurrentX
-        ) *
-        0.14;
+  liquid49CurrentX += (liquid49MouseX - liquid49CurrentX) * 0.14;
 
+  liquid49CurrentY += (liquid49MouseY - liquid49CurrentY) * 0.14;
 
-    liquid49CurrentY +=
-        (
-            liquid49MouseY -
-            liquid49CurrentY
-        ) *
-        0.14;
+  liquid49Cursor.style.left = `${liquid49CurrentX}px`;
 
+  liquid49Cursor.style.top = `${liquid49CurrentY}px`;
 
-    liquid49Cursor.style.left =
-        `${liquid49CurrentX}px`;
-
-
-    liquid49Cursor.style.top =
-        `${liquid49CurrentY}px`;
-
-
-    /* =============================================
+  /* =============================================
        LETTER INTERACTION
     ============================================= */
 
-    if (
-        liquid49Inside &&
-        !liquid49Melting
-    ) {
+  if (liquid49Inside && !liquid49Melting) {
+    liquid49Chars.forEach((char) => {
+      const charRect = char.getBoundingClientRect();
 
-        liquid49Chars.forEach(
-            (char) => {
+      const stageRect = liquid49Stage.getBoundingClientRect();
 
-                const charRect =
-                    char
-                        .getBoundingClientRect();
+      const charX = charRect.left - stageRect.left + charRect.width / 2;
 
+      const charY = charRect.top - stageRect.top + charRect.height / 2;
 
-                const stageRect =
-                    liquid49Stage
-                        .getBoundingClientRect();
+      const dx = liquid49CurrentX - charX;
 
+      const dy = liquid49CurrentY - charY;
 
-                const charX =
-                    charRect.left -
-                    stageRect.left +
-                    charRect.width / 2;
+      const distance = Math.sqrt(dx * dx + dy * dy);
 
-
-                const charY =
-                    charRect.top -
-                    stageRect.top +
-                    charRect.height / 2;
-
-
-                const dx =
-                    liquid49CurrentX -
-                    charX;
-
-
-                const dy =
-                    liquid49CurrentY -
-                    charY;
-
-
-                const distance =
-                    Math.sqrt(
-
-                        dx * dx +
-                        dy * dy
-
-                    );
-
-
-                /* =========================================
+      /* =========================================
                    OUTSIDE MAGNETIC FIELD
                 ========================================= */
 
-                if (
-                    distance >
-                    LIQUID49_RADIUS
-                ) {
+      if (distance > LIQUID49_RADIUS) {
+        gsap.to(char, {
+          x: 0,
+          y: 0,
 
-                    gsap.to(
-                        char,
-                        {
+          rotation: 0,
 
-                            x: 0,
-                            y: 0,
+          scaleX: 1,
+          scaleY: 1,
 
-                            rotation: 0,
+          duration: 0.5,
 
-                            scaleX: 1,
-                            scaleY: 1,
+          overwrite: "auto",
 
-                            duration: 0.5,
+          ease: "power3.out",
+        });
 
-                            overwrite:
-                                "auto",
+        return;
+      }
 
-                            ease:
-                                "power3.out"
-
-                        }
-                    );
-
-
-                    return;
-
-                }
-
-
-                /* =========================================
+      /* =========================================
                    MAGNETIC STRENGTH
                 ========================================= */
 
-                const strength =
-                    1 -
-                    distance /
-                    LIQUID49_RADIUS;
+      const strength = 1 - distance / LIQUID49_RADIUS;
 
+      const force = strength * strength;
 
-                const force =
-                    strength *
-                    strength;
-
-
-                /* =========================================
+      /* =========================================
                    PULL TOWARD CURSOR
                 ========================================= */
 
-                const pullX =
-                    dx /
-                    distance *
-                    force *
-                    LIQUID49_MAGNETIC_FORCE;
+      const pullX = (dx / distance) * force * LIQUID49_MAGNETIC_FORCE;
 
+      const pullY = (dy / distance) * force * LIQUID49_MAGNETIC_FORCE;
 
-                const pullY =
-                    dy /
-                    distance *
-                    force *
-                    LIQUID49_MAGNETIC_FORCE;
-
-
-                /* =========================================
+      /* =========================================
                    STRETCH BASED ON SPEED
                 ========================================= */
 
-                const stretch =
-                    Math.min(
+      const stretch = Math.min(
+        liquid49Speed / 25,
 
-                        liquid49Speed /
-                        25,
+        0.35,
+      );
 
-                        0.35
+      /* Direction */
 
-                    );
+      const direction = Math.atan2(
+        liquid49VelocityY,
 
+        liquid49VelocityX,
+      );
 
-                /* Direction */
+      const rotate = direction * (180 / Math.PI) * force * 0.08;
 
-                const direction =
-                    Math.atan2(
-
-                        liquid49VelocityY,
-
-                        liquid49VelocityX
-
-                    );
-
-
-                const rotate =
-                    direction *
-                    (
-                        180 /
-                        Math.PI
-                    ) *
-                    force *
-                    0.08;
-
-
-                /* =========================================
+      /* =========================================
                    DIRECT HOVER
                 ========================================= */
 
-                const hoverScale =
-                    distance < 120
-                        ? 1 +
-                          force *
-                          0.18
-                        : 1;
+      const hoverScale = distance < 120 ? 1 + force * 0.18 : 1;
 
-
-                /* =========================================
+      /* =========================================
                    APPLY
                 ========================================= */
 
-                gsap.to(
-                    char,
-                    {
+      gsap.to(char, {
+        x: pullX,
 
-                        x:
-                            pullX,
+        y: pullY,
 
-                        y:
-                            pullY,
+        rotation: rotate,
 
+        scaleX: hoverScale + stretch,
 
-                        rotation:
-                            rotate,
+        scaleY: hoverScale - stretch * 0.3,
 
+        duration: 0.25,
 
-                        scaleX:
-                            hoverScale +
-                            stretch,
+        overwrite: "auto",
 
+        ease: "power2.out",
+      });
+    });
+  }
 
-                        scaleY:
-                            hoverScale -
-                            stretch *
-                            0.3,
+  /* =============================================
+       SPEED DECAY
+    ============================================= */
 
+  liquid49Speed *= 0.88;
 
-                        duration:
-                            0.25,
+  requestAnimationFrame(updateLiquid49);
+}
 
+updateLiquid49();
 
-                        overwrite:
-                            "auto",
+/* =========================================================
+   CREATE MELTING DROPS
+========================================================= */
 
+function createLiquid49Drops() {
+  const stageRect = liquid49Stage.getBoundingClientRect();
 
-                        ease:
-                            "power2.out"
+  const wordRect = liquid49Word.getBoundingClientRect();
 
-                    }
-                );
+  const totalDrops = 80;
 
-            }
-        );
+  for (let i = 0; i < totalDrops; i++) {
+    const drop = document.createElement("div");
 
-    }
+    drop.className = "liquid49-drop";
 
+    liquid49Stage.appendChild(drop);
 
+    const x = wordRect.left - stageRect.left + Math.random() * wordRect.width;
 
+    const y = wordRect.top - stageRect.top + Math.random() * wordRect.height;
+
+    const size = gsap.utils.random(3, 12);
+
+    gsap.set(drop, {
+      left: x,
+      top: y,
+
+      width: size,
+      height: size,
+
+      opacity: gsap.utils.random(0.5, 1),
+    });
+
+    /* =========================================
+           FALL
+        ========================================= */
+
+    gsap.to(drop, {
+      y: gsap.utils.random(250, 550),
+
+      x: gsap.utils.random(-100, 100),
+
+      scaleY: gsap.utils.random(1.5, 3),
+
+      opacity: 0,
+
+      duration: gsap.utils.random(0.8, 1.8),
+
+      delay: gsap.utils.random(0, 0.5),
+
+      ease: "power2.in",
+
+      onComplete: () => {
+        drop.remove();
+      },
+    });
+  }
+}
+
+/* =========================================================
+   CLICK
+   MELT + REBUILD
+========================================================= */
+
+liquid49Stage.addEventListener("click", () => {
+  if (liquid49Melting) return;
+
+  liquid49Melting = true;
+
+  liquid49Stage.classList.add("is-melting");
+
+  /* =============================================
+           RIPPLE
+        ============================================= */
+
+  createLiquid49Ripple(
+    liquid49CurrentX,
+
+    liquid49CurrentY,
+  );
+
+  /* =============================================
+           MELT LETTERS
+        ============================================= */
+
+  gsap.to(liquid49Chars, {
+    y: 250,
+
+    scaleY: 2.5,
+
+    scaleX: 0.7,
+
+    opacity: 0,
+
+    rotation: () => gsap.utils.random(-8, 8),
+
+    duration: 1.2,
+
+    stagger: {
+      each: 0.08,
+
+      from: "random",
+    },
+
+    ease: "power3.in",
+  });
+
+  /* Create liquid particles */
+
+  createLiquid49Drops();
+
+  /* =============================================
+           REBUILD
+        ============================================= */
+
+  setTimeout(() => {
+    gsap.set(liquid49Chars, {
+      y: -300,
+
+      opacity: 0,
+
+      scaleX: 0.5,
+
+      scaleY: 1.8,
+    });
+
+    gsap.to(liquid49Chars, {
+      x: 0,
+
+      y: 0,
+
+      rotation: 0,
+
+      scaleX: 1,
+
+      scaleY: 1,
+
+      opacity: 1,
+
+      duration: 1.5,
+
+      stagger: {
+        each: 0.1,
+
+        from: "random",
+      },
+
+      ease: "elastic.out(1,.45)",
+
+      onComplete: () => {
+        liquid49Melting = false;
+
+        liquid49Stage.classList.remove("is-melting");
+      },
+    });
+  }, 1600);
+});
 
 
 
