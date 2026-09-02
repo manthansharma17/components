@@ -10799,7 +10799,103 @@ function createLiquid49Ripple(
 
 }
 
+/* =========================================================
+   MOUSE ENTER
+========================================================= */
 
+liquid49Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        liquid49Inside =
+            true;
+
+
+        gsap.to(
+            liquid49Cursor,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: 0.3,
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
+
+liquid49Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        if (
+            liquid49Melting
+        ) return;
+
+
+        const rect =
+            liquid49Stage
+                .getBoundingClientRect();
+
+
+        liquid49MouseX =
+            event.clientX -
+            rect.left;
+
+
+        liquid49MouseY =
+            event.clientY -
+            rect.top;
+
+
+        /* =============================================
+           VELOCITY
+        ============================================= */
+
+        liquid49VelocityX =
+            liquid49MouseX -
+            liquid49PreviousX;
+
+
+        liquid49VelocityY =
+            liquid49MouseY -
+            liquid49PreviousY;
+
+
+        liquid49Speed =
+            Math.sqrt(
+
+                liquid49VelocityX *
+                liquid49VelocityX
+
+                +
+
+                liquid49VelocityY *
+                liquid49VelocityY
+
+            );
+
+
+        liquid49PreviousX =
+            liquid49MouseX;
+
+
+        liquid49PreviousY =
+            liquid49MouseY;
+
+    }
+);
 
 /* =========================================================
    REFRESH
