@@ -10954,6 +10954,262 @@ liquid49Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   ANIMATION LOOP
+========================================================= */
+
+function updateLiquid49() {
+
+    /* =============================================
+       SMOOTH CURSOR
+    ============================================= */
+
+    liquid49CurrentX +=
+        (
+            liquid49MouseX -
+            liquid49CurrentX
+        ) *
+        0.14;
+
+
+    liquid49CurrentY +=
+        (
+            liquid49MouseY -
+            liquid49CurrentY
+        ) *
+        0.14;
+
+
+    liquid49Cursor.style.left =
+        `${liquid49CurrentX}px`;
+
+
+    liquid49Cursor.style.top =
+        `${liquid49CurrentY}px`;
+
+
+    /* =============================================
+       LETTER INTERACTION
+    ============================================= */
+
+    if (
+        liquid49Inside &&
+        !liquid49Melting
+    ) {
+
+        liquid49Chars.forEach(
+            (char) => {
+
+                const charRect =
+                    char
+                        .getBoundingClientRect();
+
+
+                const stageRect =
+                    liquid49Stage
+                        .getBoundingClientRect();
+
+
+                const charX =
+                    charRect.left -
+                    stageRect.left +
+                    charRect.width / 2;
+
+
+                const charY =
+                    charRect.top -
+                    stageRect.top +
+                    charRect.height / 2;
+
+
+                const dx =
+                    liquid49CurrentX -
+                    charX;
+
+
+                const dy =
+                    liquid49CurrentY -
+                    charY;
+
+
+                const distance =
+                    Math.sqrt(
+
+                        dx * dx +
+                        dy * dy
+
+                    );
+
+
+                /* =========================================
+                   OUTSIDE MAGNETIC FIELD
+                ========================================= */
+
+                if (
+                    distance >
+                    LIQUID49_RADIUS
+                ) {
+
+                    gsap.to(
+                        char,
+                        {
+
+                            x: 0,
+                            y: 0,
+
+                            rotation: 0,
+
+                            scaleX: 1,
+                            scaleY: 1,
+
+                            duration: 0.5,
+
+                            overwrite:
+                                "auto",
+
+                            ease:
+                                "power3.out"
+
+                        }
+                    );
+
+
+                    return;
+
+                }
+
+
+                /* =========================================
+                   MAGNETIC STRENGTH
+                ========================================= */
+
+                const strength =
+                    1 -
+                    distance /
+                    LIQUID49_RADIUS;
+
+
+                const force =
+                    strength *
+                    strength;
+
+
+                /* =========================================
+                   PULL TOWARD CURSOR
+                ========================================= */
+
+                const pullX =
+                    dx /
+                    distance *
+                    force *
+                    LIQUID49_MAGNETIC_FORCE;
+
+
+                const pullY =
+                    dy /
+                    distance *
+                    force *
+                    LIQUID49_MAGNETIC_FORCE;
+
+
+                /* =========================================
+                   STRETCH BASED ON SPEED
+                ========================================= */
+
+                const stretch =
+                    Math.min(
+
+                        liquid49Speed /
+                        25,
+
+                        0.35
+
+                    );
+
+
+                /* Direction */
+
+                const direction =
+                    Math.atan2(
+
+                        liquid49VelocityY,
+
+                        liquid49VelocityX
+
+                    );
+
+
+                const rotate =
+                    direction *
+                    (
+                        180 /
+                        Math.PI
+                    ) *
+                    force *
+                    0.08;
+
+
+                /* =========================================
+                   DIRECT HOVER
+                ========================================= */
+
+                const hoverScale =
+                    distance < 120
+                        ? 1 +
+                          force *
+                          0.18
+                        : 1;
+
+
+                /* =========================================
+                   APPLY
+                ========================================= */
+
+                gsap.to(
+                    char,
+                    {
+
+                        x:
+                            pullX,
+
+                        y:
+                            pullY,
+
+
+                        rotation:
+                            rotate,
+
+
+                        scaleX:
+                            hoverScale +
+                            stretch,
+
+
+                        scaleY:
+                            hoverScale -
+                            stretch *
+                            0.3,
+
+
+                        duration:
+                            0.25,
+
+
+                        overwrite:
+                            "auto",
+
+
+                        ease:
+                            "power2.out"
+
+                    }
+                );
+
+            }
+        );
+
+    }
+
 
 
 
