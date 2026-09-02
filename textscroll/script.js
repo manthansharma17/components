@@ -10622,6 +10622,182 @@ glitch48Stage.addEventListener(
 
     }
 );
+/* =========================================================
+   SECTION 49
+   MAGNETIC LIQUID TYPOGRAPHY
+========================================================= */
+
+const liquid49Stage =
+    document.querySelector(
+        ".liquid49-stage"
+    );
+
+const liquid49Word =
+    document.querySelector(
+        "#liquid49Word"
+    );
+
+const liquid49Cursor =
+    document.querySelector(
+        "#liquid49Cursor"
+    );
+
+
+/* =========================================================
+   SPLIT TEXT
+========================================================= */
+
+const liquid49Text =
+    liquid49Word
+        .textContent
+        .trim();
+
+
+liquid49Word.innerHTML =
+    "";
+
+
+[...liquid49Text].forEach(
+    (letter) => {
+
+        const char =
+            document.createElement(
+                "span"
+            );
+
+
+        char.className =
+            "liquid49-char";
+
+
+        char.textContent =
+            letter;
+
+
+        liquid49Word.appendChild(
+            char
+        );
+
+    }
+);
+
+
+const liquid49Chars =
+    gsap.utils.toArray(
+        ".liquid49-char"
+    );
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+const LIQUID49_RADIUS =
+    400;
+
+const LIQUID49_MAGNETIC_FORCE =
+    90;
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let liquid49MouseX = 0;
+let liquid49MouseY = 0;
+
+let liquid49CurrentX = 0;
+let liquid49CurrentY = 0;
+
+let liquid49PreviousX = 0;
+let liquid49PreviousY = 0;
+
+let liquid49VelocityX = 0;
+let liquid49VelocityY = 0;
+
+let liquid49Speed = 0;
+
+let liquid49Inside = false;
+
+let liquid49Melting = false;
+
+
+/* =========================================================
+   CREATE RIPPLE
+========================================================= */
+
+function createLiquid49Ripple(
+    x,
+    y
+) {
+
+    const ripple =
+        document.createElement(
+            "div"
+        );
+
+
+    ripple.className =
+        "liquid49-ripple";
+
+
+    liquid49Stage.appendChild(
+        ripple
+    );
+
+
+    gsap.set(
+        ripple,
+        {
+            left: x,
+            top: y,
+
+            width: 30,
+            height: 30,
+
+            xPercent: -50,
+            yPercent: -50
+        }
+    );
+
+
+    gsap.timeline()
+
+        .to(
+            ripple,
+            {
+
+                width: 250,
+                height: 250,
+
+                opacity: 0.4,
+
+                duration: 0.8,
+
+                ease:
+                    "power2.out"
+
+            }
+        )
+
+        .to(
+            ripple,
+            {
+
+                opacity: 0,
+
+                duration: 0.4,
+
+                onComplete: () => {
+
+                    ripple.remove();
+
+                }
+
+            }
+        );
+
+}
 
 
 
