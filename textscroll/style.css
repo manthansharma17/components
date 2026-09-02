@@ -5723,6 +5723,44 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   SECTION 49
+   MAGNETIC LIQUID TYPOGRAPHY
+========================================================= */
+
+.section-forty-nine {
+    width: 100%;
+    height: 100dvh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #050505;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.liquid49-stage {
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    cursor: none;
+}
+
+
 
 
 
