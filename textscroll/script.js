@@ -10898,6 +10898,70 @@ liquid49Stage.addEventListener(
 );
 
 /* =========================================================
+   MOUSE LEAVE
+========================================================= */
+
+liquid49Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        liquid49Inside =
+            false;
+
+
+        gsap.to(
+            liquid49Cursor,
+            {
+
+                opacity: 0,
+
+                scale: 0,
+
+                duration: 0.3
+
+            }
+        );
+
+
+        if (
+            !liquid49Melting
+        ) {
+
+            gsap.to(
+                liquid49Chars,
+                {
+
+                    x: 0,
+                    y: 0,
+
+                    rotation: 0,
+
+                    scaleX: 1,
+                    scaleY: 1,
+
+                    duration: 1,
+
+                    stagger: 0.05,
+
+                    ease:
+                        "elastic.out(1,.5)"
+
+                }
+            );
+
+        }
+
+    }
+);
+
+
+
+
+
+
+
+
+/* =========================================================
    REFRESH
 ========================================================= */
 
