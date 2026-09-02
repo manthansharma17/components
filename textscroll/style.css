@@ -5822,6 +5822,53 @@ JS animates every word toward these positions.
         url("#liquid49Filter");
 }
 
+/* =========================================================
+   INDIVIDUAL LETTERS
+========================================================= */
+
+.liquid49-char {
+    display: inline-block;
+
+    position: relative;
+
+    transform-origin: center center;
+
+    will-change:
+        transform,
+        filter,
+        opacity;
+
+    text-shadow:
+        0 0 25px
+        rgba(255, 255, 255, 0.08);
+}
+
+
+/* =========================================================
+   LIQUID DROP PARTICLES
+========================================================= */
+
+.liquid49-drop {
+    position: absolute;
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    z-index: 2;
+
+    box-shadow:
+        0 0 12px
+        rgba(255, 255, 255, 0.5);
+}
+
 
 
 
