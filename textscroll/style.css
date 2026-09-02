@@ -5935,7 +5935,83 @@ JS animates every word toward these positions.
     z-index: 1;
 }
 
+/* =========================================================
+   BREATHING ANIMATION
+========================================================= */
 
+@keyframes liquid49Breathe {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            scaleY(1);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-4px)
+            scaleY(1.025);
+
+    }
+
+}
+
+
+.liquid49-stage:not(.is-melting)
+.liquid49-word {
+
+    animation:
+        liquid49Breathe
+        4s
+        ease-in-out
+        infinite;
+
+}
+
+
+/* =========================================================
+   MELTING STATE
+========================================================= */
+
+.liquid49-stage.is-melting
+.liquid49-word {
+
+    animation: none;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .liquid49-stage {
+        cursor: default;
+    }
+
+
+    .liquid49-word {
+
+        font-size: clamp(
+            4rem,
+            18vw,
+            9rem
+        );
+
+    }
+
+
+    .liquid49-cursor {
+        display: none;
+    }
+
+}
 
 
 
