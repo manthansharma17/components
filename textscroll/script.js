@@ -11663,7 +11663,149 @@ function updateSingularity50() {
 
 updateSingularity50();
 
+/* =========================================================
+   CREATE PARTICLES
+========================================================= */
 
+function createSingularity50Particles() {
+
+    const rect =
+        singularity50Stage
+            .getBoundingClientRect();
+
+
+    const centerX =
+        singularity50CurrentX;
+
+
+    const centerY =
+        singularity50CurrentY;
+
+
+    const totalParticles =
+        120;
+
+
+    for (
+        let i = 0;
+        i < totalParticles;
+        i++
+    ) {
+
+        const particle =
+            document.createElement(
+                "div"
+            );
+
+
+        particle.className =
+            "singularity50-particle";
+
+
+        singularity50Particles
+            .appendChild(
+                particle
+            );
+
+
+        const angle =
+            Math.random() *
+            Math.PI *
+            2;
+
+
+        const distance =
+            Math.random() *
+            40;
+
+
+        const startX =
+            centerX +
+            Math.cos(angle) *
+            distance;
+
+
+        const startY =
+            centerY +
+            Math.sin(angle) *
+            distance;
+
+
+        gsap.set(
+            particle,
+            {
+
+                left:
+                    startX,
+
+                top:
+                    startY,
+
+                opacity:
+                    Math.random(),
+
+                scale:
+                    gsap.utils.random(
+                        0.5,
+                        1.5
+                    )
+
+            }
+        );
+
+
+        /* =========================================
+           EXPLODE OUTWARD
+        ========================================= */
+
+        const explodeDistance =
+            gsap.utils.random(
+                150,
+                700
+            );
+
+
+        gsap.to(
+            particle,
+            {
+
+                x:
+                    Math.cos(angle) *
+                    explodeDistance,
+
+
+                y:
+                    Math.sin(angle) *
+                    explodeDistance,
+
+
+                opacity: 0,
+
+
+                duration:
+                    gsap.utils.random(
+                        0.8,
+                        1.8
+                    ),
+
+
+                ease:
+                    "power3.out",
+
+
+                onComplete:
+                    () => {
+
+                        particle.remove();
+
+                    }
+
+            }
+        );
+
+    }
+
+}
 
 
 /* =========================================================
