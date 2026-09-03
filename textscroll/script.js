@@ -11463,6 +11463,205 @@ singularity50Stage.addEventListener(
 
     }
 );
+/* =========================================================
+   MAIN ANIMATION LOOP
+========================================================= */
+
+function updateSingularity50() {
+
+    /* =============================================
+       SMOOTH CURSOR
+    ============================================= */
+
+    singularity50CurrentX +=
+        (
+            singularity50MouseX -
+            singularity50CurrentX
+        ) *
+        0.12;
+
+
+    singularity50CurrentY +=
+        (
+            singularity50MouseY -
+            singularity50CurrentY
+        ) *
+        0.12;
+
+
+    /* =============================================
+       CURSOR POSITION
+    ============================================= */
+
+    singularity50Cursor.style.left =
+        `${singularity50CurrentX}px`;
+
+
+    singularity50Cursor.style.top =
+        `${singularity50CurrentY}px`;
+
+
+    /* =============================================
+       MAGNETIC TYPOGRAPHY
+    ============================================= */
+
+    if (
+        singularity50Inside &&
+        !singularity50Collapsing
+    ) {
+
+        const stageRect =
+            singularity50Stage
+                .getBoundingClientRect();
+
+
+        singularity50Chars.forEach(
+            (char) => {
+
+                const charRect =
+                    char
+                        .getBoundingClientRect();
+
+
+                const charX =
+                    charRect.left -
+                    stageRect.left +
+
+                    charRect.width /
+                    2;
+
+
+                const charY =
+                    charRect.top -
+                    stageRect.top +
+
+                    charRect.height /
+                    2;
+
+
+                const dx =
+                    singularity50CurrentX -
+                    charX;
+
+
+                const dy =
+                    singularity50CurrentY -
+                    charY;
+
+
+                const distance =
+                    Math.sqrt(
+                        dx * dx +
+                        dy * dy
+                    );
+
+
+                const radius =
+                    500;
+
+
+                if (
+                    distance >
+                    radius
+                ) {
+
+                    gsap.to(
+                        char,
+                        {
+
+                            x: 0,
+
+                            y: 0,
+
+                            scale: 1,
+
+                            duration: 0.4,
+
+                            overwrite:
+                                "auto"
+
+                        }
+                    );
+
+
+                    return;
+
+                }
+
+
+                /* =========================================
+                   ATTRACTION STRENGTH
+                ========================================= */
+
+                const strength =
+                    1 -
+                    distance /
+                    radius;
+
+
+                const force =
+                    strength *
+                    strength;
+
+
+                const moveX =
+                    dx /
+                    distance *
+                    force *
+                    110;
+
+
+                const moveY =
+                    dy /
+                    distance *
+                    force *
+                    110;
+
+
+                const scale =
+                    1 +
+                    force *
+                    0.12;
+
+
+                gsap.to(
+                    char,
+                    {
+
+                        x:
+                            moveX,
+
+                        y:
+                            moveY,
+
+                        scale,
+
+                        duration:
+                            0.3,
+
+                        overwrite:
+                            "auto",
+
+                        ease:
+                            "power3.out"
+
+                    }
+                );
+
+            }
+        );
+
+    }
+
+
+    requestAnimationFrame(
+        updateSingularity50
+    );
+
+}
+
+
+updateSingularity50();
 
 
 
