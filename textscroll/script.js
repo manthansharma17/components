@@ -11251,6 +11251,102 @@ liquid49Stage.addEventListener("click", () => {
   }, 1600);
 });
 
+/* =========================================================
+   SECTION 50
+   TYPOGRAPHY SINGULARITY
+========================================================= */
+
+const singularity50Stage =
+    document.querySelector(
+        ".singularity50-stage"
+    );
+
+const singularity50Word =
+    document.querySelector(
+        "#singularity50Word"
+    );
+
+const singularity50Core =
+    document.querySelector(
+        "#singularity50Core"
+    );
+
+const singularity50Cursor =
+    document.querySelector(
+        "#singularity50Cursor"
+    );
+
+const singularity50Particles =
+    document.querySelector(
+        "#singularity50Particles"
+    );
+
+const singularity50Waves =
+    gsap.utils.toArray(
+        ".singularity50-wave"
+    );
+
+
+/* =========================================================
+   SPLIT TEXT
+========================================================= */
+
+const singularity50Text =
+    singularity50Word
+        .textContent
+        .trim();
+
+
+singularity50Word.innerHTML =
+    "";
+
+
+[...singularity50Text].forEach(
+    (letter) => {
+
+        const char =
+            document.createElement(
+                "span"
+            );
+
+
+        char.className =
+            "singularity50-char";
+
+
+        char.textContent =
+            letter;
+
+
+        singularity50Word.appendChild(
+            char
+        );
+
+    }
+);
+
+
+const singularity50Chars =
+    gsap.utils.toArray(
+        ".singularity50-char"
+    );
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let singularity50MouseX = 0;
+let singularity50MouseY = 0;
+
+let singularity50CurrentX = 0;
+let singularity50CurrentY = 0;
+
+let singularity50Inside = false;
+
+let singularity50Collapsing = false;
+
+
 
 
 
