@@ -11806,6 +11806,356 @@ function createSingularity50Particles() {
     }
 
 }
+/* =========================================================
+   SHOCKWAVE
+========================================================= */
+
+function createSingularity50Shockwave(
+    x,
+    y
+) {
+
+    singularity50Waves.forEach(
+        (
+            wave,
+            index
+        ) => {
+
+            gsap.set(
+                wave,
+                {
+
+                    left: x,
+
+                    top: y,
+
+                    scale: 0,
+
+                    opacity: 0.8
+
+                }
+            );
+
+
+            gsap.to(
+                wave,
+                {
+
+                    scale:
+                        35 +
+                        index *
+                        12,
+
+
+                    opacity: 0,
+
+
+                    duration:
+                        1.2 +
+                        index *
+                        0.2,
+
+
+                    delay:
+                        index *
+                        0.12,
+
+
+                    ease:
+                        "power4.out"
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CLICK
+   TYPOGRAPHY COLLAPSE
+========================================================= */
+
+singularity50Stage.addEventListener(
+    "click",
+    () => {
+
+        if (
+            singularity50Collapsing
+        ) return;
+
+
+        singularity50Collapsing =
+            true;
+
+
+        const stageRect =
+            singularity50Stage
+                .getBoundingClientRect();
+
+
+        /* =============================================
+           SHOW CORE
+        ============================================= */
+
+        gsap.set(
+            singularity50Core,
+            {
+
+                left:
+                    singularity50CurrentX,
+
+                top:
+                    singularity50CurrentY
+
+            }
+        );
+
+
+        gsap.to(
+            singularity50Core,
+            {
+
+                opacity: 1,
+
+                scale: 1.5,
+
+                duration: 0.3
+
+            }
+        );
+
+
+        /* =============================================
+           PULL ALL LETTERS INTO CURSOR
+        ============================================= */
+
+        singularity50Chars.forEach(
+            (
+                char,
+                index
+            ) => {
+
+                const charRect =
+                    char
+                        .getBoundingClientRect();
+
+
+                const charX =
+                    charRect.left -
+                    stageRect.left +
+
+                    charRect.width /
+                    2;
+
+
+                const charY =
+                    charRect.top -
+                    stageRect.top +
+
+                    charRect.height /
+                    2;
+
+
+                const dx =
+                    singularity50CurrentX -
+                    charX;
+
+
+                const dy =
+                    singularity50CurrentY -
+                    charY;
+
+
+                gsap.to(
+                    char,
+                    {
+
+                        x:
+                            `+=${dx}`,
+
+                        y:
+                            `+=${dy}`,
+
+                        scale: 0.05,
+
+                        opacity: 0,
+
+
+                        rotation:
+                            gsap.utils.random(
+                                -360,
+                                360
+                            ),
+
+
+                        duration:
+                            0.7,
+
+
+                        delay:
+                            index *
+                            0.03,
+
+
+                        ease:
+                            "power4.in"
+
+                    }
+                );
+
+            }
+        );
+
+
+        /* =============================================
+           CORE PULSE
+        ============================================= */
+
+        gsap.to(
+            singularity50Core,
+            {
+
+                scale: 6,
+
+                duration: 0.7,
+
+                delay: 0.6,
+
+                ease:
+                    "power4.in"
+
+            }
+        );
+
+
+        /* =============================================
+           EXPLOSION
+        ============================================= */
+
+        setTimeout(
+            () => {
+
+                createSingularity50Particles();
+
+
+                createSingularity50Shockwave(
+
+                    singularity50CurrentX,
+
+                    singularity50CurrentY
+
+                );
+
+
+                gsap.to(
+                    singularity50Core,
+                    {
+
+                        scale: 40,
+
+                        opacity: 0,
+
+                        duration: 0.8,
+
+                        ease:
+                            "power4.out"
+
+                    }
+                );
+
+            },
+            850
+        );
+
+
+        /* =============================================
+           REBUILD WORD
+        ============================================= */
+
+        setTimeout(
+            () => {
+
+                gsap.set(
+                    singularity50Chars,
+                    {
+
+                        x: () =>
+                            gsap.utils.random(
+                                -600,
+                                600
+                            ),
+
+                        y: () =>
+                            gsap.utils.random(
+                                -400,
+                                400
+                            ),
+
+                        opacity: 0,
+
+                        scale: 0.3
+
+                    }
+                );
+
+
+                gsap.to(
+                    singularity50Chars,
+                    {
+
+                        x: 0,
+
+                        y: 0,
+
+                        rotation: 0,
+
+                        scale: 1,
+
+                        opacity: 1,
+
+
+                        duration: 1.6,
+
+
+                        stagger:
+                            {
+                                each: 0.08,
+
+                                from:
+                                    "center"
+                            },
+
+
+                        ease:
+                            "elastic.out(1,.5)",
+
+
+                        onComplete:
+                            () => {
+
+                                singularity50Collapsing =
+                                    false;
+
+                            }
+
+                    }
+                );
+
+            },
+            1600
+        );
+
+    }
+);
+
+
+
+
+
+
 
 
 /* =========================================================
