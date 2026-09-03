@@ -6119,6 +6119,178 @@ JS animates every word toward these positions.
 
     z-index: 5;
 }
+/* =========================================================
+   INDIVIDUAL LETTER
+========================================================= */
+
+.singularity50-char {
+    display: inline-block;
+
+    position: relative;
+
+    transform-origin:
+        center center;
+
+    will-change:
+        transform,
+        opacity,
+        filter;
+
+    text-shadow:
+
+        0 0 20px
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
+}
+
+
+/* =========================================================
+   SINGULARITY CORE
+========================================================= */
+
+.singularity50-core {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    z-index: 8;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+
+    box-shadow:
+
+        0 0 10px
+        rgba(
+            255,
+            255,
+            255,
+            1
+        ),
+
+        0 0 40px
+        rgba(
+            255,
+            255,
+            255,
+            0.8
+        ),
+
+        0 0 100px
+        rgba(
+            255,
+            255,
+            255,
+            0.4
+        );
+}
+
+
+/* =========================================================
+   SHOCKWAVES
+========================================================= */
+
+.singularity50-wave {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.6
+        );
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    z-index: 2;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    box-shadow:
+        0 0 20px
+        rgba(
+            255,
+            255,
+            255,
+            0.12
+        );
+}
+
+
+/* =========================================================
+   PARTICLE CONTAINER
+========================================================= */
+
+.singularity50-particles {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 3;
+}
+
+
+/* =========================================================
+   PARTICLE
+========================================================= */
+
+.singularity50-particle {
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    opacity: 0;
+
+    box-shadow:
+
+        0 0 8px
+        rgba(
+            255,
+            255,
+            255,
+            0.8
+        );
+}
+
 
 
 
