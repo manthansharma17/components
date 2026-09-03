@@ -11347,6 +11347,67 @@ let singularity50Inside = false;
 let singularity50Collapsing = false;
 
 
+/* =========================================================
+   MOUSE ENTER
+========================================================= */
+
+singularity50Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        singularity50Inside =
+            true;
+
+
+        gsap.to(
+            singularity50Cursor,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: 0.3,
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
+
+singularity50Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        if (
+            singularity50Collapsing
+        ) return;
+
+
+        const rect =
+            singularity50Stage
+                .getBoundingClientRect();
+
+
+        singularity50MouseX =
+            event.clientX -
+            rect.left;
+
+
+        singularity50MouseY =
+            event.clientY -
+            rect.top;
+
+    }
+);
 
 
 
