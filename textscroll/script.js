@@ -11408,6 +11408,61 @@ singularity50Stage.addEventListener(
 
     }
 );
+/* =========================================================
+   MOUSE LEAVE
+========================================================= */
+
+singularity50Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        singularity50Inside =
+            false;
+
+
+        gsap.to(
+            singularity50Cursor,
+            {
+
+                opacity: 0,
+
+                scale: 0,
+
+                duration: 0.3
+
+            }
+        );
+
+
+        if (
+            !singularity50Collapsing
+        ) {
+
+            gsap.to(
+                singularity50Chars,
+                {
+
+                    x: 0,
+                    y: 0,
+
+                    rotation: 0,
+
+                    scale: 1,
+
+                    duration: 1,
+
+                    stagger: 0.04,
+
+                    ease:
+                        "elastic.out(1,.5)"
+
+                }
+            );
+
+        }
+
+    }
+);
 
 
 
