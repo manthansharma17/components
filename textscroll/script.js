@@ -12687,363 +12687,195 @@ updateGravity51();
    GRAVITATIONAL ORBIT
 ========================================================= */
 
-gravity51Stage.addEventListener(
-    "click",
-    () => {
+gravity51Stage.addEventListener("click", () => {
+  if (gravity51Active) return;
 
-        if (
-            gravity51Active
-        ) return;
+  gravity51Active = true;
 
-
-        gravity51Active =
-            true;
-
-
-        /* =============================================
+  /* =============================================
            GRAVITY CORE
         ============================================= */
 
-        gsap.set(
-            gravity51Core,
-            {
+  gsap.set(gravity51Core, {
+    left: gravity51CurrentX,
 
-                left:
-                    gravity51CurrentX,
+    top: gravity51CurrentY,
 
-                top:
-                    gravity51CurrentY,
+    opacity: 1,
 
-                opacity: 1,
+    scale: 0,
+  });
 
-                scale: 0
+  gsap.to(gravity51Core, {
+    scale: 4,
 
-            }
-        );
+    duration: 0.5,
 
+    ease: "power3.out",
+  });
 
-        gsap.to(
-            gravity51Core,
-            {
-
-                scale: 4,
-
-                duration: 0.5,
-
-                ease:
-                    "power3.out"
-
-            }
-        );
-
-
-        /* =============================================
+  /* =============================================
            ORBIT RINGS
         ============================================= */
 
-        gravity51Orbits.forEach(
-            (
-                orbit,
-                index
-            ) => {
+  gravity51Orbits.forEach((orbit, index) => {
+    gsap.set(orbit, {
+      left: gravity51CurrentX,
 
-                gsap.set(
-                    orbit,
-                    {
+      top: gravity51CurrentY,
 
-                        left:
-                            gravity51CurrentX,
+      opacity: 0,
 
-                        top:
-                            gravity51CurrentY,
+      scale: 0.2,
+    });
 
-                        opacity: 0,
+    gsap.to(orbit, {
+      opacity: 0.5,
 
-                        scale: 0.2
+      scale: 1,
 
-                    }
-                );
+      duration: 0.5,
 
+      delay: index * 0.1,
+    });
+  });
 
-                gsap.to(
-                    orbit,
-                    {
-
-                        opacity: 0.5,
-
-                        scale: 1,
-
-                        duration: 0.5,
-
-                        delay:
-                            index * 0.1
-
-                    }
-                );
-
-            }
-        );
-
-
-        /* =============================================
+  /* =============================================
            CALCULATE ORBIT FOR EACH LETTER
         ============================================= */
 
-        const stageRect =
-            gravity51Stage
-                .getBoundingClientRect();
+  const stageRect = gravity51Stage.getBoundingClientRect();
 
+  gravity51Chars.forEach((char, index) => {
+    const rect = char.getBoundingClientRect();
 
-        gravity51Chars.forEach(
-            (
-                char,
-                index
-            ) => {
+    const x = rect.left - stageRect.left + rect.width / 2;
 
-                const rect =
-                    char
-                        .getBoundingClientRect();
+    const y = rect.top - stageRect.top + rect.height / 2;
 
+    const dx = x - gravity51CurrentX;
 
-                const x =
-                    rect.left -
-                    stageRect.left +
-                    rect.width / 2;
+    const dy = y - gravity51CurrentY;
 
+    const angle = Math.atan2(dy, dx);
 
-                const y =
-                    rect.top -
-                    stageRect.top +
-                    rect.height / 2;
+    const radius = Math.max(
+      Math.sqrt(dx * dx + dy * dy),
 
+      120,
+    );
 
-                const dx =
-                    x -
-                    gravity51CurrentX;
-
-
-                const dy =
-                    y -
-                    gravity51CurrentY;
-
-
-                const angle =
-                    Math.atan2(
-                        dy,
-                        dx
-                    );
-
-
-                const radius =
-                    Math.max(
-
-                        Math.sqrt(
-                            dx * dx +
-                            dy * dy
-                        ),
-
-                        120
-
-                    );
-
-/* =========================================
+    /* =========================================
                    ORBIT TIMELINE
                 ========================================= */
 
-                const orbitTimeline =
-                    gsap.timeline();
+    const orbitTimeline = gsap.timeline();
 
+    orbitTimeline.to(char, {
+      x: () => Math.cos(angle + Math.PI * 0.7) * radius - dx,
 
-                orbitTimeline.to(
-                    char,
-                    {
+      y: () => Math.sin(angle + Math.PI * 0.7) * radius - dy,
 
-                        x: () =>
-                            Math.cos(
-                                angle +
-                                Math.PI *
-                                0.7
-                            ) *
-                            radius -
-                            dx,
+      rotation: 180,
 
+      scale: 0.85,
 
-                        y: () =>
-                            Math.sin(
-                                angle +
-                                Math.PI *
-                                0.7
-                            ) *
-                            radius -
-                            dy,
+      duration: 0.8,
 
+      delay: index * 0.03,
 
-                        rotation:
-                            180,
+      ease: "power3.inOut",
+    });
 
+    orbitTimeline.to(char, {
+      x: () => Math.cos(angle + Math.PI * 1.5) * radius * 0.7 - dx,
 
-                        scale:
-                            0.85,
+      y: () => Math.sin(angle + Math.PI * 1.5) * radius * 0.7 - dy,
 
+      rotation: 360,
 
-                        duration:
-                            0.8,
+      scale: 0.6,
 
+      duration: 0.8,
 
-                        delay:
-                            index *
-                            0.03,
+      ease: "power2.inOut",
+    });
 
-
-                        ease:
-                            "power3.inOut"
-
-                    }
-                );
-
-
-                orbitTimeline.to(
-                    char,
-                    {
-
-                        x: () =>
-                            Math.cos(
-                                angle +
-                                Math.PI *
-                                1.5
-                            ) *
-                            radius *
-                            0.7 -
-                            dx,
-
-
-                        y: () =>
-                            Math.sin(
-                                angle +
-                                Math.PI *
-                                1.5
-                            ) *
-                            radius *
-                            0.7 -
-                            dy,
-
-
-                        rotation:
-                            360,
-
-
-                        scale:
-                            0.6,
-
-
-                        duration:
-                            0.8,
-
-
-                        ease:
-                            "power2.inOut"
-
-                    }
-                );
-
-
-                /* =========================================
+    /* =========================================
                    EXPLOSIVE RELEASE
                 ========================================= */
 
-                orbitTimeline.to(
-                    char,
-                    {
+    orbitTimeline.to(char, {
+      x: gsap.utils.random(-400, 400),
 
-                        x:
-                            gsap.utils.random(
-                                -400,
-                                400
-                            ),
+      y: gsap.utils.random(-300, 300),
 
+      rotation: gsap.utils.random(-540, 540),
 
-                        y:
-                            gsap.utils.random(
-                                -300,
-                                300
-                            ),
+      scale: gsap.utils.random(0.6, 1.3),
 
+      duration: 0.7,
 
-                        rotation:
-                            gsap.utils.random(
-                                -540,
-                                540
-                            ),
+      ease: "power3.out",
+    });
 
-
-                        scale:
-                            gsap.utils.random(
-                                0.6,
-                                1.3
-                            ),
-
-
-                        duration:
-                            0.7,
-
-
-                        ease:
-                            "power3.out"
-
-                    }
-                );
-
-
-                /* =========================================
+    /* =========================================
                    RETURN
                 ========================================= */
 
-                orbitTimeline.to(
-                    char,
-                    {
+    orbitTimeline.to(char, {
+      x: 0,
 
-                        x: 0,
+      y: 0,
 
-                        y: 0,
+      rotation: 0,
 
-                        rotation: 0,
+      scale: 1,
 
-                        scale: 1,
+      duration: 1.4,
 
+      ease: "elastic.out(1,.45)",
+    });
+  });
 
-                        duration:
-                            1.4,
-
-
-                        ease:
-                            "elastic.out(1,.45)"
-
-                    }
-                );
-
-            }
-        );
-
-
-        /* =============================================
+  /* =============================================
            HIDE CORE
         ============================================= */
 
-        gsap.to(
-            gravity51Core,
-            {
+  gsap.to(gravity51Core, {
+    opacity: 0,
 
-                opacity: 0,
+    scale: 0,
 
-                scale: 0,
+    duration: 0.8,
 
-                duration: 0.8,
+    delay: 2.5,
+  });
 
-                delay: 2.5
+  /* =============================================
+           HIDE ORBITS
+        ============================================= */
 
-            }
-        );
+  gsap.to(gravity51Orbits, {
+    opacity: 0,
 
+    scale: 1.5,
+
+    duration: 1,
+
+    delay: 2.2,
+
+    stagger: 0.1,
+  });
+
+  /* =============================================
+           UNLOCK INTERACTION
+        ============================================= */
+
+  setTimeout(() => {
+    gravity51Active = false;
+  }, 4000);
+});
 /* =========================================================
    REFRESH
 ========================================================= */
