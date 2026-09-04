@@ -12411,7 +12411,276 @@ gravity51Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   MAIN LOOP
+========================================================= */
 
+function updateGravity51() {
+
+    /* =============================================
+       SMOOTH CURSOR
+    ============================================= */
+
+    gravity51CurrentX +=
+        (
+            gravity51MouseX -
+            gravity51CurrentX
+        ) *
+        0.14;
+
+
+    gravity51CurrentY +=
+        (
+            gravity51MouseY -
+            gravity51CurrentY
+        ) *
+        0.14;
+
+
+    gravity51Cursor.style.left =
+        `${gravity51CurrentX}px`;
+
+
+    gravity51Cursor.style.top =
+        `${gravity51CurrentY}px`;
+
+
+    /* =============================================
+       LETTER GRAVITY
+    ============================================= */
+
+    if (
+        gravity51Inside &&
+        !gravity51Active
+    ) {
+
+        const stageRect =
+            gravity51Stage
+                .getBoundingClientRect();
+
+
+        gravity51Chars.forEach(
+            (char) => {
+
+                const charRect =
+                    char
+                        .getBoundingClientRect();
+
+
+                const charX =
+                    charRect.left -
+                    stageRect.left +
+                    charRect.width / 2;
+
+
+                const charY =
+                    charRect.top -
+                    stageRect.top +
+                    charRect.height / 2;
+
+
+                const dx =
+                    gravity51CurrentX -
+                    charX;
+
+
+                const dy =
+                    gravity51CurrentY -
+                    charY;
+
+
+                const distance =
+                    Math.sqrt(
+
+                        dx * dx +
+                        dy * dy
+
+                    );
+
+
+                /* =========================================
+                   OUTSIDE FIELD
+                ========================================= */
+
+                if (
+                    distance >
+                    GRAVITY51_RADIUS
+                ) {
+
+                    gsap.to(
+                        char,
+                        {
+
+                            x: 0,
+
+                            y: 0,
+
+                            rotation: 0,
+
+                            scale: 1,
+
+                            filter:
+                                "brightness(1)",
+
+                            duration: 0.5,
+
+                            overwrite:
+                                "auto"
+
+                        }
+                    );
+
+
+                    return;
+
+                }
+
+
+                /* =========================================
+                   GRAVITY STRENGTH
+                ========================================= */
+
+                const strength =
+                    1 -
+                    distance /
+                    GRAVITY51_RADIUS;
+
+
+                const force =
+                    strength *
+                    strength;
+
+
+                /* =========================================
+                   PULL
+                ========================================= */
+
+                const pullX =
+                    dx /
+                    Math.max(
+                        distance,
+                        1
+                    ) *
+                    force *
+                    GRAVITY51_FORCE;
+
+
+                const pullY =
+                    dy /
+                    Math.max(
+                        distance,
+                        1
+                    ) *
+                    force *
+                    GRAVITY51_FORCE;
+
+
+                /* =========================================
+                   ORBITAL OFFSET
+                ========================================= */
+
+                const orbitX =
+                    -dy /
+                    Math.max(
+                        distance,
+                        1
+                    ) *
+                    force *
+                    gravity51Speed *
+                    0.6;
+
+
+                const orbitY =
+                    dx /
+                    Math.max(
+                        distance,
+                        1
+                    ) *
+                    force *
+                    gravity51Speed *
+                    0.6;
+
+
+                /* =========================================
+                   DIRECT HOVER
+                ========================================= */
+
+                const directHover =
+                    distance < 100;
+
+
+                const scale =
+                    directHover
+                        ? 1.15 +
+                          force * 0.15
+                        : 1 +
+                          force * 0.05;
+
+
+                gsap.to(
+                    char,
+                    {
+
+                        x:
+                            pullX +
+                            orbitX,
+
+
+                        y:
+                            pullY +
+                            orbitY,
+
+
+                        rotation:
+                            orbitX *
+                            0.15,
+
+
+                        scale,
+
+
+                        filter:
+                            directHover
+                                ? "brightness(1.4)"
+                                : "brightness(1)",
+
+
+                        duration:
+                            0.25,
+
+
+                        overwrite:
+                            "auto",
+
+
+                        ease:
+                            "power3.out"
+
+                    }
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =============================================
+       SPEED DECAY
+    ============================================= */
+
+    gravity51Speed *=
+        0.88;
+
+
+    requestAnimationFrame(
+        updateGravity51
+    );
+
+}
+
+
+updateGravity51();
 
 
 /* =========================================================
