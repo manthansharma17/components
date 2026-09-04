@@ -12682,6 +12682,170 @@ function updateGravity51() {
 
 updateGravity51();
 
+/* =========================================================
+   CLICK EFFECT
+   GRAVITATIONAL ORBIT
+========================================================= */
+
+gravity51Stage.addEventListener(
+    "click",
+    () => {
+
+        if (
+            gravity51Active
+        ) return;
+
+
+        gravity51Active =
+            true;
+
+
+        /* =============================================
+           GRAVITY CORE
+        ============================================= */
+
+        gsap.set(
+            gravity51Core,
+            {
+
+                left:
+                    gravity51CurrentX,
+
+                top:
+                    gravity51CurrentY,
+
+                opacity: 1,
+
+                scale: 0
+
+            }
+        );
+
+
+        gsap.to(
+            gravity51Core,
+            {
+
+                scale: 4,
+
+                duration: 0.5,
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+
+        /* =============================================
+           ORBIT RINGS
+        ============================================= */
+
+        gravity51Orbits.forEach(
+            (
+                orbit,
+                index
+            ) => {
+
+                gsap.set(
+                    orbit,
+                    {
+
+                        left:
+                            gravity51CurrentX,
+
+                        top:
+                            gravity51CurrentY,
+
+                        opacity: 0,
+
+                        scale: 0.2
+
+                    }
+                );
+
+
+                gsap.to(
+                    orbit,
+                    {
+
+                        opacity: 0.5,
+
+                        scale: 1,
+
+                        duration: 0.5,
+
+                        delay:
+                            index * 0.1
+
+                    }
+                );
+
+            }
+        );
+
+
+        /* =============================================
+           CALCULATE ORBIT FOR EACH LETTER
+        ============================================= */
+
+        const stageRect =
+            gravity51Stage
+                .getBoundingClientRect();
+
+
+        gravity51Chars.forEach(
+            (
+                char,
+                index
+            ) => {
+
+                const rect =
+                    char
+                        .getBoundingClientRect();
+
+
+                const x =
+                    rect.left -
+                    stageRect.left +
+                    rect.width / 2;
+
+
+                const y =
+                    rect.top -
+                    stageRect.top +
+                    rect.height / 2;
+
+
+                const dx =
+                    x -
+                    gravity51CurrentX;
+
+
+                const dy =
+                    y -
+                    gravity51CurrentY;
+
+
+                const angle =
+                    Math.atan2(
+                        dy,
+                        dx
+                    );
+
+
+                const radius =
+                    Math.max(
+
+                        Math.sqrt(
+                            dx * dx +
+                            dy * dy
+                        ),
+
+                        120
+
+                    );
+
 
 /* =========================================================
    REFRESH
