@@ -12259,7 +12259,157 @@ const GRAVITY51_RADIUS =
 const GRAVITY51_FORCE =
     120;
 
+/* =========================================================
+   MOUSE ENTER
+========================================================= */
 
+gravity51Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        gravity51Inside =
+            true;
+
+
+        gsap.to(
+            gravity51Cursor,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: 0.3
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
+
+gravity51Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        if (
+            gravity51Active
+        ) return;
+
+
+        const rect =
+            gravity51Stage
+                .getBoundingClientRect();
+
+
+        gravity51MouseX =
+            event.clientX -
+            rect.left;
+
+
+        gravity51MouseY =
+            event.clientY -
+            rect.top;
+
+
+        /* =============================================
+           VELOCITY
+        ============================================= */
+
+        gravity51VelocityX =
+            gravity51MouseX -
+            gravity51PreviousX;
+
+
+        gravity51VelocityY =
+            gravity51MouseY -
+            gravity51PreviousY;
+
+
+        gravity51Speed =
+            Math.sqrt(
+
+                gravity51VelocityX *
+                gravity51VelocityX
+
+                +
+
+                gravity51VelocityY *
+                gravity51VelocityY
+
+            );
+
+
+        gravity51PreviousX =
+            gravity51MouseX;
+
+
+        gravity51PreviousY =
+            gravity51MouseY;
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE LEAVE
+========================================================= */
+
+gravity51Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        gravity51Inside =
+            false;
+
+
+        gsap.to(
+            gravity51Cursor,
+            {
+
+                opacity: 0,
+
+                scale: 0,
+
+                duration: 0.3
+
+            }
+        );
+
+
+        if (
+            !gravity51Active
+        ) {
+
+            gsap.to(
+                gravity51Chars,
+                {
+
+                    x: 0,
+                    y: 0,
+
+                    rotation: 0,
+
+                    scale: 1,
+
+                    duration: 1,
+
+                    stagger: 0.04,
+
+                    ease:
+                        "elastic.out(1,.5)"
+
+                }
+            );
+
+        }
+
+    }
+);
 
 
 
