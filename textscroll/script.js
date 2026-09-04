@@ -12846,6 +12846,203 @@ gravity51Stage.addEventListener(
 
                     );
 
+/* =========================================
+                   ORBIT TIMELINE
+                ========================================= */
+
+                const orbitTimeline =
+                    gsap.timeline();
+
+
+                orbitTimeline.to(
+                    char,
+                    {
+
+                        x: () =>
+                            Math.cos(
+                                angle +
+                                Math.PI *
+                                0.7
+                            ) *
+                            radius -
+                            dx,
+
+
+                        y: () =>
+                            Math.sin(
+                                angle +
+                                Math.PI *
+                                0.7
+                            ) *
+                            radius -
+                            dy,
+
+
+                        rotation:
+                            180,
+
+
+                        scale:
+                            0.85,
+
+
+                        duration:
+                            0.8,
+
+
+                        delay:
+                            index *
+                            0.03,
+
+
+                        ease:
+                            "power3.inOut"
+
+                    }
+                );
+
+
+                orbitTimeline.to(
+                    char,
+                    {
+
+                        x: () =>
+                            Math.cos(
+                                angle +
+                                Math.PI *
+                                1.5
+                            ) *
+                            radius *
+                            0.7 -
+                            dx,
+
+
+                        y: () =>
+                            Math.sin(
+                                angle +
+                                Math.PI *
+                                1.5
+                            ) *
+                            radius *
+                            0.7 -
+                            dy,
+
+
+                        rotation:
+                            360,
+
+
+                        scale:
+                            0.6,
+
+
+                        duration:
+                            0.8,
+
+
+                        ease:
+                            "power2.inOut"
+
+                    }
+                );
+
+
+                /* =========================================
+                   EXPLOSIVE RELEASE
+                ========================================= */
+
+                orbitTimeline.to(
+                    char,
+                    {
+
+                        x:
+                            gsap.utils.random(
+                                -400,
+                                400
+                            ),
+
+
+                        y:
+                            gsap.utils.random(
+                                -300,
+                                300
+                            ),
+
+
+                        rotation:
+                            gsap.utils.random(
+                                -540,
+                                540
+                            ),
+
+
+                        scale:
+                            gsap.utils.random(
+                                0.6,
+                                1.3
+                            ),
+
+
+                        duration:
+                            0.7,
+
+
+                        ease:
+                            "power3.out"
+
+                    }
+                );
+
+
+                /* =========================================
+                   RETURN
+                ========================================= */
+
+                orbitTimeline.to(
+                    char,
+                    {
+
+                        x: 0,
+
+                        y: 0,
+
+                        rotation: 0,
+
+                        scale: 1,
+
+
+                        duration:
+                            1.4,
+
+
+                        ease:
+                            "elastic.out(1,.45)"
+
+                    }
+                );
+
+            }
+        );
+
+
+        /* =============================================
+           HIDE CORE
+        ============================================= */
+
+        gsap.to(
+            gravity51Core,
+            {
+
+                opacity: 0,
+
+                scale: 0,
+
+                duration: 0.8,
+
+                delay: 2.5
+
+            }
+        );
 
 /* =========================================================
    REFRESH
