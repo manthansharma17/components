@@ -12151,6 +12151,80 @@ singularity50Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   SECTION 51
+   TYPOGRAPHY GRAVITY FIELD
+========================================================= */
+
+const gravity51Stage =
+    document.querySelector(
+        ".gravity51-stage"
+    );
+
+const gravity51Word =
+    document.querySelector(
+        "#gravity51Word"
+    );
+
+const gravity51Core =
+    document.querySelector(
+        "#gravity51Core"
+    );
+
+const gravity51Cursor =
+    document.querySelector(
+        "#gravity51Cursor"
+    );
+
+const gravity51Orbits =
+    gsap.utils.toArray(
+        ".gravity51-orbit"
+    );
+
+
+/* =========================================================
+   SPLIT TEXT
+========================================================= */
+
+const gravity51Text =
+    gravity51Word
+        .textContent
+        .trim();
+
+
+gravity51Word.innerHTML =
+    "";
+
+
+[...gravity51Text].forEach(
+    (letter) => {
+
+        const char =
+            document.createElement(
+                "span"
+            );
+
+
+        char.className =
+            "gravity51-char";
+
+
+        char.textContent =
+            letter;
+
+
+        gravity51Word.appendChild(
+            char
+        );
+
+    }
+);
+
+
+const gravity51Chars =
+    gsap.utils.toArray(
+        ".gravity51-char"
+    );
 
 
 
