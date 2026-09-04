@@ -12226,6 +12226,38 @@ const gravity51Chars =
         ".gravity51-char"
     );
 
+/* =========================================================
+   STATE
+========================================================= */
+
+let gravity51MouseX = 0;
+let gravity51MouseY = 0;
+
+let gravity51CurrentX = 0;
+let gravity51CurrentY = 0;
+
+let gravity51PreviousX = 0;
+let gravity51PreviousY = 0;
+
+let gravity51VelocityX = 0;
+let gravity51VelocityY = 0;
+
+let gravity51Speed = 0;
+
+let gravity51Inside = false;
+
+let gravity51Active = false;
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+const GRAVITY51_RADIUS =
+    500;
+
+const GRAVITY51_FORCE =
+    120;
 
 
 
