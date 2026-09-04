@@ -6367,6 +6367,79 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   SECTION 51
+   TYPOGRAPHY GRAVITY FIELD
+========================================================= */
+
+.section-fifty-one {
+    width: 100%;
+    height: 100dvh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #050505;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.gravity51-stage {
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    cursor: none;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.gravity51-label {
+    position: absolute;
+
+    top: 12%;
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    margin: 0;
+
+    font-size: 0.65rem;
+
+    letter-spacing: 0.35em;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.3
+        );
+
+    white-space: nowrap;
+
+    pointer-events: none;
+
+    z-index: 10;
+}
+
 
 
 
