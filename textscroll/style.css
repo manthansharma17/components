@@ -6583,6 +6583,70 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   CUSTOM CURSOR
+========================================================= */
+
+.gravity51-cursor {
+    position: absolute;
+
+    width: 16px;
+    height: 16px;
+
+    left: 50%;
+    top: 50%;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    z-index: 20;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    box-shadow:
+
+        0 0 15px
+        rgba(255,255,255,0.9),
+
+        0 0 50px
+        rgba(255,255,255,0.2);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .gravity51-stage {
+        cursor: default;
+    }
+
+
+    .gravity51-word {
+
+        font-size: clamp(
+            3rem,
+            14vw,
+            7rem
+        );
+
+    }
+
+
+    .gravity51-cursor {
+        display: none;
+    }
+
+}
 
 
 
