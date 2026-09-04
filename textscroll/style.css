@@ -6439,7 +6439,58 @@ JS animates every word toward these positions.
 
     z-index: 10;
 }
+/* =========================================================
+   WORD
+========================================================= */
 
+.gravity51-word {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: clamp(
+        4rem,
+        16vw,
+        19rem
+    );
+
+    font-weight: 900;
+
+    line-height: 0.8;
+
+    letter-spacing: -0.08em;
+
+    white-space: nowrap;
+
+    user-select: none;
+
+    z-index: 5;
+}
+
+
+/* =========================================================
+   INDIVIDUAL LETTER
+========================================================= */
+
+.gravity51-char {
+    position: relative;
+
+    display: inline-block;
+
+    transform-origin:
+        center center;
+
+    will-change:
+        transform,
+        filter,
+        opacity;
+
+    transition:
+        color 0.3s ease;
+}
 
 
 
