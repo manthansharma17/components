@@ -6825,6 +6825,100 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   REFLECTION
+========================================================= */
+
+.reflection52-reflection {
+
+    position: absolute;
+
+    left: 50%;
+    top: 0;
+
+    transform:
+        translateX(-50%)
+        scaleY(-1);
+
+    transform-origin:
+        center top;
+
+    font-size: clamp(
+        4rem,
+        15vw,
+        18rem
+    );
+
+    font-weight: 900;
+
+    line-height: .8;
+
+    letter-spacing: -.09em;
+
+    white-space: nowrap;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            .22
+        );
+
+    filter:
+        blur(1.5px);
+
+    opacity: .75;
+
+    pointer-events: none;
+
+    will-change:
+        transform,
+        filter,
+        opacity;
+
+}
+
+
+/* =========================================================
+   WATER GRADIENT
+========================================================= */
+
+.reflection52-water::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            to bottom,
+
+            rgba(
+                5,
+                5,
+                5,
+                0
+            ),
+
+            rgba(
+                5,
+                5,
+                5,
+                .5
+            ) 45%,
+
+            #050505 100%
+        );
+
+    z-index: 3;
+
+}
+
 
 
 
