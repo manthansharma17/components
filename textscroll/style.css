@@ -6749,6 +6749,81 @@ JS animates every word toward these positions.
     z-index: 5;
 
 }
+/* =========================================================
+   MAIN WORD
+========================================================= */
+
+.reflection52-word {
+
+    position: relative;
+
+    font-size: clamp(
+        4rem,
+        15vw,
+        18rem
+    );
+
+    font-weight: 900;
+
+    line-height: .8;
+
+    letter-spacing: -.09em;
+
+    white-space: nowrap;
+
+    user-select: none;
+
+    z-index: 5;
+
+    will-change:
+        transform,
+        filter;
+
+    text-shadow:
+
+        0 0 25px
+        rgba(
+            255,
+            255,
+            255,
+            .08
+        );
+
+}
+
+
+/* =========================================================
+   WATER
+========================================================= */
+
+.reflection52-water {
+
+    position: relative;
+
+    width: 100%;
+
+    height: clamp(
+        100px,
+        10vw,
+        180px
+    );
+
+    margin-top: 12px;
+
+    overflow: hidden;
+
+    border-top:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .12
+        );
+
+    z-index: 2;
+
+}
 
 
 
