@@ -13314,6 +13314,125 @@ function updateReflection52() {
 
     }
 
+/* =============================================
+       SPEED DECAY
+    ============================================= */
+
+    reflection52Speed *= .88;
+
+
+    requestAnimationFrame(
+        updateReflection52
+    );
+
+}
+
+
+updateReflection52();
+
+
+/* =========================================================
+   CLICK
+   BREAK THE REFLECTION
+========================================================= */
+
+reflection52Stage.addEventListener(
+    "click",
+    () => {
+
+        if (
+            reflection52Animating
+        ) return;
+
+
+        reflection52Animating = true;
+
+
+        const rect =
+            reflection52Stage
+                .getBoundingClientRect();
+
+
+        const clickX =
+            reflection52CurrentX;
+
+
+        const clickY =
+            reflection52CurrentY;
+
+
+        /* =============================================
+           WATER RIPPLE
+        ============================================= */
+
+        createReflection52Ripple(
+            clickX,
+            clickY,
+            350
+        );
+
+
+        createReflection52Ripple(
+            clickX,
+            clickY,
+            550
+        );
+
+
+        createReflection52Ripple(
+            clickX,
+            clickY,
+            800
+        );
+
+
+        /* =============================================
+           MAIN WORD FLOATS UP
+        ============================================= */
+
+        gsap.to(
+            reflection52Word,
+            {
+
+                y: -35,
+
+                scale:
+                    1.03,
+
+                duration: .45,
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+
+        /* =============================================
+           REFLECTION BREAKS
+        ============================================= */
+
+        gsap.to(
+            reflection52Reflection,
+            {
+
+                y: 25,
+
+                scaleX: 1.25,
+
+                opacity: .05,
+
+                filter:
+                    "blur(8px)",
+
+                duration: .5,
+
+                ease:
+                    "power3.in"
+
+            }
+        );
+
 
 
 
