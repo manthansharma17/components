@@ -6919,6 +6919,176 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   WATER WAVES
+========================================================= */
+
+.reflection52-water::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: -10%;
+
+    top: 5px;
+
+    width: 120%;
+
+    height: 80%;
+
+    opacity: .18;
+
+    pointer-events: none;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+
+            transparent 0px,
+
+            transparent 9px,
+
+            rgba(
+                255,
+                255,
+                255,
+                .08
+            ) 10px,
+
+            transparent 11px
+        );
+
+    animation:
+        reflection52WaterMove
+        5s
+        linear
+        infinite;
+
+    z-index: 2;
+
+}
+
+
+@keyframes reflection52WaterMove {
+
+    from {
+
+        transform:
+            translateX(-2%);
+
+    }
+
+    to {
+
+        transform:
+            translateX(2%);
+
+    }
+
+}
+
+
+/* =========================================================
+   MOUSE LIGHT
+========================================================= */
+
+.reflection52-light {
+
+    position: absolute;
+
+    width: 420px;
+    height: 420px;
+
+    left: 50%;
+    top: 50%;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    z-index: 1;
+
+    transform:
+        translate(-50%, -50%);
+
+    background:
+        radial-gradient(
+            circle,
+
+            rgba(
+                255,
+                255,
+                255,
+                .09
+            ) 0%,
+
+            rgba(
+                255,
+                255,
+                255,
+                .025
+            ) 35%,
+
+            transparent 72%
+        );
+
+    filter:
+        blur(10px);
+
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.reflection52-cursor {
+
+    position: absolute;
+
+    width: 14px;
+    height: 14px;
+
+    left: 50%;
+    top: 50%;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    z-index: 30;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    box-shadow:
+
+        0 0 12px
+        rgba(
+            255,
+            255,
+            255,
+            .9
+        ),
+
+        0 0 40px
+        rgba(
+            255,
+            255,
+            255,
+            .25
+        );
+
+}
+
 
 
 
