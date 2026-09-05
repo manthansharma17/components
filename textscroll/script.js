@@ -13336,104 +13336,113 @@ updateReflection52();
    BREAK THE REFLECTION
 ========================================================= */
 
-reflection52Stage.addEventListener(
-    "click",
-    () => {
+reflection52Stage.addEventListener("click", () => {
+  if (reflection52Animating) return;
 
-        if (
-            reflection52Animating
-        ) return;
+  reflection52Animating = true;
 
+  const rect = reflection52Stage.getBoundingClientRect();
 
-        reflection52Animating = true;
+  const clickX = reflection52CurrentX;
 
+  const clickY = reflection52CurrentY;
 
-        const rect =
-            reflection52Stage
-                .getBoundingClientRect();
-
-
-        const clickX =
-            reflection52CurrentX;
-
-
-        const clickY =
-            reflection52CurrentY;
-
-
-        /* =============================================
+  /* =============================================
            WATER RIPPLE
         ============================================= */
 
-        createReflection52Ripple(
-            clickX,
-            clickY,
-            350
-        );
+  createReflection52Ripple(clickX, clickY, 350);
 
+  createReflection52Ripple(clickX, clickY, 550);
 
-        createReflection52Ripple(
-            clickX,
-            clickY,
-            550
-        );
+  createReflection52Ripple(clickX, clickY, 800);
 
-
-        createReflection52Ripple(
-            clickX,
-            clickY,
-            800
-        );
-
-
-        /* =============================================
+  /* =============================================
            MAIN WORD FLOATS UP
         ============================================= */
 
-        gsap.to(
-            reflection52Word,
-            {
+  gsap.to(reflection52Word, {
+    y: -35,
 
-                y: -35,
+    scale: 1.03,
 
-                scale:
-                    1.03,
+    duration: 0.45,
 
-                duration: .45,
+    ease: "power3.out",
+  });
 
-                ease:
-                    "power3.out"
-
-            }
-        );
-
-
-        /* =============================================
+  /* =============================================
            REFLECTION BREAKS
         ============================================= */
 
-        gsap.to(
-            reflection52Reflection,
-            {
+  gsap.to(reflection52Reflection, {
+    y: 25,
 
-                y: 25,
+    scaleX: 1.25,
 
-                scaleX: 1.25,
+    opacity: 0.05,
 
-                opacity: .05,
+    filter: "blur(8px)",
 
-                filter:
-                    "blur(8px)",
+    duration: 0.5,
 
-                duration: .5,
+    ease: "power3.in",
+  });
 
-                ease:
-                    "power3.in"
+  /* =============================================
+           WATER SHOCKWAVE
+        ============================================= */
 
-            }
-        );
+  gsap.to(reflection52Water, {
+    scaleY: 1.25,
 
+    duration: 0.35,
 
+    ease: "power2.out",
+  });
+
+  /* =============================================
+           RESET
+        ============================================= */
+
+  setTimeout(() => {
+    gsap.to(reflection52Word, {
+      y: 0,
+
+      scale: 1,
+
+      duration: 1,
+
+      ease: "elastic.out(1,.45)",
+    });
+
+    gsap.to(reflection52Water, {
+      scaleY: 1,
+
+      duration: 0.8,
+
+      ease: "power3.out",
+    });
+
+    gsap.to(reflection52Reflection, {
+      y: 0,
+
+      scaleX: 1,
+
+      opacity: 0.75,
+
+      filter: "blur(1.5px)",
+
+      duration: 1.2,
+
+      ease: "elastic.out(1,.35)",
+
+      onComplete: () => {
+        reflection52Animating = false;
+      },
+    });
+  }, 700);
+});
 
 
 
