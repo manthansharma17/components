@@ -12876,6 +12876,179 @@ gravity51Stage.addEventListener("click", () => {
     gravity51Active = false;
   }, 4000);
 });
+
+/* =========================================================
+   SECTION 52
+   LIQUID REFLECTION TYPOGRAPHY
+========================================================= */
+
+const reflection52Stage =
+    document.querySelector(
+        ".reflection52-stage"
+    );
+
+const reflection52Scene =
+    document.querySelector(
+        ".reflection52-scene"
+    );
+
+const reflection52Word =
+    document.querySelector(
+        "#reflection52Word"
+    );
+
+const reflection52Reflection =
+    document.querySelector(
+        "#reflection52Reflection"
+    );
+
+const reflection52Light =
+    document.querySelector(
+        "#reflection52Light"
+    );
+
+const reflection52Cursor =
+    document.querySelector(
+        "#reflection52Cursor"
+    );
+
+const reflection52Ripples =
+    document.querySelector(
+        "#reflection52Ripples"
+    );
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let reflection52MouseX = 0;
+let reflection52MouseY = 0;
+
+let reflection52CurrentX = 0;
+let reflection52CurrentY = 0;
+
+let reflection52PreviousX = 0;
+let reflection52PreviousY = 0;
+
+let reflection52VelocityX = 0;
+
+let reflection52Speed = 0;
+
+let reflection52Inside = false;
+
+let reflection52Animating = false;
+
+
+/* =========================================================
+   MOUSE ENTER
+========================================================= */
+
+reflection52Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        reflection52Inside = true;
+
+
+        gsap.to(
+            reflection52Cursor,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: .3,
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+
+        gsap.to(
+            reflection52Light,
+            {
+
+                opacity: 1,
+
+                duration: .5
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
+
+reflection52Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        if (
+            reflection52Animating
+        ) return;
+
+
+        const rect =
+            reflection52Stage
+                .getBoundingClientRect();
+
+
+        reflection52MouseX =
+            event.clientX -
+            rect.left;
+
+
+        reflection52MouseY =
+            event.clientY -
+            rect.top;
+
+
+        reflection52VelocityX =
+            reflection52MouseX -
+            reflection52PreviousX;
+
+
+        reflection52Speed =
+            Math.abs(
+                reflection52VelocityX
+            );
+
+
+        reflection52PreviousX =
+            reflection52MouseX;
+
+
+        reflection52PreviousY =
+            reflection52MouseY;
+
+    }
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* =========================================================
    REFRESH
 ========================================================= */
