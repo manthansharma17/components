@@ -13032,6 +13032,150 @@ reflection52Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   MOUSE LEAVE
+========================================================= */
+
+reflection52Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        reflection52Inside = false;
+
+
+        gsap.to(
+            reflection52Cursor,
+            {
+
+                opacity: 0,
+
+                scale: 0,
+
+                duration: .3
+
+            }
+        );
+
+
+        gsap.to(
+            reflection52Light,
+            {
+
+                opacity: 0,
+
+                duration: .4
+
+            }
+        );
+
+
+        if (
+            !reflection52Animating
+        ) {
+
+            gsap.to(
+                reflection52Scene,
+                {
+
+                    rotationY: 0,
+
+                    rotationX: 0,
+
+                    duration: .7,
+
+                    ease:
+                        "power3.out"
+
+                }
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   CREATE RIPPLE
+========================================================= */
+
+function createReflection52Ripple(
+    x,
+    y,
+    size = 100
+) {
+
+    const ripple =
+        document.createElement(
+            "div"
+        );
+
+
+    ripple.className =
+        "reflection52-ripple";
+
+
+    reflection52Ripples.appendChild(
+        ripple
+    );
+
+
+    gsap.set(
+        ripple,
+        {
+
+            left: x,
+
+            top: y,
+
+            width: 20,
+
+            height: 20
+
+        }
+    );
+
+
+    gsap.to(
+        ripple,
+        {
+
+            width: size,
+
+            height: size,
+
+            opacity: .5,
+
+            duration: .8,
+
+            ease:
+                "power2.out"
+
+        }
+    );
+
+
+    gsap.to(
+        ripple,
+        {
+
+            opacity: 0,
+
+            duration: .4,
+
+            delay: .4,
+
+            onComplete: () => {
+
+                ripple.remove();
+
+            }
+
+        }
+    );
+
+}
+
 
 
 
