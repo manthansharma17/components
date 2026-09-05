@@ -7089,7 +7089,79 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   RIPPLE
+========================================================= */
 
+.reflection52-ripple {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .35
+        );
+
+    pointer-events: none;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    z-index: 4;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .reflection52-stage {
+
+        cursor: default;
+
+    }
+
+
+    .reflection52-word,
+    .reflection52-reflection {
+
+        font-size:
+            clamp(
+                3rem,
+                15vw,
+                8rem
+            );
+
+    }
+
+
+    .reflection52-light {
+
+        width: 250px;
+        height: 250px;
+
+    }
+
+
+    .reflection52-cursor {
+
+        display: none;
+
+    }
+
+}
 
 
 
