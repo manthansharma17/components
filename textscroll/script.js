@@ -13176,6 +13176,143 @@ function createReflection52Ripple(
 
 }
 
+/* =========================================================
+   MAIN ANIMATION
+========================================================= */
+
+function updateReflection52() {
+
+    /* =============================================
+       SMOOTH CURSOR
+    ============================================= */
+
+    reflection52CurrentX +=
+        (
+            reflection52MouseX -
+            reflection52CurrentX
+        ) * .14;
+
+
+    reflection52CurrentY +=
+        (
+            reflection52MouseY -
+            reflection52CurrentY
+        ) * .14;
+
+
+    /* =============================================
+       CURSOR
+    ============================================= */
+
+    reflection52Cursor.style.left =
+        `${reflection52CurrentX}px`;
+
+
+    reflection52Cursor.style.top =
+        `${reflection52CurrentY}px`;
+
+
+    /* =============================================
+       LIGHT
+    ============================================= */
+
+    reflection52Light.style.left =
+        `${reflection52CurrentX}px`;
+
+
+    reflection52Light.style.top =
+        `${reflection52CurrentY}px`;
+
+
+    /* =============================================
+       MOUSE TILT
+    ============================================= */
+
+    if (
+        reflection52Inside &&
+        !reflection52Animating
+    ) {
+
+        const rect =
+            reflection52Stage
+                .getBoundingClientRect();
+
+
+        const normalizedX =
+            (
+                reflection52CurrentX /
+                rect.width
+            ) * 2 - 1;
+
+
+        const normalizedY =
+            (
+                reflection52CurrentY /
+                rect.height
+            ) * 2 - 1;
+
+
+        gsap.to(
+            reflection52Scene,
+            {
+
+                rotationY:
+                    normalizedX * 5,
+
+                rotationX:
+                    normalizedY * -3,
+
+                duration: .35,
+
+                overwrite:
+                    "auto",
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+
+        /* =========================================
+           REFLECTION DISTORTION
+        ========================================= */
+
+        const wave =
+            Math.sin(
+                performance.now() *
+                .003
+            );
+
+
+        const speedStretch =
+            Math.min(
+                reflection52Speed *
+                .025,
+                .35
+            );
+
+
+        reflection52Reflection.style.transform =
+            `
+            translateX(-50%)
+            scaleX(${1 + speedStretch})
+            scaleY(-1)
+            skewX(${wave * speedStretch}deg)
+            `;
+
+
+        reflection52Reflection.style.filter =
+            `
+            blur(
+                ${
+                    1.5 +
+                    speedStretch * 5
+                }px
+            )
+            `;
+
+    }
 
 
 
