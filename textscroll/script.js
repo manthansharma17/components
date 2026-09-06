@@ -13444,6 +13444,166 @@ reflection52Stage.addEventListener("click", () => {
   }, 700);
 });
 
+/* =========================================================
+   SECTION 53 — CHROMATIC ECHO
+========================================================= */
+
+const echo53Stage =
+    document.querySelector(
+        ".echo53-stage"
+    );
+
+const echo53Scene =
+    document.querySelector(
+        "#echo53Scene"
+    );
+
+const echo53WordWrap =
+    document.querySelector(
+        "#echo53WordWrap"
+    );
+
+const echo53Main =
+    document.querySelector(
+        "#echo53Main"
+    );
+
+const echo53Red =
+    document.querySelector(
+        ".echo53-red"
+    );
+
+const echo53Green =
+    document.querySelector(
+        ".echo53-green"
+    );
+
+const echo53Blue =
+    document.querySelector(
+        ".echo53-blue"
+    );
+
+const echo53Trails =
+    document.querySelector(
+        "#echo53Trails"
+    );
+
+const echo53Cursor =
+    document.querySelector(
+        "#echo53Cursor"
+    );
+
+const echo53Crosshair =
+    document.querySelector(
+        "#echo53Crosshair"
+    );
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let echo53MouseX = 0;
+let echo53MouseY = 0;
+
+let echo53CurrentX = 0;
+let echo53CurrentY = 0;
+
+let echo53PreviousX = 0;
+let echo53PreviousY = 0;
+
+let echo53VelocityX = 0;
+let echo53VelocityY = 0;
+
+let echo53Speed = 0;
+
+let echo53Inside = false;
+
+let echo53Locked = false;
+
+let echo53TrailTimer = 0;
+
+
+/* =========================================================
+   MOUSE ENTER
+========================================================= */
+
+echo53Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        echo53Inside = true;
+
+        gsap.to(
+            echo53Cursor,
+            {
+                opacity: 1,
+                scale: 1,
+                duration: .3,
+                ease: "power3.out"
+            }
+        );
+
+        gsap.to(
+            echo53Crosshair,
+            {
+                opacity: 1,
+                scale: 1,
+                duration: .4,
+                ease: "power3.out"
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
+
+echo53Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        const rect =
+            echo53Stage
+                .getBoundingClientRect();
+
+        echo53MouseX =
+            event.clientX -
+            rect.left;
+
+        echo53MouseY =
+            event.clientY -
+            rect.top;
+
+        echo53VelocityX =
+            echo53MouseX -
+            echo53PreviousX;
+
+        echo53VelocityY =
+            echo53MouseY -
+            echo53PreviousY;
+
+        echo53Speed =
+            Math.sqrt(
+                echo53VelocityX *
+                echo53VelocityX +
+                echo53VelocityY *
+                echo53VelocityY
+            );
+
+        echo53PreviousX =
+            echo53MouseX;
+
+        echo53PreviousY =
+            echo53MouseY;
+
+    }
+);
+
+
 
 
 
