@@ -7383,6 +7383,113 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   RED CHANNEL
+========================================================= */
+
+.echo53-red {
+
+    color:
+        rgba(
+            255,
+            0,
+            50,
+            .72
+        );
+
+    mix-blend-mode:
+        screen;
+
+    z-index: 3;
+
+}
+
+
+/* =========================================================
+   GREEN CHANNEL
+========================================================= */
+
+.echo53-green {
+
+    color:
+        rgba(
+            0,
+            255,
+            150,
+            .65
+        );
+
+    mix-blend-mode:
+        screen;
+
+    z-index: 2;
+
+}
+
+
+/* =========================================================
+   BLUE CHANNEL
+========================================================= */
+
+.echo53-blue {
+
+    color:
+        rgba(
+            0,
+            120,
+            255,
+            .72
+        );
+
+    mix-blend-mode:
+        screen;
+
+    z-index: 1;
+
+}
+
+
+/* =========================================================
+   TRAILS
+========================================================= */
+
+.echo53-trails {
+
+    position: absolute;
+
+    inset: -100px;
+
+    pointer-events: none;
+
+    z-index: 0;
+
+}
+
+
+.echo53-trail {
+
+    position: absolute;
+
+    font-size:
+        clamp(
+            5rem,
+            18vw,
+            20rem
+        );
+
+    font-weight: 900;
+
+    line-height: .75;
+
+    letter-spacing: -.1em;
+
+    white-space: nowrap;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+}
 
 
 
