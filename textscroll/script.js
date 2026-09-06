@@ -13602,6 +13602,190 @@ echo53Stage.addEventListener(
 
     }
 );
+/* =========================================================
+   MOUSE LEAVE
+========================================================= */
+
+echo53Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        echo53Inside = false;
+
+        gsap.to(
+            echo53Cursor,
+            {
+                opacity: 0,
+                scale: 0,
+                duration: .3
+            }
+        );
+
+        gsap.to(
+            echo53Crosshair,
+            {
+                opacity: 0,
+                scale: .5,
+                duration: .3
+            }
+        );
+
+        if (!echo53Locked) {
+
+            gsap.to(
+                echo53WordWrap,
+                {
+                    x: 0,
+                    y: 0,
+                    rotationX: 0,
+                    rotationY: 0,
+                    duration: .7,
+                    ease: "power3.out"
+                }
+            );
+
+            gsap.to(
+                echo53Red,
+                {
+                    x: 0,
+                    duration: .5
+                }
+            );
+
+            gsap.to(
+                echo53Green,
+                {
+                    x: 0,
+                    duration: .5
+                }
+            );
+
+            gsap.to(
+                echo53Blue,
+                {
+                    x: 0,
+                    duration: .5
+                }
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   CREATE CHROMATIC TRAIL
+========================================================= */
+
+function createEcho53Trail() {
+
+    if (
+        !echo53Inside ||
+        echo53Locked ||
+        echo53Speed < 5
+    ) return;
+
+
+    const trail =
+        document.createElement("div");
+
+    trail.className =
+        "echo53-trail";
+
+
+    trail.textContent =
+        "ECHO";
+
+
+    const colors = [
+        "rgba(255,0,50,.35)",
+        "rgba(0,255,150,.3)",
+        "rgba(0,120,255,.35)"
+    ];
+
+
+    trail.style.color =
+        colors[
+            Math.floor(
+                Math.random() *
+                colors.length
+            )
+        ];
+
+
+    echo53Trails.appendChild(
+        trail
+    );
+
+
+    const rect =
+        echo53Stage
+            .getBoundingClientRect();
+
+
+    gsap.set(
+        trail,
+        {
+
+            left:
+                echo53CurrentX -
+                rect.width / 2,
+
+            top:
+                echo53CurrentY -
+                rect.height / 2,
+
+            xPercent: -50,
+
+            yPercent: -50,
+
+            scale:
+                .92 +
+                Math.random() * .1,
+
+            rotation:
+                (Math.random() - .5) *
+                3,
+
+            opacity: .45
+
+        }
+    );
+
+
+    gsap.to(
+        trail,
+        {
+
+            x:
+                -echo53VelocityX *
+                3,
+
+            y:
+                -echo53VelocityY *
+                3,
+
+            scale: 1.08,
+
+            opacity: 0,
+
+            duration: .7,
+
+            ease:
+                "power2.out",
+
+            onComplete: () => {
+
+                trail.remove();
+
+            }
+
+        }
+    );
+
+}
+
 
 
 
