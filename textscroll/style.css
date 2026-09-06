@@ -7252,7 +7252,57 @@ JS animates every word toward these positions.
         );
 
 }
+/* =========================================================
+   LABEL
+========================================================= */
 
+.echo53-label {
+
+    position: absolute;
+
+    top: 12%;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    margin: 0;
+
+    font-size: .62rem;
+
+    letter-spacing: .4em;
+
+    white-space: nowrap;
+
+    color:
+        rgba(255,255,255,.32);
+
+    z-index: 20;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   SCENE
+========================================================= */
+
+.echo53-scene {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    transform-style: preserve-3d;
+
+    z-index: 5;
+
+}
 
 
 
