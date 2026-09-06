@@ -13786,7 +13786,548 @@ function createEcho53Trail() {
 
 }
 
+/* =========================================================
+   MAIN LOOP
+========================================================= */
 
+function updateEcho53() {
+
+    echo53CurrentX +=
+        (
+            echo53MouseX -
+            echo53CurrentX
+        ) * .13;
+
+
+    echo53CurrentY +=
+        (
+            echo53MouseY -
+            echo53CurrentY
+        ) * .13;
+
+
+    /* =============================================
+       CURSOR
+    ============================================= */
+
+    echo53Cursor.style.left =
+        `${echo53CurrentX}px`;
+
+    echo53Cursor.style.top =
+        `${echo53CurrentY}px`;
+
+
+    echo53Crosshair.style.left =
+        `${echo53CurrentX}px`;
+
+    echo53Crosshair.style.top =
+        `${echo53CurrentY}px`;
+
+
+    /* =============================================
+       ONLY WHEN INSIDE
+    ============================================= */
+
+    if (
+        echo53Inside &&
+        !echo53Locked
+    ) {
+
+        const rect =
+            echo53Stage
+                .getBoundingClientRect();
+
+
+        const nx =
+            (
+                echo53CurrentX /
+                rect.width
+            ) * 2 - 1;
+
+
+        const ny =
+            (
+                echo53CurrentY /
+                rect.height
+            ) * 2 - 1;
+
+
+        /* =========================================
+           3D MOVEMENT
+        ========================================= */
+
+        gsap.to(
+            echo53WordWrap,
+            {
+
+                rotationY:
+                    nx * 8,
+
+                rotationX:
+                    ny * -5,
+
+                x:
+                    nx * 12,
+
+                y:
+                    ny * 8,
+
+                duration: .35,
+
+                overwrite:
+                    "auto",
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+
+        /* =========================================
+           CHROMATIC SEPARATION
+        ========================================= */
+
+        const separation =
+            Math.min(
+                Math.abs(nx) * 30 +
+                echo53Speed * .35,
+                45
+            );
+
+
+        gsap.to(
+            echo53Red,
+            {
+
+                x:
+                    -separation,
+
+                duration: .18,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
+
+        gsap.to(
+            echo53Green,
+            {
+
+                x:
+                    separation *
+                    .15,
+
+                duration: .2,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
+
+        gsap.to(
+            echo53Blue,
+            {
+
+                x:
+                    separation,
+
+                duration: .18,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
+
+        /* =========================================
+           FAST MOVEMENT = TRAILS
+        ========================================= */
+
+        echo53TrailTimer++;
+
+
+        if (
+            echo53Speed > 7 &&
+            echo53TrailTimer % 3 === 0
+        ) {
+
+            createEcho53Trail();
+
+        }
+
+    }
+
+
+    /* =============================================
+       VELOCITY DECAY
+    ============================================= */
+
+    echo53Speed *= .88;
+
+
+    requestAnimationFrame(
+        updateEcho53
+    );
+
+}
+
+
+updateEcho53();
+
+
+/* =========================================================
+   CLICK — CHROMATIC EXPLOSION
+========================================================= */
+
+echo53Stage.addEventListener(
+    "click",
+    () => {
+
+        if (echo53Locked)
+            return;
+
+
+        echo53Locked = true;
+
+
+        /* =============================================
+           FLASH
+        ============================================= */
+
+        const flash =
+            document.createElement("div");
+
+        flash.className =
+            "echo53-flash";
+
+        echo53Stage.appendChild(
+            flash
+        );
+
+
+        gsap.set(
+            flash,
+            {
+
+                left:
+                    echo53CurrentX,
+
+                top:
+                    echo53CurrentY
+
+            }
+        );
+
+
+        gsap.to(
+            flash,
+            {
+
+                scale: 18,
+
+                opacity: 0,
+
+                duration: .8,
+
+                ease:
+                    "power3.out",
+
+                onComplete: () => {
+
+                    flash.remove();
+
+                }
+
+            }
+        );
+
+
+        /* =============================================
+           MAIN WORD COLLAPSE
+        ============================================= */
+
+        gsap.timeline()
+
+            .to(
+                echo53Main,
+                {
+
+                    scale: .88,
+
+                    duration: .18,
+
+                    ease:
+                        "power2.in"
+
+                }
+            )
+
+            /* =========================================
+               RGB EXPLOSION
+            ========================================= */
+
+            .to(
+                echo53Red,
+                {
+
+                    x: -180,
+
+                    y: -35,
+
+                    rotation:
+                        -4,
+
+                    scale: 1.05,
+
+                    opacity: .8,
+
+                    duration: .45,
+
+                    ease:
+                        "power3.out"
+
+                },
+                "<"
+            )
+
+            .to(
+                echo53Green,
+                {
+
+                    x: 25,
+
+                    y: 70,
+
+                    rotation:
+                        2,
+
+                    scale: 1.08,
+
+                    opacity: .65,
+
+                    duration: .45,
+
+                    ease:
+                        "power3.out"
+
+                },
+                "<"
+            )
+
+            .to(
+                echo53Blue,
+                {
+
+                    x: 180,
+
+                    y: -25,
+
+                    rotation:
+                        5,
+
+                    scale: 1.05,
+
+                    opacity: .8,
+
+                    duration: .45,
+
+                    ease:
+                        "power3.out"
+
+                },
+                "<"
+            )
+
+            .to(
+                echo53Main,
+                {
+
+                    scale: 1.08,
+
+                    y: -20,
+
+                    duration: .3,
+
+                    ease:
+                        "power2.out"
+
+                }
+            );
+
+
+        /* =============================================
+           FREE FLOATING ECHOES
+        ============================================= */
+
+        for (
+            let i = 0;
+            i < 12;
+            i++
+        ) {
+
+            const ghost =
+                document.createElement("div");
+
+            ghost.className =
+                "echo53-trail";
+
+            ghost.textContent =
+                "ECHO";
+
+
+            const colors = [
+                "rgba(255,0,50,.55)",
+                "rgba(0,255,150,.5)",
+                "rgba(0,120,255,.55)"
+            ];
+
+
+            ghost.style.color =
+                colors[
+                    i % 3
+                ];
+
+
+            echo53Trails.appendChild(
+                ghost
+            );
+
+
+            gsap.set(
+                ghost,
+                {
+
+                    left:
+                        echo53CurrentX,
+
+                    top:
+                        echo53CurrentY,
+
+                    xPercent: -50,
+
+                    yPercent: -50,
+
+                    opacity: .65,
+
+                    scale:
+                        .45 +
+                        Math.random() * .5
+
+                }
+            );
+
+
+            const angle =
+                Math.random() *
+                Math.PI * 2;
+
+
+            const distance =
+                120 +
+                Math.random() * 320;
+
+
+            gsap.to(
+                ghost,
+                {
+
+                    x:
+                        Math.cos(angle) *
+                        distance,
+
+                    y:
+                        Math.sin(angle) *
+                        distance,
+
+                    rotation:
+                        (Math.random() - .5) *
+                        30,
+
+                    scale:
+                        .15,
+
+                    opacity: 0,
+
+                    duration:
+                        .8 +
+                        Math.random() * .6,
+
+                    ease:
+                        "power3.out",
+
+                    onComplete: () => {
+
+                        ghost.remove();
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /* =============================================
+           REBUILD
+        ============================================= */
+
+        setTimeout(
+            () => {
+
+                gsap.timeline({
+
+                    onComplete: () => {
+
+                        echo53Locked =
+                            false;
+
+                    }
+
+                })
+
+                .set(
+                    [
+                        echo53Red,
+                        echo53Green,
+                        echo53Blue
+                    ],
+                    {
+                        x: 0,
+                        y: 0,
+                        rotation: 0,
+                        scale: 1,
+                        opacity: 1
+                    }
+                )
+
+                .to(
+                    echo53Main,
+                    {
+
+                        scale: 1,
+
+                        y: 0,
+
+                        duration: .8,
+
+                        ease:
+                            "elastic.out(1,.35)"
+
+                    }
+                );
+
+            },
+            900
+        );
+
+    }
+);
 
 
 
