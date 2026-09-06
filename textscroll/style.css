@@ -7303,7 +7303,85 @@ JS animates every word toward these positions.
     z-index: 5;
 
 }
+/* =========================================================
+   WORD WRAPPER
+========================================================= */
 
+.echo53-word-wrap {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    transform-style: preserve-3d;
+
+    will-change:
+        transform;
+
+}
+
+
+/* =========================================================
+   WORD
+========================================================= */
+
+.echo53-word {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    font-size:
+        clamp(
+            6rem,
+            19vw,
+            22rem
+        );
+
+    line-height: .75;
+
+    font-weight: 900;
+
+    letter-spacing: -.1em;
+
+    white-space: nowrap;
+
+    user-select: none;
+
+    pointer-events: none;
+
+    will-change:
+        transform,
+        opacity,
+        filter;
+
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.echo53-main {
+
+    position: relative;
+
+    color: #fff;
+
+    z-index: 10;
+
+    text-shadow:
+        0 0 35px
+        rgba(255,255,255,.1);
+
+}
 
 
 
