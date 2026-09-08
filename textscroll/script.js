@@ -14329,6 +14329,474 @@ echo53Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   SECTION 54 — TYPOGRAPHY TIME RIFT
+========================================================= */
+
+const time54Stage =
+    document.querySelector(
+        ".time54-stage"
+    );
+
+const time54Scene =
+    document.querySelector(
+        "#time54Scene"
+    );
+
+const time54Word =
+    document.querySelector(
+        "#time54Word"
+    );
+
+const time54Echo1 =
+    document.querySelector(
+        "#time54Echo1"
+    );
+
+const time54Echo2 =
+    document.querySelector(
+        "#time54Echo2"
+    );
+
+const time54Echo3 =
+    document.querySelector(
+        "#time54Echo3"
+    );
+
+const time54Echo4 =
+    document.querySelector(
+        "#time54Echo4"
+    );
+
+const time54Cursor =
+    document.querySelector(
+        "#time54Cursor"
+    );
+
+const time54Marker =
+    document.querySelector(
+        "#time54Marker"
+    );
+
+const time54Flash =
+    document.querySelector(
+        "#time54Flash"
+    );
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let time54MouseX = 0;
+let time54MouseY = 0;
+
+let time54CurrentX = 0;
+let time54CurrentY = 0;
+
+let time54PreviousX = 0;
+let time54PreviousY = 0;
+
+let time54VelocityX = 0;
+let time54VelocityY = 0;
+
+let time54Speed = 0;
+
+let time54Inside = false;
+
+let time54Locked = false;
+
+let time54Clock = 0;
+
+
+/* =========================================================
+   ENTER
+========================================================= */
+
+time54Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        time54Inside = true;
+
+        gsap.to(
+            time54Cursor,
+            {
+                opacity: 1,
+                scale: 1,
+                duration: .3,
+                ease: "power3.out"
+            }
+        );
+
+        gsap.to(
+            time54Marker,
+            {
+                opacity: .65,
+                duration: .4
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
+
+time54Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        const rect =
+            time54Stage
+                .getBoundingClientRect();
+
+        time54MouseX =
+            event.clientX -
+            rect.left;
+
+        time54MouseY =
+            event.clientY -
+            rect.top;
+
+
+        time54VelocityX =
+            time54MouseX -
+            time54PreviousX;
+
+        time54VelocityY =
+            time54MouseY -
+            time54PreviousY;
+
+
+        time54Speed =
+            Math.sqrt(
+                time54VelocityX *
+                time54VelocityX +
+                time54VelocityY *
+                time54VelocityY
+            );
+
+
+        time54PreviousX =
+            time54MouseX;
+
+        time54PreviousY =
+            time54MouseY;
+
+    }
+);
+
+
+/* =========================================================
+   LEAVE
+========================================================= */
+
+time54Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        time54Inside = false;
+
+        gsap.to(
+            time54Cursor,
+            {
+                opacity: 0,
+                scale: 0,
+                duration: .3
+            }
+        );
+
+        if (!time54Locked) {
+
+            gsap.to(
+                time54Scene,
+                {
+                    x: 0,
+                    y: 0,
+                    rotationX: 0,
+                    rotationY: 0,
+                    duration: .7,
+                    ease: "power3.out"
+                }
+            );
+
+            resetTime54Echoes();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   RESET ECHOES
+========================================================= */
+
+function resetTime54Echoes() {
+
+    gsap.to(
+        time54Echo1,
+        {
+            x: 0,
+            y: 0,
+            scale: 1,
+            rotation: 0,
+            opacity: .16,
+            duration: .5,
+            ease: "power3.out"
+        }
+    );
+
+    gsap.to(
+        time54Echo2,
+        {
+            x: 0,
+            y: 0,
+            scale: 1,
+            rotation: 0,
+            opacity: .09,
+            duration: .6,
+            ease: "power3.out"
+        }
+    );
+
+    gsap.to(
+        time54Echo3,
+        {
+            x: 0,
+            y: 0,
+            scale: 1,
+            rotation: 0,
+            opacity: .11,
+            duration: .5,
+            ease: "power3.out"
+        }
+    );
+
+    gsap.to(
+        time54Echo4,
+        {
+            x: 0,
+            y: 0,
+            scale: 1,
+            rotation: 0,
+            opacity: .055,
+            duration: .7,
+            ease: "power3.out"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   MAIN LOOP
+========================================================= */
+
+function updateTime54() {
+
+    time54CurrentX +=
+        (
+            time54MouseX -
+            time54CurrentX
+        ) * .12;
+
+
+    time54CurrentY +=
+        (
+            time54MouseY -
+            time54CurrentY
+        ) * .12;
+
+
+    /* =============================================
+       CURSOR
+    ============================================= */
+
+    time54Cursor.style.left =
+        `${time54CurrentX}px`;
+
+    time54Cursor.style.top =
+        `${time54CurrentY}px`;
+
+
+    if (
+        time54Inside &&
+        !time54Locked
+    ) {
+
+        const rect =
+            time54Stage
+                .getBoundingClientRect();
+
+
+        const nx =
+            (
+                time54CurrentX /
+                rect.width
+            ) * 2 - 1;
+
+
+        const ny =
+            (
+                time54CurrentY /
+                rect.height
+            ) * 2 - 1;
+
+
+        /* =========================================
+           3D TIME SPACE
+        ========================================= */
+
+        gsap.to(
+            time54Scene,
+            {
+
+                x: nx * 18,
+
+                y: ny * 10,
+
+                rotationY:
+                    nx * 7,
+
+                rotationX:
+                    ny * -4,
+
+                duration: .35,
+
+                overwrite: "auto",
+
+                ease: "power3.out"
+
+            }
+        );
+
+
+        /* =========================================
+           TIME DISTANCE
+        ========================================= */
+
+        const base =
+            35 +
+            Math.min(
+                time54Speed * .8,
+                120
+            );
+
+
+        const direction =
+            nx >= 0 ? 1 : -1;
+
+
+        /* =========================================
+           PAST
+        ========================================= */
+
+        gsap.to(
+            time54Echo1,
+            {
+
+                x:
+                    -base *
+                    direction,
+
+                y:
+                    ny * 12,
+
+                scale:
+                    1 +
+                    time54Speed * .001,
+
+                duration: .25,
+
+                overwrite: "auto"
+
+            }
+        );
+
+
+        /* =========================================
+           DEEP PAST
+        ========================================= */
+
+        gsap.to(
+            time54Echo2,
+            {
+
+                x:
+                    -base *
+                    1.9 *
+                    direction,
+
+                y:
+                    ny * 20,
+
+                scale:
+                    1.03,
+
+                duration: .35,
+
+                overwrite: "auto"
+
+            }
+        );
+
+
+        /* =========================================
+           FUTURE
+        ========================================= */
+
+        gsap.to(
+            time54Echo3,
+            {
+
+                x:
+                    base *
+                    direction,
+
+                y:
+                    -ny * 10,
+
+                scale:
+                    1.01,
+
+                duration: .28,
+
+                overwrite: "auto"
+
+            }
+        );
+
+
+        /* =========================================
+           FAR FUTURE
+        ========================================= */
+
+        gsap.to(
+            time54Echo4,
+            {
+
+                x:
+                    base *
+                    1.8 *
+                    direction,
+
+                y:
+                    -ny * 18,
+
+                scale:
+                    1.04,
+
+                duration: .4,
+
+                overwrite: "auto"
+
+            }
+        );
+
 
 
 
