@@ -7736,6 +7736,214 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   HORIZONTAL RIFT
+========================================================= */
+
+.time54-stage::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 100%;
+    height: 1px;
+
+    left: 0;
+    top: 50%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.25),
+            transparent
+        );
+
+    opacity: .35;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.time54-label {
+
+    position: absolute;
+
+    top: 12%;
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    margin: 0;
+
+    font-size: .62rem;
+
+    letter-spacing: .38em;
+
+    white-space: nowrap;
+
+    color:
+        rgba(255,255,255,.3);
+
+    pointer-events: none;
+
+    z-index: 20;
+
+}
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+.time54-timeline {
+
+    position: absolute;
+
+    bottom: 13%;
+
+    left: 50%;
+
+    width: min(700px, 80vw);
+
+    transform:
+        translateX(-50%);
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    color:
+        rgba(255,255,255,.18);
+
+    font-size: .55rem;
+
+    letter-spacing: .2em;
+
+    pointer-events: none;
+
+}
+
+
+.time54-timeline::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    top: 50%;
+
+    height: 1px;
+
+    background:
+        rgba(255,255,255,.12);
+
+}
+
+
+.time54-timeline span {
+
+    position: relative;
+
+    padding-top: 15px;
+
+}
+
+
+.time54-timeline span::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    left: 50%;
+    top: 3px;
+
+    transform:
+        translateX(-50%);
+
+    background:
+        rgba(255,255,255,.25);
+
+}
+
+
+/* =========================================================
+   SCENE
+========================================================= */
+
+.time54-scene {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    transform-style: preserve-3d;
+
+    z-index: 5;
+
+}
+
+
+/* =========================================================
+   MAIN TYPOGRAPHY
+========================================================= */
+
+.time54-word {
+
+    position: relative;
+
+    font-size:
+        clamp(
+            7rem,
+            22vw,
+            25rem
+        );
+
+    font-weight: 900;
+
+    line-height: .75;
+
+    letter-spacing: -.1em;
+
+    white-space: nowrap;
+
+    color: #fff;
+
+    user-select: none;
+
+    z-index: 10;
+
+    will-change:
+        transform,
+        filter;
+
+    text-shadow:
+        0 0 30px
+        rgba(255,255,255,.08);
+
+}
+
+
 
 /* =========================================================
    REDUCED MOTION
