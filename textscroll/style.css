@@ -7944,7 +7944,132 @@ JS animates every word toward these positions.
 }
 
 
+/* =========================================================
+   TEMPORAL ECHOES
+========================================================= */
 
+.time54-echo {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    font-size:
+        clamp(
+            7rem,
+            22vw,
+            25rem
+        );
+
+    font-weight: 900;
+
+    line-height: .75;
+
+    letter-spacing: -.1em;
+
+    white-space: nowrap;
+
+    pointer-events: none;
+
+    user-select: none;
+
+    will-change:
+        transform,
+        opacity,
+        filter;
+
+}
+
+
+/* PAST */
+
+.time54-echo-1 {
+
+    color:
+        rgba(255,255,255,.16);
+
+    filter:
+        blur(1px);
+
+}
+
+
+/* DEEP PAST */
+
+.time54-echo-2 {
+
+    color:
+        rgba(255,255,255,.09);
+
+    filter:
+        blur(2px);
+
+}
+
+
+/* FUTURE */
+
+.time54-echo-3 {
+
+    color:
+        rgba(255,255,255,.11);
+
+    filter:
+        blur(1.5px);
+
+}
+
+
+/* FAR FUTURE */
+
+.time54-echo-4 {
+
+    color:
+        rgba(255,255,255,.055);
+
+    filter:
+        blur(3px);
+
+}
+
+
+/* =========================================================
+   TIME MARKER
+========================================================= */
+
+.time54-marker {
+
+    position: absolute;
+
+    width: 1px;
+
+    height: 90px;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            rgba(255,255,255,.5),
+            transparent
+        );
+
+    opacity: .3;
+
+    pointer-events: none;
+
+    z-index: 3;
+
+}
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
