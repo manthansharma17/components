@@ -14935,6 +14935,71 @@ time54Stage.addEventListener("click", () => {
   }, 850);
 });
 
+/* =========================================================
+   SECTION 55 — TYPOGRAPHY BLACK HOLE
+========================================================= */
+
+const void55Stage =
+    document.querySelector(
+        "#void55Stage"
+    );
+
+const void55Scene =
+    document.querySelector(
+        "#void55Scene"
+    );
+
+const void55Word =
+    document.querySelector(
+        "#void55Word"
+    );
+
+const void55Core =
+    document.querySelector(
+        "#void55Core"
+    );
+
+const void55Particles =
+    document.querySelector(
+        "#void55Particles"
+    );
+
+const void55Cursor =
+    document.querySelector(
+        "#void55Cursor"
+    );
+
+const void55Shockwave =
+    document.querySelector(
+        "#void55Shockwave"
+    );
+
+const void55Rings =
+    document.querySelectorAll(
+        ".void55-ring"
+    );
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let void55MouseX = 0;
+let void55MouseY = 0;
+
+let void55CurrentX = 0;
+let void55CurrentY = 0;
+
+let void55PreviousX = 0;
+let void55PreviousY = 0;
+
+let void55Speed = 0;
+
+let void55Inside = false;
+
+let void55Locked = false;
+
+let void55Time = 0;
 
 
 
