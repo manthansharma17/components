@@ -15245,6 +15245,135 @@ void55Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   MAIN LOOP
+========================================================= */
+
+function updateVoid55() {
+
+    void55CurrentX +=
+        (
+            void55MouseX -
+            void55CurrentX
+        ) * .12;
+
+
+    void55CurrentY +=
+        (
+            void55MouseY -
+            void55CurrentY
+        ) * .12;
+
+
+    void55Time += .016;
+
+
+    /* =============================================
+       CURSOR
+    ============================================= */
+
+    void55Cursor.style.left =
+        void55CurrentX + "px";
+
+
+    void55Cursor.style.top =
+        void55CurrentY + "px";
+
+
+    /* =============================================
+       GRAVITY PARTICLES
+    ============================================= */
+
+    void55ParticleData.forEach(
+        (particle) => {
+
+            particle.angle +=
+                particle.speed;
+
+
+            const rect =
+                void55Stage
+                    .getBoundingClientRect();
+
+
+            const centerX =
+                rect.width / 2;
+
+
+            const centerY =
+                rect.height / 2;
+
+
+            let radius =
+                particle.radius;
+
+
+            /* Cursor adds gravity */
+
+            if (void55Inside) {
+
+                const dx =
+                    void55CurrentX -
+                    centerX;
+
+
+                const dy =
+                    void55CurrentY -
+                    centerY;
+
+
+                const cursorDistance =
+                    Math.sqrt(
+                        dx * dx +
+                        dy * dy
+                    );
+
+
+                const influence =
+                    Math.max(
+                        0,
+                        1 -
+                        cursorDistance /
+                        500
+                    );
+
+
+                radius -=
+                    influence *
+                    80;
+
+            }
+
+
+            const x =
+                centerX +
+                Math.cos(
+                    particle.angle +
+                    particle.offset
+                ) *
+                radius;
+
+
+            const y =
+                centerY +
+                Math.sin(
+                    particle.angle +
+                    particle.offset
+                ) *
+                radius *
+                .32;
+
+
+            particle.element.style.left =
+                x + "px";
+
+
+            particle.element.style.top =
+                y + "px";
+
+        }
+    );
+
 
 
 
