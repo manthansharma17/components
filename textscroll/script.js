@@ -15374,6 +15374,155 @@ function updateVoid55() {
         }
     );
 
+ /* =============================================
+       MOUSE GRAVITY
+    ============================================= */
+
+    if (
+        void55Inside &&
+        !void55Locked
+    ) {
+
+        const rect =
+            void55Stage
+                .getBoundingClientRect();
+
+
+        const nx =
+            (
+                void55CurrentX /
+                rect.width
+            ) * 2 - 1;
+
+
+        const ny =
+            (
+                void55CurrentY /
+                rect.height
+            ) * 2 - 1;
+
+
+        /* =========================================
+           DISTANCE FROM CENTER
+        ========================================= */
+
+        const centerX =
+            rect.width / 2;
+
+
+        const centerY =
+            rect.height / 2;
+
+
+        const dx =
+            void55CurrentX -
+            centerX;
+
+
+        const dy =
+            void55CurrentY -
+            centerY;
+
+
+        const distance =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        const influence =
+            Math.max(
+                0,
+                1 -
+                distance / 650
+            );
+
+
+        /* =========================================
+           WORD PULL
+        ========================================= */
+
+        const pullX =
+            nx *
+            influence *
+            85;
+
+
+        const pullY =
+            ny *
+            influence *
+            45;
+
+
+        const squeeze =
+            1 +
+            influence *
+            .12 +
+            Math.min(
+                void55Speed * .002,
+                .12
+            );
+
+
+        gsap.to(
+            void55Word,
+            {
+
+                x: pullX,
+
+                y: pullY,
+
+                rotationY:
+                    nx *
+                    influence *
+                    12,
+
+                rotationX:
+                    ny *
+                    influence *
+                    -7,
+
+                scaleX:
+                    squeeze,
+
+                scaleY:
+                    1 -
+                    influence *
+                    .08,
+
+                duration: .3,
+
+                overwrite:
+                    "auto",
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+
+        /* =========================================
+           CORE REACTS
+        ========================================= */
+
+        gsap.to(
+            void55Core,
+            {
+
+                scale:
+                    1 +
+                    influence *
+                    .22,
+
+                duration: .4,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
 
 
 
