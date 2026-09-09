@@ -15001,6 +15001,114 @@ let void55Locked = false;
 
 let void55Time = 0;
 
+/* =========================================================
+   CREATE STAR FIELD
+========================================================= */
+
+for (
+    let i = 0;
+    i < 140;
+    i++
+) {
+
+    const star =
+        document.createElement("div");
+
+    star.className =
+        "void55-star";
+
+
+    star.style.left =
+        Math.random() * 100 + "%";
+
+
+    star.style.top =
+        Math.random() * 100 + "%";
+
+
+    const size =
+        Math.random() *
+        2.5 +
+        .5;
+
+
+    star.style.width =
+        size + "px";
+
+
+    star.style.height =
+        size + "px";
+
+
+    star.style.opacity =
+        Math.random() * .7 +
+        .15;
+
+
+    void55Particles
+        .parentElement
+        .appendChild(star);
+
+}
+
+
+/* =========================================================
+   CREATE GRAVITY PARTICLES
+========================================================= */
+
+const void55ParticleData = [];
+
+for (
+    let i = 0;
+    i < 90;
+    i++
+) {
+
+    const particle =
+        document.createElement("div");
+
+    particle.className =
+        "void55-particle";
+
+
+    void55Particles.appendChild(
+        particle
+    );
+
+
+    const angle =
+        Math.random() *
+        Math.PI *
+        2;
+
+
+    const radius =
+        130 +
+        Math.random() *
+        380;
+
+
+    void55ParticleData.push({
+
+        element: particle,
+
+        angle: angle,
+
+        radius: radius,
+
+        speed:
+            .0004 +
+            Math.random() *
+            .001,
+
+        offset:
+            Math.random() *
+            Math.PI *
+            2
+
+    });
+
+}
 
 
 
