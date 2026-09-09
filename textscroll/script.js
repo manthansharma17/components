@@ -15110,7 +15110,140 @@ for (
 
 }
 
+/* =========================================================
+   MOUSE ENTER
+========================================================= */
 
+void55Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        void55Inside = true;
+
+
+        gsap.to(
+            void55Cursor,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: .3,
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
+
+void55Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        const rect =
+            void55Stage
+                .getBoundingClientRect();
+
+
+        void55MouseX =
+            event.clientX -
+            rect.left;
+
+
+        void55MouseY =
+            event.clientY -
+            rect.top;
+
+
+        const dx =
+            void55MouseX -
+            void55PreviousX;
+
+
+        const dy =
+            void55MouseY -
+            void55PreviousY;
+
+
+        void55Speed =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        void55PreviousX =
+            void55MouseX;
+
+
+        void55PreviousY =
+            void55MouseY;
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE LEAVE
+========================================================= */
+
+void55Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        void55Inside = false;
+
+
+        gsap.to(
+            void55Cursor,
+            {
+
+                opacity: 0,
+
+                scale: 0,
+
+                duration: .3
+
+            }
+        );
+
+
+        if (!void55Locked) {
+
+            gsap.to(
+                void55Word,
+                {
+
+                    x: 0,
+                    y: 0,
+
+                    rotationX: 0,
+                    rotationY: 0,
+
+                    scaleX: 1,
+                    scaleY: 1,
+
+                    duration: .7,
+
+                    ease:
+                        "power3.out"
+
+                }
+            );
+
+        }
+
+    }
+);
 
 
 
