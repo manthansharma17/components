@@ -8526,7 +8526,190 @@ JS animates every word toward these positions.
     opacity: .22;
 
 }
+/* =========================================================
+   PARTICLES
+========================================================= */
 
+.void55-particles {
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 7;
+
+}
+
+
+.void55-particle {
+
+    position: absolute;
+
+    width: 3px;
+    height: 3px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .7
+        );
+
+    box-shadow:
+        0 0 8px
+        rgba(
+            255,
+            255,
+            255,
+            .35
+        );
+
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.void55-cursor {
+
+    position: absolute;
+
+    width: 12px;
+    height: 12px;
+
+    left: 50%;
+    top: 50%;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 50;
+
+    box-shadow:
+
+        0 0 15px
+        rgba(255,255,255,.9),
+
+        0 0 45px
+        rgba(255,255,255,.3);
+
+}
+
+
+/* =========================================================
+   SHOCKWAVE
+========================================================= */
+
+.void55-shockwave {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .65
+        );
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 40;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .void55-stage {
+
+        cursor: default;
+
+    }
+
+    .void55-cursor {
+
+        display: none;
+
+    }
+
+    .void55-scene {
+
+        width: 100vw;
+        height: 250px;
+
+    }
+
+    .void55-word {
+
+        font-size:
+            clamp(
+                4rem,
+                25vw,
+                9rem
+            );
+
+    }
+
+    .void55-ring-1 {
+
+        width: 220px;
+
+    }
+
+    .void55-ring-2 {
+
+        width: 320px;
+
+    }
+
+    .void55-ring-3 {
+
+        width: 430px;
+
+    }
+
+    .void55-ring-4 {
+
+        width: 560px;
+
+    }
+
+}
 
 /* =========================================================
    REDUCED MOTION
