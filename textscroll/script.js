@@ -15250,281 +15250,374 @@ void55Stage.addEventListener(
 ========================================================= */
 
 function updateVoid55() {
+  void55CurrentX += (void55MouseX - void55CurrentX) * 0.12;
 
-    void55CurrentX +=
-        (
-            void55MouseX -
-            void55CurrentX
-        ) * .12;
+  void55CurrentY += (void55MouseY - void55CurrentY) * 0.12;
 
+  void55Time += 0.016;
 
-    void55CurrentY +=
-        (
-            void55MouseY -
-            void55CurrentY
-        ) * .12;
-
-
-    void55Time += .016;
-
-
-    /* =============================================
+  /* =============================================
        CURSOR
     ============================================= */
 
-    void55Cursor.style.left =
-        void55CurrentX + "px";
+  void55Cursor.style.left = void55CurrentX + "px";
 
+  void55Cursor.style.top = void55CurrentY + "px";
 
-    void55Cursor.style.top =
-        void55CurrentY + "px";
-
-
-    /* =============================================
+  /* =============================================
        GRAVITY PARTICLES
     ============================================= */
 
-    void55ParticleData.forEach(
-        (particle) => {
+  void55ParticleData.forEach((particle) => {
+    particle.angle += particle.speed;
 
-            particle.angle +=
-                particle.speed;
+    const rect = void55Stage.getBoundingClientRect();
 
+    const centerX = rect.width / 2;
 
-            const rect =
-                void55Stage
-                    .getBoundingClientRect();
+    const centerY = rect.height / 2;
 
+    let radius = particle.radius;
 
-            const centerX =
-                rect.width / 2;
+    /* Cursor adds gravity */
 
+    if (void55Inside) {
+      const dx = void55CurrentX - centerX;
 
-            const centerY =
-                rect.height / 2;
+      const dy = void55CurrentY - centerY;
 
+      const cursorDistance = Math.sqrt(dx * dx + dy * dy);
 
-            let radius =
-                particle.radius;
+      const influence = Math.max(0, 1 - cursorDistance / 500);
 
+      radius -= influence * 80;
+    }
 
-            /* Cursor adds gravity */
+    const x = centerX + Math.cos(particle.angle + particle.offset) * radius;
 
-            if (void55Inside) {
+    const y =
+      centerY + Math.sin(particle.angle + particle.offset) * radius * 0.32;
 
-                const dx =
-                    void55CurrentX -
-                    centerX;
+    particle.element.style.left = x + "px";
 
+    particle.element.style.top = y + "px";
+  });
 
-                const dy =
-                    void55CurrentY -
-                    centerY;
-
-
-                const cursorDistance =
-                    Math.sqrt(
-                        dx * dx +
-                        dy * dy
-                    );
-
-
-                const influence =
-                    Math.max(
-                        0,
-                        1 -
-                        cursorDistance /
-                        500
-                    );
-
-
-                radius -=
-                    influence *
-                    80;
-
-            }
-
-
-            const x =
-                centerX +
-                Math.cos(
-                    particle.angle +
-                    particle.offset
-                ) *
-                radius;
-
-
-            const y =
-                centerY +
-                Math.sin(
-                    particle.angle +
-                    particle.offset
-                ) *
-                radius *
-                .32;
-
-
-            particle.element.style.left =
-                x + "px";
-
-
-            particle.element.style.top =
-                y + "px";
-
-        }
-    );
-
- /* =============================================
+  /* =============================================
        MOUSE GRAVITY
     ============================================= */
 
-    if (
-        void55Inside &&
-        !void55Locked
-    ) {
+  if (void55Inside && !void55Locked) {
+    const rect = void55Stage.getBoundingClientRect();
 
-        const rect =
-            void55Stage
-                .getBoundingClientRect();
+    const nx = (void55CurrentX / rect.width) * 2 - 1;
 
+    const ny = (void55CurrentY / rect.height) * 2 - 1;
 
-        const nx =
-            (
-                void55CurrentX /
-                rect.width
-            ) * 2 - 1;
-
-
-        const ny =
-            (
-                void55CurrentY /
-                rect.height
-            ) * 2 - 1;
-
-
-        /* =========================================
+    /* =========================================
            DISTANCE FROM CENTER
         ========================================= */
 
-        const centerX =
-            rect.width / 2;
+    const centerX = rect.width / 2;
 
+    const centerY = rect.height / 2;
 
-        const centerY =
-            rect.height / 2;
+    const dx = void55CurrentX - centerX;
 
+    const dy = void55CurrentY - centerY;
 
-        const dx =
-            void55CurrentX -
-            centerX;
+    const distance = Math.sqrt(dx * dx + dy * dy);
 
+    const influence = Math.max(0, 1 - distance / 650);
 
-        const dy =
-            void55CurrentY -
-            centerY;
-
-
-        const distance =
-            Math.sqrt(
-                dx * dx +
-                dy * dy
-            );
-
-
-        const influence =
-            Math.max(
-                0,
-                1 -
-                distance / 650
-            );
-
-
-        /* =========================================
+    /* =========================================
            WORD PULL
         ========================================= */
 
-        const pullX =
-            nx *
-            influence *
-            85;
+    const pullX = nx * influence * 85;
 
+    const pullY = ny * influence * 45;
 
-        const pullY =
-            ny *
-            influence *
-            45;
+    const squeeze = 1 + influence * 0.12 + Math.min(void55Speed * 0.002, 0.12);
 
+    gsap.to(void55Word, {
+      x: pullX,
 
-        const squeeze =
-            1 +
-            influence *
-            .12 +
-            Math.min(
-                void55Speed * .002,
-                .12
-            );
+      y: pullY,
 
+      rotationY: nx * influence * 12,
 
-        gsap.to(
-            void55Word,
-            {
+      rotationX: ny * influence * -7,
 
-                x: pullX,
+      scaleX: squeeze,
 
-                y: pullY,
+      scaleY: 1 - influence * 0.08,
 
-                rotationY:
-                    nx *
-                    influence *
-                    12,
+      duration: 0.3,
 
-                rotationX:
-                    ny *
-                    influence *
-                    -7,
+      overwrite: "auto",
 
-                scaleX:
-                    squeeze,
+      ease: "power3.out",
+    });
 
-                scaleY:
-                    1 -
-                    influence *
-                    .08,
-
-                duration: .3,
-
-                overwrite:
-                    "auto",
-
-                ease:
-                    "power3.out"
-
-            }
-        );
-
-
-        /* =========================================
+    /* =========================================
            CORE REACTS
         ========================================= */
 
-        gsap.to(
-            void55Core,
-            {
+    gsap.to(void55Core, {
+      scale: 1 + influence * 0.22,
 
-                scale:
-                    1 +
-                    influence *
-                    .22,
+      duration: 0.4,
 
-                duration: .4,
+      overwrite: "auto",
+    });
 
-                overwrite:
-                    "auto"
+    /* =========================================
+           RINGS REACT
+        ========================================= */
 
-            }
-        );
+    void55Rings.forEach((ring, index) => {
+      gsap.to(ring, {
+        rotation: index * 18 + nx * 12,
 
+        x: nx * influence * 20,
 
+        y: ny * influence * 10,
+
+        duration: 0.6 + index * 0.05,
+
+        overwrite: "auto",
+
+        ease: "power3.out",
+      });
+    });
+  }
+
+  /* =============================================
+       SPEED DECAY
+    ============================================= */
+
+  void55Speed *= 0.9;
+
+  requestAnimationFrame(updateVoid55);
+}
+
+updateVoid55();
+
+/* =========================================================
+   CLICK — COLLAPSE INTO SINGULARITY
+========================================================= */
+
+void55Stage.addEventListener("click", () => {
+  if (void55Locked) return;
+
+  void55Locked = true;
+
+  /* =============================================
+           SHOCKWAVE
+        ============================================= */
+
+  gsap.set(void55Shockwave, {
+    left: void55CurrentX,
+
+    top: void55CurrentY,
+
+    scale: 0,
+
+    opacity: 0.9,
+  });
+
+  gsap.to(void55Shockwave, {
+    scale: 20,
+
+    opacity: 0,
+
+    duration: 1,
+
+    ease: "power3.out",
+  });
+
+  /* =============================================
+           CORE EXPANDS
+        ============================================= */
+
+  gsap.to(void55Core, {
+    scale: 1.8,
+
+    duration: 0.3,
+
+    ease: "power2.in",
+  });
+
+  /* =============================================
+           WORD COLLAPSE
+        ============================================= */
+
+  gsap
+    .timeline()
+
+    .to(void55Word, {
+      scaleX: 0.5,
+
+      scaleY: 0.5,
+
+      rotation: 8,
+
+      filter: "blur(3px)",
+
+      duration: 0.25,
+
+      ease: "power2.in",
+    })
+
+    .to(void55Word, {
+      x: 0,
+
+      y: 0,
+
+      scaleX: 0.05,
+
+      scaleY: 0.05,
+
+      rotation: 180,
+
+      opacity: 0,
+
+      filter: "blur(12px)",
+
+      duration: 0.65,
+
+      ease: "power4.in",
+    });
+
+  /* =============================================
+           PARTICLES GET SUCKED IN
+        ============================================= */
+
+  void55ParticleData.forEach((particle, index) => {
+    const rect = void55Stage.getBoundingClientRect();
+
+    const centerX = rect.width / 2;
+
+    const centerY = rect.height / 2;
+
+    gsap.to(particle.element, {
+      left: centerX,
+
+      top: centerY,
+
+      scale: 0.1,
+
+      opacity: 0,
+
+      duration: 0.7 + Math.random() * 0.5,
+
+      delay: Math.random() * 0.15,
+
+      ease: "power4.in",
+    });
+  });
+
+  /* =============================================
+           RINGS COLLAPSE
+        ============================================= */
+
+  gsap.to(void55Rings, {
+    scale: 0.3,
+
+    rotation: "+=180",
+
+    opacity: 0,
+
+    duration: 0.8,
+
+    stagger: 0.05,
+
+    ease: "power3.in",
+  });
+
+  /* =============================================
+           REBIRTH
+        ============================================= */
+
+  setTimeout(() => {
+    /* Reset particles */
+
+    void55ParticleData.forEach((particle) => {
+      const rect = void55Stage.getBoundingClientRect();
+
+      const centerX = rect.width / 2;
+
+      const centerY = rect.height / 2;
+
+      const angle = Math.random() * Math.PI * 2;
+
+      const radius = 100 + Math.random() * 400;
+
+      particle.angle = angle;
+
+      particle.radius = radius;
+
+      gsap.set(particle.element, {
+        left: centerX + Math.cos(angle) * radius,
+
+        top: centerY + Math.sin(angle) * radius * 0.32,
+
+        scale: 1,
+
+        opacity: 0.7,
+      });
+    });
+
+    /* Restore rings */
+
+    gsap.set(void55Rings, {
+      scale: 1,
+
+      opacity: 1,
+    });
+
+    /* Restore core */
+
+    gsap.to(void55Core, {
+      scale: 1,
+
+      duration: 0.7,
+
+      ease: "elastic.out(1,.4)",
+    });
+
+    /* Restore typography */
+
+    gsap.to(void55Word, {
+      x: 0,
+
+      y: 0,
+
+      scaleX: 1,
+
+      scaleY: 1,
+
+      rotation: 0,
+
+      rotationX: 0,
+
+      rotationY: 0,
+
+      opacity: 1,
+
+      filter: "blur(0px)",
+
+      duration: 1.1,
+
+      ease: "elastic.out(1,.35)",
+
+      onComplete: () => {
+        void55Locked = false;
+      },
+    });
+  }, 1200);
+});
 
 
 
