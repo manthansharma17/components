@@ -8258,6 +8258,102 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   LABEL
+========================================================= */
+
+.void55-label {
+
+    position: absolute;
+
+    top: 11%;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    margin: 0;
+
+    font-size: .62rem;
+
+    letter-spacing: .4em;
+
+    white-space: nowrap;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            .3
+        );
+
+    z-index: 30;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   CENTRAL SCENE
+========================================================= */
+
+.void55-scene {
+
+    position: relative;
+
+    width: 500px;
+    height: 300px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    transform-style: preserve-3d;
+
+    z-index: 10;
+
+}
+
+
+/* =========================================================
+   BLACK HOLE CORE
+========================================================= */
+
+.void55-core {
+
+    position: absolute;
+
+    width: 95px;
+    height: 95px;
+
+    border-radius: 50%;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    background: #000;
+
+    z-index: 1;
+
+    box-shadow:
+
+        0 0 25px
+        rgba(255,255,255,.12),
+
+        0 0 70px
+        rgba(255,255,255,.08),
+
+        0 0 130px
+        rgba(255,255,255,.04);
+
+}
 
 
 
