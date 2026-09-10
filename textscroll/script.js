@@ -16223,7 +16223,192 @@ function updateHorizon56() {
         );
 
     }
+ /* =============================================
+       SPEED DECAY
+    ============================================= */
 
+    horizon56Speed *= .9;
+
+
+    requestAnimationFrame(
+        updateHorizon56
+    );
+
+}
+
+
+updateHorizon56();
+
+
+/* =========================================================
+   CLICK — CROSS THE EVENT HORIZON
+========================================================= */
+
+horizon56Stage.addEventListener(
+    "click",
+    () => {
+
+        if (horizon56Locked)
+            return;
+
+
+        horizon56Locked = true;
+
+
+        /* =============================================
+           SHOCKWAVE
+        ============================================= */
+
+        gsap.set(
+            horizon56Shockwave,
+            {
+
+                left:
+                    horizon56CurrentX,
+
+                top:
+                    horizon56CurrentY,
+
+                scale: 0,
+
+                opacity: .9
+
+            }
+        );
+
+
+        gsap.to(
+            horizon56Shockwave,
+            {
+
+                scale: 18,
+
+                opacity: 0,
+
+                duration: .9,
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+
+        /* =============================================
+           HORIZON FLASH
+        ============================================= */
+
+        gsap.to(
+            horizon56Line,
+            {
+
+                height: 8,
+
+                boxShadow:
+                    "0 0 30px rgba(255,255,255,.9)",
+
+                duration: .12,
+
+                yoyo: true,
+
+                repeat: 3,
+
+                ease:
+                    "power2.inOut"
+
+            }
+        );
+
+
+        /* =============================================
+           WORD SPLITS
+        ============================================= */
+
+        gsap.timeline()
+
+            .to(
+                horizon56Word,
+                {
+
+                    scaleX: 1.08,
+
+                    filter:
+                        "blur(1px)",
+
+                    duration: .2,
+
+                    ease:
+                        "power2.out"
+
+                }
+            )
+
+            .to(
+                horizon56Word,
+                {
+
+                    x:
+                        -260,
+
+                    rotationY:
+                        -18,
+
+                    scaleX: .8,
+
+                    opacity: .3,
+
+                    filter:
+                        "blur(5px)",
+
+                    duration: .55,
+
+                    ease:
+                        "power3.in"
+
+                }
+            );
+
+
+        /* =============================================
+           LINE TEARS OPEN
+        ============================================= */
+
+        gsap.to(
+            horizon56Line,
+            {
+
+                scaleX: .1,
+
+                opacity: 0,
+
+                duration: .5,
+
+                ease:
+                    "power4.in"
+
+            }
+        );
+
+
+        /* =============================================
+           CORE COLLAPSE
+        ============================================= */
+
+        gsap.to(
+            horizon56Core,
+            {
+
+                scale: 4,
+
+                opacity: 0,
+
+                duration: .55,
+
+                ease:
+                    "power3.in"
+
+            }
+        );
 
 
 
