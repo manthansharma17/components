@@ -15760,6 +15760,152 @@ for (
     });
 
 }
+/* =========================================================
+   MOUSE ENTER
+========================================================= */
+
+horizon56Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        horizon56Inside = true;
+
+
+        gsap.to(
+            horizon56Cursor,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: .3,
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
+
+horizon56Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        const rect =
+            horizon56Stage
+                .getBoundingClientRect();
+
+
+        horizon56MouseX =
+            event.clientX -
+            rect.left;
+
+
+        horizon56MouseY =
+            event.clientY -
+            rect.top;
+
+
+        const dx =
+            horizon56MouseX -
+            horizon56PreviousX;
+
+
+        const dy =
+            horizon56MouseY -
+            horizon56PreviousY;
+
+
+        horizon56Speed =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        horizon56PreviousX =
+            horizon56MouseX;
+
+
+        horizon56PreviousY =
+            horizon56MouseY;
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE LEAVE
+========================================================= */
+
+horizon56Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        horizon56Inside = false;
+
+
+        gsap.to(
+            horizon56Cursor,
+            {
+
+                opacity: 0,
+
+                scale: 0,
+
+                duration: .3
+
+            }
+        );
+
+
+        if (!horizon56Locked) {
+
+            gsap.to(
+                horizon56Scene,
+                {
+
+                    rotationX: 0,
+
+                    rotationY: 0,
+
+                    x: 0,
+
+                    y: 0,
+
+                    duration: .7,
+
+                    ease:
+                        "power3.out"
+
+                }
+            );
+
+
+            gsap.to(
+                horizon56Line,
+                {
+
+                    scaleX: 1,
+
+                    duration: .5
+
+                }
+            );
+
+        }
+
+    }
+);
+
 
 
 
