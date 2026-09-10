@@ -9051,7 +9051,164 @@ JS animates every word toward these positions.
         multiply;
 
 }
+/* =========================================================
+   CORE
+========================================================= */
 
+.horizon56-core {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.7);
+
+    background: #fff;
+
+    opacity: .65;
+
+    pointer-events: none;
+
+    z-index: 25;
+
+    box-shadow:
+
+        0 0 15px
+        rgba(255,255,255,.9),
+
+        0 0 45px
+        rgba(255,255,255,.35);
+
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.horizon56-cursor {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    background: #fff;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 50;
+
+    box-shadow:
+
+        0 0 15px
+        rgba(255,255,255,.9),
+
+        0 0 40px
+        rgba(255,255,255,.3);
+
+}
+
+
+/* =========================================================
+   SHOCKWAVE
+========================================================= */
+
+.horizon56-shockwave {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .7
+        );
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 45;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .horizon56-stage {
+
+        cursor: default;
+
+    }
+
+    .horizon56-cursor {
+
+        display: none;
+
+    }
+
+    .horizon56-scene {
+
+        height: 260px;
+
+    }
+
+    .horizon56-word {
+
+        font-size:
+            clamp(
+                3rem,
+                16vw,
+                8rem
+            );
+
+    }
+
+    .horizon56-glow {
+
+        width: 300px;
+
+    }
+
+}
 
 
 /* =========================================================
