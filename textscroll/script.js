@@ -16244,173 +16244,261 @@ updateHorizon56();
    CLICK — CROSS THE EVENT HORIZON
 ========================================================= */
 
-horizon56Stage.addEventListener(
-    "click",
-    () => {
+horizon56Stage.addEventListener("click", () => {
+  if (horizon56Locked) return;
 
-        if (horizon56Locked)
-            return;
+  horizon56Locked = true;
 
-
-        horizon56Locked = true;
-
-
-        /* =============================================
+  /* =============================================
            SHOCKWAVE
         ============================================= */
 
-        gsap.set(
-            horizon56Shockwave,
-            {
+  gsap.set(horizon56Shockwave, {
+    left: horizon56CurrentX,
 
-                left:
-                    horizon56CurrentX,
+    top: horizon56CurrentY,
 
-                top:
-                    horizon56CurrentY,
+    scale: 0,
 
-                scale: 0,
+    opacity: 0.9,
+  });
 
-                opacity: .9
+  gsap.to(horizon56Shockwave, {
+    scale: 18,
 
-            }
-        );
+    opacity: 0,
 
+    duration: 0.9,
 
-        gsap.to(
-            horizon56Shockwave,
-            {
+    ease: "power3.out",
+  });
 
-                scale: 18,
-
-                opacity: 0,
-
-                duration: .9,
-
-                ease:
-                    "power3.out"
-
-            }
-        );
-
-
-        /* =============================================
+  /* =============================================
            HORIZON FLASH
         ============================================= */
 
-        gsap.to(
-            horizon56Line,
-            {
+  gsap.to(horizon56Line, {
+    height: 8,
 
-                height: 8,
+    boxShadow: "0 0 30px rgba(255,255,255,.9)",
 
-                boxShadow:
-                    "0 0 30px rgba(255,255,255,.9)",
+    duration: 0.12,
 
-                duration: .12,
+    yoyo: true,
 
-                yoyo: true,
+    repeat: 3,
 
-                repeat: 3,
+    ease: "power2.inOut",
+  });
 
-                ease:
-                    "power2.inOut"
-
-            }
-        );
-
-
-        /* =============================================
+  /* =============================================
            WORD SPLITS
         ============================================= */
 
-        gsap.timeline()
+  gsap
+    .timeline()
 
-            .to(
-                horizon56Word,
-                {
+    .to(horizon56Word, {
+      scaleX: 1.08,
 
-                    scaleX: 1.08,
+      filter: "blur(1px)",
 
-                    filter:
-                        "blur(1px)",
+      duration: 0.2,
 
-                    duration: .2,
+      ease: "power2.out",
+    })
 
-                    ease:
-                        "power2.out"
+    .to(horizon56Word, {
+      x: -260,
 
-                }
-            )
+      rotationY: -18,
 
-            .to(
-                horizon56Word,
-                {
+      scaleX: 0.8,
 
-                    x:
-                        -260,
+      opacity: 0.3,
 
-                    rotationY:
-                        -18,
+      filter: "blur(5px)",
 
-                    scaleX: .8,
+      duration: 0.55,
 
-                    opacity: .3,
+      ease: "power3.in",
+    });
 
-                    filter:
-                        "blur(5px)",
-
-                    duration: .55,
-
-                    ease:
-                        "power3.in"
-
-                }
-            );
-
-
-        /* =============================================
+  /* =============================================
            LINE TEARS OPEN
         ============================================= */
 
-        gsap.to(
-            horizon56Line,
-            {
+  gsap.to(horizon56Line, {
+    scaleX: 0.1,
 
-                scaleX: .1,
+    opacity: 0,
 
-                opacity: 0,
+    duration: 0.5,
 
-                duration: .5,
+    ease: "power4.in",
+  });
 
-                ease:
-                    "power4.in"
-
-            }
-        );
-
-
-        /* =============================================
+  /* =============================================
            CORE COLLAPSE
         ============================================= */
 
-        gsap.to(
-            horizon56Core,
-            {
+  gsap.to(horizon56Core, {
+    scale: 4,
 
-                scale: 4,
+    opacity: 0,
 
-                opacity: 0,
+    duration: 0.55,
 
-                duration: .55,
+    ease: "power3.in",
+  });
 
-                ease:
-                    "power3.in"
+  /* =============================================
+           PARTICLES FALL INTO HORIZON
+        ============================================= */
 
-            }
-        );
+  horizon56ParticleData.forEach((particle, index) => {
+    const rect = horizon56Stage.getBoundingClientRect();
 
+    gsap.to(particle.element, {
+      x: rect.width / 2 - (particle.x * rect.width) / 100,
 
+      y: rect.height / 2 - (particle.y * rect.height) / 100,
+
+      scale: 0.1,
+
+      opacity: 0,
+
+      duration: 0.6 + Math.random() * 0.5,
+
+      delay: Math.random() * 0.2,
+
+      ease: "power4.in",
+    });
+  });
+
+  /* =============================================
+           RECONSTRUCT
+        ============================================= */
+
+  setTimeout(() => {
+    gsap.set(horizon56Line, {
+      scaleX: 0,
+
+      opacity: 0,
+
+      height: 1,
+
+      x: 0,
+    });
+
+    gsap.set(horizon56Core, {
+      scale: 0,
+
+      opacity: 0,
+    });
+
+    gsap.set(horizon56Word, {
+      x: 260,
+
+      rotationY: 18,
+
+      scaleX: 0.8,
+
+      opacity: 0.2,
+
+      filter: "blur(5px)",
+    });
+
+    /* =====================================
+                   PARTICLES RESET
+                ===================================== */
+
+    horizon56ParticleData.forEach((particle) => {
+      gsap.set(particle.element, {
+        x: 0,
+
+        y: 0,
+
+        scale: 1,
+
+        opacity: 0.15 + particle.depth * 0.65,
+      });
+    });
+
+    /* =====================================
+                   WORD RETURNS
+                ===================================== */
+
+    gsap
+      .timeline({
+        onComplete: () => {
+          horizon56Locked = false;
+        },
+      })
+
+      .to(horizon56Core, {
+        scale: 1,
+
+        opacity: 0.65,
+
+        duration: 0.6,
+
+        ease: "power3.out",
+      })
+
+      .to(
+        horizon56Line,
+        {
+          scaleX: 1,
+
+          opacity: 1,
+
+          duration: 0.6,
+
+          ease: "power3.out",
+        },
+        "-=.35",
+      )
+
+      .to(
+        horizon56Word,
+        {
+          x: 0,
+
+          rotationY: 0,
+
+          scaleX: 1,
+
+          opacity: 1,
+
+          filter: "blur(0px)",
+
+          duration: 1.1,
+
+          ease: "elastic.out(1,.35)",
+        },
+        "-=.45",
+      )
+
+      .to(
+        horizon56Glow,
+        {
+          scale: 1,
+
+          x: 0,
+
+          y: 0,
+
+          opacity: 0.55,
+
+          duration: 0.8,
+
+          ease: "power3.out",
+        },
+        "-=.8",
+      );
+  }, 1050);
+});
 
 
 /* =========================================================
