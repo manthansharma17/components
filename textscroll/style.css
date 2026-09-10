@@ -8754,7 +8754,78 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   ATMOSPHERIC VIGNETTE
+========================================================= */
 
+.horizon56-stage::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            transparent 0%,
+            transparent 30%,
+            rgba(0,0,0,.45) 75%,
+            rgba(0,0,0,.95) 100%
+        );
+
+    z-index: 20;
+
+}
+
+
+/* =========================================================
+   AMBIENT PARTICLES
+========================================================= */
+
+.horizon56-particles {
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 2;
+
+}
+
+
+.horizon56-particle {
+
+    position: absolute;
+
+    width: 2px;
+    height: 2px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .55
+        );
+
+    box-shadow:
+        0 0 8px
+        rgba(
+            255,
+            255,
+            255,
+            .2
+        );
+
+}
 
 
 
