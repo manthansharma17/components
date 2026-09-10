@@ -8826,6 +8826,112 @@ JS animates every word toward these positions.
         );
 
 }
+/* =========================================================
+   LABEL
+========================================================= */
+
+.horizon56-label {
+
+    position: absolute;
+
+    top: 11%;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    margin: 0;
+
+    font-size: .62rem;
+
+    letter-spacing: .42em;
+
+    white-space: nowrap;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            .3
+        );
+
+    pointer-events: none;
+
+    z-index: 30;
+
+}
+
+
+/* =========================================================
+   SCENE
+========================================================= */
+
+.horizon56-scene {
+
+    position: relative;
+
+    width: 100vw;
+
+    height: 360px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    transform-style: preserve-3d;
+
+    z-index: 8;
+
+}
+
+
+/* =========================================================
+   WORD
+========================================================= */
+
+.horizon56-word {
+
+    position: relative;
+
+    font-size:
+        clamp(
+            5rem,
+            17vw,
+            20rem
+        );
+
+    font-weight: 900;
+
+    line-height: .72;
+
+    letter-spacing: -.095em;
+
+    white-space: nowrap;
+
+    user-select: none;
+
+    color: #fff;
+
+    z-index: 7;
+
+    will-change:
+        transform,
+        filter,
+        clip-path;
+
+    text-shadow:
+        0 0 30px
+        rgba(
+            255,
+            255,
+            255,
+            .08
+        );
+
+}
 
 
 
