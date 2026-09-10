@@ -15618,6 +15618,148 @@ void55Stage.addEventListener("click", () => {
     });
   }, 1200);
 });
+/* =========================================================
+   SECTION 56 — TYPOGRAPHY EVENT HORIZON
+========================================================= */
+
+const horizon56Stage =
+    document.querySelector(
+        "#horizon56Stage"
+    );
+
+const horizon56Scene =
+    document.querySelector(
+        "#horizon56Scene"
+    );
+
+const horizon56Word =
+    document.querySelector(
+        "#horizon56Word"
+    );
+
+const horizon56Line =
+    document.querySelector(
+        "#horizon56Line"
+    );
+
+const horizon56Glow =
+    document.querySelector(
+        "#horizon56Glow"
+    );
+
+const horizon56Mask =
+    document.querySelector(
+        "#horizon56Mask"
+    );
+
+const horizon56Core =
+    document.querySelector(
+        "#horizon56Core"
+    );
+
+const horizon56Cursor =
+    document.querySelector(
+        "#horizon56Cursor"
+    );
+
+const horizon56Shockwave =
+    document.querySelector(
+        "#horizon56Shockwave"
+    );
+
+const horizon56Particles =
+    document.querySelector(
+        "#horizon56Particles"
+    );
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let horizon56MouseX = 0;
+let horizon56MouseY = 0;
+
+let horizon56CurrentX = 0;
+let horizon56CurrentY = 0;
+
+let horizon56PreviousX = 0;
+let horizon56PreviousY = 0;
+
+let horizon56Speed = 0;
+
+let horizon56Inside = false;
+
+let horizon56Locked = false;
+
+let horizon56Time = 0;
+
+
+/* =========================================================
+   CREATE PARTICLES
+========================================================= */
+
+const horizon56ParticleData = [];
+
+for (
+    let i = 0;
+    i < 100;
+    i++
+) {
+
+    const particle =
+        document.createElement(
+            "div"
+        );
+
+    particle.className =
+        "horizon56-particle";
+
+    horizon56Particles.appendChild(
+        particle
+    );
+
+
+    const x =
+        Math.random() * 100;
+
+    const y =
+        Math.random() * 100;
+
+
+    const depth =
+        Math.random();
+
+
+    particle.style.left =
+        x + "%";
+
+    particle.style.top =
+        y + "%";
+
+
+    particle.style.opacity =
+        .15 +
+        depth * .65;
+
+
+    horizon56ParticleData.push({
+
+        element: particle,
+
+        x: x,
+
+        y: y,
+
+        depth: depth,
+
+        speed:
+            .05 +
+            Math.random() * .2
+
+    });
+
+}
 
 
 
