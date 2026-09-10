@@ -15906,7 +15906,323 @@ horizon56Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   MAIN LOOP
+========================================================= */
 
+function updateHorizon56() {
+
+    horizon56CurrentX +=
+        (
+            horizon56MouseX -
+            horizon56CurrentX
+        ) * .12;
+
+
+    horizon56CurrentY +=
+        (
+            horizon56MouseY -
+            horizon56CurrentY
+        ) * .12;
+
+
+    horizon56Time += .016;
+
+
+    /* =============================================
+       CURSOR
+    ============================================= */
+
+    horizon56Cursor.style.left =
+        horizon56CurrentX + "px";
+
+    horizon56Cursor.style.top =
+        horizon56CurrentY + "px";
+
+
+    /* =============================================
+       AMBIENT PARTICLES
+    ============================================= */
+
+    horizon56ParticleData.forEach(
+        (particle, index) => {
+
+            particle.x +=
+                particle.speed *
+                .01;
+
+
+            if (
+                particle.x > 100
+            ) {
+
+                particle.x = 0;
+
+            }
+
+
+            let offsetX = 0;
+            let offsetY = 0;
+
+
+            if (horizon56Inside) {
+
+                const dx =
+                    horizon56CurrentX -
+                    window.innerWidth / 2;
+
+
+                const dy =
+                    horizon56CurrentY -
+                    window.innerHeight / 2;
+
+
+                offsetX =
+                    dx *
+                    particle.depth *
+                    .015;
+
+
+                offsetY =
+                    dy *
+                    particle.depth *
+                    .01;
+
+            }
+
+
+            particle.element.style.left =
+                `calc(${particle.x}% + ${offsetX}px)`;
+
+
+            particle.element.style.top =
+                `calc(${particle.y}% + ${offsetY}px)`;
+
+        }
+    );
+
+
+    /* =============================================
+       MOUSE INTERACTION
+    ============================================= */
+
+    if (
+        horizon56Inside &&
+        !horizon56Locked
+    ) {
+
+        const rect =
+            horizon56Stage
+                .getBoundingClientRect();
+
+
+        const nx =
+            (
+                horizon56CurrentX /
+                rect.width
+            ) * 2 - 1;
+
+
+        const ny =
+            (
+                horizon56CurrentY /
+                rect.height
+            ) * 2 - 1;
+
+
+        /* =========================================
+           HORIZON POSITION
+        ========================================= */
+
+        const horizonPosition =
+            nx * 35;
+
+
+        gsap.to(
+            horizon56Line,
+            {
+
+                x:
+                    horizonPosition,
+
+                scaleX:
+                    1 +
+                    Math.min(
+                        horizon56Speed * .004,
+                        .35
+                    ),
+
+                duration: .3,
+
+                overwrite:
+                    "auto",
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+
+        /* =========================================
+           3D SPACE
+        ========================================= */
+
+        gsap.to(
+            horizon56Scene,
+            {
+
+                rotationY:
+                    nx * 8,
+
+                rotationX:
+                    ny * -4,
+
+                x:
+                    nx * 18,
+
+                y:
+                    ny * 8,
+
+                duration: .4,
+
+                overwrite:
+                    "auto",
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+
+        /* =========================================
+           TYPOGRAPHY GRAVITY
+        ========================================= */
+
+        const distortion =
+            Math.min(
+                horizon56Speed * .01,
+                .18
+            );
+
+
+        gsap.to(
+            horizon56Word,
+            {
+
+                scaleX:
+                    1 +
+                    distortion,
+
+                scaleY:
+                    1 -
+                    distortion * .5,
+
+                skewX:
+                    nx *
+                    distortion *
+                    12,
+
+                duration: .25,
+
+                overwrite:
+                    "auto",
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+
+        /* =========================================
+           MASK MOVEMENT
+        ========================================= */
+
+        gsap.to(
+            horizon56Mask,
+            {
+
+                y:
+                    ny * 25,
+
+                opacity:
+                    .7 +
+                    Math.abs(nx) * .2,
+
+                duration: .35,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
+
+        /* =========================================
+           CORE RESPONSE
+        ========================================= */
+
+        const centerDistance =
+            Math.abs(
+                horizon56CurrentX -
+                rect.width / 2
+            );
+
+
+        const coreInfluence =
+            Math.max(
+                0,
+                1 -
+                centerDistance / 500
+            );
+
+
+        gsap.to(
+            horizon56Core,
+            {
+
+                scale:
+                    .7 +
+                    coreInfluence * .9,
+
+                opacity:
+                    .5 +
+                    coreInfluence * .4,
+
+                duration: .35,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
+
+        gsap.to(
+            horizon56Glow,
+            {
+
+                x:
+                    nx * 70,
+
+                y:
+                    ny * 20,
+
+                scale:
+                    1 +
+                    coreInfluence * .3,
+
+                duration: .5,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
+    }
 
 
 
