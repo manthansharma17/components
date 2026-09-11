@@ -9602,7 +9602,121 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   CURSOR
+========================================================= */
 
+.focus57-cursor {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    z-index: 40;
+
+    pointer-events: none;
+
+    box-shadow:
+
+        0 0 12px
+        rgba(255,255,255,.9),
+
+        0 0 35px
+        rgba(255,255,255,.3);
+
+}
+
+
+/* =========================================================
+   EXPANSION
+========================================================= */
+
+.focus57-expansion {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.8);
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 35;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .focus57-stage {
+
+        cursor: default;
+
+    }
+
+    .focus57-cursor {
+
+        display: none;
+
+    }
+
+    .focus57-scene {
+
+        height: 250px;
+
+    }
+
+    .focus57-word {
+
+        font-size:
+            clamp(
+                4rem,
+                22vw,
+                10rem
+            );
+
+    }
+
+    .focus57-lens {
+
+        width: 170px;
+        height: 170px;
+
+    }
+
+}
 
 /* =========================================================
    REDUCED MOTION
