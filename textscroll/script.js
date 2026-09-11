@@ -16499,6 +16499,161 @@ horizon56Stage.addEventListener("click", () => {
       );
   }, 1050);
 });
+/* =========================================================
+   SECTION 57 — TYPOGRAPHY GRAVITY LENS
+========================================================= */
+
+const focus57Stage =
+    document.querySelector(
+        "#focus57Stage"
+    );
+
+const focus57Scene =
+    document.querySelector(
+        "#focus57Scene"
+    );
+
+const focus57Main =
+    document.querySelector(
+        "#focus57Main"
+    );
+
+const focus57LensText =
+    document.querySelector(
+        "#focus57LensText"
+    );
+
+const focus57Lens =
+    document.querySelector(
+        "#focus57Lens"
+    );
+
+const focus57Cursor =
+    document.querySelector(
+        "#focus57Cursor"
+    );
+
+const focus57Expansion =
+    document.querySelector(
+        "#focus57Expansion"
+    );
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let focus57MouseX = 0;
+let focus57MouseY = 0;
+
+let focus57CurrentX = 0;
+let focus57CurrentY = 0;
+
+let focus57PreviousX = 0;
+let focus57PreviousY = 0;
+
+let focus57Speed = 0;
+
+let focus57Inside = false;
+
+let focus57Locked = false;
+
+
+/* =========================================================
+   ENTER
+========================================================= */
+
+focus57Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        focus57Inside = true;
+
+        gsap.to(
+            focus57Lens,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: .45,
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+        gsap.to(
+            focus57Cursor,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: .3
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MOVE
+========================================================= */
+
+focus57Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        const rect =
+            focus57Stage
+                .getBoundingClientRect();
+
+
+        focus57MouseX =
+            event.clientX -
+            rect.left;
+
+
+        focus57MouseY =
+            event.clientY -
+            rect.top;
+
+
+        const dx =
+            focus57MouseX -
+            focus57PreviousX;
+
+
+        const dy =
+            focus57MouseY -
+            focus57PreviousY;
+
+
+        focus57Speed =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        focus57PreviousX =
+            focus57MouseX;
+
+
+        focus57PreviousY =
+            focus57MouseY;
+
+    }
+);
+
+
+
 
 
 /* =========================================================
