@@ -16811,6 +16811,150 @@ function updateFocus57() {
             }
         );
 
+/* =========================================
+           3D TYPOGRAPHY
+        ========================================= */
+
+        gsap.to(
+            focus57Scene,
+            {
+
+                rotationY:
+                    nx * 6,
+
+                rotationX:
+                    ny * -4,
+
+                x:
+                    nx * 15,
+
+                y:
+                    ny * 8,
+
+                duration: .35,
+
+                overwrite:
+                    "auto",
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+
+        /* =========================================
+           LENS MAGNIFICATION
+        ========================================= */
+
+        const lensScale =
+            1.65 +
+            Math.min(
+                focus57Speed * .006,
+                .4
+            );
+
+
+        gsap.to(
+            focus57LensText,
+            {
+
+                scale:
+                    lensScale,
+
+                duration: .3,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
+
+        /* =========================================
+           CALCULATE LENS POSITION
+        ========================================= */
+
+        const centerX =
+            rect.width / 2;
+
+
+        const centerY =
+            rect.height / 2;
+
+
+        const lensX =
+            focus57CurrentX -
+            centerX;
+
+
+        const lensY =
+            focus57CurrentY -
+            centerY;
+
+
+        /* =========================================
+           CLIP CIRCLE
+        ========================================= */
+
+        gsap.set(
+            focus57LensText,
+            {
+
+                clipPath:
+                    `circle(
+                        120px at
+                        calc(50% + ${lensX}px)
+                        calc(50% + ${lensY}px)
+                    )`
+
+            }
+        );
+
+
+        /* =========================================
+           MAIN TEXT RESPONSE
+        ========================================= */
+
+        const distance =
+            Math.sqrt(
+                lensX * lensX +
+                lensY * lensY
+            );
+
+
+        const focus =
+            Math.max(
+                0,
+                1 -
+                distance / 600
+            );
+
+
+        gsap.to(
+            focus57Main,
+            {
+
+                scale:
+                    1 +
+                    focus * .035,
+
+                filter:
+                    `blur(
+                        ${Math.max(
+                            0,
+                            distance / 500 - 1
+                        )}px
+                    )`,
+
+                duration: .3,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
 
 
 
