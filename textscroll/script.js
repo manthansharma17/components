@@ -16735,227 +16735,263 @@ focus57Stage.addEventListener(
 ========================================================= */
 
 function updateFocus57() {
+  focus57CurrentX += (focus57MouseX - focus57CurrentX) * 0.14;
 
-    focus57CurrentX +=
-        (
-            focus57MouseX -
-            focus57CurrentX
-        ) * .14;
+  focus57CurrentY += (focus57MouseY - focus57CurrentY) * 0.14;
 
-
-    focus57CurrentY +=
-        (
-            focus57MouseY -
-            focus57CurrentY
-        ) * .14;
-
-
-    /* =============================================
+  /* =============================================
        CURSOR
     ============================================= */
 
-    focus57Cursor.style.left =
-        focus57CurrentX + "px";
+  focus57Cursor.style.left = focus57CurrentX + "px";
 
+  focus57Cursor.style.top = focus57CurrentY + "px";
 
-    focus57Cursor.style.top =
-        focus57CurrentY + "px";
+  if (focus57Inside && !focus57Locked) {
+    const rect = focus57Stage.getBoundingClientRect();
 
+    const nx = (focus57CurrentX / rect.width) * 2 - 1;
 
-    if (
-        focus57Inside &&
-        !focus57Locked
-    ) {
+    const ny = (focus57CurrentY / rect.height) * 2 - 1;
 
-        const rect =
-            focus57Stage
-                .getBoundingClientRect();
-
-
-        const nx =
-            (
-                focus57CurrentX /
-                rect.width
-            ) * 2 - 1;
-
-
-        const ny =
-            (
-                focus57CurrentY /
-                rect.height
-            ) * 2 - 1;
-
-
-        /* =========================================
+    /* =========================================
            LENS POSITION
         ========================================= */
 
-        gsap.to(
-            focus57Lens,
-            {
+    gsap.to(focus57Lens, {
+      left: focus57CurrentX,
 
-                left:
-                    focus57CurrentX,
+      top: focus57CurrentY,
 
-                top:
-                    focus57CurrentY,
+      duration: 0.18,
 
-                duration: .18,
+      overwrite: "auto",
 
-                overwrite:
-                    "auto",
+      ease: "power2.out",
+    });
 
-                ease:
-                    "power2.out"
-
-            }
-        );
-
-/* =========================================
+    /* =========================================
            3D TYPOGRAPHY
         ========================================= */
 
-        gsap.to(
-            focus57Scene,
-            {
+    gsap.to(focus57Scene, {
+      rotationY: nx * 6,
 
-                rotationY:
-                    nx * 6,
+      rotationX: ny * -4,
 
-                rotationX:
-                    ny * -4,
+      x: nx * 15,
 
-                x:
-                    nx * 15,
+      y: ny * 8,
 
-                y:
-                    ny * 8,
+      duration: 0.35,
 
-                duration: .35,
+      overwrite: "auto",
 
-                overwrite:
-                    "auto",
+      ease: "power3.out",
+    });
 
-                ease:
-                    "power3.out"
-
-            }
-        );
-
-
-        /* =========================================
+    /* =========================================
            LENS MAGNIFICATION
         ========================================= */
 
-        const lensScale =
-            1.65 +
-            Math.min(
-                focus57Speed * .006,
-                .4
-            );
+    const lensScale = 1.65 + Math.min(focus57Speed * 0.006, 0.4);
 
+    gsap.to(focus57LensText, {
+      scale: lensScale,
 
-        gsap.to(
-            focus57LensText,
-            {
+      duration: 0.3,
 
-                scale:
-                    lensScale,
+      overwrite: "auto",
+    });
 
-                duration: .3,
-
-                overwrite:
-                    "auto"
-
-            }
-        );
-
-
-        /* =========================================
+    /* =========================================
            CALCULATE LENS POSITION
         ========================================= */
 
-        const centerX =
-            rect.width / 2;
+    const centerX = rect.width / 2;
 
+    const centerY = rect.height / 2;
 
-        const centerY =
-            rect.height / 2;
+    const lensX = focus57CurrentX - centerX;
 
+    const lensY = focus57CurrentY - centerY;
 
-        const lensX =
-            focus57CurrentX -
-            centerX;
-
-
-        const lensY =
-            focus57CurrentY -
-            centerY;
-
-
-        /* =========================================
+    /* =========================================
            CLIP CIRCLE
         ========================================= */
 
-        gsap.set(
-            focus57LensText,
-            {
-
-                clipPath:
-                    `circle(
+    gsap.set(focus57LensText, {
+      clipPath: `circle(
                         120px at
                         calc(50% + ${lensX}px)
                         calc(50% + ${lensY}px)
-                    )`
+                    )`,
+    });
 
-            }
-        );
-
-
-        /* =========================================
+    /* =========================================
            MAIN TEXT RESPONSE
         ========================================= */
 
-        const distance =
-            Math.sqrt(
-                lensX * lensX +
-                lensY * lensY
-            );
+    const distance = Math.sqrt(lensX * lensX + lensY * lensY);
 
+    const focus = Math.max(0, 1 - distance / 600);
 
-        const focus =
-            Math.max(
-                0,
-                1 -
-                distance / 600
-            );
+    gsap.to(focus57Main, {
+      scale: 1 + focus * 0.035,
 
-
-        gsap.to(
-            focus57Main,
-            {
-
-                scale:
-                    1 +
-                    focus * .035,
-
-                filter:
-                    `blur(
-                        ${Math.max(
-                            0,
-                            distance / 500 - 1
-                        )}px
+      filter: `blur(
+                        ${Math.max(0, distance / 500 - 1)}px
                     )`,
 
-                duration: .3,
+      duration: 0.3,
 
-                overwrite:
-                    "auto"
+      overwrite: "auto",
+    });
 
-            }
-        );
+    /* =========================================
+           LENS ROTATION
+        ========================================= */
 
+    gsap.to(focus57Lens, {
+      rotation: nx * 8,
 
+      duration: 0.5,
+
+      overwrite: "auto",
+    });
+  }
+
+  /* =============================================
+       SPEED DECAY
+    ============================================= */
+
+  focus57Speed *= 0.9;
+
+  requestAnimationFrame(updateFocus57);
+}
+
+updateFocus57();
+
+/* =========================================================
+   CLICK — FULL FOCUS
+========================================================= */
+
+focus57Stage.addEventListener("click", () => {
+  if (focus57Locked) return;
+
+  focus57Locked = true;
+
+  /* =============================================
+           EXPANDING LENS
+        ============================================= */
+
+  gsap.set(focus57Expansion, {
+    left: focus57CurrentX,
+
+    top: focus57CurrentY,
+
+    scale: 0,
+
+    opacity: 0.9,
+  });
+
+  gsap.to(focus57Expansion, {
+    scale: 35,
+
+    opacity: 0,
+
+    duration: 1,
+
+    ease: "power3.out",
+  });
+
+  /* =============================================
+           LENS EXPANDS
+        ============================================= */
+
+  gsap.to(focus57Lens, {
+    scale: 3,
+
+    opacity: 0.9,
+
+    duration: 0.65,
+
+    ease: "power3.inOut",
+  });
+
+  /* =============================================
+           WORD BECOMES EXTREMELY SHARP
+        ============================================= */
+
+  gsap
+    .timeline()
+
+    .to(focus57Main, {
+      scale: 1.12,
+
+      letterSpacing: "-.07em",
+
+      filter: "blur(0px)",
+
+      duration: 0.4,
+
+      ease: "power3.out",
+    })
+
+    .to(
+      focus57LensText,
+      {
+        scale: 2.3,
+
+        duration: 0.5,
+
+        ease: "power3.out",
+      },
+      "<",
+    );
+
+  /* =============================================
+           PAUSE
+        ============================================= */
+
+  setTimeout(() => {
+    /* =====================================
+                   CONTRACT
+                ===================================== */
+
+    gsap.to(focus57Lens, {
+      scale: 0.75,
+
+      opacity: 0,
+
+      duration: 0.7,
+
+      ease: "power3.inOut",
+    });
+
+    gsap.to(focus57Main, {
+      scale: 1,
+
+      letterSpacing: "-.105em",
+
+      duration: 0.8,
+
+      ease: "elastic.out(1,.35)",
+    });
+
+    gsap.to(focus57LensText, {
+      scale: 1.8,
+
+      duration: 0.7,
+
+      ease: "power3.out",
+
+      onComplete: () => {
+        focus57Locked = false;
+      },
+    });
+  }, 850);
+});
 
 
 
