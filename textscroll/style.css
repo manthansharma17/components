@@ -9333,6 +9333,165 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   SCENE
+========================================================= */
+
+.focus57-scene {
+
+    position: relative;
+
+    width: 100%;
+    height: 350px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    transform-style: preserve-3d;
+
+    z-index: 5;
+
+}
+
+
+/* =========================================================
+   ALL WORDS
+========================================================= */
+
+.focus57-word {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    font-size:
+        clamp(
+            6rem,
+            20vw,
+            23rem
+        );
+
+    font-weight: 900;
+
+    line-height: .72;
+
+    letter-spacing: -.105em;
+
+    white-space: nowrap;
+
+    user-select: none;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   BLURRED BASE
+========================================================= */
+
+.focus57-word-blur {
+
+    color:
+        rgba(255,255,255,.17);
+
+    filter:
+        blur(9px);
+
+    transform:
+        translate(-50%, -50%)
+        scale(.98);
+
+}
+
+
+/* =========================================================
+   MAIN WORD
+========================================================= */
+
+.focus57-word-main {
+
+    color: #fff;
+
+    z-index: 4;
+
+    text-shadow:
+        0 0 35px
+        rgba(255,255,255,.08);
+
+}
+
+
+/* =========================================================
+   LENS TEXT
+========================================================= */
+
+.focus57-word-lens {
+
+    color: #fff;
+
+    z-index: 8;
+
+    transform:
+        translate(-50%, -50%)
+        scale(1.8);
+
+    clip-path:
+        circle(
+            0px at 50% 50%
+        );
+
+    filter:
+        blur(0);
+
+    text-shadow:
+        0 0 30px
+        rgba(255,255,255,.2);
+
+}
+
+
+/* =========================================================
+   LENS
+========================================================= */
+
+.focus57-lens {
+
+    position: absolute;
+
+    width: 240px;
+    height: 240px;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.75);
+
+    border-radius: 50%;
+
+    opacity: 0;
+
+    z-index: 15;
+
+    pointer-events: none;
+
+    will-change:
+        transform,
+        left,
+        top;
+
+}
+
+
+
 
 /* =========================================================
    REDUCED MOTION
