@@ -16651,6 +16651,166 @@ focus57Stage.addEventListener(
 
     }
 );
+/* =========================================================
+   LEAVE
+========================================================= */
+
+focus57Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        focus57Inside = false;
+
+
+        gsap.to(
+            focus57Lens,
+            {
+
+                opacity: 0,
+
+                scale: .75,
+
+                duration: .35
+
+            }
+        );
+
+
+        gsap.to(
+            focus57Cursor,
+            {
+
+                opacity: 0,
+
+                scale: 0,
+
+                duration: .3
+
+            }
+        );
+
+
+        if (!focus57Locked) {
+
+            gsap.to(
+                focus57Scene,
+                {
+
+                    x: 0,
+
+                    y: 0,
+
+                    rotationX: 0,
+
+                    rotationY: 0,
+
+                    duration: .7,
+
+                    ease:
+                        "power3.out"
+
+                }
+            );
+
+
+            gsap.to(
+                focus57Main,
+                {
+
+                    scale: 1,
+
+                    duration: .5
+
+                }
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   MAIN LOOP
+========================================================= */
+
+function updateFocus57() {
+
+    focus57CurrentX +=
+        (
+            focus57MouseX -
+            focus57CurrentX
+        ) * .14;
+
+
+    focus57CurrentY +=
+        (
+            focus57MouseY -
+            focus57CurrentY
+        ) * .14;
+
+
+    /* =============================================
+       CURSOR
+    ============================================= */
+
+    focus57Cursor.style.left =
+        focus57CurrentX + "px";
+
+
+    focus57Cursor.style.top =
+        focus57CurrentY + "px";
+
+
+    if (
+        focus57Inside &&
+        !focus57Locked
+    ) {
+
+        const rect =
+            focus57Stage
+                .getBoundingClientRect();
+
+
+        const nx =
+            (
+                focus57CurrentX /
+                rect.width
+            ) * 2 - 1;
+
+
+        const ny =
+            (
+                focus57CurrentY /
+                rect.height
+            ) * 2 - 1;
+
+
+        /* =========================================
+           LENS POSITION
+        ========================================= */
+
+        gsap.to(
+            focus57Lens,
+            {
+
+                left:
+                    focus57CurrentX,
+
+                top:
+                    focus57CurrentY,
+
+                duration: .18,
+
+                overwrite:
+                    "auto",
+
+                ease:
+                    "power2.out"
+
+            }
+        );
+
 
 
 
