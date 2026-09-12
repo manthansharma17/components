@@ -17311,6 +17311,162 @@ function updateWarp58() {
                 distance / 700
             );
 
+ /* =========================================
+           WARP STRENGTH
+        ========================================= */
+
+        const speedWarp =
+            Math.min(
+                warp58Speed * .012,
+                .4
+            );
+
+
+        const warp =
+            influence *
+            (
+                .15 +
+                speedWarp
+            );
+
+
+        /* =========================================
+           MAIN TEXT
+        ========================================= */
+
+        gsap.to(
+            warp58Word,
+            {
+
+                x:
+                    nx *
+                    influence *
+                    80,
+
+                y:
+                    ny *
+                    influence *
+                    35,
+
+                rotationY:
+                    nx *
+                    influence *
+                    18,
+
+                rotationX:
+                    ny *
+                    influence *
+                    -9,
+
+                skewX:
+                    nx *
+                    warp *
+                    22,
+
+                scaleX:
+                    1 +
+                    warp,
+
+                scaleY:
+                    1 -
+                    warp * .35,
+
+                duration: .3,
+
+                overwrite:
+                    "auto",
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+
+        /* =========================================
+           TRAIL 1
+        ========================================= */
+
+        gsap.to(
+            warp58Trail1,
+            {
+
+                x:
+                    nx *
+                    influence *
+                    -35,
+
+                y:
+                    ny *
+                    influence *
+                    -15,
+
+                scaleX:
+                    1 +
+                    warp * .7,
+
+                skewX:
+                    nx *
+                    warp *
+                    -12,
+
+                opacity:
+                    .2 +
+                    warp,
+
+                duration: .35,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
+
+        /* =========================================
+           TRAIL 2
+        ========================================= */
+
+        gsap.to(
+            warp58Trail2,
+            {
+
+                x:
+                    nx *
+                    influence *
+                    -70,
+
+                y:
+                    ny *
+                    influence *
+                    -28,
+
+                scaleX:
+                    1 +
+                    warp * 1.2,
+
+                skewX:
+                    nx *
+                    warp *
+                    -18,
+
+                opacity:
+                    .08 +
+                    warp * .4,
+
+                duration: .5,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
+
+
+
+
+
 
 /* =========================================================
    REFRESH
