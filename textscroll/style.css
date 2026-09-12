@@ -10042,7 +10042,98 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   TUNNEL
+========================================================= */
 
+.warp58-tunnel {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.6);
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 40;
+
+}
+
+
+/* =========================================================
+   FLASH
+========================================================= */
+
+.warp58-flash {
+
+    position: absolute;
+
+    inset: 0;
+
+    background: #fff;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 60;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .warp58-stage {
+
+        cursor: default;
+
+    }
+
+    .warp58-cursor {
+
+        display: none;
+
+    }
+
+    .warp58-word,
+    .warp58-trail {
+
+        font-size:
+            clamp(
+                4rem,
+                23vw,
+                10rem
+            );
+
+    }
+
+    .warp58-grid {
+
+        background-size:
+            55px 55px;
+
+    }
+
+}
 
 
 /* =========================================================
