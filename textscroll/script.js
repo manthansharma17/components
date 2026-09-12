@@ -17392,7 +17392,393 @@ function updateWarp58() {
 
 updateWarp58();
 
+/* =========================================================
+   CLICK — ENTER THE WARP TUNNEL
+========================================================= */
 
+warp58Stage.addEventListener(
+    "click",
+    () => {
+
+        if (warp58Locked)
+            return;
+
+
+        warp58Locked = true;
+
+
+        /* =============================================
+           TUNNEL
+        ============================================= */
+
+        gsap.set(
+            warp58Tunnel,
+            {
+
+                left:
+                    warp58CurrentX,
+
+                top:
+                    warp58CurrentY,
+
+                scale: 0,
+
+                opacity: .9
+
+            }
+        );
+
+
+        gsap.to(
+            warp58Tunnel,
+            {
+
+                scale: 30,
+
+                opacity: 0,
+
+                duration: 1.1,
+
+                ease:
+                    "power4.in"
+
+            }
+        );
+
+
+        /* =============================================
+           FLASH
+        ============================================= */
+
+        gsap.timeline()
+
+            .to(
+                warp58Flash,
+                {
+
+                    opacity: .15,
+
+                    duration: .08
+
+                }
+            )
+
+            .to(
+                warp58Flash,
+                {
+
+                    opacity: 0,
+
+                    duration: .35
+
+                }
+            );
+
+
+        /* =============================================
+           WORD GETS PULLED FORWARD
+        ============================================= */
+
+        gsap.timeline()
+
+            .to(
+                warp58Word,
+                {
+
+                    scaleX: 1.4,
+
+                    scaleY: .7,
+
+                    filter:
+                        "blur(3px)",
+
+                    duration: .2,
+
+                    ease:
+                        "power2.in"
+
+                }
+            )
+
+            .to(
+                warp58Word,
+                {
+
+                    scaleX: 5,
+
+                    scaleY: .25,
+
+                    rotationY: 35,
+
+                    opacity: 0,
+
+                    filter:
+                        "blur(14px)",
+
+                    duration: .65,
+
+                    ease:
+                        "power4.in"
+
+                }
+            );
+
+
+        /* =============================================
+           TRAILS FOLLOW
+        ============================================= */
+
+        gsap.to(
+            warp58Trail1,
+            {
+
+                scaleX: 4,
+
+                opacity: 0,
+
+                filter:
+                    "blur(15px)",
+
+                duration: .7,
+
+                ease:
+                    "power4.in"
+
+            }
+        );
+
+
+        gsap.to(
+            warp58Trail2,
+            {
+
+                scaleX: 7,
+
+                opacity: 0,
+
+                filter:
+                    "blur(25px)",
+
+                duration: .8,
+
+                ease:
+                    "power4.in"
+
+            }
+        );
+
+
+        /* =============================================
+           GRID FLIES FORWARD
+        ============================================= */
+
+        gsap.to(
+            warp58Grid,
+            {
+
+                scale:
+                    4,
+
+                opacity: 0,
+
+                duration: .9,
+
+                ease:
+                    "power4.in"
+
+            }
+        );
+
+
+        /* =============================================
+           REBUILD
+        ============================================= */
+
+        setTimeout(
+            () => {
+
+                gsap.set(
+                    warp58Word,
+                    {
+
+                        x: 0,
+
+                        y: 0,
+
+                        scaleX: .25,
+
+                        scaleY: 2.5,
+
+                        rotationY: -30,
+
+                        opacity: 0,
+
+                        filter:
+                            "blur(15px)"
+
+                    }
+                );
+
+
+                gsap.set(
+                    warp58Trail1,
+                    {
+
+                        x: -150,
+
+                        scaleX: 2,
+
+                        opacity: 0,
+
+                        filter:
+                            "blur(12px)"
+
+                    }
+                );
+
+
+                gsap.set(
+                    warp58Trail2,
+                    {
+
+                        x: -250,
+
+                        scaleX: 3,
+
+                        opacity: 0,
+
+                        filter:
+                            "blur(20px)"
+
+                    }
+                );
+
+
+                gsap.set(
+                    warp58Grid,
+                    {
+
+                        scale: 4,
+
+                        opacity: 0
+
+                    }
+                );
+
+
+                /* =====================================
+                   REAPPEAR
+                ===================================== */
+
+                gsap.timeline({
+
+                    onComplete: () => {
+
+                        warp58Locked =
+                            false;
+
+                    }
+
+                })
+
+                .to(
+                    warp58Grid,
+                    {
+
+                        scale: 1.2,
+
+                        opacity: .12,
+
+                        duration: .8,
+
+                        ease:
+                            "power3.out"
+
+                    }
+                )
+
+                .to(
+                    warp58Trail2,
+                    {
+
+                        x: 0,
+
+                        scaleX: 1,
+
+                        opacity: .3,
+
+                        filter:
+                            "blur(14px)",
+
+                        duration: .6,
+
+                        ease:
+                            "power3.out"
+
+                    },
+                    "-=.55"
+                )
+
+                .to(
+                    warp58Trail1,
+                    {
+
+                        x: 0,
+
+                        scaleX: 1,
+
+                        opacity: .6,
+
+                        filter:
+                            "blur(7px)",
+
+                        duration: .55,
+
+                        ease:
+                            "power3.out"
+
+                    },
+                    "-=.45"
+                )
+
+                .to(
+                    warp58Word,
+                    {
+
+                        x: 0,
+
+                        y: 0,
+
+                        scaleX: 1,
+
+                        scaleY: 1,
+
+                        rotationY: 0,
+
+                        rotationX: 0,
+
+                        skewX: 0,
+
+                        opacity: 1,
+
+                        filter:
+                            "blur(0px)",
+
+                        duration: 1,
+
+                        ease:
+                            "elastic.out(1,.35)"
+
+                    },
+                    "-=.5"
+                );
+
+            },
+            1050
+        );
+
+    }
+);
 
 
 
