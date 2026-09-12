@@ -17148,6 +17148,168 @@ warp58Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   MOUSE LEAVE
+========================================================= */
+
+warp58Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        warp58Inside = false;
+
+
+        gsap.to(
+            warp58Cursor,
+            {
+
+                opacity: 0,
+
+                scale: 0,
+
+                duration: .3
+
+            }
+        );
+
+
+        if (!warp58Locked) {
+
+            gsap.to(
+                warp58Scene,
+                {
+
+                    x: 0,
+
+                    y: 0,
+
+                    rotationX: 0,
+
+                    rotationY: 0,
+
+                    duration: .7,
+
+                    ease:
+                        "power3.out"
+
+                }
+            );
+
+
+            gsap.to(
+                warp58Word,
+                {
+
+                    scaleX: 1,
+
+                    scaleY: 1,
+
+                    skewX: 0,
+
+                    duration: .5,
+
+                    ease:
+                        "power3.out"
+
+                }
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   MAIN LOOP
+========================================================= */
+
+function updateWarp58() {
+
+    warp58CurrentX +=
+        (
+            warp58MouseX -
+            warp58CurrentX
+        ) * .12;
+
+
+    warp58CurrentY +=
+        (
+            warp58MouseY -
+            warp58CurrentY
+        ) * .12;
+
+
+    /* =============================================
+       CURSOR
+    ============================================= */
+
+    warp58Cursor.style.left =
+        warp58CurrentX + "px";
+
+    warp58Cursor.style.top =
+        warp58CurrentY + "px";
+
+
+    if (
+        warp58Inside &&
+        !warp58Locked
+    ) {
+
+        const rect =
+            warp58Stage
+                .getBoundingClientRect();
+
+
+        const nx =
+            (
+                warp58CurrentX /
+                rect.width
+            ) * 2 - 1;
+
+
+        const ny =
+            (
+                warp58CurrentY /
+                rect.height
+            ) * 2 - 1;
+
+
+        /* =========================================
+           DISTANCE FROM CENTER
+        ========================================= */
+
+        const centerX =
+            rect.width / 2;
+
+
+        const centerY =
+            rect.height / 2;
+
+
+        const dx =
+            warp58CurrentX -
+            centerX;
+
+
+        const dy =
+            warp58CurrentY -
+            centerY;
+
+
+        const distance =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        const influence =
+            Math.max(
+                0,
+                1 -
+                distance / 700
+            );
 
 
 /* =========================================================
