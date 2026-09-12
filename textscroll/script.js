@@ -17225,244 +17225,172 @@ warp58Stage.addEventListener(
 ========================================================= */
 
 function updateWarp58() {
+  warp58CurrentX += (warp58MouseX - warp58CurrentX) * 0.12;
 
-    warp58CurrentX +=
-        (
-            warp58MouseX -
-            warp58CurrentX
-        ) * .12;
+  warp58CurrentY += (warp58MouseY - warp58CurrentY) * 0.12;
 
-
-    warp58CurrentY +=
-        (
-            warp58MouseY -
-            warp58CurrentY
-        ) * .12;
-
-
-    /* =============================================
+  /* =============================================
        CURSOR
     ============================================= */
 
-    warp58Cursor.style.left =
-        warp58CurrentX + "px";
+  warp58Cursor.style.left = warp58CurrentX + "px";
 
-    warp58Cursor.style.top =
-        warp58CurrentY + "px";
+  warp58Cursor.style.top = warp58CurrentY + "px";
 
+  if (warp58Inside && !warp58Locked) {
+    const rect = warp58Stage.getBoundingClientRect();
 
-    if (
-        warp58Inside &&
-        !warp58Locked
-    ) {
+    const nx = (warp58CurrentX / rect.width) * 2 - 1;
 
-        const rect =
-            warp58Stage
-                .getBoundingClientRect();
+    const ny = (warp58CurrentY / rect.height) * 2 - 1;
 
-
-        const nx =
-            (
-                warp58CurrentX /
-                rect.width
-            ) * 2 - 1;
-
-
-        const ny =
-            (
-                warp58CurrentY /
-                rect.height
-            ) * 2 - 1;
-
-
-        /* =========================================
+    /* =========================================
            DISTANCE FROM CENTER
         ========================================= */
 
-        const centerX =
-            rect.width / 2;
+    const centerX = rect.width / 2;
 
+    const centerY = rect.height / 2;
 
-        const centerY =
-            rect.height / 2;
+    const dx = warp58CurrentX - centerX;
 
+    const dy = warp58CurrentY - centerY;
 
-        const dx =
-            warp58CurrentX -
-            centerX;
+    const distance = Math.sqrt(dx * dx + dy * dy);
 
+    const influence = Math.max(0, 1 - distance / 700);
 
-        const dy =
-            warp58CurrentY -
-            centerY;
-
-
-        const distance =
-            Math.sqrt(
-                dx * dx +
-                dy * dy
-            );
-
-
-        const influence =
-            Math.max(
-                0,
-                1 -
-                distance / 700
-            );
-
- /* =========================================
+    /* =========================================
            WARP STRENGTH
         ========================================= */
 
-        const speedWarp =
-            Math.min(
-                warp58Speed * .012,
-                .4
-            );
+    const speedWarp = Math.min(warp58Speed * 0.012, 0.4);
 
+    const warp = influence * (0.15 + speedWarp);
 
-        const warp =
-            influence *
-            (
-                .15 +
-                speedWarp
-            );
-
-
-        /* =========================================
+    /* =========================================
            MAIN TEXT
         ========================================= */
 
-        gsap.to(
-            warp58Word,
-            {
+    gsap.to(warp58Word, {
+      x: nx * influence * 80,
 
-                x:
-                    nx *
-                    influence *
-                    80,
+      y: ny * influence * 35,
 
-                y:
-                    ny *
-                    influence *
-                    35,
+      rotationY: nx * influence * 18,
 
-                rotationY:
-                    nx *
-                    influence *
-                    18,
+      rotationX: ny * influence * -9,
 
-                rotationX:
-                    ny *
-                    influence *
-                    -9,
+      skewX: nx * warp * 22,
 
-                skewX:
-                    nx *
-                    warp *
-                    22,
+      scaleX: 1 + warp,
 
-                scaleX:
-                    1 +
-                    warp,
+      scaleY: 1 - warp * 0.35,
 
-                scaleY:
-                    1 -
-                    warp * .35,
+      duration: 0.3,
 
-                duration: .3,
+      overwrite: "auto",
 
-                overwrite:
-                    "auto",
+      ease: "power3.out",
+    });
 
-                ease:
-                    "power3.out"
-
-            }
-        );
-
-
-        /* =========================================
+    /* =========================================
            TRAIL 1
         ========================================= */
 
-        gsap.to(
-            warp58Trail1,
-            {
+    gsap.to(warp58Trail1, {
+      x: nx * influence * -35,
 
-                x:
-                    nx *
-                    influence *
-                    -35,
+      y: ny * influence * -15,
 
-                y:
-                    ny *
-                    influence *
-                    -15,
+      scaleX: 1 + warp * 0.7,
 
-                scaleX:
-                    1 +
-                    warp * .7,
+      skewX: nx * warp * -12,
 
-                skewX:
-                    nx *
-                    warp *
-                    -12,
+      opacity: 0.2 + warp,
 
-                opacity:
-                    .2 +
-                    warp,
+      duration: 0.35,
 
-                duration: .35,
+      overwrite: "auto",
+    });
 
-                overwrite:
-                    "auto"
-
-            }
-        );
-
-
-        /* =========================================
+    /* =========================================
            TRAIL 2
         ========================================= */
 
-        gsap.to(
-            warp58Trail2,
-            {
+    gsap.to(warp58Trail2, {
+      x: nx * influence * -70,
 
-                x:
-                    nx *
-                    influence *
-                    -70,
+      y: ny * influence * -28,
 
-                y:
-                    ny *
-                    influence *
-                    -28,
+      scaleX: 1 + warp * 1.2,
 
-                scaleX:
-                    1 +
-                    warp * 1.2,
+      skewX: nx * warp * -18,
 
-                skewX:
-                    nx *
-                    warp *
-                    -18,
+      opacity: 0.08 + warp * 0.4,
 
-                opacity:
-                    .08 +
-                    warp * .4,
+      duration: 0.5,
 
-                duration: .5,
+      overwrite: "auto",
+    });
 
-                overwrite:
-                    "auto"
+    /* =========================================
+           GRID BENDING
+        ========================================= */
 
-            }
-        );
+    gsap.to(warp58Grid, {
+      x: nx * 80,
 
+      y: ny * 25,
 
+      rotationZ: nx * 2,
+
+      scale: 1.2 + influence * 0.12,
+
+      duration: 0.6,
+
+      overwrite: "auto",
+
+      ease: "power3.out",
+    });
+
+    /* =========================================
+           SPEED STREAK
+        ========================================= */
+
+    if (warp58Speed > 8) {
+      gsap.to(warp58Streak, {
+        width: Math.min(warp58Speed * 8, 700),
+
+        opacity: Math.min(warp58Speed * 0.025, 0.65),
+
+        rotation: (Math.atan2(dy, dx) * 180) / Math.PI,
+
+        duration: 0.15,
+
+        overwrite: "auto",
+      });
+    } else {
+      gsap.to(warp58Streak, {
+        width: 0,
+
+        opacity: 0,
+
+        duration: 0.3,
+      });
+    }
+  }
+
+  /* =============================================
+       SPEED DECAY
+    ============================================= */
+
+  warp58Speed *= 0.9;
+
+  requestAnimationFrame(updateWarp58);
+}
+
+updateWarp58();
 
 
 
