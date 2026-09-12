@@ -16993,6 +16993,160 @@ focus57Stage.addEventListener("click", () => {
   }, 850);
 });
 
+/* =========================================================
+   SECTION 58 — TYPOGRAPHY WARP
+========================================================= */
+
+const warp58Stage =
+    document.querySelector(
+        "#warp58Stage"
+    );
+
+const warp58Scene =
+    document.querySelector(
+        "#warp58Scene"
+    );
+
+const warp58Word =
+    document.querySelector(
+        "#warp58Word"
+    );
+
+const warp58Trail1 =
+    document.querySelector(
+        "#warp58Trail1"
+    );
+
+const warp58Trail2 =
+    document.querySelector(
+        "#warp58Trail2"
+    );
+
+const warp58Grid =
+    document.querySelector(
+        "#warp58Grid"
+    );
+
+const warp58Streak =
+    document.querySelector(
+        "#warp58Streak"
+    );
+
+const warp58Cursor =
+    document.querySelector(
+        "#warp58Cursor"
+    );
+
+const warp58Tunnel =
+    document.querySelector(
+        "#warp58Tunnel"
+    );
+
+const warp58Flash =
+    document.querySelector(
+        "#warp58Flash"
+    );
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let warp58MouseX = 0;
+let warp58MouseY = 0;
+
+let warp58CurrentX = 0;
+let warp58CurrentY = 0;
+
+let warp58PreviousX = 0;
+let warp58PreviousY = 0;
+
+let warp58Speed = 0;
+
+let warp58Inside = false;
+
+let warp58Locked = false;
+
+
+/* =========================================================
+   MOUSE ENTER
+========================================================= */
+
+warp58Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        warp58Inside = true;
+
+        gsap.to(
+            warp58Cursor,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: .3,
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
+
+warp58Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        const rect =
+            warp58Stage
+                .getBoundingClientRect();
+
+
+        warp58MouseX =
+            event.clientX -
+            rect.left;
+
+
+        warp58MouseY =
+            event.clientY -
+            rect.top;
+
+
+        const dx =
+            warp58MouseX -
+            warp58PreviousX;
+
+
+        const dy =
+            warp58MouseY -
+            warp58PreviousY;
+
+
+        warp58Speed =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        warp58PreviousX =
+            warp58MouseX;
+
+
+        warp58PreviousY =
+            warp58MouseY;
+
+    }
+);
 
 
 
