@@ -9908,6 +9908,139 @@ JS animates every word toward these positions.
         rgba(255,255,255,.08);
 
 }
+/* =========================================================
+   TRAILS
+========================================================= */
+
+.warp58-trail {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    font-size:
+        clamp(
+            7rem,
+            22vw,
+            25rem
+        );
+
+    font-weight: 900;
+
+    line-height: .7;
+
+    letter-spacing: -.11em;
+
+    white-space: nowrap;
+
+    user-select: none;
+
+    pointer-events: none;
+
+    color:
+        rgba(255,255,255,.04);
+
+    filter:
+        blur(7px);
+
+    z-index: 5;
+
+}
+
+
+.warp58-trail-1 {
+
+    opacity: .6;
+
+}
+
+
+.warp58-trail-2 {
+
+    opacity: .3;
+
+    filter:
+        blur(14px);
+
+}
+
+
+/* =========================================================
+   STREAK
+========================================================= */
+
+.warp58-streak {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 0;
+
+    height: 2px;
+
+    transform:
+        translate(-50%, -50%);
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.8),
+            transparent
+        );
+
+    opacity: 0;
+
+    z-index: 4;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.warp58-cursor {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    z-index: 50;
+
+    pointer-events: none;
+
+    box-shadow:
+
+        0 0 14px
+        rgba(255,255,255,.9),
+
+        0 0 40px
+        rgba(255,255,255,.35);
+
+}
 
 
 
