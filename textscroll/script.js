@@ -17903,6 +17903,162 @@ for (
     );
 
 }
+/* =========================================================
+   CREATE WORD FRAGMENTS
+========================================================= */
+
+const shatter59FragmentData = [];
+
+const letters =
+    "SHATTER".split("");
+
+
+letters.forEach(
+    (letter, index) => {
+
+        const fragment =
+            document.createElement(
+                "div"
+            );
+
+        fragment.className =
+            "shatter59-fragment";
+
+
+        fragment.textContent =
+            letter;
+
+
+        shatter59Fragments.appendChild(
+            fragment
+        );
+
+
+        shatter59FragmentData.push({
+
+            element:
+                fragment,
+
+            index:
+                index,
+
+            angle:
+                Math.random() *
+                Math.PI *
+                2,
+
+            distance:
+                100 +
+                Math.random() *
+                350,
+
+            rotation:
+                -180 +
+                Math.random() *
+                360
+
+        });
+
+    }
+);
+
+
+/* =========================================================
+   ENTER
+========================================================= */
+
+shatter59Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        shatter59Inside = true;
+
+
+        gsap.to(
+            shatter59Cursor,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: .3
+
+            }
+        );
+
+
+        gsap.to(
+            shatter59CursorRing,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: .4,
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
+
+shatter59Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        const rect =
+            shatter59Stage
+                .getBoundingClientRect();
+
+
+        shatter59MouseX =
+            event.clientX -
+            rect.left;
+
+
+        shatter59MouseY =
+            event.clientY -
+            rect.top;
+
+
+        const dx =
+            shatter59MouseX -
+            shatter59PreviousX;
+
+
+        const dy =
+            shatter59MouseY -
+            shatter59PreviousY;
+
+
+        shatter59Speed =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        shatter59PreviousX =
+            shatter59MouseX;
+
+
+        shatter59PreviousY =
+            shatter59MouseY;
+
+    }
+);
+
+
 
 
 
