@@ -18058,6 +18058,347 @@ shatter59Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   LEAVE
+========================================================= */
+
+shatter59Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        shatter59Inside = false;
+
+
+        gsap.to(
+            shatter59Cursor,
+            {
+
+                opacity: 0,
+
+                scale: 0,
+
+                duration: .25
+
+            }
+        );
+
+
+        gsap.to(
+            shatter59CursorRing,
+            {
+
+                opacity: 0,
+
+                scale: .7,
+
+                duration: .25
+
+            }
+        );
+
+
+        if (!shatter59Locked) {
+
+            gsap.to(
+                shatter59Scene,
+                {
+
+                    x: 0,
+
+                    y: 0,
+
+                    rotationX: 0,
+
+                    rotationY: 0,
+
+                    duration: .7,
+
+                    ease:
+                        "power3.out"
+
+                }
+            );
+
+
+            gsap.to(
+                shatter59Word,
+                {
+
+                    scaleX: 1,
+
+                    scaleY: 1,
+
+                    skewX: 0,
+
+                    duration: .5
+
+                }
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   MAIN LOOP
+========================================================= */
+
+function updateShatter59() {
+
+    shatter59CurrentX +=
+        (
+            shatter59MouseX -
+            shatter59CurrentX
+        ) * .13;
+
+
+    shatter59CurrentY +=
+        (
+            shatter59MouseY -
+            shatter59CurrentY
+        ) * .13;
+
+
+    /* =============================================
+       CURSOR
+    ============================================= */
+
+    shatter59Cursor.style.left =
+        shatter59CurrentX + "px";
+
+
+    shatter59Cursor.style.top =
+        shatter59CurrentY + "px";
+
+
+    shatter59CursorRing.style.left =
+        shatter59CurrentX + "px";
+
+
+    shatter59CursorRing.style.top =
+        shatter59CurrentY + "px";
+
+
+    if (
+        shatter59Inside &&
+        !shatter59Locked
+    ) {
+
+        const rect =
+            shatter59Stage
+                .getBoundingClientRect();
+
+
+        const centerX =
+            rect.width / 2;
+
+
+        const centerY =
+            rect.height / 2;
+
+
+        const dx =
+            shatter59CurrentX -
+            centerX;
+
+
+        const dy =
+            shatter59CurrentY -
+            centerY;
+
+
+        const distance =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        const influence =
+            Math.max(
+                0,
+                1 -
+                distance / 650
+            );
+
+
+        /* =========================================
+           TEXT WOBBLE
+        ========================================= */
+
+        const vibration =
+            Math.min(
+                shatter59Speed * .012,
+                .25
+            );
+
+
+        gsap.to(
+            shatter59Word,
+            {
+
+                x:
+                    dx *
+                    influence *
+                    .08,
+
+                y:
+                    dy *
+                    influence *
+                    .04,
+
+                rotationX:
+                    dy *
+                    influence *
+                    -.015,
+
+                rotationY:
+                    dx *
+                    influence *
+                    .015,
+
+                scaleX:
+                    1 +
+                    vibration,
+
+                scaleY:
+                    1 -
+                    vibration * .3,
+
+                skewX:
+                    dx *
+                    influence *
+                    .015,
+
+                duration: .2,
+
+                overwrite:
+                    "auto",
+
+                ease:
+                    "power2.out"
+
+            }
+        );
+
+
+        /* =========================================
+           SCENE PARALLAX
+        ========================================= */
+
+        gsap.to(
+            shatter59Scene,
+            {
+
+                rotationY:
+                    dx *
+                    .006,
+
+                rotationX:
+                    dy *
+                    -.004,
+
+                duration: .4,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
+
+        /* =========================================
+           CRACKS APPEAR WITH SPEED
+        ========================================= */
+
+        if (
+            shatter59Speed > 5
+        ) {
+
+            const cracks =
+                shatter59Cracks
+                    .children;
+
+
+            for (
+                let i = 0;
+                i < cracks.length;
+                i++
+            ) {
+
+                if (
+                    Math.random() <
+                    .12
+                ) {
+
+                    gsap.to(
+                        cracks[i],
+                        {
+
+                            opacity:
+                                .08 +
+                                Math.min(
+                                    shatter59Speed *
+                                    .01,
+                                    .4
+                                ),
+
+                            duration: .25
+
+                        }
+                    );
+
+                }
+
+            }
+
+        }
+
+
+        /* =========================================
+           CURSOR RING PULSE
+        ========================================= */
+
+        gsap.to(
+            shatter59CursorRing,
+            {
+
+                scale:
+                    1 +
+                    Math.min(
+                        shatter59Speed * .015,
+                        .35
+                    ),
+
+                duration: .2,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
+    }
+
+
+    /* =============================================
+       SPEED DECAY
+    ============================================= */
+
+    shatter59Speed *= .9;
+
+
+    requestAnimationFrame(
+        updateShatter59
+    );
+
+}
+
+
+updateShatter59();
+
 
 
 
