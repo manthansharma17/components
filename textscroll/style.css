@@ -10352,7 +10352,134 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   FRAGMENTS
+========================================================= */
 
+.shatter59-fragments {
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    transform-style: preserve-3d;
+
+    z-index: 15;
+
+}
+
+
+/* =========================================================
+   INDIVIDUAL FRAGMENT
+========================================================= */
+
+.shatter59-fragment {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    font-size:
+        clamp(
+            5rem,
+            17vw,
+            20rem
+        );
+
+    font-weight: 900;
+
+    line-height: .72;
+
+    letter-spacing: -.105em;
+
+    white-space: nowrap;
+
+    color: #fff;
+
+    user-select: none;
+
+    transform-origin: center;
+
+    will-change:
+        transform,
+        opacity;
+
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.shatter59-cursor {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    z-index: 50;
+
+    pointer-events: none;
+
+    box-shadow:
+
+        0 0 15px
+        rgba(255,255,255,.9),
+
+        0 0 35px
+        rgba(255,255,255,.35);
+
+}
+
+
+/* =========================================================
+   CURSOR RING
+========================================================= */
+
+.shatter59-cursor-ring {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 90px;
+    height: 90px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.2);
+
+    transform:
+        translate(-50%, -50%)
+        scale(.7);
+
+    opacity: 0;
+
+    z-index: 45;
+
+    pointer-events: none;
+
+}
 
 
 
