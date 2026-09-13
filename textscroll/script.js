@@ -18403,198 +18403,201 @@ updateShatter59();
    CLICK — SHATTER
 ========================================================= */
 
-shatter59Stage.addEventListener(
-    "click",
-    () => {
+shatter59Stage.addEventListener("click", () => {
+  if (shatter59Locked) return;
 
-        if (shatter59Locked)
-            return;
+  shatter59Locked = true;
 
-
-        shatter59Locked = true;
-
-
-        /* =============================================
+  /* =============================================
            IMPACT
         ============================================= */
 
-        gsap.set(
-            shatter59Impact,
-            {
+  gsap.set(shatter59Impact, {
+    left: shatter59CurrentX,
 
-                left:
-                    shatter59CurrentX,
+    top: shatter59CurrentY,
 
-                top:
-                    shatter59CurrentY,
+    scale: 0,
 
-                scale: 0,
+    opacity: 1,
+  });
 
-                opacity: 1
+  gsap.to(shatter59Impact, {
+    scale: 18,
 
-            }
-        );
+    opacity: 0,
 
+    duration: 0.9,
 
-        gsap.to(
-            shatter59Impact,
-            {
+    ease: "power3.out",
+  });
 
-                scale: 18,
-
-                opacity: 0,
-
-                duration: .9,
-
-                ease:
-                    "power3.out"
-
-            }
-        );
-
-
-        /* =============================================
+  /* =============================================
            ORIGINAL WORD DISAPPEARS
         ============================================= */
 
-        gsap.to(
-            shatter59Word,
-            {
+  gsap.to(shatter59Word, {
+    scale: 0.85,
 
-                scale:
-                    .85,
+    opacity: 0,
 
-                opacity: 0,
+    filter: "blur(8px)",
 
-                filter:
-                    "blur(8px)",
+    duration: 0.25,
 
-                duration: .25,
+    ease: "power2.in",
+  });
 
-                ease:
-                    "power2.in"
-
-            }
-        );
-
-
-        /* =============================================
+  /* =============================================
            CRACK EXPLOSION
         ============================================= */
 
-        const cracks =
-            shatter59Cracks
-                .children;
+  const cracks = shatter59Cracks.children;
 
+  for (let i = 0; i < cracks.length; i++) {
+    gsap.to(cracks[i], {
+      opacity: 0.5 + Math.random() * 0.4,
 
-        for (
-            let i = 0;
-            i < cracks.length;
-            i++
-        ) {
+      scaleX: 1.5 + Math.random() * 2,
 
-            gsap.to(
-                cracks[i],
-                {
+      duration: 0.2 + Math.random() * 0.3,
 
-                    opacity:
-                        .5 +
-                        Math.random() * .4,
+      ease: "power2.out",
+    });
+  }
 
-                    scaleX:
-                        1.5 +
-                        Math.random() * 2,
-
-                    duration:
-                        .2 +
-                        Math.random() * .3,
-
-                    ease:
-                        "power2.out"
-
-                }
-            );
-
-        }
-
-
-        /* =============================================
+  /* =============================================
            SHATTER LETTERS
         ============================================= */
 
-        shatter59FragmentData.forEach(
-            (fragment) => {
+  shatter59FragmentData.forEach((fragment) => {
+    const angle = fragment.angle;
 
-                const angle =
-                    fragment.angle;
+    const distance = fragment.distance;
 
+    const x = Math.cos(angle) * distance;
 
-                const distance =
-                    fragment.distance;
+    const y = Math.sin(angle) * distance;
 
+    gsap.fromTo(
+      fragment.element,
+      {
+        x: 0,
 
-                const x =
-                    Math.cos(angle) *
-                    distance;
+        y: 0,
 
+        rotation: 0,
 
-                const y =
-                    Math.sin(angle) *
-                    distance;
+        scale: 1,
 
+        opacity: 0,
+      },
+      {
+        x: x,
 
-                gsap.fromTo(
-                    fragment.element,
-                    {
+        y: y,
 
-                        x: 0,
+        rotation: fragment.rotation,
 
-                        y: 0,
+        scale: 0.35 + Math.random() * 0.7,
 
-                        rotation:
-                            0,
+        opacity: 1,
 
-                        scale: 1,
+        duration: 0.65 + Math.random() * 0.45,
 
-                        opacity: 0
+        delay: Math.random() * 0.08,
 
-                    },
-                    {
+        ease: "power3.out",
+      },
+    );
+  });
 
-                        x: x,
+  /* =============================================
+           FRAGMENTS FALL
+        ============================================= */
 
-                        y: y,
+  setTimeout(() => {
+    shatter59FragmentData.forEach((fragment) => {
+      gsap.to(fragment.element, {
+        y: "+=" + (250 + Math.random() * 350),
 
-                        rotation:
-                            fragment.rotation,
+        rotation: "+=" + (180 + Math.random() * 360),
 
-                        scale:
-                            .35 +
-                            Math.random() *
-                            .7,
+        scale: 0.05,
 
-                        opacity: 1,
+        opacity: 0,
 
-                        duration:
-                            .65 +
-                            Math.random() *
-                            .45,
+        duration: 0.8 + Math.random() * 0.5,
 
-                        delay:
-                            Math.random() *
-                            .08,
+        ease: "power3.in",
+      });
+    });
 
-                        ease:
-                            "power3.out"
+    /* =====================================
+                   REBUILD
+                ===================================== */
 
-                    }
-                );
+    setTimeout(() => {
+      /* Reset fragments */
 
-            }
-        );
+      shatter59FragmentData.forEach((fragment) => {
+        gsap.set(fragment.element, {
+          x: 0,
 
+          y: 0,
 
+          rotation: 0,
 
+          scale: 1,
+
+          opacity: 0,
+        });
+      });
+
+      /* Reset cracks */
+
+      gsap.set(cracks, {
+        opacity: 0,
+
+        scaleX: 1,
+      });
+
+      /* =================================
+                           WORD REAPPEARS
+                        ================================= */
+
+      gsap.fromTo(
+        shatter59Word,
+        {
+          scale: 0.15,
+
+          opacity: 0,
+
+          filter: "blur(12px)",
+
+          rotationY: 25,
+        },
+        {
+          scale: 1,
+
+          opacity: 1,
+
+          filter: "blur(0px)",
+
+          rotationY: 0,
+
+          duration: 1.1,
+
+          ease: "elastic.out(1,.35)",
+
+          onComplete: () => {
+            shatter59Locked = false;
+          },
+        },
+      );
+    }, 750);
+  }, 700);
+});
 
 
 /* =========================================================
