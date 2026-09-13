@@ -17779,6 +17779,130 @@ warp58Stage.addEventListener(
 
     }
 );
+/* =========================================================
+   SECTION 59 — TYPOGRAPHY SHATTER
+========================================================= */
+
+const shatter59Stage =
+    document.querySelector(
+        "#shatter59Stage"
+    );
+
+const shatter59Scene =
+    document.querySelector(
+        "#shatter59Scene"
+    );
+
+const shatter59Word =
+    document.querySelector(
+        "#shatter59Word"
+    );
+
+const shatter59Fragments =
+    document.querySelector(
+        "#shatter59Fragments"
+    );
+
+const shatter59Cracks =
+    document.querySelector(
+        "#shatter59Cracks"
+    );
+
+const shatter59Cursor =
+    document.querySelector(
+        "#shatter59Cursor"
+    );
+
+const shatter59CursorRing =
+    document.querySelector(
+        "#shatter59CursorRing"
+    );
+
+const shatter59Impact =
+    document.querySelector(
+        "#shatter59Impact"
+    );
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let shatter59MouseX = 0;
+let shatter59MouseY = 0;
+
+let shatter59CurrentX = 0;
+let shatter59CurrentY = 0;
+
+let shatter59PreviousX = 0;
+let shatter59PreviousY = 0;
+
+let shatter59Speed = 0;
+
+let shatter59Inside = false;
+
+let shatter59Locked = false;
+
+
+/* =========================================================
+   CREATE CRACKS
+========================================================= */
+
+for (
+    let i = 0;
+    i < 22;
+    i++
+) {
+
+    const crack =
+        document.createElement(
+            "div"
+        );
+
+    crack.className =
+        "shatter59-crack";
+
+
+    const startX =
+        20 +
+        Math.random() * 60;
+
+
+    const startY =
+        25 +
+        Math.random() * 50;
+
+
+    const length =
+        50 +
+        Math.random() * 220;
+
+
+    const angle =
+        Math.random() * 360;
+
+
+    crack.style.left =
+        startX + "%";
+
+
+    crack.style.top =
+        startY + "%";
+
+
+    crack.style.width =
+        length + "px";
+
+
+    crack.style.transform =
+        `rotate(${angle}deg)`;
+
+
+    shatter59Cracks.appendChild(
+        crack
+    );
+
+}
 
 
 
