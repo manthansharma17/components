@@ -10481,7 +10481,71 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   IMPACT
+========================================================= */
 
+.shatter59-impact {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.8);
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    z-index: 40;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .shatter59-stage {
+
+        cursor: default;
+
+    }
+
+    .shatter59-cursor,
+    .shatter59-cursor-ring {
+
+        display: none;
+
+    }
+
+    .shatter59-word,
+    .shatter59-fragment {
+
+        font-size:
+            clamp(
+                3.3rem,
+                17vw,
+                9rem
+            );
+
+    }
+
+}
 
 
 
