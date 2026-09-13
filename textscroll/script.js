@@ -18399,6 +18399,200 @@ function updateShatter59() {
 
 updateShatter59();
 
+/* =========================================================
+   CLICK — SHATTER
+========================================================= */
+
+shatter59Stage.addEventListener(
+    "click",
+    () => {
+
+        if (shatter59Locked)
+            return;
+
+
+        shatter59Locked = true;
+
+
+        /* =============================================
+           IMPACT
+        ============================================= */
+
+        gsap.set(
+            shatter59Impact,
+            {
+
+                left:
+                    shatter59CurrentX,
+
+                top:
+                    shatter59CurrentY,
+
+                scale: 0,
+
+                opacity: 1
+
+            }
+        );
+
+
+        gsap.to(
+            shatter59Impact,
+            {
+
+                scale: 18,
+
+                opacity: 0,
+
+                duration: .9,
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+
+        /* =============================================
+           ORIGINAL WORD DISAPPEARS
+        ============================================= */
+
+        gsap.to(
+            shatter59Word,
+            {
+
+                scale:
+                    .85,
+
+                opacity: 0,
+
+                filter:
+                    "blur(8px)",
+
+                duration: .25,
+
+                ease:
+                    "power2.in"
+
+            }
+        );
+
+
+        /* =============================================
+           CRACK EXPLOSION
+        ============================================= */
+
+        const cracks =
+            shatter59Cracks
+                .children;
+
+
+        for (
+            let i = 0;
+            i < cracks.length;
+            i++
+        ) {
+
+            gsap.to(
+                cracks[i],
+                {
+
+                    opacity:
+                        .5 +
+                        Math.random() * .4,
+
+                    scaleX:
+                        1.5 +
+                        Math.random() * 2,
+
+                    duration:
+                        .2 +
+                        Math.random() * .3,
+
+                    ease:
+                        "power2.out"
+
+                }
+            );
+
+        }
+
+
+        /* =============================================
+           SHATTER LETTERS
+        ============================================= */
+
+        shatter59FragmentData.forEach(
+            (fragment) => {
+
+                const angle =
+                    fragment.angle;
+
+
+                const distance =
+                    fragment.distance;
+
+
+                const x =
+                    Math.cos(angle) *
+                    distance;
+
+
+                const y =
+                    Math.sin(angle) *
+                    distance;
+
+
+                gsap.fromTo(
+                    fragment.element,
+                    {
+
+                        x: 0,
+
+                        y: 0,
+
+                        rotation:
+                            0,
+
+                        scale: 1,
+
+                        opacity: 0
+
+                    },
+                    {
+
+                        x: x,
+
+                        y: y,
+
+                        rotation:
+                            fragment.rotation,
+
+                        scale:
+                            .35 +
+                            Math.random() *
+                            .7,
+
+                        opacity: 1,
+
+                        duration:
+                            .65 +
+                            Math.random() *
+                            .45,
+
+                        delay:
+                            Math.random() *
+                            .08,
+
+                        ease:
+                            "power3.out"
+
+                    }
+                );
+
+            }
+        );
+
 
 
 
