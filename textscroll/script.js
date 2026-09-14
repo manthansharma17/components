@@ -18712,6 +18712,188 @@ for (
     );
 
 }
+/* =========================================================
+   ENTER
+========================================================= */
+
+melt60Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        melt60Inside = true;
+
+
+        gsap.to(
+            melt60Cursor,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: .3
+
+            }
+        );
+
+
+        gsap.to(
+            melt60Ring,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: .4,
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MOVE
+========================================================= */
+
+melt60Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        const rect =
+            melt60Stage
+                .getBoundingClientRect();
+
+
+        melt60MouseX =
+            event.clientX -
+            rect.left;
+
+
+        melt60MouseY =
+            event.clientY -
+            rect.top;
+
+
+        const dx =
+            melt60MouseX -
+            melt60PreviousX;
+
+
+        const dy =
+            melt60MouseY -
+            melt60PreviousY;
+
+
+        melt60Speed =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        melt60PreviousX =
+            melt60MouseX;
+
+
+        melt60PreviousY =
+            melt60MouseY;
+
+    }
+);
+
+
+/* =========================================================
+   LEAVE
+========================================================= */
+
+melt60Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        melt60Inside = false;
+
+
+        gsap.to(
+            melt60Cursor,
+            {
+
+                opacity: 0,
+
+                scale: 0,
+
+                duration: .25
+
+            }
+        );
+
+
+        gsap.to(
+            melt60Ring,
+            {
+
+                opacity: 0,
+
+                scale: .6,
+
+                duration: .25
+
+            }
+        );
+
+
+        if (!melt60Locked) {
+
+            gsap.to(
+                melt60Word,
+                {
+
+                    scaleX: 1,
+
+                    scaleY: 1,
+
+                    skewX: 0,
+
+                    y: 0,
+
+                    rotationX: 0,
+
+                    rotationY: 0,
+
+                    duration: .7,
+
+                    ease:
+                        "power3.out"
+
+                }
+            );
+
+
+            gsap.to(
+                melt60Liquid,
+                {
+
+                    scaleX: 1,
+
+                    scaleY: 1,
+
+                    y: 0,
+
+                    duration: .7
+
+                }
+            );
+
+        }
+
+    }
+);
+
 
 
 
