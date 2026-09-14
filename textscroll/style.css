@@ -10664,6 +10664,201 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   LABEL
+========================================================= */
+
+.melt60-label {
+
+    position: absolute;
+
+    top: 11%;
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    margin: 0;
+
+    font-size: .6rem;
+
+    letter-spacing: .4em;
+
+    white-space: nowrap;
+
+    color:
+        rgba(255,255,255,.3);
+
+    z-index: 30;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   SCENE
+========================================================= */
+
+.melt60-scene {
+
+    position: relative;
+
+    width: 100%;
+    height: 420px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    transform-style: preserve-3d;
+
+    z-index: 10;
+
+}
+
+
+/* =========================================================
+   WORD BASE
+========================================================= */
+
+.melt60-word {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    font-size:
+        clamp(
+            7rem,
+            24vw,
+            27rem
+        );
+
+    font-weight: 900;
+
+    line-height: .68;
+
+    letter-spacing: -.12em;
+
+    white-space: nowrap;
+
+    user-select: none;
+
+    pointer-events: none;
+
+    will-change:
+        transform,
+        filter;
+
+}
+
+
+/* =========================================================
+   SHADOW
+========================================================= */
+
+.melt60-shadow {
+
+    color:
+        rgba(255,255,255,.08);
+
+    filter:
+        blur(12px);
+
+    transform:
+        translate(-50%, -50%)
+        translateY(15px)
+        scaleY(.98);
+
+    z-index: 3;
+
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+#melt60Word {
+
+    color: #fff;
+
+    z-index: 6;
+
+    text-shadow:
+        0 0 35px
+        rgba(255,255,255,.08);
+
+}
+
+
+/* =========================================================
+   LIQUID COPY
+========================================================= */
+
+.melt60-liquid {
+
+    color:
+        rgba(255,255,255,.28);
+
+    z-index: 7;
+
+    filter:
+        blur(2px);
+
+    transform:
+        translate(-50%, -50%)
+        scaleY(1);
+
+    opacity: .45;
+
+}
+
+
+/* =========================================================
+   DROPS
+========================================================= */
+
+.melt60-drops {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 12;
+
+    pointer-events: none;
+
+}
+
+
+.melt60-drop {
+
+    position: absolute;
+
+    width: 5px;
+    height: 18px;
+
+    border-radius:
+        0 0 50% 50%;
+
+    background:
+        rgba(255,255,255,.65);
+
+    filter:
+        blur(1px);
+
+    opacity: 0;
+
+}
+
+
 
 
 
