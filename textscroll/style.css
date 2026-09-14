@@ -10546,6 +10546,124 @@ JS animates every word toward these positions.
     }
 
 }
+/* =========================================================
+   SECTION 60 — TYPOGRAPHY MELT
+========================================================= */
+
+.section-sixty {
+
+    width: 100%;
+    height: 100dvh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #030303;
+
+    color: #fff;
+
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.melt60-stage {
+
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    cursor: none;
+
+    perspective: 1400px;
+
+}
+
+
+/* =========================================================
+   HEAT FIELD
+========================================================= */
+
+.melt60-heat {
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.08),
+            rgba(255,255,255,.025) 35%,
+            transparent 70%
+        );
+
+    filter: blur(25px);
+
+    opacity: .4;
+
+    pointer-events: none;
+
+    z-index: 1;
+
+    will-change:
+        transform;
+
+}
+
+
+/* =========================================================
+   RIPPLE
+========================================================= */
+
+.melt60-ripple {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 100px;
+    height: 100px;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.2);
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 2;
+
+}
+
 
 
 
