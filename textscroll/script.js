@@ -18894,6 +18894,334 @@ melt60Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   MAIN LOOP
+========================================================= */
+
+function updateMelt60() {
+
+    melt60CurrentX +=
+        (
+            melt60MouseX -
+            melt60CurrentX
+        ) * .12;
+
+
+    melt60CurrentY +=
+        (
+            melt60MouseY -
+            melt60CurrentY
+        ) * .12;
+
+
+    /* =============================================
+       CURSOR
+    ============================================= */
+
+    melt60Cursor.style.left =
+        melt60CurrentX + "px";
+
+    melt60Cursor.style.top =
+        melt60CurrentY + "px";
+
+
+    melt60Ring.style.left =
+        melt60CurrentX + "px";
+
+    melt60Ring.style.top =
+        melt60CurrentY + "px";
+
+
+    if (
+        melt60Inside &&
+        !melt60Locked
+    ) {
+
+        const rect =
+            melt60Stage
+                .getBoundingClientRect();
+
+
+        const centerX =
+            rect.width / 2;
+
+
+        const centerY =
+            rect.height / 2;
+
+
+        const dx =
+            melt60CurrentX -
+            centerX;
+
+
+        const dy =
+            melt60CurrentY -
+            centerY;
+
+
+        const distance =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        /* =========================================
+           HEAT INFLUENCE
+        ========================================= */
+
+        const influence =
+            Math.max(
+                0,
+                1 -
+                distance / 650
+            );
+
+
+        const speedHeat =
+            Math.min(
+                melt60Speed * .012,
+                .45
+            );
+
+
+        const heat =
+            influence *
+            (
+                .25 +
+                speedHeat
+            );
+
+
+        /* =========================================
+           MAIN WORD MELTING
+        ========================================= */
+
+        gsap.to(
+            melt60Word,
+            {
+
+                x:
+                    dx *
+                    influence *
+                    .06,
+
+                y:
+                    heat *
+                    55,
+
+                scaleX:
+                    1 +
+                    heat * .12,
+
+                scaleY:
+                    1 -
+                    heat * .15,
+
+                skewX:
+                    dx *
+                    influence *
+                    .025,
+
+                rotationY:
+                    dx *
+                    influence *
+                    .008,
+
+                rotationX:
+                    dy *
+                    influence *
+                    -.006,
+
+                duration: .3,
+
+                overwrite:
+                    "auto",
+
+                ease:
+                    "power2.out"
+
+            }
+        );
+
+
+        /* =========================================
+           LIQUID LAYER
+        ========================================= */
+
+        gsap.to(
+            melt60Liquid,
+            {
+
+                x:
+                    dx *
+                    influence *
+                    .1,
+
+                y:
+                    heat *
+                    80,
+
+                scaleX:
+                    1 +
+                    heat * .3,
+
+                scaleY:
+                    1 +
+                    heat * .05,
+
+                skewX:
+                    dx *
+                    influence *
+                    .04,
+
+                opacity:
+                    .3 +
+                    heat * .7,
+
+                duration: .35,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
+
+        /* =========================================
+           HEAT FIELD
+        ========================================= */
+
+        gsap.to(
+            melt60Heat,
+            {
+
+                x:
+                    dx *
+                    .5,
+
+                y:
+                    dy *
+                    .5,
+
+                scale:
+                    1 +
+                    heat * .8,
+
+                opacity:
+                    .35 +
+                    heat * .5,
+
+                duration: .5,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
+
+        /* =========================================
+           RING
+        ========================================= */
+
+        gsap.to(
+            melt60Ring,
+            {
+
+                scale:
+                    1 +
+                    heat * .8,
+
+                duration: .25,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
+
+        /* =========================================
+           DROPS
+        ========================================= */
+
+        if (
+            heat > .25 &&
+            Math.random() < .15
+        ) {
+
+            const drops =
+                melt60Drops
+                    .children;
+
+
+            const drop =
+                drops[
+                    Math.floor(
+                        Math.random() *
+                        drops.length
+                    )
+                ];
+
+
+            gsap.killTweensOf(
+                drop
+            );
+
+
+            gsap.set(
+                drop,
+                {
+
+                    left:
+                        (
+                            35 +
+                            Math.random() * 30
+                        ) + "%",
+
+                    top:
+                        "47%",
+
+                    scale:
+                        .5 +
+                        Math.random() * .8,
+
+                    opacity:
+                        .4 +
+                        Math.random() * .4
+
+                }
+            );
+
+
+            gsap.to(
+                drop,
+                {
+
+                    y:
+                        80 +
+                        Math.random() * 180,
+
+                    scaleY:
+                        1.5,
+
+                    opacity: 0,
+
+                    duration:
+                        .5 +
+                        Math.random() * .5,
+
+                    ease:
+                        "power2.in"
+
+                }
+            );
+
+        }
+
+    }
 
 
 
