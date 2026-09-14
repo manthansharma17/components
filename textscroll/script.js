@@ -19222,6 +19222,264 @@ function updateMelt60() {
         }
 
     }
+ /* =============================================
+       SPEED DECAY
+    ============================================= */
+
+    melt60Speed *= .9;
+
+
+    requestAnimationFrame(
+        updateMelt60
+    );
+
+}
+
+
+updateMelt60();
+
+
+/* =========================================================
+   CLICK — FULL MELT
+========================================================= */
+
+melt60Stage.addEventListener(
+    "click",
+    () => {
+
+        if (melt60Locked)
+            return;
+
+
+        melt60Locked = true;
+
+
+        /* =============================================
+           IMPACT
+        ============================================= */
+
+        gsap.set(
+            melt60Impact,
+            {
+
+                left:
+                    melt60CurrentX,
+
+                top:
+                    melt60CurrentY,
+
+                scale: 0,
+
+                opacity: 1
+
+            }
+        );
+
+
+        gsap.to(
+            melt60Impact,
+            {
+
+                scale: 18,
+
+                opacity: 0,
+
+                duration: .8,
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+
+        /* =============================================
+           RIPPLE
+        ============================================= */
+
+        gsap.set(
+            melt60Ripple,
+            {
+
+                left:
+                    melt60CurrentX,
+
+                top:
+                    melt60CurrentY,
+
+                scale: .2,
+
+                opacity: .8
+
+            }
+        );
+
+
+        gsap.to(
+            melt60Ripple,
+            {
+
+                scale: 12,
+
+                opacity: 0,
+
+                duration: 1.2,
+
+                ease:
+                    "power2.out"
+
+            }
+        );
+
+
+        /* =============================================
+           HEAT EXPLOSION
+        ============================================= */
+
+        gsap.to(
+            melt60Heat,
+            {
+
+                scale: 2.5,
+
+                opacity: .9,
+
+                duration: .5,
+
+                ease:
+                    "power2.out"
+
+            }
+        );
+
+
+        /* =============================================
+           WORD DROPS
+        ============================================= */
+
+        gsap.timeline()
+
+            .to(
+                melt60Word,
+                {
+
+                    scaleX: 1.15,
+
+                    scaleY: .65,
+
+                    y: 80,
+
+                    skewX: 8,
+
+                    filter:
+                        "blur(3px)",
+
+                    duration: .3,
+
+                    ease:
+                        "power2.in"
+
+                }
+            )
+
+            .to(
+                melt60Word,
+                {
+
+                    scaleX: 1.45,
+
+                    scaleY: .15,
+
+                    y: 260,
+
+                    rotationX: -25,
+
+                    opacity: 0,
+
+                    filter:
+                        "blur(12px)",
+
+                    duration: .7,
+
+                    ease:
+                        "power4.in"
+
+                }
+            );
+
+
+        /* =============================================
+           LIQUID LAYER
+        ============================================= */
+
+        gsap.to(
+            melt60Liquid,
+            {
+
+                scaleX: 2,
+
+                scaleY: .25,
+
+                y: 300,
+
+                opacity: 0,
+
+                filter:
+                    "blur(12px)",
+
+                duration: .9,
+
+                ease:
+                    "power4.in"
+
+            }
+        );
+
+
+        /* =============================================
+           DROPS FALL
+        ============================================= */
+
+        const drops =
+            melt60Drops.children;
+
+
+        for (
+            let i = 0;
+            i < drops.length;
+            i++
+        ) {
+
+            gsap.to(
+                drops[i],
+                {
+
+                    opacity:
+                        .4 +
+                        Math.random() * .5,
+
+                    y:
+                        250 +
+                        Math.random() * 300,
+
+                    scaleY:
+                        1.5 +
+                        Math.random(),
+
+                    duration:
+                        .7 +
+                        Math.random() * .5,
+
+                    delay:
+                        Math.random() * .2,
+
+                    ease:
+                        "power3.in"
+
+                }
+            );
+
+        }
 
 
 
