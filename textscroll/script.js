@@ -18599,6 +18599,122 @@ shatter59Stage.addEventListener("click", () => {
   }, 700);
 });
 
+/* =========================================================
+   SECTION 60 — TYPOGRAPHY MELT
+========================================================= */
+
+const melt60Stage =
+    document.querySelector(
+        "#melt60Stage"
+    );
+
+const melt60Scene =
+    document.querySelector(
+        "#melt60Scene"
+    );
+
+const melt60Word =
+    document.querySelector(
+        "#melt60Word"
+    );
+
+const melt60Liquid =
+    document.querySelector(
+        "#melt60Liquid"
+    );
+
+const melt60Heat =
+    document.querySelector(
+        "#melt60Heat"
+    );
+
+const melt60Ripple =
+    document.querySelector(
+        "#melt60Ripple"
+    );
+
+const melt60Drops =
+    document.querySelector(
+        "#melt60Drops"
+    );
+
+const melt60Cursor =
+    document.querySelector(
+        "#melt60Cursor"
+    );
+
+const melt60Ring =
+    document.querySelector(
+        "#melt60Ring"
+    );
+
+const melt60Impact =
+    document.querySelector(
+        "#melt60Impact"
+    );
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let melt60MouseX = 0;
+let melt60MouseY = 0;
+
+let melt60CurrentX = 0;
+let melt60CurrentY = 0;
+
+let melt60PreviousX = 0;
+let melt60PreviousY = 0;
+
+let melt60Speed = 0;
+
+let melt60Inside = false;
+
+let melt60Locked = false;
+
+
+/* =========================================================
+   CREATE LIQUID DROPS
+========================================================= */
+
+for (
+    let i = 0;
+    i < 28;
+    i++
+) {
+
+    const drop =
+        document.createElement(
+            "div"
+        );
+
+    drop.className =
+        "melt60-drop";
+
+
+    drop.style.left =
+        (
+            25 +
+            Math.random() * 50
+        ) + "%";
+
+
+    drop.style.top =
+        (
+            48 +
+            Math.random() * 14
+        ) + "%";
+
+
+    melt60Drops.appendChild(
+        drop
+    );
+
+}
+
+
+
 
 /* =========================================================
    REFRESH
