@@ -19243,244 +19243,246 @@ updateMelt60();
    CLICK — FULL MELT
 ========================================================= */
 
-melt60Stage.addEventListener(
-    "click",
-    () => {
+melt60Stage.addEventListener("click", () => {
+  if (melt60Locked) return;
 
-        if (melt60Locked)
-            return;
+  melt60Locked = true;
 
-
-        melt60Locked = true;
-
-
-        /* =============================================
+  /* =============================================
            IMPACT
         ============================================= */
 
-        gsap.set(
-            melt60Impact,
-            {
+  gsap.set(melt60Impact, {
+    left: melt60CurrentX,
 
-                left:
-                    melt60CurrentX,
+    top: melt60CurrentY,
 
-                top:
-                    melt60CurrentY,
+    scale: 0,
 
-                scale: 0,
+    opacity: 1,
+  });
 
-                opacity: 1
+  gsap.to(melt60Impact, {
+    scale: 18,
 
-            }
-        );
+    opacity: 0,
 
+    duration: 0.8,
 
-        gsap.to(
-            melt60Impact,
-            {
+    ease: "power3.out",
+  });
 
-                scale: 18,
-
-                opacity: 0,
-
-                duration: .8,
-
-                ease:
-                    "power3.out"
-
-            }
-        );
-
-
-        /* =============================================
+  /* =============================================
            RIPPLE
         ============================================= */
 
-        gsap.set(
-            melt60Ripple,
-            {
+  gsap.set(melt60Ripple, {
+    left: melt60CurrentX,
 
-                left:
-                    melt60CurrentX,
+    top: melt60CurrentY,
 
-                top:
-                    melt60CurrentY,
+    scale: 0.2,
 
-                scale: .2,
+    opacity: 0.8,
+  });
 
-                opacity: .8
+  gsap.to(melt60Ripple, {
+    scale: 12,
 
-            }
-        );
+    opacity: 0,
 
+    duration: 1.2,
 
-        gsap.to(
-            melt60Ripple,
-            {
+    ease: "power2.out",
+  });
 
-                scale: 12,
-
-                opacity: 0,
-
-                duration: 1.2,
-
-                ease:
-                    "power2.out"
-
-            }
-        );
-
-
-        /* =============================================
+  /* =============================================
            HEAT EXPLOSION
         ============================================= */
 
-        gsap.to(
-            melt60Heat,
-            {
+  gsap.to(melt60Heat, {
+    scale: 2.5,
 
-                scale: 2.5,
+    opacity: 0.9,
 
-                opacity: .9,
+    duration: 0.5,
 
-                duration: .5,
+    ease: "power2.out",
+  });
 
-                ease:
-                    "power2.out"
-
-            }
-        );
-
-
-        /* =============================================
+  /* =============================================
            WORD DROPS
         ============================================= */
 
-        gsap.timeline()
+  gsap
+    .timeline()
 
-            .to(
-                melt60Word,
-                {
+    .to(melt60Word, {
+      scaleX: 1.15,
 
-                    scaleX: 1.15,
+      scaleY: 0.65,
 
-                    scaleY: .65,
+      y: 80,
 
-                    y: 80,
+      skewX: 8,
 
-                    skewX: 8,
+      filter: "blur(3px)",
 
-                    filter:
-                        "blur(3px)",
+      duration: 0.3,
 
-                    duration: .3,
+      ease: "power2.in",
+    })
 
-                    ease:
-                        "power2.in"
+    .to(melt60Word, {
+      scaleX: 1.45,
 
-                }
-            )
+      scaleY: 0.15,
 
-            .to(
-                melt60Word,
-                {
+      y: 260,
 
-                    scaleX: 1.45,
+      rotationX: -25,
 
-                    scaleY: .15,
+      opacity: 0,
 
-                    y: 260,
+      filter: "blur(12px)",
 
-                    rotationX: -25,
+      duration: 0.7,
 
-                    opacity: 0,
+      ease: "power4.in",
+    });
 
-                    filter:
-                        "blur(12px)",
-
-                    duration: .7,
-
-                    ease:
-                        "power4.in"
-
-                }
-            );
-
-
-        /* =============================================
+  /* =============================================
            LIQUID LAYER
         ============================================= */
 
-        gsap.to(
-            melt60Liquid,
-            {
+  gsap.to(melt60Liquid, {
+    scaleX: 2,
 
-                scaleX: 2,
+    scaleY: 0.25,
 
-                scaleY: .25,
+    y: 300,
 
-                y: 300,
+    opacity: 0,
 
-                opacity: 0,
+    filter: "blur(12px)",
 
-                filter:
-                    "blur(12px)",
+    duration: 0.9,
 
-                duration: .9,
+    ease: "power4.in",
+  });
 
-                ease:
-                    "power4.in"
-
-            }
-        );
-
-
-        /* =============================================
+  /* =============================================
            DROPS FALL
         ============================================= */
 
-        const drops =
-            melt60Drops.children;
+  const drops = melt60Drops.children;
 
+  for (let i = 0; i < drops.length; i++) {
+    gsap.to(drops[i], {
+      opacity: 0.4 + Math.random() * 0.5,
 
-        for (
-            let i = 0;
-            i < drops.length;
-            i++
-        ) {
+      y: 250 + Math.random() * 300,
 
-            gsap.to(
-                drops[i],
-                {
+      scaleY: 1.5 + Math.random(),
 
-                    opacity:
-                        .4 +
-                        Math.random() * .5,
+      duration: 0.7 + Math.random() * 0.5,
 
-                    y:
-                        250 +
-                        Math.random() * 300,
+      delay: Math.random() * 0.2,
 
-                    scaleY:
-                        1.5 +
-                        Math.random(),
+      ease: "power3.in",
+    });
+  }
+  /* =============================================
+           REFORM
+        ============================================= */
 
-                    duration:
-                        .7 +
-                        Math.random() * .5,
+  setTimeout(() => {
+    gsap.set(melt60Word, {
+      y: -250,
 
-                    delay:
-                        Math.random() * .2,
+      scaleX: 0.7,
 
-                    ease:
-                        "power3.in"
+      scaleY: 1.4,
 
-                }
-            );
+      rotationX: 20,
 
-        }
+      opacity: 0,
 
+      filter: "blur(12px)",
+    });
+
+    gsap.set(melt60Liquid, {
+      y: -300,
+
+      scaleX: 0.7,
+
+      scaleY: 1.4,
+
+      opacity: 0,
+    });
+
+    gsap.set(melt60Heat, {
+      scale: 1,
+
+      opacity: 0.4,
+    });
+
+    gsap.to(drops, {
+      opacity: 0,
+
+      duration: 0.25,
+    });
+
+    /* =====================================
+                   RISE
+                ===================================== */
+
+    gsap
+      .timeline({
+        onComplete: () => {
+          melt60Locked = false;
+        },
+      })
+
+      .to(melt60Liquid, {
+        y: 0,
+
+        scaleX: 1,
+
+        scaleY: 1,
+
+        opacity: 0.45,
+
+        duration: 0.7,
+
+        ease: "power3.out",
+      })
+
+      .to(
+        melt60Word,
+        {
+          y: 0,
+
+          scaleX: 1,
+
+          scaleY: 1,
+
+          rotationX: 0,
+
+          skewX: 0,
+
+          opacity: 1,
+
+          filter: "blur(0px)",
+
+          duration: 1,
+
+          ease: "elastic.out(1,.3)",
+        },
+        "-=.5",
+      );
+  }, 1000);
+});
 
 
 
