@@ -20295,179 +20295,228 @@ updatePulse61();
    CLICK — MASSIVE PULSE
 ========================================================= */
 
-pulse61Stage.addEventListener(
-    "click",
-    () => {
+pulse61Stage.addEventListener("click", () => {
+  if (pulse61Locked) return;
 
-        if (pulse61Locked)
-            return;
+  pulse61Locked = true;
 
+  const rect = pulse61Stage.getBoundingClientRect();
 
-        pulse61Locked = true;
+  const x = pulse61CurrentX || rect.width / 2;
 
+  const y = pulse61CurrentY || rect.height / 2;
 
-        const rect =
-            pulse61Stage
-                .getBoundingClientRect();
-
-
-        const x =
-            pulse61CurrentX ||
-            rect.width / 2;
-
-
-        const y =
-            pulse61CurrentY ||
-            rect.height / 2;
-
-
-        /* =============================================
+  /* =============================================
            IMPACT WAVE
         ============================================= */
 
-        gsap.set(
-            pulse61Impact,
-            {
+  gsap.set(pulse61Impact, {
+    left: x,
 
-                left: x,
+    top: y,
 
-                top: y,
+    scale: 0.1,
 
-                scale: .1,
+    opacity: 1,
+  });
 
-                opacity: 1
+  gsap.to(pulse61Impact, {
+    scale: 20,
 
-            }
-        );
+    opacity: 0,
 
+    duration: 1.2,
 
-        gsap.to(
-            pulse61Impact,
-            {
+    ease: "power2.out",
+  });
 
-                scale: 20,
-
-                opacity: 0,
-
-                duration: 1.2,
-
-                ease:
-                    "power2.out"
-
-            }
-        );
-
-
-        /* =============================================
+  /* =============================================
            MULTIPLE WAVES
         ============================================= */
 
-        createPulse61Wave(
-            x,
-            y,
-            2
-        );
+  createPulse61Wave(x, y, 2);
 
+  setTimeout(() => {
+    createPulse61Wave(x, y, 1.5);
+  }, 100);
 
-        setTimeout(
-            () => {
+  setTimeout(() => {
+    createPulse61Wave(x, y, 1);
+  }, 220);
 
-                createPulse61Wave(
-                    x,
-                    y,
-                    1.5
-                );
-
-            },
-            100
-        );
-
-
-        setTimeout(
-            () => {
-
-                createPulse61Wave(
-                    x,
-                    y,
-                    1
-                );
-
-            },
-            220
-        );
-
-
-        /* =============================================
+  /* =============================================
            BIG HEARTBEAT
         ============================================= */
 
-        gsap.timeline()
+  gsap
+    .timeline()
 
-            .to(
-                pulse61Word,
-                {
+    .to(pulse61Word, {
+      scale: 1.35,
 
-                    scale:
-                        1.35,
+      filter: "blur(0px)",
 
-                    filter:
-                        "blur(0px)",
+      duration: 0.12,
 
-                    duration: .12,
+      ease: "power2.out",
+    })
 
-                    ease:
-                        "power2.out"
+    .to(pulse61Word, {
+      scale: 0.88,
 
-                }
-            )
+      duration: 0.16,
 
-            .to(
-                pulse61Word,
-                {
+      ease: "power2.inOut",
+    })
 
-                    scale:
-                        .88,
+    .to(pulse61Word, {
+      scale: 1.18,
 
-                    duration: .16,
+      duration: 0.14,
 
-                    ease:
-                        "power2.inOut"
+      ease: "power2.out",
+    })
 
-                }
-            )
+    .to(pulse61Word, {
+      scale: 1,
 
-            .to(
-                pulse61Word,
-                {
+      duration: 0.5,
 
-                    scale:
-                        1.18,
+      ease: "elastic.out(1,.3)",
+    });
 
-                    duration: .14,
+  /* =============================================
+           GHOST EXPANSION
+        ============================================= */
 
-                    ease:
-                        "power2.out"
+  gsap.to(pulse61Ghost1, {
+    scale: 2.2,
 
-                }
-            )
+    opacity: 0.35,
 
-            .to(
-                pulse61Word,
-                {
+    duration: 0.5,
 
-                    scale:
-                        1,
+    ease: "power2.out",
+  });
 
-                    duration: .5,
+  gsap.to(pulse61Ghost1, {
+    scale: 1,
 
-                    ease:
-                        "elastic.out(1,.3)"
+    opacity: 0.04,
 
-                }
-            );
+    duration: 0.8,
 
+    delay: 0.15,
 
+    ease: "power3.out",
+  });
 
+  gsap.to(pulse61Ghost2, {
+    scale: 3.5,
+
+    opacity: 0.2,
+
+    duration: 0.7,
+
+    ease: "power2.out",
+  });
+
+  gsap.to(pulse61Ghost2, {
+    scale: 1,
+
+    opacity: 0.02,
+
+    duration: 1,
+
+    delay: 0.1,
+
+    ease: "power3.out",
+  });
+
+  /* =============================================
+           SCREEN GLOW
+        ============================================= */
+
+  gsap
+    .timeline()
+
+    .to(pulse61Glow, {
+      scale: 2.5,
+
+      opacity: 0.85,
+
+      duration: 0.15,
+
+      ease: "power2.out",
+    })
+
+    .to(pulse61Glow, {
+      scale: 1,
+
+      opacity: 0.3,
+
+      duration: 0.8,
+
+      ease: "power3.out",
+    });
+
+  /* =============================================
+           BEAT
+        ============================================= */
+
+  gsap
+    .timeline()
+
+    .to(pulse61Beat, {
+      scale: 7,
+
+      opacity: 1,
+
+      duration: 0.12,
+    })
+
+    .to(pulse61Beat, {
+      scale: 1,
+
+      opacity: 0.35,
+
+      duration: 0.5,
+
+      ease: "elastic.out(1,.4)",
+    });
+
+  /* =============================================
+           SECONDARY HEARTBEAT
+        ============================================= */
+
+  setTimeout(() => {
+    gsap.to(pulse61Word, {
+      scale: 1.08,
+
+      duration: 0.1,
+
+      ease: "power2.out",
+    });
+
+    gsap.to(pulse61Word, {
+      scale: 1,
+
+      duration: 0.35,
+
+      delay: 0.1,
+
+      ease: "power2.out",
+    });
+  }, 420);
+
+  /* =============================================
+           UNLOCK
+        ============================================= */
+
+  setTimeout(() => {
+    pulse61Locked = false;
+  }, 1100);
+});
 /* =========================================================
    REFRESH
 ========================================================= */
