@@ -11003,7 +11003,235 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   SECTION 61 — TYPOGRAPHY PULSE
+========================================================= */
 
+.section-sixty-one {
+
+    width: 100%;
+    height: 100dvh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #030303;
+
+    color: #fff;
+
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.pulse61-stage {
+
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    cursor: none;
+
+    perspective: 1400px;
+
+}
+
+
+/* =========================================================
+   AMBIENT GLOW
+========================================================= */
+
+.pulse61-glow {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 500px;
+    height: 500px;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.8);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.08),
+            rgba(255,255,255,.025) 35%,
+            transparent 70%
+        );
+
+    filter: blur(30px);
+
+    opacity: .3;
+
+    pointer-events: none;
+
+    z-index: 1;
+
+    will-change:
+        transform,
+        opacity;
+
+}
+
+
+/* =========================================================
+   WAVES
+========================================================= */
+
+.pulse61-waves {
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 2;
+
+}
+
+
+/* =========================================================
+   RADIAL WAVE
+========================================================= */
+
+.pulse61-wave {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 80px;
+    height: 80px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.16);
+
+    transform:
+        translate(-50%, -50%)
+        scale(.2);
+
+    opacity: 0;
+
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.pulse61-label {
+
+    position: absolute;
+
+    top: 11%;
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    margin: 0;
+
+    font-size: .6rem;
+
+    letter-spacing: .4em;
+
+    white-space: nowrap;
+
+    color:
+        rgba(255,255,255,.3);
+
+    z-index: 30;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   SCENE
+========================================================= */
+
+.pulse61-scene {
+
+    position: relative;
+
+    width: 100vw;
+    height: 380px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    transform-style: preserve-3d;
+
+    z-index: 10;
+
+}
+
+
+/* =========================================================
+   WORD
+========================================================= */
+
+.pulse61-word,
+.pulse61-ghost {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    font-size:
+        clamp(
+            6rem,
+            21vw,
+            24rem
+        );
+
+    font-weight: 900;
+
+    line-height: .68;
+
+    letter-spacing: -.12em;
+
+    white-space: nowrap;
+
+    user-select: none;
+
+    pointer-events: none;
+
+    will-change:
+        transform,
+        opacity,
+        filter;
+
+}
 
 
 
