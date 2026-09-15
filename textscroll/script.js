@@ -19876,6 +19876,595 @@ function pulse61Heartbeat(
 
 }
 
+/* =========================================================
+   ENTER
+========================================================= */
+
+pulse61Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        pulse61Inside = true;
+
+
+        gsap.to(
+            pulse61Cursor,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: .3
+
+            }
+        );
+
+
+        gsap.to(
+            pulse61Ring,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: .4,
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
+
+pulse61Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        const rect =
+            pulse61Stage
+                .getBoundingClientRect();
+
+
+        pulse61MouseX =
+            event.clientX -
+            rect.left;
+
+
+        pulse61MouseY =
+            event.clientY -
+            rect.top;
+
+
+        const dx =
+            pulse61MouseX -
+            pulse61PreviousX;
+
+
+        const dy =
+            pulse61MouseY -
+            pulse61PreviousY;
+
+
+        pulse61Speed =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        pulse61PreviousX =
+            pulse61MouseX;
+
+
+        pulse61PreviousY =
+            pulse61MouseY;
+
+    }
+);
+
+
+/* =========================================================
+   LEAVE
+========================================================= */
+
+pulse61Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        pulse61Inside = false;
+
+
+        gsap.to(
+            pulse61Cursor,
+            {
+
+                opacity: 0,
+
+                scale: 0,
+
+                duration: .25
+
+            }
+        );
+
+
+        gsap.to(
+            pulse61Ring,
+            {
+
+                opacity: 0,
+
+                scale: .7,
+
+                duration: .25
+
+            }
+        );
+
+
+        if (!pulse61Locked) {
+
+            gsap.to(
+                pulse61Scene,
+                {
+
+                    x: 0,
+
+                    y: 0,
+
+                    rotationX: 0,
+
+                    rotationY: 0,
+
+                    duration: .7,
+
+                    ease:
+                        "power3.out"
+
+                }
+            );
+
+        }
+
+    }
+);
+
+/* =========================================================
+   MAIN LOOP
+========================================================= */
+
+function updatePulse61() {
+
+    pulse61CurrentX +=
+        (
+            pulse61MouseX -
+            pulse61CurrentX
+        ) * .12;
+
+
+    pulse61CurrentY +=
+        (
+            pulse61MouseY -
+            pulse61CurrentY
+        ) * .12;
+
+
+    /* =============================================
+       CURSOR
+    ============================================= */
+
+    pulse61Cursor.style.left =
+        pulse61CurrentX + "px";
+
+    pulse61Cursor.style.top =
+        pulse61CurrentY + "px";
+
+
+    pulse61Ring.style.left =
+        pulse61CurrentX + "px";
+
+    pulse61Ring.style.top =
+        pulse61CurrentY + "px";
+
+
+    if (
+        pulse61Inside &&
+        !pulse61Locked
+    ) {
+
+        const rect =
+            pulse61Stage
+                .getBoundingClientRect();
+
+
+        const centerX =
+            rect.width / 2;
+
+
+        const centerY =
+            rect.height / 2;
+
+
+        const dx =
+            pulse61CurrentX -
+            centerX;
+
+
+        const dy =
+            pulse61CurrentY -
+            centerY;
+
+
+        const distance =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        const influence =
+            Math.max(
+                0,
+                1 -
+                distance / 700
+            );
+
+
+        const movement =
+            Math.min(
+                pulse61Speed * .015,
+                .6
+            );
+
+
+        /* =========================================
+           CURSOR-DRIVEN BREATHING
+        ========================================= */
+
+        const breathing =
+            influence *
+            (
+                .02 +
+                movement * .08
+            );
+
+
+        gsap.to(
+            pulse61Word,
+            {
+
+                x:
+                    dx *
+                    influence *
+                    .045,
+
+                y:
+                    dy *
+                    influence *
+                    .025,
+
+                scaleX:
+                    1 +
+                    breathing,
+
+                scaleY:
+                    1 -
+                    breathing * .4,
+
+                rotationY:
+                    dx *
+                    influence *
+                    .006,
+
+                rotationX:
+                    dy *
+                    influence *
+                    -.004,
+
+                duration: .3,
+
+                overwrite:
+                    "auto",
+
+                ease:
+                    "power2.out"
+
+            }
+        );
+
+
+        /* =========================================
+           SCENE PARALLAX
+        ========================================= */
+
+        gsap.to(
+            pulse61Scene,
+            {
+
+                rotationY:
+                    dx * .003,
+
+                rotationX:
+                    dy * -.002,
+
+                duration: .45,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
+
+        /* =========================================
+           HEAT FOLLOW
+        ========================================= */
+
+        gsap.to(
+            pulse61Glow,
+            {
+
+                x:
+                    dx * .35,
+
+                y:
+                    dy * .35,
+
+                duration: .5,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
+
+        /* =========================================
+           RING SIZE
+        ========================================= */
+
+        gsap.to(
+            pulse61Ring,
+            {
+
+                scale:
+                    1 +
+                    influence * .35 +
+                    movement * .3,
+
+                duration: .25,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
+
+        /* =========================================
+           FAST MOUSE = HEARTBEAT
+        ========================================= */
+
+        if (
+            pulse61Speed > 14 &&
+            Math.random() < .08
+        ) {
+
+            pulse61Heartbeat(
+                Math.min(
+                    1 +
+                    pulse61Speed / 100,
+                    1.8
+                )
+            );
+
+        }
+
+    }
+
+
+    /* =============================================
+       DECAY
+    ============================================= */
+
+    pulse61Speed *= .9;
+
+    pulse61BeatStrength *= .92;
+
+
+    requestAnimationFrame(
+        updatePulse61
+    );
+
+}
+
+
+updatePulse61();
+
+
+/* =========================================================
+   CLICK — MASSIVE PULSE
+========================================================= */
+
+pulse61Stage.addEventListener(
+    "click",
+    () => {
+
+        if (pulse61Locked)
+            return;
+
+
+        pulse61Locked = true;
+
+
+        const rect =
+            pulse61Stage
+                .getBoundingClientRect();
+
+
+        const x =
+            pulse61CurrentX ||
+            rect.width / 2;
+
+
+        const y =
+            pulse61CurrentY ||
+            rect.height / 2;
+
+
+        /* =============================================
+           IMPACT WAVE
+        ============================================= */
+
+        gsap.set(
+            pulse61Impact,
+            {
+
+                left: x,
+
+                top: y,
+
+                scale: .1,
+
+                opacity: 1
+
+            }
+        );
+
+
+        gsap.to(
+            pulse61Impact,
+            {
+
+                scale: 20,
+
+                opacity: 0,
+
+                duration: 1.2,
+
+                ease:
+                    "power2.out"
+
+            }
+        );
+
+
+        /* =============================================
+           MULTIPLE WAVES
+        ============================================= */
+
+        createPulse61Wave(
+            x,
+            y,
+            2
+        );
+
+
+        setTimeout(
+            () => {
+
+                createPulse61Wave(
+                    x,
+                    y,
+                    1.5
+                );
+
+            },
+            100
+        );
+
+
+        setTimeout(
+            () => {
+
+                createPulse61Wave(
+                    x,
+                    y,
+                    1
+                );
+
+            },
+            220
+        );
+
+
+        /* =============================================
+           BIG HEARTBEAT
+        ============================================= */
+
+        gsap.timeline()
+
+            .to(
+                pulse61Word,
+                {
+
+                    scale:
+                        1.35,
+
+                    filter:
+                        "blur(0px)",
+
+                    duration: .12,
+
+                    ease:
+                        "power2.out"
+
+                }
+            )
+
+            .to(
+                pulse61Word,
+                {
+
+                    scale:
+                        .88,
+
+                    duration: .16,
+
+                    ease:
+                        "power2.inOut"
+
+                }
+            )
+
+            .to(
+                pulse61Word,
+                {
+
+                    scale:
+                        1.18,
+
+                    duration: .14,
+
+                    ease:
+                        "power2.out"
+
+                }
+            )
+
+            .to(
+                pulse61Word,
+                {
+
+                    scale:
+                        1,
+
+                    duration: .5,
+
+                    ease:
+                        "elastic.out(1,.3)"
+
+                }
+            );
 
 
 
