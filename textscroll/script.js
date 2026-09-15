@@ -19483,6 +19483,399 @@ melt60Stage.addEventListener("click", () => {
       );
   }, 1000);
 });
+/* =========================================================
+   SECTION 61 — TYPOGRAPHY PULSE
+========================================================= */
+
+const pulse61Stage =
+    document.querySelector(
+        "#pulse61Stage"
+    );
+
+const pulse61Scene =
+    document.querySelector(
+        "#pulse61Scene"
+    );
+
+const pulse61Word =
+    document.querySelector(
+        "#pulse61Word"
+    );
+
+const pulse61Ghost1 =
+    document.querySelector(
+        "#pulse61Ghost1"
+    );
+
+const pulse61Ghost2 =
+    document.querySelector(
+        "#pulse61Ghost2"
+    );
+
+const pulse61Glow =
+    document.querySelector(
+        "#pulse61Glow"
+    );
+
+const pulse61Waves =
+    document.querySelector(
+        "#pulse61Waves"
+    );
+
+const pulse61Cursor =
+    document.querySelector(
+        "#pulse61Cursor"
+    );
+
+const pulse61Ring =
+    document.querySelector(
+        "#pulse61Ring"
+    );
+
+const pulse61Impact =
+    document.querySelector(
+        "#pulse61Impact"
+    );
+
+const pulse61Beat =
+    document.querySelector(
+        "#pulse61Beat"
+    );
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let pulse61MouseX = 0;
+let pulse61MouseY = 0;
+
+let pulse61CurrentX = 0;
+let pulse61CurrentY = 0;
+
+let pulse61PreviousX = 0;
+let pulse61PreviousY = 0;
+
+let pulse61Speed = 0;
+
+let pulse61Inside = false;
+
+let pulse61Locked = false;
+
+let pulse61BeatStrength = 0;
+
+
+/* =========================================================
+   CREATE WAVE
+========================================================= */
+
+function createPulse61Wave(
+    x,
+    y,
+    strength = 1
+) {
+
+    const wave =
+        document.createElement(
+            "div"
+        );
+
+    wave.className =
+        "pulse61-wave";
+
+    pulse61Waves.appendChild(
+        wave
+    );
+
+    gsap.set(
+        wave,
+        {
+
+            left: x,
+
+            top: y,
+
+            scale: .2,
+
+            opacity:
+                .15 +
+                strength * .35
+
+        }
+    );
+
+    gsap.to(
+        wave,
+        {
+
+            scale:
+                5 +
+                strength * 5,
+
+            opacity: 0,
+
+            duration:
+                .8 +
+                strength * .3,
+
+            ease:
+                "power2.out",
+
+            onComplete: () => {
+
+                wave.remove();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   HEARTBEAT
+========================================================= */
+
+function pulse61Heartbeat(
+    strength = 1
+) {
+
+    if (pulse61Locked)
+        return;
+
+
+    pulse61BeatStrength =
+        Math.max(
+            pulse61BeatStrength,
+            strength
+        );
+
+
+    gsap.timeline()
+
+        .to(
+            pulse61Word,
+            {
+
+                scale:
+                    1 +
+                    .08 * strength,
+
+                duration: .09,
+
+                ease:
+                    "power2.out"
+
+            }
+        )
+
+        .to(
+            pulse61Word,
+            {
+
+                scale:
+                    1 -
+                    .025 * strength,
+
+                duration: .11,
+
+                ease:
+                    "power2.inOut"
+
+            }
+        )
+
+        .to(
+            pulse61Word,
+            {
+
+                scale: 1,
+
+                duration: .18,
+
+                ease:
+                    "power2.out"
+
+            }
+        );
+
+
+    gsap.to(
+        pulse61Ghost1,
+        {
+
+            scale:
+                1 +
+                .25 * strength,
+
+            opacity:
+                .25 * strength,
+
+            duration: .4,
+
+            ease:
+                "power2.out",
+
+            overwrite:
+                "auto"
+
+        }
+    );
+
+
+    gsap.to(
+        pulse61Ghost1,
+        {
+
+            scale: 1,
+
+            opacity: .04,
+
+            duration: .55,
+
+            delay: .05,
+
+            ease:
+                "power3.out"
+
+        }
+    );
+
+
+    gsap.to(
+        pulse61Ghost2,
+        {
+
+            scale:
+                1 +
+                .45 * strength,
+
+            opacity:
+                .15 * strength,
+
+            duration: .5,
+
+            ease:
+                "power2.out",
+
+            overwrite:
+                "auto"
+
+        }
+    );
+
+
+    gsap.to(
+        pulse61Ghost2,
+        {
+
+            scale: 1,
+
+            opacity: .02,
+
+            duration: .7,
+
+            delay: .05,
+
+            ease:
+                "power3.out"
+
+        }
+    );
+
+
+    gsap.to(
+        pulse61Glow,
+        {
+
+            scale:
+                1 +
+                .35 * strength,
+
+            opacity:
+                .3 +
+                .25 * strength,
+
+            duration: .18,
+
+            ease:
+                "power2.out",
+
+            overwrite:
+                "auto"
+
+        }
+    );
+
+
+    gsap.to(
+        pulse61Glow,
+        {
+
+            scale: 1,
+
+            opacity: .3,
+
+            duration: .55,
+
+            delay: .05,
+
+            ease:
+                "power3.out"
+
+        }
+    );
+
+
+    gsap.to(
+        pulse61Beat,
+        {
+
+            scale:
+                1 +
+                4 * strength,
+
+            opacity:
+                .7,
+
+            duration: .1,
+
+            ease:
+                "power2.out",
+
+            overwrite:
+                "auto"
+
+        }
+    );
+
+
+    gsap.to(
+        pulse61Beat,
+        {
+
+            scale: 1,
+
+            opacity: .35,
+
+            duration: .35,
+
+            ease:
+                "power3.out"
+
+        }
+    );
+
+
+    createPulse61Wave(
+        pulse61CurrentX,
+        pulse61CurrentY,
+        strength
+    );
+
+}
+
 
 
 
