@@ -11380,7 +11380,78 @@ JS animates every word toward these positions.
     pointer-events: none;
 
 }
+/* =========================================================
+   IMPACT
+========================================================= */
 
+.pulse61-impact {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.8);
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    z-index: 40;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .pulse61-stage {
+
+        cursor: default;
+
+    }
+
+    .pulse61-cursor,
+    .pulse61-ring {
+
+        display: none;
+
+    }
+
+    .pulse61-word,
+    .pulse61-ghost {
+
+        font-size:
+            clamp(
+                3.4rem,
+                21vw,
+                9rem
+            );
+
+    }
+
+    .pulse61-glow {
+
+        width: 300px;
+        height: 300px;
+
+    }
+
+}
 
 
 /* =========================================================
