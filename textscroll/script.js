@@ -20917,6 +20917,154 @@ function updateMagnet62() {
                         1
                     );
 
+    /* =================================
+                   ATTRACT
+                ================================= */
+
+                const pull =
+                    influence *
+                    (
+                        25 +
+                        speed * 90
+                    );
+
+
+                const x =
+                    dx *
+                    pull /
+                    Math.max(
+                        distance,
+                        1
+                    );
+
+
+                const y =
+                    dy *
+                    pull /
+                    Math.max(
+                        distance,
+                        1
+                    );
+
+
+                const rotation =
+                    dx *
+                    influence *
+                    .03;
+
+
+                const scale =
+                    1 +
+                    influence *
+                    .12;
+
+
+                gsap.to(
+                    letter,
+                    {
+
+                        x: x,
+
+                        y: y,
+
+                        z:
+                            influence *
+                            100,
+
+                        rotationY:
+                            rotation,
+
+                        rotationX:
+                            dy *
+                            influence *
+                            -.02,
+
+                        rotationZ:
+                            speed *
+                            (
+                                index % 2
+                                ? -1
+                                : 1
+                            ) *
+                            influence *
+                            8,
+
+                        scale: scale,
+
+                        filter:
+                            influence > .5
+                                ? "blur(0px)"
+                                : "blur(0px)",
+
+                        duration: .25,
+
+                        overwrite:
+                            "auto",
+
+                        ease:
+                            "power3.out"
+
+                    }
+                );
+
+            }
+        );
+
+
+        /* =========================================
+           FIELD
+        ========================================= */
+
+        const dx =
+            magnet62CurrentX -
+            centerX;
+
+
+        const dy =
+            magnet62CurrentY -
+            centerY;
+
+
+        const distance =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        const influence =
+            Math.max(
+                0,
+                1 -
+                distance / 700
+            );
+
+
+        gsap.to(
+            magnet62Field,
+            {
+
+                x:
+                    dx * .45,
+
+                y:
+                    dy * .45,
+
+                scale:
+                    .8 +
+                    influence * .6,
+
+                opacity:
+                    .3 +
+                    influence * .35,
+
+                duration: .5,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
 
 
 
