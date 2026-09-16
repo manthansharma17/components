@@ -21067,6 +21067,207 @@ function updateMagnet62() {
         );
 
 
+     /* =========================================
+           FIELD LINES
+        ========================================= */
+
+        const lines =
+            magnet62Lines.children;
+
+
+        for (
+            let i = 0;
+            i < lines.length;
+            i++
+        ) {
+
+            const angle =
+                (
+                    i / lines.length
+                ) * 360;
+
+
+            gsap.to(
+                lines[i],
+                {
+
+                    rotation:
+                        angle +
+                        dx *
+                        influence *
+                        .04,
+
+                    scaleX:
+                        1 +
+                        influence *
+                        .8,
+
+                    opacity:
+                        influence *
+                        .25,
+
+                    duration: .5,
+
+                    overwrite:
+                        "auto"
+
+                }
+            );
+
+        }
+
+
+        /* =========================================
+           CURSOR RING
+        ========================================= */
+
+        gsap.to(
+            magnet62Ring,
+            {
+
+                scale:
+                    1 +
+                    influence *
+                    .45,
+
+                duration: .25,
+
+                overwrite:
+                    "auto"
+
+            }
+        );
+
+    }
+
+
+    /* =============================================
+       SPEED DECAY
+    ============================================= */
+
+    magnet62Speed *= .9;
+
+
+    requestAnimationFrame(
+        updateMagnet62
+    );
+
+}
+
+
+updateMagnet62();
+
+
+/* =========================================================
+   CLICK — MAGNETIC VORTEX
+========================================================= */
+
+magnet62Stage.addEventListener(
+    "click",
+    () => {
+
+        if (magnet62Locked)
+            return;
+
+
+        magnet62Locked = true;
+
+
+        const rect =
+            magnet62Stage
+                .getBoundingClientRect();
+
+
+        const targetX =
+            magnet62CurrentX ||
+            rect.width / 2;
+
+
+        const targetY =
+            magnet62CurrentY ||
+            rect.height / 2;
+
+
+        /* =============================================
+           IMPACT
+        ============================================= */
+
+        gsap.set(
+            magnet62Impact,
+            {
+
+                left:
+                    targetX,
+
+                top:
+                    targetY,
+
+                scale: 0,
+
+                opacity: 1
+
+            }
+        );
+
+
+        gsap.to(
+            magnet62Impact,
+            {
+
+                scale: 20,
+
+                opacity: 0,
+
+                duration: 1,
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+
+        /* =============================================
+           VORTEX
+        ============================================= */
+
+        gsap.set(
+            magnet62Vortex,
+            {
+
+                left:
+                    targetX,
+
+                top:
+                    targetY,
+
+                scale: .2,
+
+                rotation: 0,
+
+                opacity: 1
+
+            }
+        );
+
+
+        gsap.to(
+            magnet62Vortex,
+            {
+
+                scale: 8,
+
+                rotation: 720,
+
+                opacity: 0,
+
+                duration: 1,
+
+                ease:
+                    "power3.in"
+
+            }
+        );
 
 
 
