@@ -21268,6 +21268,165 @@ magnet62Stage.addEventListener(
 
             }
         );
+  /* =============================================
+           PULL EVERY LETTER INTO CURSOR
+        ============================================= */
+
+        magnet62Letters.forEach(
+            (letter, index) => {
+
+                const letterRect =
+                    letter.getBoundingClientRect();
+
+
+                const letterX =
+                    letterRect.left +
+                    letterRect.width / 2 -
+                    rect.left;
+
+
+                const letterY =
+                    letterRect.top +
+                    letterRect.height / 2 -
+                    rect.top;
+
+
+                const x =
+                    targetX -
+                    letterX;
+
+
+                const y =
+                    targetY -
+                    letterY;
+
+
+                gsap.to(
+                    letter,
+                    {
+
+                        x:
+                            "+=" + x,
+
+                        y:
+                            "+=" + y,
+
+                        z:
+                            400,
+
+                        rotationX:
+                            360 +
+                            Math.random() *
+                            720,
+
+                        rotationY:
+                            360 +
+                            Math.random() *
+                            720,
+
+                        rotationZ:
+                            -360 +
+                            Math.random() *
+                            720,
+
+                        scale: .08,
+
+                        opacity: 0,
+
+                        duration:
+                            .65 +
+                            Math.random() *
+                            .3,
+
+                        delay:
+                            index * .025,
+
+                        ease:
+                            "power4.in"
+
+                    }
+                );
+
+            }
+        );
+
+
+        /* =============================================
+           FIELD COLLAPSE
+        ============================================= */
+
+        gsap.to(
+            magnet62Field,
+            {
+
+                scale: .05,
+
+                opacity: 0,
+
+                duration: .7,
+
+                ease:
+                    "power4.in"
+
+            }
+        );
+
+
+        /* =============================================
+           RECONSTRUCT
+        ============================================= */
+
+        setTimeout(
+            () => {
+
+                magnet62Letters.forEach(
+                    (letter) => {
+
+                        gsap.set(
+                            letter,
+                            {
+
+                                x:
+                                    targetX -
+                                    rect.width / 2,
+
+                                y:
+                                    targetY -
+                                    rect.height / 2,
+
+                                z: 500,
+
+                                rotationX:
+                                    -180,
+
+                                rotationY:
+                                    180,
+
+                                rotationZ:
+                                    90,
+
+                                scale: .05,
+
+                                opacity: 0
+
+                            }
+                        );
+
+                    }
+                );
+
+
+                gsap.set(
+                    magnet62Field,
+                    {
+
+                        scale: .05,
+
+                        opacity: 0
+
+                    }
+                );
+
 
 
 
