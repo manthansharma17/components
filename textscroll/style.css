@@ -11452,6 +11452,201 @@ JS animates every word toward these positions.
     }
 
 }
+/* =========================================================
+   SECTION 62 — TYPOGRAPHY MAGNET
+========================================================= */
+
+.section-sixty-two {
+
+    width: 100%;
+    height: 100dvh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #030303;
+
+    color: #fff;
+
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.magnet62-stage {
+
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    cursor: none;
+
+    perspective: 1400px;
+
+}
+
+
+/* =========================================================
+   MAGNETIC FIELD
+========================================================= */
+
+.magnet62-field {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 500px;
+    height: 500px;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.8);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.07),
+            transparent 68%
+        );
+
+    filter: blur(25px);
+
+    opacity: .35;
+
+    pointer-events: none;
+
+    z-index: 1;
+
+}
+
+
+/* =========================================================
+   MAGNETIC LINES
+========================================================= */
+
+.magnet62-lines {
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 2;
+
+}
+
+
+/* =========================================================
+   FIELD LINE
+========================================================= */
+
+.magnet62-line {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 220px;
+    height: 1px;
+
+    transform-origin: left center;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.12),
+            transparent
+        );
+
+    opacity: 0;
+
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.magnet62-label {
+
+    position: absolute;
+
+    top: 11%;
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    margin: 0;
+
+    font-size: .6rem;
+
+    letter-spacing: .4em;
+
+    white-space: nowrap;
+
+    color:
+        rgba(255,255,255,.3);
+
+    z-index: 30;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   WORD
+========================================================= */
+
+.magnet62-word {
+
+    position: relative;
+
+    z-index: 10;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap:
+        clamp(
+            .05rem,
+            .5vw,
+            .5rem
+        );
+
+    transform-style: preserve-3d;
+
+    user-select: none;
+
+}
+
+
+
+
+
+
 
 
 /* =========================================================
