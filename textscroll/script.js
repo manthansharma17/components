@@ -21162,272 +21162,212 @@ updateMagnet62();
    CLICK — MAGNETIC VORTEX
 ========================================================= */
 
-magnet62Stage.addEventListener(
-    "click",
-    () => {
+magnet62Stage.addEventListener("click", () => {
+  if (magnet62Locked) return;
 
-        if (magnet62Locked)
-            return;
+  magnet62Locked = true;
 
+  const rect = magnet62Stage.getBoundingClientRect();
 
-        magnet62Locked = true;
+  const targetX = magnet62CurrentX || rect.width / 2;
 
+  const targetY = magnet62CurrentY || rect.height / 2;
 
-        const rect =
-            magnet62Stage
-                .getBoundingClientRect();
-
-
-        const targetX =
-            magnet62CurrentX ||
-            rect.width / 2;
-
-
-        const targetY =
-            magnet62CurrentY ||
-            rect.height / 2;
-
-
-        /* =============================================
+  /* =============================================
            IMPACT
         ============================================= */
 
-        gsap.set(
-            magnet62Impact,
-            {
+  gsap.set(magnet62Impact, {
+    left: targetX,
 
-                left:
-                    targetX,
+    top: targetY,
 
-                top:
-                    targetY,
+    scale: 0,
 
-                scale: 0,
+    opacity: 1,
+  });
 
-                opacity: 1
+  gsap.to(magnet62Impact, {
+    scale: 20,
 
-            }
-        );
+    opacity: 0,
 
+    duration: 1,
 
-        gsap.to(
-            magnet62Impact,
-            {
+    ease: "power3.out",
+  });
 
-                scale: 20,
-
-                opacity: 0,
-
-                duration: 1,
-
-                ease:
-                    "power3.out"
-
-            }
-        );
-
-
-        /* =============================================
+  /* =============================================
            VORTEX
         ============================================= */
 
-        gsap.set(
-            magnet62Vortex,
-            {
+  gsap.set(magnet62Vortex, {
+    left: targetX,
 
-                left:
-                    targetX,
+    top: targetY,
 
-                top:
-                    targetY,
+    scale: 0.2,
 
-                scale: .2,
+    rotation: 0,
 
-                rotation: 0,
+    opacity: 1,
+  });
 
-                opacity: 1
+  gsap.to(magnet62Vortex, {
+    scale: 8,
 
-            }
-        );
+    rotation: 720,
 
+    opacity: 0,
 
-        gsap.to(
-            magnet62Vortex,
-            {
+    duration: 1,
 
-                scale: 8,
-
-                rotation: 720,
-
-                opacity: 0,
-
-                duration: 1,
-
-                ease:
-                    "power3.in"
-
-            }
-        );
+    ease: "power3.in",
+  });
   /* =============================================
            PULL EVERY LETTER INTO CURSOR
         ============================================= */
 
-        magnet62Letters.forEach(
-            (letter, index) => {
+  magnet62Letters.forEach((letter, index) => {
+    const letterRect = letter.getBoundingClientRect();
 
-                const letterRect =
-                    letter.getBoundingClientRect();
+    const letterX = letterRect.left + letterRect.width / 2 - rect.left;
 
+    const letterY = letterRect.top + letterRect.height / 2 - rect.top;
 
-                const letterX =
-                    letterRect.left +
-                    letterRect.width / 2 -
-                    rect.left;
+    const x = targetX - letterX;
 
+    const y = targetY - letterY;
 
-                const letterY =
-                    letterRect.top +
-                    letterRect.height / 2 -
-                    rect.top;
+    gsap.to(letter, {
+      x: "+=" + x,
 
+      y: "+=" + y,
 
-                const x =
-                    targetX -
-                    letterX;
+      z: 400,
 
+      rotationX: 360 + Math.random() * 720,
 
-                const y =
-                    targetY -
-                    letterY;
+      rotationY: 360 + Math.random() * 720,
 
+      rotationZ: -360 + Math.random() * 720,
 
-                gsap.to(
-                    letter,
-                    {
+      scale: 0.08,
 
-                        x:
-                            "+=" + x,
+      opacity: 0,
 
-                        y:
-                            "+=" + y,
+      duration: 0.65 + Math.random() * 0.3,
 
-                        z:
-                            400,
+      delay: index * 0.025,
 
-                        rotationX:
-                            360 +
-                            Math.random() *
-                            720,
+      ease: "power4.in",
+    });
+  });
 
-                        rotationY:
-                            360 +
-                            Math.random() *
-                            720,
-
-                        rotationZ:
-                            -360 +
-                            Math.random() *
-                            720,
-
-                        scale: .08,
-
-                        opacity: 0,
-
-                        duration:
-                            .65 +
-                            Math.random() *
-                            .3,
-
-                        delay:
-                            index * .025,
-
-                        ease:
-                            "power4.in"
-
-                    }
-                );
-
-            }
-        );
-
-
-        /* =============================================
+  /* =============================================
            FIELD COLLAPSE
         ============================================= */
 
-        gsap.to(
-            magnet62Field,
-            {
+  gsap.to(magnet62Field, {
+    scale: 0.05,
 
-                scale: .05,
+    opacity: 0,
 
-                opacity: 0,
+    duration: 0.7,
 
-                duration: .7,
+    ease: "power4.in",
+  });
 
-                ease:
-                    "power4.in"
-
-            }
-        );
-
-
-        /* =============================================
+  /* =============================================
            RECONSTRUCT
         ============================================= */
 
-        setTimeout(
-            () => {
+  setTimeout(() => {
+    magnet62Letters.forEach((letter) => {
+      gsap.set(letter, {
+        x: targetX - rect.width / 2,
 
-                magnet62Letters.forEach(
-                    (letter) => {
+        y: targetY - rect.height / 2,
 
-                        gsap.set(
-                            letter,
-                            {
+        z: 500,
 
-                                x:
-                                    targetX -
-                                    rect.width / 2,
+        rotationX: -180,
 
-                                y:
-                                    targetY -
-                                    rect.height / 2,
+        rotationY: 180,
 
-                                z: 500,
+        rotationZ: 90,
 
-                                rotationX:
-                                    -180,
+        scale: 0.05,
 
-                                rotationY:
-                                    180,
+        opacity: 0,
+      });
+    });
 
-                                rotationZ:
-                                    90,
+    gsap.set(magnet62Field, {
+      scale: 0.05,
 
-                                scale: .05,
+      opacity: 0,
+    });
 
-                                opacity: 0
+    /* =====================================
+                   SHOOT LETTERS BACK
+                ===================================== */
 
-                            }
-                        );
+    magnet62Letters.forEach((letter, index) => {
+      gsap.to(letter, {
+        x: 0,
 
-                    }
-                );
+        y: 0,
 
+        z: 0,
 
-                gsap.set(
-                    magnet62Field,
-                    {
+        rotationX: 0,
 
-                        scale: .05,
+        rotationY: 0,
 
-                        opacity: 0
+        rotationZ: 0,
 
-                    }
-                );
+        scale: 1,
 
+        opacity: 1,
 
+        duration: 0.8 + Math.random() * 0.25,
+
+        delay: index * 0.04,
+
+        ease: "elastic.out(1,.35)",
+      });
+    });
+
+    gsap.to(magnet62Field, {
+      scale: 0.8,
+
+      opacity: 0.35,
+
+      duration: 0.9,
+
+      ease: "power3.out",
+    });
+
+    /* =====================================
+                   RESET LINES
+                ===================================== */
+
+    gsap.to(magnet62Lines.children, {
+      rotation: 0,
+
+      scaleX: 1,
+
+      opacity: 0,
+
+      duration: 0.5,
+    });
+
+    setTimeout(() => {
+      magnet62Locked = false;
+    }, 1100);
+  }, 900);
+});
 
 
 
