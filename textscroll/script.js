@@ -20518,6 +20518,300 @@ pulse61Stage.addEventListener("click", () => {
   }, 1100);
 });
 /* =========================================================
+   SECTION 62 — TYPOGRAPHY MAGNET
+========================================================= */
+
+const magnet62Stage =
+    document.querySelector(
+        "#magnet62Stage"
+    );
+
+const magnet62Word =
+    document.querySelector(
+        "#magnet62Word"
+    );
+
+const magnet62Letters =
+    document.querySelectorAll(
+        ".magnet62-letter"
+    );
+
+const magnet62Field =
+    document.querySelector(
+        "#magnet62Field"
+    );
+
+const magnet62Lines =
+    document.querySelector(
+        "#magnet62Lines"
+    );
+
+const magnet62Cursor =
+    document.querySelector(
+        "#magnet62Cursor"
+    );
+
+const magnet62Ring =
+    document.querySelector(
+        "#magnet62Ring"
+    );
+
+const magnet62Vortex =
+    document.querySelector(
+        "#magnet62Vortex"
+    );
+
+const magnet62Impact =
+    document.querySelector(
+        "#magnet62Impact"
+    );
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let magnet62MouseX = 0;
+let magnet62MouseY = 0;
+
+let magnet62CurrentX = 0;
+let magnet62CurrentY = 0;
+
+let magnet62PreviousX = 0;
+let magnet62PreviousY = 0;
+
+let magnet62Speed = 0;
+
+let magnet62Inside = false;
+
+let magnet62Locked = false;
+
+
+/* =========================================================
+   CREATE FIELD LINES
+========================================================= */
+
+for (
+    let i = 0;
+    i < 20;
+    i++
+) {
+
+    const line =
+        document.createElement(
+            "div"
+        );
+
+    line.className =
+        "magnet62-line";
+
+
+    const angle =
+        (
+            i / 20
+        ) * 360;
+
+
+    line.style.transform =
+        `translate(-50%, -50%)
+         rotate(${angle}deg)`;
+
+
+    line.style.width =
+        150 +
+        Math.random() * 250 +
+        "px";
+
+
+    magnet62Lines.appendChild(
+        line
+    );
+
+}
+
+
+/* =========================================================
+   ENTER
+========================================================= */
+
+magnet62Stage.addEventListener(
+    "mouseenter",
+    () => {
+
+        magnet62Inside = true;
+
+
+        gsap.to(
+            magnet62Cursor,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: .3
+
+            }
+        );
+
+
+        gsap.to(
+            magnet62Ring,
+            {
+
+                opacity: 1,
+
+                scale: 1,
+
+                duration: .4,
+
+                ease:
+                    "power3.out"
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MOUSE MOVE
+========================================================= */
+
+magnet62Stage.addEventListener(
+    "mousemove",
+    (event) => {
+
+        const rect =
+            magnet62Stage
+                .getBoundingClientRect();
+
+
+        magnet62MouseX =
+            event.clientX -
+            rect.left;
+
+
+        magnet62MouseY =
+            event.clientY -
+            rect.top;
+
+
+        const dx =
+            magnet62MouseX -
+            magnet62PreviousX;
+
+
+        const dy =
+            magnet62MouseY -
+            magnet62PreviousY;
+
+
+        magnet62Speed =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        magnet62PreviousX =
+            magnet62MouseX;
+
+
+        magnet62PreviousY =
+            magnet62MouseY;
+
+    }
+);
+
+
+/* =========================================================
+   LEAVE
+========================================================= */
+
+magnet62Stage.addEventListener(
+    "mouseleave",
+    () => {
+
+        magnet62Inside = false;
+
+
+        gsap.to(
+            magnet62Cursor,
+            {
+
+                opacity: 0,
+
+                scale: 0,
+
+                duration: .25
+
+            }
+        );
+
+
+        gsap.to(
+            magnet62Ring,
+            {
+
+                opacity: 0,
+
+                scale: .7,
+
+                duration: .25
+
+            }
+        );
+
+
+        if (!magnet62Locked) {
+
+            magnet62Letters.forEach(
+                (letter) => {
+
+                    gsap.to(
+                        letter,
+                        {
+
+                            x: 0,
+
+                            y: 0,
+
+                            z: 0,
+
+                            rotationX: 0,
+
+                            rotationY: 0,
+
+                            rotationZ: 0,
+
+                            scale: 1,
+
+                            duration: .7,
+
+                            ease:
+                                "elastic.out(1,.4)"
+
+                        }
+                    );
+
+                }
+            );
+
+        }
+
+    }
+);
+
+
+
+
+
+
+
+
+/* =========================================================
    REFRESH
 ========================================================= */
 
