@@ -11642,6 +11642,152 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   LETTER
+========================================================= */
+
+.magnet62-letter {
+
+    display: inline-block;
+
+    font-size:
+        clamp(
+            5rem,
+            18vw,
+            21rem
+        );
+
+    font-weight: 900;
+
+    line-height: .7;
+
+    letter-spacing: -.09em;
+
+    color: #fff;
+
+    transform:
+        translate3d(0,0,0);
+
+    will-change:
+        transform,
+        filter,
+        opacity;
+
+    text-shadow:
+        0 0 30px
+        rgba(255,255,255,.08);
+
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.magnet62-cursor {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    z-index: 60;
+
+    pointer-events: none;
+
+    box-shadow:
+        0 0 15px
+        rgba(255,255,255,.9),
+
+        0 0 45px
+        rgba(255,255,255,.4);
+
+}
+
+
+/* =========================================================
+   CURSOR RING
+========================================================= */
+
+.magnet62-ring {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 100px;
+    height: 100px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.2);
+
+    border-radius: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.7);
+
+    opacity: 0;
+
+    z-index: 50;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   VORTEX
+========================================================= */
+
+.magnet62-vortex {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.5);
+
+    transform:
+        translate(-50%, -50%)
+        scale(0)
+        rotate(0deg);
+
+    opacity: 0;
+
+    z-index: 40;
+
+    pointer-events: none;
+
+    box-shadow:
+        0 0 30px
+        rgba(255,255,255,.15);
+
+}
+
 
 
 
