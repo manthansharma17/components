@@ -20804,6 +20804,121 @@ magnet62Stage.addEventListener(
     }
 );
 
+/* =========================================================
+   MAIN MAGNET LOOP
+========================================================= */
+
+function updateMagnet62() {
+
+    magnet62CurrentX +=
+        (
+            magnet62MouseX -
+            magnet62CurrentX
+        ) * .13;
+
+
+    magnet62CurrentY +=
+        (
+            magnet62MouseY -
+            magnet62CurrentY
+        ) * .13;
+
+
+    /* =============================================
+       CURSOR
+    ============================================= */
+
+    magnet62Cursor.style.left =
+        magnet62CurrentX + "px";
+
+    magnet62Cursor.style.top =
+        magnet62CurrentY + "px";
+
+
+    magnet62Ring.style.left =
+        magnet62CurrentX + "px";
+
+    magnet62Ring.style.top =
+        magnet62CurrentY + "px";
+
+
+    if (
+        magnet62Inside &&
+        !magnet62Locked
+    ) {
+
+        const rect =
+            magnet62Stage
+                .getBoundingClientRect();
+
+
+        const centerX =
+            rect.width / 2;
+
+
+        const centerY =
+            rect.height / 2;
+
+
+        /* =========================================
+           EACH LETTER BECOMES A MAGNET
+        ========================================= */
+
+        magnet62Letters.forEach(
+            (letter, index) => {
+
+                const letterRect =
+                    letter.getBoundingClientRect();
+
+
+                const letterX =
+                    letterRect.left +
+                    letterRect.width / 2 -
+                    rect.left;
+
+
+                const letterY =
+                    letterRect.top +
+                    letterRect.height / 2 -
+                    rect.top;
+
+
+                const dx =
+                    magnet62CurrentX -
+                    letterX;
+
+
+                const dy =
+                    magnet62CurrentY -
+                    letterY;
+
+
+                const distance =
+                    Math.sqrt(
+                        dx * dx +
+                        dy * dy
+                    );
+
+
+                const radius = 430;
+
+
+                const influence =
+                    Math.max(
+                        0,
+                        1 -
+                        distance / radius
+                    );
+
+
+                const speed =
+                    Math.min(
+                        magnet62Speed * .02,
+                        1
+                    );
+
+
+
 
 
 
