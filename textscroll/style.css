@@ -11788,7 +11788,83 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   IMPACT
+========================================================= */
 
+.magnet62-impact {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.8);
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    z-index: 45;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .magnet62-stage {
+
+        cursor: default;
+
+    }
+
+    .magnet62-cursor,
+    .magnet62-ring {
+
+        display: none;
+
+    }
+
+    .magnet62-word {
+
+        gap: 0;
+
+    }
+
+    .magnet62-letter {
+
+        font-size:
+            clamp(
+                3rem,
+                16vw,
+                8rem
+            );
+
+    }
+
+    .magnet62-field {
+
+        width: 300px;
+        height: 300px;
+
+    }
+
+}
 
 
 
