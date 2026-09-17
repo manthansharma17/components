@@ -21712,7 +21712,99 @@ magnet62Stage.addEventListener("click", () => {
         ease: "expo.out"
 
       });
+ /* ---------------------------------------------------
+         PHASE 3 — EXPLODE ECHOES
+      --------------------------------------------------- */
 
+      ghosts.forEach((ghost, i) => {
+
+        const angle =
+          (Math.PI * 2 / GHOST_COUNT) * i;
+
+        const distance =
+          180 + Math.random() * 500;
+
+        const x =
+          Math.cos(angle) * distance;
+
+        const y =
+          Math.sin(angle) * distance;
+
+        gsap.to(ghost.el, {
+
+          x,
+          y,
+
+          rotation:
+            (Math.random() - .5) * 80,
+
+          scale:
+            0.5 + Math.random() * .7,
+
+          opacity: 0,
+
+          filter:
+            `blur(${8 + Math.random() * 8}px)`,
+
+          duration:
+            1.1 + Math.random() * .5,
+
+          delay:
+            i * 0.015,
+
+          ease: "expo.out"
+
+        });
+
+      });
+
+      gsap.to(word, {
+
+        scale: 1,
+
+        duration: 1.1,
+
+        ease: "expo.out",
+
+        delay: .15
+
+      });
+
+    });
+
+    /* -----------------------------------------------------
+       RESET
+    ----------------------------------------------------- */
+
+    gsap.delayedCall(2.15, () => {
+
+      ghosts.forEach((ghost, i) => {
+
+        gsap.set(ghost.el, {
+          x: 0,
+          y: 0,
+          rotation: 0,
+          scale: 1,
+          opacity:
+            0.04 +
+            (1 - i / (GHOST_COUNT - 1)) * 0.22,
+          filter: "blur(0px)"
+        });
+
+      });
+
+      for (let i = 0; i < history.length; i++) {
+
+        history[i].x = mouse.x;
+        history[i].y = mouse.y;
+
+      }
+
+      locked = false;
+
+    });
+
+  }
 
 /* =========================================================
    REFRESH
