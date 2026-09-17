@@ -21374,7 +21374,6 @@ magnet62Stage.addEventListener("click", () => {
 ========================================================= */
 
 (() => {
-
   const stage = document.getElementById("echo63Stage");
   const word = document.getElementById("echo63Word");
   const echoes = document.getElementById("echo63Echoes");
@@ -21395,7 +21394,6 @@ magnet62Stage.addEventListener("click", () => {
   ------------------------------------------------------- */
 
   for (let i = 0; i < GHOST_COUNT; i++) {
-
     const ghost = document.createElement("div");
 
     ghost.className = "echo63-ghost";
@@ -21409,7 +21407,7 @@ magnet62Stage.addEventListener("click", () => {
 
     ghosts.push({
       el: ghost,
-      index: i
+      index: i,
     });
   }
 
@@ -21427,7 +21425,7 @@ magnet62Stage.addEventListener("click", () => {
     previousX: window.innerWidth / 2,
     previousY: window.innerHeight / 2,
 
-    speed: 0
+    speed: 0,
   };
 
   let locked = false;
@@ -21439,12 +21437,10 @@ magnet62Stage.addEventListener("click", () => {
   const history = [];
 
   for (let i = 0; i < GHOST_COUNT + 8; i++) {
-
     history.push({
       x: mouse.x,
-      y: mouse.y
+      y: mouse.y,
     });
-
   }
 
   /* -------------------------------------------------------
@@ -21452,10 +21448,8 @@ magnet62Stage.addEventListener("click", () => {
   ------------------------------------------------------- */
 
   window.addEventListener("mousemove", (e) => {
-
     mouse.targetX = e.clientX;
     mouse.targetY = e.clientY;
-
   });
 
   /* -------------------------------------------------------
@@ -21463,13 +21457,11 @@ magnet62Stage.addEventListener("click", () => {
   ------------------------------------------------------- */
 
   stage.addEventListener("click", () => {
-
     if (locked) return;
 
     locked = true;
 
     collapseEchoes();
-
   });
 
   /* -------------------------------------------------------
@@ -21477,25 +21469,23 @@ magnet62Stage.addEventListener("click", () => {
   ------------------------------------------------------- */
 
   function updateCursor() {
-
     if (isMobile) return;
 
     gsap.to(cursor, {
       x: mouse.targetX,
       y: mouse.targetY,
-      duration: .35,
+      duration: 0.35,
       ease: "power3.out",
-      overwrite: true
+      overwrite: true,
     });
 
     gsap.to(ring, {
       x: mouse.targetX,
       y: mouse.targetY,
-      duration: .65,
+      duration: 0.65,
       ease: "power3.out",
-      overwrite: true
+      overwrite: true,
     });
-
   }
 
   /* -------------------------------------------------------
@@ -21503,7 +21493,6 @@ magnet62Stage.addEventListener("click", () => {
   ------------------------------------------------------- */
 
   function animate() {
-
     requestAnimationFrame(animate);
 
     if (locked) return;
@@ -21527,7 +21516,7 @@ magnet62Stage.addEventListener("click", () => {
 
     history.unshift({
       x: mouse.x,
-      y: mouse.y
+      y: mouse.y,
     });
 
     history.pop();
@@ -21552,9 +21541,7 @@ magnet62Stage.addEventListener("click", () => {
     const rotateX = offsetY * -0.006;
     const rotateY = offsetX * 0.006;
 
-    const mainScale =
-      1 +
-      Math.min(mouse.speed * 0.0012, 0.045);
+    const mainScale = 1 + Math.min(mouse.speed * 0.0012, 0.045);
 
     word.style.transform = `
       translate3d(
@@ -21572,7 +21559,6 @@ magnet62Stage.addEventListener("click", () => {
     ----------------------------------------------- */
 
     ghosts.forEach((ghost, i) => {
-
       const h = history[i * 2 + 2] || history[history.length - 1];
 
       const hx = h.x - centerX;
@@ -21590,25 +21576,16 @@ magnet62Stage.addEventListener("click", () => {
       const x = hx * travel;
       const y = hy * travel;
 
-      const direction =
-        Math.atan2(hy, hx) * (180 / Math.PI);
+      const direction = Math.atan2(hy, hx) * (180 / Math.PI);
 
-      const rotation =
-        direction * 0.018 +
-        Math.sin(i * 1.7) * 2;
+      const rotation = direction * 0.018 + Math.sin(i * 1.7) * 2;
 
-      const scale =
-        0.98 +
-        Math.sin(i * 0.8) * 0.025 -
-        progress * 0.035;
+      const scale = 0.98 + Math.sin(i * 0.8) * 0.025 - progress * 0.035;
 
-      const blur =
-        progress * 3.2 +
-        Math.min(mouse.speed * progress * 0.08, 3);
+      const blur = progress * 3.2 + Math.min(mouse.speed * progress * 0.08, 3);
 
       const opacity =
-        (1 - progress) *
-        (0.25 + Math.min(mouse.speed * 0.01, 0.2));
+        (1 - progress) * (0.25 + Math.min(mouse.speed * 0.01, 0.2));
 
       ghost.el.style.transform = `
         translate3d(
@@ -21625,32 +21602,27 @@ magnet62Stage.addEventListener("click", () => {
       ghost.el.style.filter = `
         blur(${blur}px)
       `;
-
     });
 
     updateCursor();
-
   }
 
   animate();
- /* -------------------------------------------------------
+  /* -------------------------------------------------------
      COLLAPSE ECHOES
   ------------------------------------------------------- */
 
   function collapseEchoes() {
-
     /* Cursor freezes */
 
-    gsap.killTweensOf(ghosts.map(g => g.el));
+    gsap.killTweensOf(ghosts.map((g) => g.el));
 
     /* -----------------------------------------------------
        PHASE 1 — TIME COLLAPSE
     ----------------------------------------------------- */
 
     ghosts.forEach((ghost, i) => {
-
       gsap.to(ghost.el, {
-
         x: 0,
         y: 0,
 
@@ -21663,113 +21635,88 @@ magnet62Stage.addEventListener("click", () => {
 
         duration: 0.7 + i * 0.025,
 
-        ease: "expo.inOut"
-
+        ease: "expo.inOut",
       });
-
     });
 
     gsap.to(word, {
-
       scale: 1.08,
 
-      duration: .7,
+      duration: 0.7,
 
-      ease: "power4.inOut"
-
+      ease: "power4.inOut",
     });
 
     /* -----------------------------------------------------
        PHASE 2 — IMPACT
     ----------------------------------------------------- */
 
-    gsap.delayedCall(.75, () => {
-
+    gsap.delayedCall(0.75, () => {
       createWaves();
 
       gsap.to(word, {
-
         scale: 1.2,
 
-        duration: .12,
+        duration: 0.12,
 
         ease: "power4.out",
 
         yoyo: true,
 
-        repeat: 1
-
+        repeat: 1,
       });
 
       gsap.to(impact, {
-
         scale: 30,
 
         opacity: 0,
 
         duration: 1.2,
 
-        ease: "expo.out"
-
+        ease: "expo.out",
       });
- /* ---------------------------------------------------
+      /* ---------------------------------------------------
          PHASE 3 — EXPLODE ECHOES
       --------------------------------------------------- */
 
       ghosts.forEach((ghost, i) => {
+        const angle = ((Math.PI * 2) / GHOST_COUNT) * i;
 
-        const angle =
-          (Math.PI * 2 / GHOST_COUNT) * i;
+        const distance = 180 + Math.random() * 500;
 
-        const distance =
-          180 + Math.random() * 500;
+        const x = Math.cos(angle) * distance;
 
-        const x =
-          Math.cos(angle) * distance;
-
-        const y =
-          Math.sin(angle) * distance;
+        const y = Math.sin(angle) * distance;
 
         gsap.to(ghost.el, {
-
           x,
           y,
 
-          rotation:
-            (Math.random() - .5) * 80,
+          rotation: (Math.random() - 0.5) * 80,
 
-          scale:
-            0.5 + Math.random() * .7,
+          scale: 0.5 + Math.random() * 0.7,
 
           opacity: 0,
 
-          filter:
-            `blur(${8 + Math.random() * 8}px)`,
+          filter: `blur(${8 + Math.random() * 8}px)`,
 
-          duration:
-            1.1 + Math.random() * .5,
+          duration: 1.1 + Math.random() * 0.5,
 
-          delay:
-            i * 0.015,
+          delay: i * 0.015,
 
-          ease: "expo.out"
-
+          ease: "expo.out",
         });
-
       });
 
       gsap.to(word, {
-
         scale: 1,
 
         duration: 1.1,
 
         ease: "expo.out",
 
-        delay: .15
-
+        delay: 0.15,
       });
-
     });
 
     /* -----------------------------------------------------
@@ -21777,34 +21724,62 @@ magnet62Stage.addEventListener("click", () => {
     ----------------------------------------------------- */
 
     gsap.delayedCall(2.15, () => {
-
       ghosts.forEach((ghost, i) => {
-
         gsap.set(ghost.el, {
           x: 0,
           y: 0,
           rotation: 0,
           scale: 1,
-          opacity:
-            0.04 +
-            (1 - i / (GHOST_COUNT - 1)) * 0.22,
-          filter: "blur(0px)"
+          opacity: 0.04 + (1 - i / (GHOST_COUNT - 1)) * 0.22,
+          filter: "blur(0px)",
         });
-
       });
 
       for (let i = 0; i < history.length; i++) {
-
         history[i].x = mouse.x;
         history[i].y = mouse.y;
-
       }
 
       locked = false;
-
     });
-
   }
+
+  /* -------------------------------------------------------
+     IMPACT WAVES
+  ------------------------------------------------------- */
+
+  function createWaves() {
+    for (let i = 0; i < 3; i++) {
+      const wave = document.createElement("div");
+
+      wave.className = "echo63-wave";
+
+      stage.appendChild(wave);
+
+      gsap.to(wave, {
+        scale: 25 + i * 12,
+
+        opacity: 0,
+
+        duration: 1.1 + i * 0.2,
+
+        delay: i * 0.12,
+
+        ease: "expo.out",
+
+        onComplete: () => {
+          wave.remove();
+        },
+      });
+    }
+  }
+})();
+
+
+
+
+
+
 
 /* =========================================================
    REFRESH
