@@ -12088,7 +12088,60 @@ JS animates every word toward these positions.
 
   pointer-events: none;
 }
+/* ---------------------------------------------------------
+   HINT
+--------------------------------------------------------- */
 
+.echo63-hint {
+  position: absolute;
+
+  bottom: 32px;
+  right: 40px;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9px;
+  letter-spacing: .25em;
+
+  opacity: .35;
+
+  z-index: 10;
+}
+
+.echo63-hint span {
+  margin: 0 8px;
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+--------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+  .echo63-grid {
+    background-size: 45px 45px;
+  }
+
+  .echo63-label {
+    top: 24px;
+    left: 22px;
+    font-size: 8px;
+  }
+
+  .echo63-word,
+  .echo63-ghost {
+    font-size: clamp(5rem, 26vw, 10rem);
+  }
+
+  .echo63-hint {
+    bottom: 24px;
+    right: 22px;
+  }
+
+  .echo63-cursor,
+  .echo63-ring {
+    display: none;
+  }
+}
 
 
 
