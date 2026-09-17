@@ -21369,7 +21369,134 @@ magnet62Stage.addEventListener("click", () => {
   }, 900);
 });
 
+/* =========================================================
+   SECTION 63 — TYPOGRAPHY ECHO
+========================================================= */
 
+(() => {
+
+  const stage = document.getElementById("echo63Stage");
+  const word = document.getElementById("echo63Word");
+  const echoes = document.getElementById("echo63Echoes");
+  const cursor = document.getElementById("echo63Cursor");
+  const ring = document.getElementById("echo63Ring");
+  const impact = document.getElementById("echo63Impact");
+
+  if (!stage || !word) return;
+
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+  const GHOST_COUNT = isMobile ? 9 : 16;
+
+  const ghosts = [];
+
+  /* -------------------------------------------------------
+     CREATE ECHOES
+  ------------------------------------------------------- */
+
+  for (let i = 0; i < GHOST_COUNT; i++) {
+
+    const ghost = document.createElement("div");
+
+    ghost.className = "echo63-ghost";
+    ghost.textContent = "ECHO";
+
+    const progress = i / (GHOST_COUNT - 1);
+
+    ghost.style.opacity = 0.04 + (1 - progress) * 0.22;
+
+    echoes.appendChild(ghost);
+
+    ghosts.push({
+      el: ghost,
+      index: i
+    });
+  }
+
+  /* -------------------------------------------------------
+     MOUSE STATE
+  ------------------------------------------------------- */
+
+  const mouse = {
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2,
+
+    targetX: window.innerWidth / 2,
+    targetY: window.innerHeight / 2,
+
+    previousX: window.innerWidth / 2,
+    previousY: window.innerHeight / 2,
+
+    speed: 0
+  };
+
+  let locked = false;
+
+  /* -------------------------------------------------------
+     HISTORY
+  ------------------------------------------------------- */
+
+  const history = [];
+
+  for (let i = 0; i < GHOST_COUNT + 8; i++) {
+
+    history.push({
+      x: mouse.x,
+      y: mouse.y
+    });
+
+  }
+
+  /* -------------------------------------------------------
+     MOUSE MOVE
+  ------------------------------------------------------- */
+
+  window.addEventListener("mousemove", (e) => {
+
+    mouse.targetX = e.clientX;
+    mouse.targetY = e.clientY;
+
+  });
+
+  /* -------------------------------------------------------
+     CLICK
+  ------------------------------------------------------- */
+
+  stage.addEventListener("click", () => {
+
+    if (locked) return;
+
+    locked = true;
+
+    collapseEchoes();
+
+  });
+
+  /* -------------------------------------------------------
+     CURSOR
+  ------------------------------------------------------- */
+
+  function updateCursor() {
+
+    if (isMobile) return;
+
+    gsap.to(cursor, {
+      x: mouse.targetX,
+      y: mouse.targetY,
+      duration: .35,
+      ease: "power3.out",
+      overwrite: true
+    });
+
+    gsap.to(ring, {
+      x: mouse.targetX,
+      y: mouse.targetY,
+      duration: .65,
+      ease: "power3.out",
+      overwrite: true
+    });
+
+  }
 
 
 
