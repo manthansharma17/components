@@ -21633,7 +21633,85 @@ magnet62Stage.addEventListener("click", () => {
   }
 
   animate();
+ /* -------------------------------------------------------
+     COLLAPSE ECHOES
+  ------------------------------------------------------- */
 
+  function collapseEchoes() {
+
+    /* Cursor freezes */
+
+    gsap.killTweensOf(ghosts.map(g => g.el));
+
+    /* -----------------------------------------------------
+       PHASE 1 — TIME COLLAPSE
+    ----------------------------------------------------- */
+
+    ghosts.forEach((ghost, i) => {
+
+      gsap.to(ghost.el, {
+
+        x: 0,
+        y: 0,
+
+        rotation: 0,
+        scale: 1,
+
+        opacity: 0.45,
+
+        filter: "blur(0px)",
+
+        duration: 0.7 + i * 0.025,
+
+        ease: "expo.inOut"
+
+      });
+
+    });
+
+    gsap.to(word, {
+
+      scale: 1.08,
+
+      duration: .7,
+
+      ease: "power4.inOut"
+
+    });
+
+    /* -----------------------------------------------------
+       PHASE 2 — IMPACT
+    ----------------------------------------------------- */
+
+    gsap.delayedCall(.75, () => {
+
+      createWaves();
+
+      gsap.to(word, {
+
+        scale: 1.2,
+
+        duration: .12,
+
+        ease: "power4.out",
+
+        yoyo: true,
+
+        repeat: 1
+
+      });
+
+      gsap.to(impact, {
+
+        scale: 30,
+
+        opacity: 0,
+
+        duration: 1.2,
+
+        ease: "expo.out"
+
+      });
 
 
 /* =========================================================
