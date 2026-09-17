@@ -11939,7 +11939,155 @@ JS animates every word toward these positions.
   inset: 0;
   pointer-events: none;
 }
+/* ---------------------------------------------------------
+   MAIN WORD
+--------------------------------------------------------- */
 
+.echo63-word {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(6rem, 21vw, 24rem);
+  font-weight: 900;
+  line-height: .78;
+  letter-spacing: -.075em;
+
+  white-space: nowrap;
+
+  transform:
+    translate3d(-50%, -50%, 0);
+
+  z-index: 5;
+
+  user-select: none;
+
+  color: #f5f5f5;
+
+  text-shadow:
+    0 0 30px rgba(255,255,255,.08),
+    0 0 100px rgba(255,255,255,.03);
+}
+
+/* ---------------------------------------------------------
+   ECHO CONTAINER
+--------------------------------------------------------- */
+
+.echo63-echoes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.echo63-ghost {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(6rem, 21vw, 24rem);
+  font-weight: 900;
+  line-height: .78;
+  letter-spacing: -.075em;
+
+  white-space: nowrap;
+
+  transform:
+    translate3d(-50%, -50%, 0);
+
+  color: rgba(255,255,255,.35);
+
+  user-select: none;
+
+  will-change:
+    transform,
+    opacity,
+    filter;
+}
+
+/* ---------------------------------------------------------
+   CURSOR
+--------------------------------------------------------- */
+
+.echo63-cursor {
+  position: fixed;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 30;
+
+  mix-blend-mode: difference;
+}
+
+.echo63-ring {
+  position: fixed;
+
+  width: 34px;
+  height: 34px;
+
+  border: 1px solid rgba(255,255,255,.5);
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 29;
+
+  mix-blend-mode: difference;
+}
+
+/* ---------------------------------------------------------
+   CLICK IMPACT
+--------------------------------------------------------- */
+
+.echo63-impact {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 10px;
+  height: 10px;
+
+  border: 1px solid rgba(255,255,255,.8);
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%) scale(0);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  z-index: 20;
+}
+
+.echo63-wave {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 20px;
+  height: 20px;
+
+  border: 1px solid rgba(255,255,255,.5);
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%) scale(0);
+
+  pointer-events: none;
+}
 
 
 
