@@ -21498,6 +21498,141 @@ magnet62Stage.addEventListener("click", () => {
 
   }
 
+  /* -------------------------------------------------------
+     MAIN ANIMATION
+  ------------------------------------------------------- */
+
+  function animate() {
+
+    requestAnimationFrame(animate);
+
+    if (locked) return;
+
+    mouse.x += (mouse.targetX - mouse.x) * 0.12;
+    mouse.y += (mouse.targetY - mouse.y) * 0.12;
+
+    const dx = mouse.x - mouse.previousX;
+    const dy = mouse.y - mouse.previousY;
+
+    const velocity = Math.sqrt(dx * dx + dy * dy);
+
+    mouse.speed += (velocity - mouse.speed) * 0.15;
+
+    mouse.previousX = mouse.x;
+    mouse.previousY = mouse.y;
+
+    /* -----------------------------------------------
+       STORE POSITION HISTORY
+    ----------------------------------------------- */
+
+    history.unshift({
+      x: mouse.x,
+      y: mouse.y
+    });
+
+    history.pop();
+
+    /* -----------------------------------------------
+       CENTER
+    ----------------------------------------------- */
+
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+
+    const offsetX = mouse.x - centerX;
+    const offsetY = mouse.y - centerY;
+
+    /* -----------------------------------------------
+       MAIN WORD RESPONSE
+    ----------------------------------------------- */
+
+    const wordX = offsetX * 0.025;
+    const wordY = offsetY * 0.025;
+
+    const rotateX = offsetY * -0.006;
+    const rotateY = offsetX * 0.006;
+
+    const mainScale =
+      1 +
+      Math.min(mouse.speed * 0.0012, 0.045);
+
+    word.style.transform = `
+      translate3d(
+        calc(-50% + ${wordX}px),
+        calc(-50% + ${wordY}px),
+        0
+      )
+      rotateX(${rotateX}deg)
+      rotateY(${rotateY}deg)
+      scale(${mainScale})
+    `;
+
+    /* -----------------------------------------------
+       ECHO TRAIL
+    ----------------------------------------------- */
+
+    ghosts.forEach((ghost, i) => {
+
+      const h = history[i * 2 + 2] || history[history.length - 1];
+
+      const hx = h.x - centerX;
+      const hy = h.y - centerY;
+
+      const progress = i / (GHOST_COUNT - 1);
+
+      /*
+        Older echoes travel farther away from
+        the main typography.
+      */
+
+      const travel = 0.22 + progress * 1.05;
+
+      const x = hx * travel;
+      const y = hy * travel;
+
+      const direction =
+        Math.atan2(hy, hx) * (180 / Math.PI);
+
+      const rotation =
+        direction * 0.018 +
+        Math.sin(i * 1.7) * 2;
+
+      const scale =
+        0.98 +
+        Math.sin(i * 0.8) * 0.025 -
+        progress * 0.035;
+
+      const blur =
+        progress * 3.2 +
+        Math.min(mouse.speed * progress * 0.08, 3);
+
+      const opacity =
+        (1 - progress) *
+        (0.25 + Math.min(mouse.speed * 0.01, 0.2));
+
+      ghost.el.style.transform = `
+        translate3d(
+          calc(-50% + ${x}px),
+          calc(-50% + ${y}px),
+          ${progress * -30}px
+        )
+        rotate(${rotation}deg)
+        scale(${scale})
+      `;
+
+      ghost.el.style.opacity = opacity;
+
+      ghost.el.style.filter = `
+        blur(${blur}px)
+      `;
+
+    });
+
+    updateCursor();
+
+  }
+
+  animate();
 
 
 
