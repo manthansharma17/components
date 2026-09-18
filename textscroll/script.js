@@ -21869,7 +21869,67 @@ magnet62Stage.addEventListener("click", () => {
   let active = false;
   let frozen = false;
 
+ /* -------------------------------------------------------
+     MOUSE MOVE
+  ------------------------------------------------------- */
 
+  window.addEventListener(
+    "mousemove",
+    (e) => {
+
+      mouse.targetX = e.clientX;
+      mouse.targetY = e.clientY;
+
+      active = true;
+
+      status.textContent =
+        "TEMPORAL DISTORTION";
+
+    }
+  );
+
+  /* -------------------------------------------------------
+     MOUSE LEAVE
+  ------------------------------------------------------- */
+
+  window.addEventListener(
+    "mouseleave",
+    () => {
+
+      active = false;
+
+      status.textContent =
+        "MOVE TO DISTORT";
+
+    }
+  );
+
+  /* -------------------------------------------------------
+     CLICK
+  ------------------------------------------------------- */
+
+  stage.addEventListener(
+    "click",
+    () => {
+
+      if (frozen) return;
+
+      frozen = true;
+
+      freezeSequence();
+
+    }
+  );
+
+  /* -------------------------------------------------------
+     MAIN LOOP
+  ------------------------------------------------------- */
+
+  function animate() {
+
+    requestAnimationFrame(animate);
+
+    if (frozen) return;
 
 
 
