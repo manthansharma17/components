@@ -21930,6 +21930,84 @@ magnet62Stage.addEventListener("click", () => {
     requestAnimationFrame(animate);
 
     if (frozen) return;
+  /* -----------------------------------------------
+       SMOOTH MOUSE
+    ----------------------------------------------- */
+
+    mouse.x +=
+      (mouse.targetX - mouse.x) * .12;
+
+    mouse.y +=
+      (mouse.targetY - mouse.y) * .12;
+
+    /* -----------------------------------------------
+       VELOCITY
+    ----------------------------------------------- */
+
+    const dx =
+      mouse.x - mouse.previousX;
+
+    const dy =
+      mouse.y - mouse.previousY;
+
+    const velocity =
+      Math.sqrt(dx * dx + dy * dy);
+
+    mouse.velocity +=
+      (velocity - mouse.velocity) * .15;
+
+    mouse.previousX = mouse.x;
+    mouse.previousY = mouse.y;
+
+    /* -----------------------------------------------
+       NORMALIZED POSITION
+    ----------------------------------------------- */
+
+    const centerX =
+      window.innerWidth / 2;
+
+    const centerY =
+      window.innerHeight / 2;
+
+    const nx =
+      (mouse.x - centerX) /
+      window.innerWidth;
+
+    const ny =
+      (mouse.y - centerY) /
+      window.innerHeight;
+
+    const intensity =
+      Math.min(
+        mouse.velocity * .025,
+        1
+      );
+
+    /* -----------------------------------------------
+       MAIN WORD
+    ----------------------------------------------- */
+
+    const mainX =
+      nx * 25;
+
+    const mainY =
+      ny * 18;
+
+    const rotate =
+      nx * 2.5;
+
+    const scale =
+      1 + intensity * .025;
+
+    word.style.transform = `
+      translate3d(
+        ${mainX}px,
+        ${mainY}px,
+        0
+      )
+      rotate(${rotate}deg)
+      scale(${scale})
+    `;
 
 
 
