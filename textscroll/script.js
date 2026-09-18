@@ -22008,6 +22008,110 @@ magnet62Stage.addEventListener("click", () => {
       rotate(${rotate}deg)
       scale(${scale})
     `;
+/* -----------------------------------------------
+       TEMPORAL SLICES
+    ----------------------------------------------- */
+
+    sliceElements.forEach(
+      (slice, i) => {
+
+        const progress =
+          i / (SLICE_COUNT - 1);
+
+        /*
+          Newer slices stay closer.
+          Older slices travel farther.
+        */
+
+        const depth =
+          progress * 260;
+
+        const horizontal =
+          nx *
+          (40 + progress * 500) *
+          (0.3 + intensity);
+
+        const vertical =
+          ny *
+          (20 + progress * 280) *
+          (0.3 + intensity);
+
+        const rotation =
+          nx *
+          progress *
+          12;
+
+        const scale =
+          1 +
+          progress *
+          .035 *
+          intensity;
+
+        const blur =
+          progress *
+          intensity *
+          2.5;
+
+        const opacity =
+          (1 - progress) *
+          (.28 + intensity * .35);
+
+        slice.style.transform = `
+          translate3d(
+            calc(-50% + ${horizontal}px),
+            calc(-50% + ${vertical}px),
+            ${-depth}px
+          )
+          rotate(${rotation}deg)
+          scale(${scale})
+        `;
+
+        slice.style.opacity =
+          opacity;
+
+        slice.style.filter =
+          `blur(${blur}px)`;
+
+      }
+    );
+
+    /* -----------------------------------------------
+       CURSOR
+    ----------------------------------------------- */
+
+    if (!mobile) {
+
+      gsap.to(cursor, {
+
+        x: mouse.targetX,
+        y: mouse.targetY,
+
+        duration: .3,
+
+        ease: "power3.out",
+
+        overwrite: true
+
+      });
+
+      gsap.to(ring, {
+
+        x: mouse.targetX,
+        y: mouse.targetY,
+
+        duration: .55,
+
+        ease: "power3.out",
+
+        overwrite: true
+
+      });
+
+    }
+
+  }
+
+  animate();
 
 
 
