@@ -21780,27 +21780,19 @@ magnet62Stage.addEventListener("click", () => {
 ========================================================= */
 
 (() => {
+  const stage = document.getElementById("freeze64Stage");
 
-  const stage =
-    document.getElementById("freeze64Stage");
+  const scene = document.getElementById("freeze64Scene");
 
-  const scene =
-    document.getElementById("freeze64Scene");
+  const word = document.getElementById("freeze64Word");
 
-  const word =
-    document.getElementById("freeze64Word");
+  const slices = document.getElementById("freeze64Slices");
 
-  const slices =
-    document.getElementById("freeze64Slices");
+  const cursor = document.getElementById("freeze64Cursor");
 
-  const cursor =
-    document.getElementById("freeze64Cursor");
+  const ring = document.getElementById("freeze64Ring");
 
-  const ring =
-    document.getElementById("freeze64Ring");
-
-  const status =
-    document.getElementById("freeze64Status");
+  const status = document.getElementById("freeze64Status");
 
   if (!stage || !word) return;
 
@@ -21808,11 +21800,9 @@ magnet62Stage.addEventListener("click", () => {
      CONFIG
   ------------------------------------------------------- */
 
-  const mobile =
-    window.matchMedia("(max-width: 768px)").matches;
+  const mobile = window.matchMedia("(max-width: 768px)").matches;
 
-  const SLICE_COUNT =
-    mobile ? 9 : 16;
+  const SLICE_COUNT = mobile ? 9 : 16;
 
   /* -------------------------------------------------------
      CREATE TEMPORAL SLICES
@@ -21821,12 +21811,9 @@ magnet62Stage.addEventListener("click", () => {
   const sliceElements = [];
 
   for (let i = 0; i < SLICE_COUNT; i++) {
+    const slice = document.createElement("div");
 
-    const slice =
-      document.createElement("div");
-
-    slice.className =
-      "freeze64-slice";
+    slice.className = "freeze64-slice";
 
     slice.textContent = "TIME";
 
@@ -21839,11 +21826,9 @@ magnet62Stage.addEventListener("click", () => {
      FLASH
   ------------------------------------------------------- */
 
-  const flash =
-    document.createElement("div");
+  const flash = document.createElement("div");
 
-  flash.className =
-    "freeze64-flash";
+  flash.className = "freeze64-flash";
 
   stage.appendChild(flash);
 
@@ -21852,7 +21837,6 @@ magnet62Stage.addEventListener("click", () => {
   ------------------------------------------------------- */
 
   const mouse = {
-
     x: window.innerWidth / 2,
     y: window.innerHeight / 2,
 
@@ -21862,99 +21846,74 @@ magnet62Stage.addEventListener("click", () => {
     previousX: window.innerWidth / 2,
     previousY: window.innerHeight / 2,
 
-    velocity: 0
-
+    velocity: 0,
   };
 
   let active = false;
   let frozen = false;
 
- /* -------------------------------------------------------
+  /* -------------------------------------------------------
      MOUSE MOVE
   ------------------------------------------------------- */
 
-  window.addEventListener(
-    "mousemove",
-    (e) => {
+  window.addEventListener("mousemove", (e) => {
+    mouse.targetX = e.clientX;
+    mouse.targetY = e.clientY;
 
-      mouse.targetX = e.clientX;
-      mouse.targetY = e.clientY;
+    active = true;
 
-      active = true;
-
-      status.textContent =
-        "TEMPORAL DISTORTION";
-
-    }
-  );
+    status.textContent = "TEMPORAL DISTORTION";
+  });
 
   /* -------------------------------------------------------
      MOUSE LEAVE
   ------------------------------------------------------- */
 
-  window.addEventListener(
-    "mouseleave",
-    () => {
+  window.addEventListener("mouseleave", () => {
+    active = false;
 
-      active = false;
-
-      status.textContent =
-        "MOVE TO DISTORT";
-
-    }
-  );
+    status.textContent = "MOVE TO DISTORT";
+  });
 
   /* -------------------------------------------------------
      CLICK
   ------------------------------------------------------- */
 
-  stage.addEventListener(
-    "click",
-    () => {
+  stage.addEventListener("click", () => {
+    if (frozen) return;
 
-      if (frozen) return;
+    frozen = true;
 
-      frozen = true;
-
-      freezeSequence();
-
-    }
-  );
+    freezeSequence();
+  });
 
   /* -------------------------------------------------------
      MAIN LOOP
   ------------------------------------------------------- */
 
   function animate() {
-
     requestAnimationFrame(animate);
 
     if (frozen) return;
-  /* -----------------------------------------------
+    /* -----------------------------------------------
        SMOOTH MOUSE
     ----------------------------------------------- */
 
-    mouse.x +=
-      (mouse.targetX - mouse.x) * .12;
+    mouse.x += (mouse.targetX - mouse.x) * 0.12;
 
-    mouse.y +=
-      (mouse.targetY - mouse.y) * .12;
+    mouse.y += (mouse.targetY - mouse.y) * 0.12;
 
     /* -----------------------------------------------
        VELOCITY
     ----------------------------------------------- */
 
-    const dx =
-      mouse.x - mouse.previousX;
+    const dx = mouse.x - mouse.previousX;
 
-    const dy =
-      mouse.y - mouse.previousY;
+    const dy = mouse.y - mouse.previousY;
 
-    const velocity =
-      Math.sqrt(dx * dx + dy * dy);
+    const velocity = Math.sqrt(dx * dx + dy * dy);
 
-    mouse.velocity +=
-      (velocity - mouse.velocity) * .15;
+    mouse.velocity += (velocity - mouse.velocity) * 0.15;
 
     mouse.previousX = mouse.x;
     mouse.previousY = mouse.y;
@@ -21963,41 +21922,27 @@ magnet62Stage.addEventListener("click", () => {
        NORMALIZED POSITION
     ----------------------------------------------- */
 
-    const centerX =
-      window.innerWidth / 2;
+    const centerX = window.innerWidth / 2;
 
-    const centerY =
-      window.innerHeight / 2;
+    const centerY = window.innerHeight / 2;
 
-    const nx =
-      (mouse.x - centerX) /
-      window.innerWidth;
+    const nx = (mouse.x - centerX) / window.innerWidth;
 
-    const ny =
-      (mouse.y - centerY) /
-      window.innerHeight;
+    const ny = (mouse.y - centerY) / window.innerHeight;
 
-    const intensity =
-      Math.min(
-        mouse.velocity * .025,
-        1
-      );
+    const intensity = Math.min(mouse.velocity * 0.025, 1);
 
     /* -----------------------------------------------
        MAIN WORD
     ----------------------------------------------- */
 
-    const mainX =
-      nx * 25;
+    const mainX = nx * 25;
 
-    const mainY =
-      ny * 18;
+    const mainY = ny * 18;
 
-    const rotate =
-      nx * 2.5;
+    const rotate = nx * 2.5;
 
-    const scale =
-      1 + intensity * .025;
+    const scale = 1 + intensity * 0.025;
 
     word.style.transform = `
       translate3d(
@@ -22008,55 +21953,33 @@ magnet62Stage.addEventListener("click", () => {
       rotate(${rotate}deg)
       scale(${scale})
     `;
-/* -----------------------------------------------
+    /* -----------------------------------------------
        TEMPORAL SLICES
     ----------------------------------------------- */
 
-    sliceElements.forEach(
-      (slice, i) => {
+    sliceElements.forEach((slice, i) => {
+      const progress = i / (SLICE_COUNT - 1);
 
-        const progress =
-          i / (SLICE_COUNT - 1);
-
-        /*
+      /*
           Newer slices stay closer.
           Older slices travel farther.
         */
 
-        const depth =
-          progress * 260;
+      const depth = progress * 260;
 
-        const horizontal =
-          nx *
-          (40 + progress * 500) *
-          (0.3 + intensity);
+      const horizontal = nx * (40 + progress * 500) * (0.3 + intensity);
 
-        const vertical =
-          ny *
-          (20 + progress * 280) *
-          (0.3 + intensity);
+      const vertical = ny * (20 + progress * 280) * (0.3 + intensity);
 
-        const rotation =
-          nx *
-          progress *
-          12;
+      const rotation = nx * progress * 12;
 
-        const scale =
-          1 +
-          progress *
-          .035 *
-          intensity;
+      const scale = 1 + progress * 0.035 * intensity;
 
-        const blur =
-          progress *
-          intensity *
-          2.5;
+      const blur = progress * intensity * 2.5;
 
-        const opacity =
-          (1 - progress) *
-          (.28 + intensity * .35);
+      const opacity = (1 - progress) * (0.28 + intensity * 0.35);
 
-        slice.style.transform = `
+      slice.style.transform = `
           translate3d(
             calc(-50% + ${horizontal}px),
             calc(-50% + ${vertical}px),
@@ -22066,53 +21989,192 @@ magnet62Stage.addEventListener("click", () => {
           scale(${scale})
         `;
 
-        slice.style.opacity =
-          opacity;
+      slice.style.opacity = opacity;
 
-        slice.style.filter =
-          `blur(${blur}px)`;
-
-      }
-    );
+      slice.style.filter = `blur(${blur}px)`;
+    });
 
     /* -----------------------------------------------
        CURSOR
     ----------------------------------------------- */
 
     if (!mobile) {
-
       gsap.to(cursor, {
-
         x: mouse.targetX,
         y: mouse.targetY,
 
-        duration: .3,
+        duration: 0.3,
 
         ease: "power3.out",
 
-        overwrite: true
-
+        overwrite: true,
       });
 
       gsap.to(ring, {
-
         x: mouse.targetX,
         y: mouse.targetY,
 
-        duration: .55,
+        duration: 0.55,
 
         ease: "power3.out",
 
-        overwrite: true
-
+        overwrite: true,
       });
-
     }
-
   }
 
   animate();
+  /* =====================================================
+     FREEZE SEQUENCE
+  ===================================================== */
 
+  function freezeSequence() {
+    status.textContent = "TIME FROZEN";
+
+    /* ---------------------------------------------------
+       PHASE 1 — HARD STOP
+    --------------------------------------------------- */
+
+    gsap.to(sliceElements, {
+      x: 0,
+      y: 0,
+      z: 0,
+
+      rotation: 0,
+
+      scale: 1,
+
+      opacity: 0.6,
+
+      filter: "blur(0px)",
+
+      duration: 0.65,
+
+      stagger: {
+        each: 0.025,
+
+        from: "end",
+      },
+
+      ease: "expo.inOut",
+    });
+
+    gsap.to(word, {
+      scale: 1.08,
+
+      duration: 0.65,
+
+      ease: "expo.inOut",
+    });
+
+    /* ---------------------------------------------------
+       PHASE 2 — FREEZE FLASH
+    --------------------------------------------------- */
+
+    gsap.to(flash, {
+      opacity: 0.12,
+
+      duration: 0.08,
+
+      delay: 0.72,
+
+      yoyo: true,
+
+      repeat: 1,
+    });
+
+    /* ---------------------------------------------------
+       PHASE 3 — TEMPORAL EXPLOSION
+    --------------------------------------------------- */
+
+    gsap.delayedCall(0.82, () => {
+      status.textContent = "TIME RELEASED";
+
+      sliceElements.forEach((slice, i) => {
+        const direction = i % 2 === 0 ? 1 : -1;
+
+        gsap.to(slice, {
+          x: direction * (250 + Math.random() * 600),
+
+          y: (Math.random() - 0.5) * 400,
+
+          z: -300 - Math.random() * 500,
+
+          rotation: (Math.random() - 0.5) * 40,
+
+          scale: 0.4 + Math.random() * 0.8,
+
+          opacity: 0,
+
+          filter: `blur(${5 + Math.random() * 8}px)`,
+
+          duration: 1.1 + Math.random() * 0.5,
+
+          delay: i * 0.025,
+
+          ease: "expo.out",
+        });
+      });
+
+      /* -------------------------------------------------
+           MAIN WORD PULSE
+        ------------------------------------------------- */
+
+      gsap
+        .timeline()
+
+        .to(word, {
+          scale: 1.18,
+
+          duration: 0.12,
+
+          ease: "power4.out",
+        })
+
+        .to(word, {
+          scale: 0.95,
+
+          duration: 0.15,
+
+          ease: "power3.in",
+        })
+
+        .to(word, {
+          scale: 1,
+
+          duration: 0.8,
+
+          ease: "expo.out",
+        });
+    });
+
+    /* ---------------------------------------------------
+       PHASE 4 — RESTORE
+    --------------------------------------------------- */
+
+    gsap.delayedCall(2.15, () => {
+      sliceElements.forEach((slice, i) => {
+        gsap.set(slice, {
+          x: 0,
+          y: 0,
+          z: 0,
+
+          rotation: 0,
+
+          scale: 1,
+
+          opacity: 0.28 * (1 - i / SLICE_COUNT),
+
+          filter: "blur(0px)",
+        });
+      });
+
+      status.textContent = "MOVE TO DISTORT";
+
+      frozen = false;
+    });
+  }
+})();
 
 
 
