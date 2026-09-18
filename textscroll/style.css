@@ -12142,6 +12142,62 @@ JS animates every word toward these positions.
     display: none;
   }
 }
+/* =========================================================
+   SECTION 64 — TYPOGRAPHY TIME FREEZE
+========================================================= */
+
+.section-sixty-four {
+  width: 100%;
+  height: 100dvh;
+  background: #020202;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------
+   STAGE
+--------------------------------------------------------- */
+
+.freeze64-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  cursor: crosshair;
+}
+
+/* ---------------------------------------------------------
+   GRID
+--------------------------------------------------------- */
+
+.freeze64-grid {
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.045) 1px,
+      transparent 1px
+    );
+
+  background-size: 100px 100px;
+
+  opacity: .45;
+
+  mask-image: radial-gradient(
+    circle at center,
+    black,
+    transparent 75%
+  );
+
+  pointer-events: none;
+}
 
 
 
