@@ -21775,6 +21775,99 @@ magnet62Stage.addEventListener("click", () => {
   }
 })();
 
+/* =========================================================
+   SECTION 64 — TIME FREEZE
+========================================================= */
+
+(() => {
+
+  const stage =
+    document.getElementById("freeze64Stage");
+
+  const scene =
+    document.getElementById("freeze64Scene");
+
+  const word =
+    document.getElementById("freeze64Word");
+
+  const slices =
+    document.getElementById("freeze64Slices");
+
+  const cursor =
+    document.getElementById("freeze64Cursor");
+
+  const ring =
+    document.getElementById("freeze64Ring");
+
+  const status =
+    document.getElementById("freeze64Status");
+
+  if (!stage || !word) return;
+
+  /* -------------------------------------------------------
+     CONFIG
+  ------------------------------------------------------- */
+
+  const mobile =
+    window.matchMedia("(max-width: 768px)").matches;
+
+  const SLICE_COUNT =
+    mobile ? 9 : 16;
+
+  /* -------------------------------------------------------
+     CREATE TEMPORAL SLICES
+  ------------------------------------------------------- */
+
+  const sliceElements = [];
+
+  for (let i = 0; i < SLICE_COUNT; i++) {
+
+    const slice =
+      document.createElement("div");
+
+    slice.className =
+      "freeze64-slice";
+
+    slice.textContent = "TIME";
+
+    slices.appendChild(slice);
+
+    sliceElements.push(slice);
+  }
+
+  /* -------------------------------------------------------
+     FLASH
+  ------------------------------------------------------- */
+
+  const flash =
+    document.createElement("div");
+
+  flash.className =
+    "freeze64-flash";
+
+  stage.appendChild(flash);
+
+  /* -------------------------------------------------------
+     MOUSE
+  ------------------------------------------------------- */
+
+  const mouse = {
+
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2,
+
+    targetX: window.innerWidth / 2,
+    targetY: window.innerHeight / 2,
+
+    previousX: window.innerWidth / 2,
+    previousY: window.innerHeight / 2,
+
+    velocity: 0
+
+  };
+
+  let active = false;
+  let frozen = false;
 
 
 
