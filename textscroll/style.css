@@ -12360,7 +12360,86 @@ JS animates every word toward these positions.
 
   mix-blend-mode: difference;
 }
+/* ---------------------------------------------------------
+   STATUS
+--------------------------------------------------------- */
 
+.freeze64-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform: translateX(-50%);
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .3em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 20;
+}
+
+/* ---------------------------------------------------------
+   FREEZE FLASH
+--------------------------------------------------------- */
+
+.freeze64-flash {
+  position: absolute;
+
+  inset: 0;
+
+  background: #fff;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  z-index: 100;
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+--------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+  .freeze64-top {
+    top: 22px;
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .freeze64-word,
+  .freeze64-slice {
+    font-size: clamp(
+      5rem,
+      28vw,
+      12rem
+    );
+  }
+
+  .freeze64-grid {
+    background-size: 50px 50px;
+  }
+
+  .freeze64-cursor,
+  .freeze64-ring {
+    display: none;
+  }
+
+  .freeze64-status {
+    bottom: 22px;
+    font-size: 7px;
+  }
+}
 
 /* =========================================================
    REDUCED MOTION
