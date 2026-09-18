@@ -12198,7 +12198,78 @@ JS animates every word toward these positions.
 
   pointer-events: none;
 }
+/* ---------------------------------------------------------
+   TOP INFORMATION
+--------------------------------------------------------- */
 
+.freeze64-top {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9px;
+  letter-spacing: .25em;
+
+  opacity: .4;
+
+  z-index: 20;
+}
+
+/* ---------------------------------------------------------
+   SCENE
+--------------------------------------------------------- */
+
+.freeze64-scene {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  perspective: 1200px;
+}
+
+/* ---------------------------------------------------------
+   MAIN WORD
+--------------------------------------------------------- */
+
+.freeze64-word {
+  position: absolute;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: clamp(
+    8rem,
+    25vw,
+    30rem
+  );
+
+  font-weight: 900;
+
+  line-height: .72;
+
+  letter-spacing: -.085em;
+
+  white-space: nowrap;
+
+  z-index: 10;
+
+  user-select: none;
+
+  will-change: transform;
+
+  color: #f4f4f4;
+
+  text-shadow:
+    0 0 40px rgba(255,255,255,.04);
+}
 
 
 /* =========================================================
