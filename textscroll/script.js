@@ -22252,7 +22252,103 @@ magnet62Stage.addEventListener("click", () => {
   }
 
 
+/* -------------------------------------------------------
+     FLASH
+  ------------------------------------------------------- */
 
+  const flash =
+    document.createElement("div");
+
+  flash.className =
+    "void65-flash";
+
+  stage.appendChild(flash);
+
+  /* -------------------------------------------------------
+     MOUSE
+  ------------------------------------------------------- */
+
+  const mouse = {
+
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2,
+
+    targetX: window.innerWidth / 2,
+    targetY: window.innerHeight / 2,
+
+    velocity: 0,
+
+    previousX: window.innerWidth / 2,
+    previousY: window.innerHeight / 2
+
+  };
+
+  let locked = false;
+
+  /* -------------------------------------------------------
+     INITIAL ENTRANCE
+  ------------------------------------------------------- */
+
+  gsap.to(word, {
+
+    scale: 1,
+
+    duration: 2,
+
+    ease: "expo.out",
+
+    delay: .15
+
+  });
+
+  gsap.fromTo(
+    distortion,
+
+    {
+      scale: .05,
+      opacity: 0
+    },
+
+    {
+      scale: 1,
+      opacity: .7,
+
+      duration: 2.2,
+
+      ease: "expo.out",
+
+      delay: .2
+
+    }
+  );
+
+  gsap.fromTo(
+    orbitElements,
+
+    {
+      scale: .2,
+      opacity: 0
+    },
+
+    {
+      scale: (i) =>
+        .35 +
+        (i / ORBIT_COUNT) * .9,
+
+      opacity: (i) =>
+        .12 -
+        i * .008,
+
+      duration: 2,
+
+      stagger: .05,
+
+      ease: "expo.out",
+
+      delay: .2
+
+    }
+  );
 
 
 
