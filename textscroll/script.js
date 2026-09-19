@@ -22444,6 +22444,190 @@ magnet62Stage.addEventListener("click", () => {
 
     const influence =
       Math.min(distance, 1.4);
+      /* -----------------------------------------------
+       GRAVITY PULL
+    ----------------------------------------------- */
+
+    const pull =
+      1 +
+      influence * .25;
+
+    const wordX =
+      nx * 35;
+
+    const wordY =
+      ny * 25;
+
+    const rotation =
+      nx * 3;
+
+    const scale =
+      1 +
+      influence * .025 +
+      Math.min(mouse.velocity * .001, .025);
+
+    word.style.transform = `
+      translate(
+        calc(-50% + ${wordX}px),
+        calc(-50% + ${wordY}px)
+      )
+      rotate(${rotation}deg)
+      scale(${scale})
+    `;
+
+    /* -----------------------------------------------
+       WORD DISTORTION
+    ----------------------------------------------- */
+
+    const distortionX =
+      nx * 80;
+
+    const distortionY =
+      ny * 50;
+
+    const skew =
+      nx * 10;
+
+    const distortionScaleX =
+      1 +
+      Math.abs(nx) * .18;
+
+    const distortionScaleY =
+      1 -
+      Math.abs(ny) * .08;
+
+    distortion.style.transform = `
+      translate(
+        calc(-50% + ${distortionX}px),
+        calc(-50% + ${distortionY}px)
+      )
+      skewX(${skew}deg)
+      scale(
+        ${distortionScaleX},
+        ${distortionScaleY}
+      )
+    `;
+
+    distortion.style.opacity =
+      .18 +
+      influence * .28;
+
+    distortion.style.filter =
+      `blur(${influence * 2}px)`;
+
+    /* -----------------------------------------------
+       ORBIT MOVEMENT
+    ----------------------------------------------- */
+
+    orbitElements.forEach(
+      (orbit, i) => {
+
+        const depth =
+          i / ORBIT_COUNT;
+
+        const rotate =
+          nx *
+          (8 + i * 2);
+
+        const rotateY =
+          ny *
+          (10 + i * 2);
+
+        const z =
+          -depth * 150;
+
+        const baseScale =
+          .35 +
+          depth * .9;
+
+        const dynamicScale =
+          baseScale +
+          influence * .035;
+
+        orbit.style.transform = `
+          scale(${dynamicScale})
+          rotateZ(${rotate}deg)
+          rotateY(${rotateY}deg)
+          translateZ(${z}px)
+        `;
+
+      }
+    );
+
+    /* -----------------------------------------------
+       GRID GRAVITY
+    ----------------------------------------------- */
+
+    const grid =
+      stage.querySelector(".void65-grid");
+
+    if (grid) {
+
+      grid.style.transform = `
+        translate(
+          ${nx * -30}px,
+          ${ny * -30}px
+        )
+        scale(${1 + influence * .025})
+      `;
+
+    }
+
+    /* -----------------------------------------------
+       CURSOR
+    ----------------------------------------------- */
+
+    if (!isMobile) {
+
+      gsap.to(cursor, {
+
+        x: mouse.targetX,
+        y: mouse.targetY,
+
+        duration: .25,
+
+        ease: "power3.out",
+
+        overwrite: true
+
+      });
+
+      gsap.to(cursorRing, {
+
+        x: mouse.targetX,
+        y: mouse.targetY,
+
+        duration: .5,
+
+        ease: "power3.out",
+
+        overwrite: true
+
+      });
+
+    }
+
+    /* -----------------------------------------------
+       COORDINATES
+    ----------------------------------------------- */
+
+    coordinates.textContent =
+      `X ${String(Math.round(mouse.x)).padStart(3, "0")} / ` +
+      `Y ${String(Math.round(mouse.y)).padStart(3, "0")}`;
+
+  }
+
+  animate();
+
+  /* =====================================================
+     VOID COLLAPSE
+  ===================================================== */
+
+  function collapseVoid() {
+
+    status.textContent =
+      "COLLAPSING";
+
 
 
 /* =========================================================
