@@ -12545,7 +12545,83 @@ JS animates every word toward these positions.
     transform: translate(-1%, -1%);
   }
 }
+/* ---------------------------------------------------------
+   HEADER
+--------------------------------------------------------- */
 
+.void65-header {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9px;
+  letter-spacing: .25em;
+
+  opacity: .38;
+
+  z-index: 20;
+}
+
+/* ---------------------------------------------------------
+   SCENE
+--------------------------------------------------------- */
+
+.void65-scene {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  perspective: 1400px;
+
+  transform-style: preserve-3d;
+}
+
+/* ---------------------------------------------------------
+   ORBITS
+--------------------------------------------------------- */
+
+.void65-orbits {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: min(65vw, 800px);
+  height: min(65vw, 800px);
+
+  transform:
+    translate(-50%, -50%)
+    rotateX(65deg);
+
+  transform-style: preserve-3d;
+
+  pointer-events: none;
+}
+
+.void65-orbit {
+  position: absolute;
+
+  inset: 0;
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  border-radius: 50%;
+
+  transform-style: preserve-3d;
+
+  will-change:
+    transform,
+    opacity;
+}
 
 
 
