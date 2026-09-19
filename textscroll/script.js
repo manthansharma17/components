@@ -22175,6 +22175,84 @@ magnet62Stage.addEventListener("click", () => {
     });
   }
 })();
+/* =========================================================
+   SECTION 65 — TYPOGRAPHY VOID
+========================================================= */
+
+(() => {
+
+  const stage =
+    document.getElementById("void65Stage");
+
+  const scene =
+    document.getElementById("void65Scene");
+
+  const word =
+    document.getElementById("void65Word");
+
+  const distortion =
+    document.getElementById("void65Distortion");
+
+  const orbits =
+    document.getElementById("void65Orbits");
+
+  const cursor =
+    document.getElementById("void65Cursor");
+
+  const cursorRing =
+    document.getElementById("void65CursorRing");
+
+  const status =
+    document.getElementById("void65Status");
+
+  const coordinates =
+    document.getElementById("void65Coordinates");
+
+  if (!stage || !word) return;
+
+  /* -------------------------------------------------------
+     CONFIG
+  ------------------------------------------------------- */
+
+  const isMobile =
+    window.matchMedia("(max-width: 768px)").matches;
+
+  const ORBIT_COUNT =
+    isMobile ? 5 : 8;
+
+  /* -------------------------------------------------------
+     CREATE ORBITS
+  ------------------------------------------------------- */
+
+  const orbitElements = [];
+
+  for (let i = 0; i < ORBIT_COUNT; i++) {
+
+    const orbit =
+      document.createElement("div");
+
+    orbit.className =
+      "void65-orbit";
+
+    const scale =
+      .35 +
+      (i / ORBIT_COUNT) * .9;
+
+    orbit.style.transform =
+      `scale(${scale})`;
+
+    orbit.style.opacity =
+      .12 -
+      i * .008;
+
+    orbits.appendChild(orbit);
+
+    orbitElements.push(orbit);
+
+  }
+
+
+
 
 
 
