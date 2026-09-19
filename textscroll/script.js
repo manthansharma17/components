@@ -22180,33 +22180,23 @@ magnet62Stage.addEventListener("click", () => {
 ========================================================= */
 
 (() => {
+  const stage = document.getElementById("void65Stage");
 
-  const stage =
-    document.getElementById("void65Stage");
+  const scene = document.getElementById("void65Scene");
 
-  const scene =
-    document.getElementById("void65Scene");
+  const word = document.getElementById("void65Word");
 
-  const word =
-    document.getElementById("void65Word");
+  const distortion = document.getElementById("void65Distortion");
 
-  const distortion =
-    document.getElementById("void65Distortion");
+  const orbits = document.getElementById("void65Orbits");
 
-  const orbits =
-    document.getElementById("void65Orbits");
+  const cursor = document.getElementById("void65Cursor");
 
-  const cursor =
-    document.getElementById("void65Cursor");
+  const cursorRing = document.getElementById("void65CursorRing");
 
-  const cursorRing =
-    document.getElementById("void65CursorRing");
+  const status = document.getElementById("void65Status");
 
-  const status =
-    document.getElementById("void65Status");
-
-  const coordinates =
-    document.getElementById("void65Coordinates");
+  const coordinates = document.getElementById("void65Coordinates");
 
   if (!stage || !word) return;
 
@@ -22214,11 +22204,9 @@ magnet62Stage.addEventListener("click", () => {
      CONFIG
   ------------------------------------------------------- */
 
-  const isMobile =
-    window.matchMedia("(max-width: 768px)").matches;
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
-  const ORBIT_COUNT =
-    isMobile ? 5 : 8;
+  const ORBIT_COUNT = isMobile ? 5 : 8;
 
   /* -------------------------------------------------------
      CREATE ORBITS
@@ -22227,40 +22215,28 @@ magnet62Stage.addEventListener("click", () => {
   const orbitElements = [];
 
   for (let i = 0; i < ORBIT_COUNT; i++) {
+    const orbit = document.createElement("div");
 
-    const orbit =
-      document.createElement("div");
+    orbit.className = "void65-orbit";
 
-    orbit.className =
-      "void65-orbit";
+    const scale = 0.35 + (i / ORBIT_COUNT) * 0.9;
 
-    const scale =
-      .35 +
-      (i / ORBIT_COUNT) * .9;
+    orbit.style.transform = `scale(${scale})`;
 
-    orbit.style.transform =
-      `scale(${scale})`;
-
-    orbit.style.opacity =
-      .12 -
-      i * .008;
+    orbit.style.opacity = 0.12 - i * 0.008;
 
     orbits.appendChild(orbit);
 
     orbitElements.push(orbit);
-
   }
 
-
-/* -------------------------------------------------------
+  /* -------------------------------------------------------
      FLASH
   ------------------------------------------------------- */
 
-  const flash =
-    document.createElement("div");
+  const flash = document.createElement("div");
 
-  flash.className =
-    "void65-flash";
+  flash.className = "void65-flash";
 
   stage.appendChild(flash);
 
@@ -22269,7 +22245,6 @@ magnet62Stage.addEventListener("click", () => {
   ------------------------------------------------------- */
 
   const mouse = {
-
     x: window.innerWidth / 2,
     y: window.innerHeight / 2,
 
@@ -22279,8 +22254,7 @@ magnet62Stage.addEventListener("click", () => {
     velocity: 0,
 
     previousX: window.innerWidth / 2,
-    previousY: window.innerHeight / 2
-
+    previousY: window.innerHeight / 2,
   };
 
   let locked = false;
@@ -22290,130 +22264,104 @@ magnet62Stage.addEventListener("click", () => {
   ------------------------------------------------------- */
 
   gsap.to(word, {
-
     scale: 1,
 
     duration: 2,
 
     ease: "expo.out",
 
-    delay: .15
-
+    delay: 0.15,
   });
 
   gsap.fromTo(
     distortion,
 
     {
-      scale: .05,
-      opacity: 0
+      scale: 0.05,
+      opacity: 0,
     },
 
     {
       scale: 1,
-      opacity: .7,
+      opacity: 0.7,
 
       duration: 2.2,
 
       ease: "expo.out",
 
-      delay: .2
-
-    }
+      delay: 0.2,
+    },
   );
 
   gsap.fromTo(
     orbitElements,
 
     {
-      scale: .2,
-      opacity: 0
+      scale: 0.2,
+      opacity: 0,
     },
 
     {
-      scale: (i) =>
-        .35 +
-        (i / ORBIT_COUNT) * .9,
+      scale: (i) => 0.35 + (i / ORBIT_COUNT) * 0.9,
 
-      opacity: (i) =>
-        .12 -
-        i * .008,
+      opacity: (i) => 0.12 - i * 0.008,
 
       duration: 2,
 
-      stagger: .05,
+      stagger: 0.05,
 
       ease: "expo.out",
 
-      delay: .2
-
-    }
+      delay: 0.2,
+    },
   );
- /* -------------------------------------------------------
+  /* -------------------------------------------------------
      MOUSE MOVE
   ------------------------------------------------------- */
 
-  window.addEventListener(
-    "mousemove",
-    (e) => {
+  window.addEventListener("mousemove", (e) => {
+    mouse.targetX = e.clientX;
+    mouse.targetY = e.clientY;
 
-      mouse.targetX = e.clientX;
-      mouse.targetY = e.clientY;
-
-      status.textContent =
-        "GRAVITY ACTIVE";
-
-    }
-  );
+    status.textContent = "GRAVITY ACTIVE";
+  });
 
   /* -------------------------------------------------------
      CLICK
   ------------------------------------------------------- */
 
-  stage.addEventListener(
-    "click",
-    () => {
+  stage.addEventListener("click", () => {
+    if (locked) return;
 
-      if (locked) return;
+    locked = true;
 
-      locked = true;
-
-      collapseVoid();
-
-    }
-  );
+    collapseVoid();
+  });
 
   /* -------------------------------------------------------
      ANIMATION
   ------------------------------------------------------- */
 
   function animate() {
-
     requestAnimationFrame(animate);
 
     if (locked) return;
 
-    mouse.x +=
-      (mouse.targetX - mouse.x) * .1;
+    mouse.x += (mouse.targetX - mouse.x) * 0.1;
 
-    mouse.y +=
-      (mouse.targetY - mouse.y) * .1;
+    mouse.y += (mouse.targetY - mouse.y) * 0.1;
 
     /* -----------------------------------------------
        VELOCITY
     ----------------------------------------------- */
 
-    const dx =
-      mouse.x - mouse.previousX;
+    const dx = mouse.x - mouse.previousX;
 
-    const dy =
-      mouse.y - mouse.previousY;
+    const dy = mouse.y - mouse.previousY;
 
-    const velocity =
-      Math.sqrt(dx * dx + dy * dy);
+    const velocity = Math.sqrt(dx * dx + dy * dy);
 
-    mouse.velocity +=
-      (velocity - mouse.velocity) * .12;
+    mouse.velocity += (velocity - mouse.velocity) * 0.12;
 
     mouse.previousX = mouse.x;
     mouse.previousY = mouse.y;
@@ -22422,49 +22370,31 @@ magnet62Stage.addEventListener("click", () => {
        NORMALIZED POSITION
     ----------------------------------------------- */
 
-    const centerX =
-      window.innerWidth / 2;
+    const centerX = window.innerWidth / 2;
 
-    const centerY =
-      window.innerHeight / 2;
+    const centerY = window.innerHeight / 2;
 
-    const nx =
-      (mouse.x - centerX) /
-      (window.innerWidth / 2);
+    const nx = (mouse.x - centerX) / (window.innerWidth / 2);
 
-    const ny =
-      (mouse.y - centerY) /
-      (window.innerHeight / 2);
+    const ny = (mouse.y - centerY) / (window.innerHeight / 2);
 
-    const distance =
-      Math.sqrt(
-        nx * nx +
-        ny * ny
-      );
+    const distance = Math.sqrt(nx * nx + ny * ny);
 
-    const influence =
-      Math.min(distance, 1.4);
-      /* -----------------------------------------------
+    const influence = Math.min(distance, 1.4);
+    /* -----------------------------------------------
        GRAVITY PULL
     ----------------------------------------------- */
 
-    const pull =
-      1 +
-      influence * .25;
+    const pull = 1 + influence * 0.25;
 
-    const wordX =
-      nx * 35;
+    const wordX = nx * 35;
 
-    const wordY =
-      ny * 25;
+    const wordY = ny * 25;
 
-    const rotation =
-      nx * 3;
+    const rotation = nx * 3;
 
     const scale =
-      1 +
-      influence * .025 +
-      Math.min(mouse.velocity * .001, .025);
+      1 + influence * 0.025 + Math.min(mouse.velocity * 0.001, 0.025);
 
     word.style.transform = `
       translate(
@@ -22479,22 +22409,15 @@ magnet62Stage.addEventListener("click", () => {
        WORD DISTORTION
     ----------------------------------------------- */
 
-    const distortionX =
-      nx * 80;
+    const distortionX = nx * 80;
 
-    const distortionY =
-      ny * 50;
+    const distortionY = ny * 50;
 
-    const skew =
-      nx * 10;
+    const skew = nx * 10;
 
-    const distortionScaleX =
-      1 +
-      Math.abs(nx) * .18;
+    const distortionScaleX = 1 + Math.abs(nx) * 0.18;
 
-    const distortionScaleY =
-      1 -
-      Math.abs(ny) * .08;
+    const distortionScaleY = 1 - Math.abs(ny) * 0.08;
 
     distortion.style.transform = `
       translate(
@@ -22508,69 +22431,49 @@ magnet62Stage.addEventListener("click", () => {
       )
     `;
 
-    distortion.style.opacity =
-      .18 +
-      influence * .28;
+    distortion.style.opacity = 0.18 + influence * 0.28;
 
-    distortion.style.filter =
-      `blur(${influence * 2}px)`;
+    distortion.style.filter = `blur(${influence * 2}px)`;
 
     /* -----------------------------------------------
        ORBIT MOVEMENT
     ----------------------------------------------- */
 
-    orbitElements.forEach(
-      (orbit, i) => {
+    orbitElements.forEach((orbit, i) => {
+      const depth = i / ORBIT_COUNT;
 
-        const depth =
-          i / ORBIT_COUNT;
+      const rotate = nx * (8 + i * 2);
 
-        const rotate =
-          nx *
-          (8 + i * 2);
+      const rotateY = ny * (10 + i * 2);
 
-        const rotateY =
-          ny *
-          (10 + i * 2);
+      const z = -depth * 150;
 
-        const z =
-          -depth * 150;
+      const baseScale = 0.35 + depth * 0.9;
 
-        const baseScale =
-          .35 +
-          depth * .9;
+      const dynamicScale = baseScale + influence * 0.035;
 
-        const dynamicScale =
-          baseScale +
-          influence * .035;
-
-        orbit.style.transform = `
+      orbit.style.transform = `
           scale(${dynamicScale})
           rotateZ(${rotate}deg)
           rotateY(${rotateY}deg)
           translateZ(${z}px)
         `;
-
-      }
-    );
+    });
 
     /* -----------------------------------------------
        GRID GRAVITY
     ----------------------------------------------- */
 
-    const grid =
-      stage.querySelector(".void65-grid");
+    const grid = stage.querySelector(".void65-grid");
 
     if (grid) {
-
       grid.style.transform = `
         translate(
           ${nx * -30}px,
           ${ny * -30}px
         )
-        scale(${1 + influence * .025})
+        scale(${1 + influence * 0.025})
       `;
-
     }
 
     /* -----------------------------------------------
@@ -22578,33 +22481,27 @@ magnet62Stage.addEventListener("click", () => {
     ----------------------------------------------- */
 
     if (!isMobile) {
-
       gsap.to(cursor, {
-
         x: mouse.targetX,
         y: mouse.targetY,
 
-        duration: .25,
+        duration: 0.25,
 
         ease: "power3.out",
 
-        overwrite: true
-
+        overwrite: true,
       });
 
       gsap.to(cursorRing, {
-
         x: mouse.targetX,
         y: mouse.targetY,
 
-        duration: .5,
+        duration: 0.5,
 
         ease: "power3.out",
 
-        overwrite: true
-
+        overwrite: true,
       });
-
     }
 
     /* -----------------------------------------------
@@ -22614,7 +22511,6 @@ magnet62Stage.addEventListener("click", () => {
     coordinates.textContent =
       `X ${String(Math.round(mouse.x)).padStart(3, "0")} / ` +
       `Y ${String(Math.round(mouse.y)).padStart(3, "0")}`;
-
   }
 
   animate();
@@ -22624,145 +22520,186 @@ magnet62Stage.addEventListener("click", () => {
   ===================================================== */
 
   function collapseVoid() {
+    status.textContent = "COLLAPSING";
 
-    status.textContent =
-      "COLLAPSING";
-
-       /* ---------------------------------------------------
+    /* ---------------------------------------------------
        PHASE 1 — EVERYTHING PULLS IN
     --------------------------------------------------- */
 
-    gsap.to(
-      orbitElements,
-      {
+    gsap.to(orbitElements, {
+      scale: 0.02,
 
-        scale: .02,
+      rotation: 360,
 
-        rotation: 360,
+      opacity: 0,
 
-        opacity: 0,
+      duration: 1.1,
 
-        duration: 1.1,
+      stagger: 0.035,
 
-        stagger: .035,
+      ease: "expo.in",
+    });
 
-        ease: "expo.in"
+    gsap.to(distortion, {
+      scale: 0.02,
 
-      }
-    );
+      x: 0,
+      y: 0,
 
-    gsap.to(
-      distortion,
-      {
+      rotation: 0,
 
-        scale: .02,
+      opacity: 0,
 
-        x: 0,
-        y: 0,
+      filter: "blur(15px)",
 
-        rotation: 0,
+      duration: 0.9,
 
-        opacity: 0,
+      ease: "expo.in",
+    });
 
-        filter: "blur(15px)",
+    gsap.to(word, {
+      scale: 0.02,
 
-        duration: .9,
+      rotation: 720,
 
-        ease: "expo.in"
+      filter: "blur(8px)",
 
-      }
-    );
+      duration: 1,
 
-    gsap.to(
-      word,
-      {
-
-        scale: .02,
-
-        rotation: 720,
-
-        filter: "blur(8px)",
-
-        duration: 1,
-
-        ease: "expo.in"
-
-      }
-    );
+      ease: "expo.in",
+    });
 
     /* ---------------------------------------------------
        PHASE 2 — SINGULARITY
     --------------------------------------------------- */
 
-    gsap.delayedCall(
-      1.02,
-      () => {
+    gsap.delayedCall(1.02, () => {
+      status.textContent = "SINGULARITY";
 
-        status.textContent =
-          "SINGULARITY";
+      gsap.to(flash, {
+        opacity: 0.8,
 
-        gsap.to(
-          flash,
-          {
+        duration: 0.05,
 
-            opacity: .8,
+        yoyo: true,
 
-            duration: .05,
+        repeat: 1,
+      });
 
-            yoyo: true,
+      /* Small central flash */
 
-            repeat: 1
+      const core = document.createElement("div");
 
-          }
-        );
+      core.style.position = "absolute";
 
-        /* Small central flash */
+      core.style.left = "50%";
+      core.style.top = "50%";
 
-        const core =
-          document.createElement("div");
+      core.style.width = "4px";
+      core.style.height = "4px";
 
-        core.style.position =
-          "absolute";
+      core.style.borderRadius = "50%";
 
-        core.style.left = "50%";
-        core.style.top = "50%";
+      core.style.background = "#fff";
 
-        core.style.width = "4px";
-        core.style.height = "4px";
+      core.style.transform = "translate(-50%, -50%)";
 
-        core.style.borderRadius = "50%";
+      core.style.zIndex = "30";
 
-        core.style.background = "#fff";
+      stage.appendChild(core);
 
-        core.style.transform =
-          "translate(-50%, -50%)";
+      gsap.to(core, {
+        scale: 100,
 
-        core.style.zIndex = "30";
+        opacity: 0,
 
-        stage.appendChild(core);
+        duration: 0.8,
 
-        gsap.to(
-          core,
-          {
+        ease: "expo.out",
 
-            scale: 100,
+        onComplete: () => {
+          core.remove();
+        },
+      });
+    });
+    /* ---------------------------------------------------
+       PHASE 3 — REBIRTH
+    --------------------------------------------------- */
 
-            opacity: 0,
+    gsap.delayedCall(1.45, () => {
+      status.textContent = "VOID RESTORED";
 
-            duration: .8,
+      gsap.fromTo(
+        word,
 
-            ease: "expo.out",
+        {
+          scale: 0.01,
+          rotation: -180,
+          filter: "blur(12px)",
+        },
 
-            onComplete: () => {
-              core.remove();
-            }
+        {
+          scale: 1,
+          rotation: 0,
+          filter: "blur(0px)",
 
-          }
-        );
+          duration: 1.3,
 
-      }
-    );
+          ease: "expo.out",
+        },
+      );
 
+      gsap.fromTo(
+        distortion,
+
+        {
+          scale: 0.01,
+          opacity: 0,
+        },
+
+        {
+          scale: 1,
+          opacity: 0.25,
+
+          duration: 1.4,
+
+          ease: "expo.out",
+        },
+      );
+
+      gsap.fromTo(
+        orbitElements,
+
+        {
+          scale: 0.01,
+          opacity: 0,
+        },
+
+        {
+          scale: (i) => 0.35 + (i / ORBIT_COUNT) * 0.9,
+
+          opacity: (i) => 0.12 - i * 0.008,
+
+          duration: 1.5,
+
+          stagger: 0.04,
+
+          ease: "expo.out",
+        },
+      );
+    });
+
+    /* ---------------------------------------------------
+       UNLOCK
+    --------------------------------------------------- */
+
+    gsap.delayedCall(3, () => {
+      status.textContent = "ENTER THE VOID";
+
+      locked = false;
+    });
+  }
+})();
 
 
 /* =========================================================
