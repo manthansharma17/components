@@ -22628,6 +22628,141 @@ magnet62Stage.addEventListener("click", () => {
     status.textContent =
       "COLLAPSING";
 
+       /* ---------------------------------------------------
+       PHASE 1 — EVERYTHING PULLS IN
+    --------------------------------------------------- */
+
+    gsap.to(
+      orbitElements,
+      {
+
+        scale: .02,
+
+        rotation: 360,
+
+        opacity: 0,
+
+        duration: 1.1,
+
+        stagger: .035,
+
+        ease: "expo.in"
+
+      }
+    );
+
+    gsap.to(
+      distortion,
+      {
+
+        scale: .02,
+
+        x: 0,
+        y: 0,
+
+        rotation: 0,
+
+        opacity: 0,
+
+        filter: "blur(15px)",
+
+        duration: .9,
+
+        ease: "expo.in"
+
+      }
+    );
+
+    gsap.to(
+      word,
+      {
+
+        scale: .02,
+
+        rotation: 720,
+
+        filter: "blur(8px)",
+
+        duration: 1,
+
+        ease: "expo.in"
+
+      }
+    );
+
+    /* ---------------------------------------------------
+       PHASE 2 — SINGULARITY
+    --------------------------------------------------- */
+
+    gsap.delayedCall(
+      1.02,
+      () => {
+
+        status.textContent =
+          "SINGULARITY";
+
+        gsap.to(
+          flash,
+          {
+
+            opacity: .8,
+
+            duration: .05,
+
+            yoyo: true,
+
+            repeat: 1
+
+          }
+        );
+
+        /* Small central flash */
+
+        const core =
+          document.createElement("div");
+
+        core.style.position =
+          "absolute";
+
+        core.style.left = "50%";
+        core.style.top = "50%";
+
+        core.style.width = "4px";
+        core.style.height = "4px";
+
+        core.style.borderRadius = "50%";
+
+        core.style.background = "#fff";
+
+        core.style.transform =
+          "translate(-50%, -50%)";
+
+        core.style.zIndex = "30";
+
+        stage.appendChild(core);
+
+        gsap.to(
+          core,
+          {
+
+            scale: 100,
+
+            opacity: 0,
+
+            duration: .8,
+
+            ease: "expo.out",
+
+            onComplete: () => {
+              core.remove();
+            }
+
+          }
+        );
+
+      }
+    );
+
 
 
 /* =========================================================
