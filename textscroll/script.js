@@ -22701,6 +22701,69 @@ magnet62Stage.addEventListener("click", () => {
   }
 })();
 
+/* =========================================================
+   SECTION 66 — TYPOGRAPHY RIPPLE
+========================================================= */
+
+(() => {
+
+  const stage =
+    document.getElementById("ripple66Stage");
+
+  const scene =
+    document.getElementById("ripple66Scene");
+
+  const word =
+    document.getElementById("ripple66Word");
+
+  const rings =
+    document.getElementById("ripple66Rings");
+
+  const cursor =
+    document.getElementById("ripple66Cursor");
+
+  const status =
+    document.getElementById("ripple66Status");
+
+  const coordinates =
+    document.getElementById("ripple66Coordinates");
+
+  if (!stage || !word) return;
+
+  /* -------------------------------------------------------
+     CONFIG
+  ------------------------------------------------------- */
+
+  const isMobile =
+    window.matchMedia("(max-width: 768px)").matches;
+
+  const letters =
+    [...word.querySelectorAll("span")];
+
+  /* -------------------------------------------------------
+     MOUSE
+  ------------------------------------------------------- */
+
+  const mouse = {
+
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2,
+
+    targetX: window.innerWidth / 2,
+    targetY: window.innerHeight / 2,
+
+    previousX: window.innerWidth / 2,
+    previousY: window.innerHeight / 2,
+
+    velocity: 0
+
+  };
+
+  let locked = false;
+
+  let lastWaveTime = 0;
+
+
 
 /* =========================================================
    REFRESH
