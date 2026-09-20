@@ -22706,27 +22706,19 @@ magnet62Stage.addEventListener("click", () => {
 ========================================================= */
 
 (() => {
+  const stage = document.getElementById("ripple66Stage");
 
-  const stage =
-    document.getElementById("ripple66Stage");
+  const scene = document.getElementById("ripple66Scene");
 
-  const scene =
-    document.getElementById("ripple66Scene");
+  const word = document.getElementById("ripple66Word");
 
-  const word =
-    document.getElementById("ripple66Word");
+  const rings = document.getElementById("ripple66Rings");
 
-  const rings =
-    document.getElementById("ripple66Rings");
+  const cursor = document.getElementById("ripple66Cursor");
 
-  const cursor =
-    document.getElementById("ripple66Cursor");
+  const status = document.getElementById("ripple66Status");
 
-  const status =
-    document.getElementById("ripple66Status");
-
-  const coordinates =
-    document.getElementById("ripple66Coordinates");
+  const coordinates = document.getElementById("ripple66Coordinates");
 
   if (!stage || !word) return;
 
@@ -22734,18 +22726,15 @@ magnet62Stage.addEventListener("click", () => {
      CONFIG
   ------------------------------------------------------- */
 
-  const isMobile =
-    window.matchMedia("(max-width: 768px)").matches;
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
-  const letters =
-    [...word.querySelectorAll("span")];
+  const letters = [...word.querySelectorAll("span")];
 
   /* -------------------------------------------------------
      MOUSE
   ------------------------------------------------------- */
 
   const mouse = {
-
     x: window.innerWidth / 2,
     y: window.innerHeight / 2,
 
@@ -22755,120 +22744,78 @@ magnet62Stage.addEventListener("click", () => {
     previousX: window.innerWidth / 2,
     previousY: window.innerHeight / 2,
 
-    velocity: 0
-
+    velocity: 0,
   };
 
   let locked = false;
 
   let lastWaveTime = 0;
 
-/* -------------------------------------------------------
+  /* -------------------------------------------------------
      MOUSE MOVE
   ------------------------------------------------------- */
 
-  window.addEventListener(
-    "mousemove",
-    (e) => {
+  window.addEventListener("mousemove", (e) => {
+    mouse.targetX = e.clientX;
+    mouse.targetY = e.clientY;
 
-      mouse.targetX = e.clientX;
-      mouse.targetY = e.clientY;
-
-      status.textContent =
-        "WAVE PROPAGATING";
-
-    }
-  );
+    status.textContent = "WAVE PROPAGATING";
+  });
 
   /* -------------------------------------------------------
      CLICK
   ------------------------------------------------------- */
 
-  stage.addEventListener(
-    "click",
-    () => {
+  stage.addEventListener("click", () => {
+    if (locked) return;
 
-      if (locked) return;
+    locked = true;
 
-      locked = true;
-
-      massiveRipple();
-
-    }
-  );
+    massiveRipple();
+  });
 
   /* -------------------------------------------------------
      CREATE RIPPLE
   ------------------------------------------------------- */
 
-  function createRipple(
-    x,
-    y,
-    strength = 1
-  ) {
+  function createRipple(x, y, strength = 1) {
+    const ring = document.createElement("div");
 
-    const ring =
-      document.createElement("div");
+    ring.className = "ripple66-ring";
 
-    ring.className =
-      "ripple66-ring";
+    ring.style.left = `${x}px`;
 
-    ring.style.left =
-      `${x}px`;
-
-    ring.style.top =
-      `${y}px`;
+    ring.style.top = `${y}px`;
 
     rings.appendChild(ring);
 
-    const size =
-      Math.min(
-        window.innerWidth,
-        window.innerHeight
-      );
+    const size = Math.min(window.innerWidth, window.innerHeight);
 
-    gsap.to(
-      ring,
-      {
+    gsap.to(ring, {
+      scale: (2.5 + strength * 3) * (size / 500),
 
-        scale:
-          (2.5 + strength * 3) *
-          (size / 500),
+      opacity: 0.55,
 
-        opacity: .55,
+      duration: 0.15,
 
-        duration: .15,
+      ease: "power2.out",
+    });
 
-        ease: "power2.out"
+    gsap.to(ring, {
+      scale: (8 + strength * 8) * (size / 500),
 
-      }
-    );
+      opacity: 0,
 
-    gsap.to(
-      ring,
-      {
+      duration: 1.4 + strength * 0.7,
 
-        scale:
-          (8 + strength * 8) *
-          (size / 500),
+      delay: 0.08,
 
-        opacity: 0,
+      ease: "expo.out",
 
-        duration:
-          1.4 +
-          strength * .7,
-
-        delay: .08,
-
-        ease: "expo.out",
-
-        onComplete: () => {
-          ring.remove();
-        }
-
-      }
-    );
-
+      onComplete: () => {
+        ring.remove();
+      },
+    });
   }
 
   /* -------------------------------------------------------
@@ -22876,7 +22823,6 @@ magnet62Stage.addEventListener("click", () => {
   ------------------------------------------------------- */
 
   function animate(time) {
-
     requestAnimationFrame(animate);
 
     if (locked) return;
@@ -22885,27 +22831,21 @@ magnet62Stage.addEventListener("click", () => {
        SMOOTH MOUSE
     ----------------------------------------------- */
 
-    mouse.x +=
-      (mouse.targetX - mouse.x) * .1;
+    mouse.x += (mouse.targetX - mouse.x) * 0.1;
 
-    mouse.y +=
-      (mouse.targetY - mouse.y) * .1;
+    mouse.y += (mouse.targetY - mouse.y) * 0.1;
 
     /* -----------------------------------------------
        VELOCITY
     ----------------------------------------------- */
 
-    const dx =
-      mouse.x - mouse.previousX;
+    const dx = mouse.x - mouse.previousX;
 
-    const dy =
-      mouse.y - mouse.previousY;
+    const dy = mouse.y - mouse.previousY;
 
-    const velocity =
-      Math.sqrt(dx * dx + dy * dy);
+    const velocity = Math.sqrt(dx * dx + dy * dy);
 
-    mouse.velocity +=
-      (velocity - mouse.velocity) * .12;
+    mouse.velocity += (velocity - mouse.velocity) * 0.12;
 
     mouse.previousX = mouse.x;
     mouse.previousY = mouse.y;
@@ -22914,127 +22854,67 @@ magnet62Stage.addEventListener("click", () => {
        NORMALIZED POSITION
     ----------------------------------------------- */
 
-    const centerX =
-      window.innerWidth / 2;
+    const centerX = window.innerWidth / 2;
 
-    const centerY =
-      window.innerHeight / 2;
+    const centerY = window.innerHeight / 2;
 
-    const nx =
-      (mouse.x - centerX) /
-      (window.innerWidth / 2);
+    const nx = (mouse.x - centerX) / (window.innerWidth / 2);
 
-    const ny =
-      (mouse.y - centerY) /
-      (window.innerHeight / 2);
+    const ny = (mouse.y - centerY) / (window.innerHeight / 2);
 
-    const distance =
-      Math.sqrt(
-        nx * nx +
-        ny * ny
-      );
+    const distance = Math.sqrt(nx * nx + ny * ny);
 
-    const influence =
-      Math.min(distance, 1.4);
+    const influence = Math.min(distance, 1.4);
 
-
-       /* -----------------------------------------------
+    /* -----------------------------------------------
        AUTO RIPPLE
     ----------------------------------------------- */
 
-    if (
-      mouse.velocity > 3 &&
-      time - lastWaveTime > 180
-    ) {
-
-      createRipple(
-        mouse.x,
-        mouse.y,
-        Math.min(
-          mouse.velocity * .08,
-          1.5
-        )
-      );
+    if (mouse.velocity > 3 && time - lastWaveTime > 180) {
+      createRipple(mouse.x, mouse.y, Math.min(mouse.velocity * 0.08, 1.5));
 
       lastWaveTime = time;
-
     }
 
     /* -----------------------------------------------
        LETTER DISTORTION
     ----------------------------------------------- */
 
-    letters.forEach(
-      (letter, i) => {
-
-        /*
+    letters.forEach((letter, i) => {
+      /*
           Position of each letter
           relative to the word center.
         */
 
-        const normalizedIndex =
-          letters.length === 1
-            ? 0
-            : i /
-              (letters.length - 1);
+      const normalizedIndex =
+        letters.length === 1 ? 0 : i / (letters.length - 1);
 
-        const letterX =
-          (normalizedIndex - .5) *
-          2;
+      const letterX = (normalizedIndex - 0.5) * 2;
 
-        /*
+      /*
           Distance from cursor influence.
         */
 
-        const cursorInfluence =
-          Math.sin(
-            letterX * Math.PI * 1.8 -
-            nx * 3
-          );
+      const cursorInfluence = Math.sin(letterX * Math.PI * 1.8 - nx * 3);
 
-        const wave =
-          Math.sin(
-            letterX * 5 -
-            nx * 4 +
-            ny * 2
-          );
+      const wave = Math.sin(letterX * 5 - nx * 4 + ny * 2);
 
-        const movement =
-          wave *
-          (8 + influence * 35) *
-          (0.5 + mouse.velocity * .01);
+      const movement =
+        wave * (8 + influence * 35) * (0.5 + mouse.velocity * 0.01);
 
-        const y =
-          movement;
+      const y = movement;
 
-        const x =
-          cursorInfluence *
-          influence *
-          12;
+      const x = cursorInfluence * influence * 12;
 
-        const rotation =
-          wave *
-          influence *
-          5;
+      const rotation = wave * influence * 5;
 
-        const scaleX =
-          1 +
-          wave *
-          influence *
-          .12;
+      const scaleX = 1 + wave * influence * 0.12;
 
-        const scaleY =
-          1 -
-          Math.abs(wave) *
-          influence *
-          .045;
+      const scaleY = 1 - Math.abs(wave) * influence * 0.045;
 
-        const blur =
-          Math.abs(wave) *
-          influence *
-          1.5;
+      const blur = Math.abs(wave) * influence * 1.5;
 
-        letter.style.transform = `
+      letter.style.transform = `
           translate3d(
             ${x}px,
             ${y}px,
@@ -23047,11 +22927,8 @@ magnet62Stage.addEventListener("click", () => {
           )
         `;
 
-        letter.style.filter =
-          `blur(${blur}px)`;
-
-      }
-    );
+      letter.style.filter = `blur(${blur}px)`;
+    });
 
     /* -----------------------------------------------
        WHOLE WORD
@@ -23068,20 +22945,15 @@ magnet62Stage.addEventListener("click", () => {
        GRID
     ----------------------------------------------- */
 
-    const grid =
-      stage.querySelector(
-        ".ripple66-grid"
-      );
+    const grid = stage.querySelector(".ripple66-grid");
 
     if (grid) {
-
       grid.style.transform = `
         translate(
           ${nx * -25}px,
           ${ny * -25}px
         )
       `;
-
     }
 
     /* -----------------------------------------------
@@ -23089,23 +22961,16 @@ magnet62Stage.addEventListener("click", () => {
     ----------------------------------------------- */
 
     if (!isMobile) {
+      gsap.to(cursor, {
+        x: mouse.targetX,
+        y: mouse.targetY,
 
-      gsap.to(
-        cursor,
-        {
+        duration: 0.22,
 
-          x: mouse.targetX,
-          y: mouse.targetY,
+        ease: "power3.out",
 
-          duration: .22,
-
-          ease: "power3.out",
-
-          overwrite: true
-
-        }
-      );
-
+        overwrite: true,
+      });
     }
 
     /* -----------------------------------------------
@@ -23113,181 +22978,123 @@ magnet62Stage.addEventListener("click", () => {
     ----------------------------------------------- */
 
     coordinates.textContent =
-      `${String(Math.round(mouse.x))
-        .padStart(3, "0")} / ` +
-      `${String(Math.round(mouse.y))
-        .padStart(3, "0")}`;
-
+      `${String(Math.round(mouse.x)).padStart(3, "0")} / ` +
+      `${String(Math.round(mouse.y)).padStart(3, "0")}`;
   }
 
   requestAnimationFrame(animate);
-/* =====================================================
+  /* =====================================================
      MASSIVE RIPPLE
   ===================================================== */
 
   function massiveRipple() {
+    status.textContent = "RIPPLE IMPACT";
 
-    status.textContent =
-      "RIPPLE IMPACT";
+    const centerX = window.innerWidth / 2;
 
-    const centerX =
-      window.innerWidth / 2;
-
-    const centerY =
-      window.innerHeight / 2;
+    const centerY = window.innerHeight / 2;
 
     /* ---------------------------------------------------
        MULTIPLE CENTRAL WAVES
     --------------------------------------------------- */
 
     for (let i = 0; i < 5; i++) {
-
-      gsap.delayedCall(
-        i * .12,
-        () => {
-
-          createRipple(
-            centerX,
-            centerY,
-            2 + i * .5
-          );
-
-        }
-      );
-
+      gsap.delayedCall(i * 0.12, () => {
+        createRipple(centerX, centerY, 2 + i * 0.5);
+      });
     }
 
     /* ---------------------------------------------------
        LETTERS — COMPRESS
     --------------------------------------------------- */
 
-    gsap.to(
-      letters,
-      {
+    gsap.to(letters, {
+      x: 0,
+      y: 0,
 
-        x: 0,
-        y: 0,
+      scaleX: 0.7,
+      scaleY: 1.15,
 
-        scaleX: .7,
-        scaleY: 1.15,
+      rotation: 0,
 
-        rotation: 0,
+      filter: "blur(0px)",
 
-        filter: "blur(0px)",
+      duration: 0.55,
 
-        duration: .55,
+      stagger: {
+        each: 0.035,
 
-        stagger: {
+        from: "center",
+      },
 
-          each: .035,
-
-          from: "center"
-
-        },
-
-        ease: "expo.inOut"
-
-      }
-    );
+      ease: "expo.inOut",
+    });
 
     /* ---------------------------------------------------
        IMPACT
     --------------------------------------------------- */
 
-    gsap.delayedCall(
-      .6,
-      () => {
+    gsap.delayedCall(0.6, () => {
+      letters.forEach((letter, i) => {
+        const direction = i - (letters.length - 1) / 2;
 
-        letters.forEach(
-          (letter, i) => {
+        gsap.to(letter, {
+          x: direction * (60 + Math.random() * 80),
 
-            const direction =
-              i -
-              (letters.length - 1) / 2;
+          y: Math.sin(i) * (80 + Math.random() * 120),
 
-            gsap.to(
-              letter,
-              {
+          scaleX: 1.15 + Math.random() * 0.25,
 
-                x:
-                  direction *
-                  (60 + Math.random() * 80),
+          scaleY: 0.75 + Math.random() * 0.3,
 
-                y:
-                  Math.sin(i) *
-                  (80 + Math.random() * 120),
+          rotation: direction * 4,
 
-                scaleX:
-                  1.15 +
-                  Math.random() * .25,
+          duration: 0.75 + Math.random() * 0.25,
 
-                scaleY:
-                  .75 +
-                  Math.random() * .3,
-
-                rotation:
-                  direction *
-                  4,
-
-                duration:
-                  .75 +
-
-                  Math.random() * .25,
-
-                ease:
-                  "expo.out"
-
-              }
-            );
-
-          }
-        );
-
-      }
-    );
+          ease: "expo.out",
+        });
+      });
+    });
     /* ---------------------------------------------------
        RETURN TO PERFECT FORM
     --------------------------------------------------- */
 
-    gsap.delayedCall(
-      1.35,
-      () => {
+    gsap.delayedCall(1.35, () => {
+      status.textContent = "SURFACE RESTORED";
 
-        status.textContent =
-          "SURFACE RESTORED";
+      gsap.to(letters, {
+        x: 0,
+        y: 0,
 
-        gsap.to(
-          letters,
-          {
+        scaleX: 1,
+        scaleY: 1,
 
-            x: 0,
-            y: 0,
+        rotation: 0,
 
-            scaleX: 1,
-            scaleY: 1,
+        filter: "blur(0px)",
 
-            rotation: 0,
+        duration: 1.1,
 
-            filter: "blur(0px)",
+        stagger: {
+          each: 0.04,
 
-            duration: 1.1,
+          from: "center",
+        },
 
-            stagger: {
+        ease: "elastic.out(1, .55)",
+      });
+    });
+    /* ---------------------------------------------------
+       UNLOCK
+    --------------------------------------------------- */
 
-              each: .04,
+    gsap.delayedCall(2.6, () => {
+      status.textContent = "MOVE TO CREATE WAVES";
 
-              from: "center"
-
-            },
-
-            ease: "elastic.out(1, .55)"
-
-          }
-        );
-
-      }
-    );
-
+      locked = false;
+    });
+  }
+})();
     
 
 /* =========================================================
