@@ -23157,6 +23157,95 @@ magnet62Stage.addEventListener("click", () => {
 
     }
 
+    /* ---------------------------------------------------
+       LETTERS — COMPRESS
+    --------------------------------------------------- */
+
+    gsap.to(
+      letters,
+      {
+
+        x: 0,
+        y: 0,
+
+        scaleX: .7,
+        scaleY: 1.15,
+
+        rotation: 0,
+
+        filter: "blur(0px)",
+
+        duration: .55,
+
+        stagger: {
+
+          each: .035,
+
+          from: "center"
+
+        },
+
+        ease: "expo.inOut"
+
+      }
+    );
+
+    /* ---------------------------------------------------
+       IMPACT
+    --------------------------------------------------- */
+
+    gsap.delayedCall(
+      .6,
+      () => {
+
+        letters.forEach(
+          (letter, i) => {
+
+            const direction =
+              i -
+              (letters.length - 1) / 2;
+
+            gsap.to(
+              letter,
+              {
+
+                x:
+                  direction *
+                  (60 + Math.random() * 80),
+
+                y:
+                  Math.sin(i) *
+                  (80 + Math.random() * 120),
+
+                scaleX:
+                  1.15 +
+                  Math.random() * .25,
+
+                scaleY:
+                  .75 +
+                  Math.random() * .3,
+
+                rotation:
+                  direction *
+                  4,
+
+                duration:
+                  .75 +
+
+                  Math.random() * .25,
+
+                ease:
+                  "expo.out"
+
+              }
+            );
+
+          }
+        );
+
+      }
+    );
+
 /* =========================================================
    REFRESH
 ========================================================= */
