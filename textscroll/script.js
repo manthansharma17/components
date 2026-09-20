@@ -22763,7 +22763,179 @@ magnet62Stage.addEventListener("click", () => {
 
   let lastWaveTime = 0;
 
+/* -------------------------------------------------------
+     MOUSE MOVE
+  ------------------------------------------------------- */
 
+  window.addEventListener(
+    "mousemove",
+    (e) => {
+
+      mouse.targetX = e.clientX;
+      mouse.targetY = e.clientY;
+
+      status.textContent =
+        "WAVE PROPAGATING";
+
+    }
+  );
+
+  /* -------------------------------------------------------
+     CLICK
+  ------------------------------------------------------- */
+
+  stage.addEventListener(
+    "click",
+    () => {
+
+      if (locked) return;
+
+      locked = true;
+
+      massiveRipple();
+
+    }
+  );
+
+  /* -------------------------------------------------------
+     CREATE RIPPLE
+  ------------------------------------------------------- */
+
+  function createRipple(
+    x,
+    y,
+    strength = 1
+  ) {
+
+    const ring =
+      document.createElement("div");
+
+    ring.className =
+      "ripple66-ring";
+
+    ring.style.left =
+      `${x}px`;
+
+    ring.style.top =
+      `${y}px`;
+
+    rings.appendChild(ring);
+
+    const size =
+      Math.min(
+        window.innerWidth,
+        window.innerHeight
+      );
+
+    gsap.to(
+      ring,
+      {
+
+        scale:
+          (2.5 + strength * 3) *
+          (size / 500),
+
+        opacity: .55,
+
+        duration: .15,
+
+        ease: "power2.out"
+
+      }
+    );
+
+    gsap.to(
+      ring,
+      {
+
+        scale:
+          (8 + strength * 8) *
+          (size / 500),
+
+        opacity: 0,
+
+        duration:
+          1.4 +
+          strength * .7,
+
+        delay: .08,
+
+        ease: "expo.out",
+
+        onComplete: () => {
+          ring.remove();
+        }
+
+      }
+    );
+
+  }
+
+  /* -------------------------------------------------------
+     ANIMATION
+  ------------------------------------------------------- */
+
+  function animate(time) {
+
+    requestAnimationFrame(animate);
+
+    if (locked) return;
+
+    /* -----------------------------------------------
+       SMOOTH MOUSE
+    ----------------------------------------------- */
+
+    mouse.x +=
+      (mouse.targetX - mouse.x) * .1;
+
+    mouse.y +=
+      (mouse.targetY - mouse.y) * .1;
+
+    /* -----------------------------------------------
+       VELOCITY
+    ----------------------------------------------- */
+
+    const dx =
+      mouse.x - mouse.previousX;
+
+    const dy =
+      mouse.y - mouse.previousY;
+
+    const velocity =
+      Math.sqrt(dx * dx + dy * dy);
+
+    mouse.velocity +=
+      (velocity - mouse.velocity) * .12;
+
+    mouse.previousX = mouse.x;
+    mouse.previousY = mouse.y;
+
+    /* -----------------------------------------------
+       NORMALIZED POSITION
+    ----------------------------------------------- */
+
+    const centerX =
+      window.innerWidth / 2;
+
+    const centerY =
+      window.innerHeight / 2;
+
+    const nx =
+      (mouse.x - centerX) /
+      (window.innerWidth / 2);
+
+    const ny =
+      (mouse.y - centerY) /
+      (window.innerHeight / 2);
+
+    const distance =
+      Math.sqrt(
+        nx * nx +
+        ny * ny
+      );
+
+    const influence =
+      Math.min(distance, 1.4);
 
 /* =========================================================
    REFRESH
