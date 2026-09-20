@@ -12865,7 +12865,42 @@ JS animates every word toward these positions.
     bottom: 22px;
   }
 }
+/* =========================================================
+   SECTION 66 — TYPOGRAPHY RIPPLE
+========================================================= */
 
+.section-sixty-six {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #101010 0%,
+      #050505 45%,
+      #000 100%
+    );
+
+  color: #fff;
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------
+   STAGE
+--------------------------------------------------------- */
+
+.ripple66-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  cursor: crosshair;
+}
 
 
 
