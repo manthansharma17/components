@@ -23245,6 +23245,50 @@ magnet62Stage.addEventListener("click", () => {
 
       }
     );
+    /* ---------------------------------------------------
+       RETURN TO PERFECT FORM
+    --------------------------------------------------- */
+
+    gsap.delayedCall(
+      1.35,
+      () => {
+
+        status.textContent =
+          "SURFACE RESTORED";
+
+        gsap.to(
+          letters,
+          {
+
+            x: 0,
+            y: 0,
+
+            scaleX: 1,
+            scaleY: 1,
+
+            rotation: 0,
+
+            filter: "blur(0px)",
+
+            duration: 1.1,
+
+            stagger: {
+
+              each: .04,
+
+              from: "center"
+
+            },
+
+            ease: "elastic.out(1, .55)"
+
+          }
+        );
+
+      }
+    );
+
+    
 
 /* =========================================================
    REFRESH
