@@ -23053,6 +23053,75 @@ magnet62Stage.addEventListener("click", () => {
       }
     );
 
+    /* -----------------------------------------------
+       WHOLE WORD
+    ----------------------------------------------- */
+
+    word.style.transform = `
+      translate(
+        calc(-50% + ${nx * 18}px),
+        calc(-50% + ${ny * 12}px)
+      )
+    `;
+
+    /* -----------------------------------------------
+       GRID
+    ----------------------------------------------- */
+
+    const grid =
+      stage.querySelector(
+        ".ripple66-grid"
+      );
+
+    if (grid) {
+
+      grid.style.transform = `
+        translate(
+          ${nx * -25}px,
+          ${ny * -25}px
+        )
+      `;
+
+    }
+
+    /* -----------------------------------------------
+       CURSOR
+    ----------------------------------------------- */
+
+    if (!isMobile) {
+
+      gsap.to(
+        cursor,
+        {
+
+          x: mouse.targetX,
+          y: mouse.targetY,
+
+          duration: .22,
+
+          ease: "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+    }
+
+    /* -----------------------------------------------
+       COORDINATES
+    ----------------------------------------------- */
+
+    coordinates.textContent =
+      `${String(Math.round(mouse.x))
+        .padStart(3, "0")} / ` +
+      `${String(Math.round(mouse.y))
+        .padStart(3, "0")}`;
+
+  }
+
+  requestAnimationFrame(animate);
+
 
 /* =========================================================
    REFRESH
