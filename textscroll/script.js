@@ -23121,7 +23121,41 @@ magnet62Stage.addEventListener("click", () => {
   }
 
   requestAnimationFrame(animate);
+/* =====================================================
+     MASSIVE RIPPLE
+  ===================================================== */
 
+  function massiveRipple() {
+
+    status.textContent =
+      "RIPPLE IMPACT";
+
+    const centerX =
+      window.innerWidth / 2;
+
+    const centerY =
+      window.innerHeight / 2;
+
+    /* ---------------------------------------------------
+       MULTIPLE CENTRAL WAVES
+    --------------------------------------------------- */
+
+    for (let i = 0; i < 5; i++) {
+
+      gsap.delayedCall(
+        i * .12,
+        () => {
+
+          createRipple(
+            centerX,
+            centerY,
+            2 + i * .5
+          );
+
+        }
+      );
+
+    }
 
 /* =========================================================
    REFRESH
