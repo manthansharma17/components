@@ -23095,7 +23095,110 @@ magnet62Stage.addEventListener("click", () => {
     });
   }
 })();
-    
+    /* =========================================================
+   SECTION 67 — TYPOGRAPHY AFTERIMAGE
+========================================================= */
+
+(() => {
+
+  const stage =
+    document.getElementById("after67Stage");
+
+  const trail =
+    document.getElementById("after67Trail");
+
+  const word =
+    document.getElementById("after67Word");
+
+  const flash =
+    document.getElementById("after67Flash");
+
+  const cursor =
+    document.getElementById("after67Cursor");
+
+  const ring =
+    document.getElementById("after67Ring");
+
+  const status =
+    document.getElementById("after67Status");
+
+  const counter =
+    document.getElementById("after67Counter");
+
+  if (!stage || !word) return;
+
+  /* -------------------------------------------------------
+     CONFIG
+  ------------------------------------------------------- */
+
+  const isMobile =
+    window.matchMedia("(max-width: 768px)").matches;
+
+  const MAX_EXPOSURES =
+    isMobile ? 14 : 24;
+
+  const EXPOSURE_DISTANCE =
+    isMobile ? 30 : 22;
+
+  /* -------------------------------------------------------
+     STATE
+  ------------------------------------------------------- */
+
+  const mouse = {
+
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2,
+
+    targetX: window.innerWidth / 2,
+    targetY: window.innerHeight / 2,
+
+    previousX: window.innerWidth / 2,
+    previousY: window.innerHeight / 2,
+
+    velocity: 0
+
+  };
+
+  const exposures = [];
+
+  let locked = false;
+  let lastExposureX = mouse.x;
+  let lastExposureY = mouse.y;
+
+  /* -------------------------------------------------------
+     MOUSE MOVE
+  ------------------------------------------------------- */
+
+  window.addEventListener(
+    "mousemove",
+    (e) => {
+
+      mouse.targetX = e.clientX;
+      mouse.targetY = e.clientY;
+
+      status.textContent =
+        "EXPOSURE ACTIVE";
+
+    }
+  );
+
+  /* -------------------------------------------------------
+     CLICK
+  ------------------------------------------------------- */
+
+  stage.addEventListener(
+    "click",
+    () => {
+
+      if (locked) return;
+
+      locked = true;
+
+      cameraFlash();
+
+    }
+  );
+
 
 /* =========================================================
    REFRESH
