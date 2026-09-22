@@ -13196,6 +13196,81 @@ JS animates every word toward these positions.
     bottom: 22px;
   }
 }
+/* =========================================================
+   SECTION 67 — TYPOGRAPHY AFTERIMAGE
+========================================================= */
+
+.section-sixty-seven {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #101010 0%,
+      #050505 48%,
+      #000 100%
+    );
+
+  color: #fff;
+
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------
+   STAGE
+--------------------------------------------------------- */
+
+.after67-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  cursor: crosshair;
+}
+
+/* ---------------------------------------------------------
+   GRID
+--------------------------------------------------------- */
+
+.after67-grid {
+  position: absolute;
+
+  inset: -10%;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 90px 90px;
+
+  opacity: .55;
+
+  mask-image:
+    radial-gradient(
+      circle at center,
+      black 0%,
+      rgba(0,0,0,.75) 42%,
+      transparent 80%
+    );
+
+  pointer-events: none;
+
+  will-change: transform;
+}
+
 
 
 /* =========================================================
