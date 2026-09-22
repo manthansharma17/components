@@ -23622,7 +23622,157 @@ magnet62Stage.addEventListener("click", () => {
       }
     );
 
+/* ---------------------------------------------------
+       MAIN WORD CAMERA SHAKE
+    --------------------------------------------------- */
 
+    gsap.timeline()
+
+      .to(
+        word,
+        {
+
+          scale: 1.06,
+
+          x: 5,
+
+          duration: .06
+
+        }
+      )
+
+      .to(
+        word,
+        {
+
+          x: -5,
+
+          duration: .06
+
+        }
+      )
+
+      .to(
+        word,
+        {
+
+          x: 0,
+
+          scale: 1,
+
+          duration: .5,
+
+          ease: "power3.out"
+
+        }
+      );
+
+    /* ---------------------------------------------------
+       AFTERIMAGE EXPLOSION
+    --------------------------------------------------- */
+
+    gsap.delayedCall(
+      .4,
+      () => {
+
+        status.textContent =
+          "AFTERIMAGE DECAY";
+
+        exposures.forEach(
+          (item, i) => {
+
+            const angle =
+              (Math.PI * 2 /
+               exposures.length) *
+              i;
+
+            const distance =
+              100 +
+              Math.random() *
+              500;
+
+            gsap.to(
+              item.element,
+              {
+
+                x:
+                  Math.cos(angle) *
+                  distance,
+
+                y:
+                  Math.sin(angle) *
+                  distance,
+
+                rotation:
+                  item.rotation +
+                  (Math.random() - .5) *
+                  40,
+
+                scale:
+                  item.scale +
+                  Math.random() *
+                  .4,
+
+                opacity: 0,
+
+                filter:
+                  "blur(8px)",
+
+                duration:
+                  1.1 +
+                  Math.random() *
+                  .7,
+
+                delay:
+                  i * .015,
+
+                ease:
+                  "expo.out",
+
+                onComplete: () => {
+
+                  item.element.remove();
+
+                }
+
+              }
+            );
+
+          }
+
+        exposures.length = 0;
+
+        counter.textContent =
+          "000 EXPOSURES";
+
+      }
+    );
+
+    /* ---------------------------------------------------
+       RESET
+    --------------------------------------------------- */
+
+    gsap.delayedCall(
+      2.2,
+      () => {
+
+        status.textContent =
+          "MOVE TO EXPOSE";
+
+        lastExposureX =
+          mouse.x;
+
+        lastExposureY =
+          mouse.y;
+
+        locked = false;
+
+      }
+    );
+
+  }
+
+})();
 
 
 
