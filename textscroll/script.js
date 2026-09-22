@@ -23385,6 +23385,132 @@ magnet62Stage.addEventListener("click", () => {
     mouse.y +=
       (mouse.targetY - mouse.y) *
       .1;
+
+ /* -----------------------------------------------
+       VELOCITY
+    ----------------------------------------------- */
+
+    const dx =
+      mouse.x -
+      mouse.previousX;
+
+    const dy =
+      mouse.y -
+      mouse.previousY;
+
+    const velocity =
+      Math.sqrt(
+        dx * dx +
+        dy * dy
+      );
+
+    mouse.velocity +=
+      (velocity -
+       mouse.velocity) *
+      .12;
+
+    mouse.previousX =
+      mouse.x;
+
+    mouse.previousY =
+      mouse.y;
+
+    /* -----------------------------------------------
+       CREATE EXPOSURES
+    ----------------------------------------------- */
+
+    const distance =
+      Math.sqrt(
+        Math.pow(
+          mouse.x -
+          lastExposureX,
+          2
+        ) +
+        Math.pow(
+          mouse.y -
+          lastExposureY,
+          2
+        )
+      );
+
+    if (
+      distance >
+      EXPOSURE_DISTANCE &&
+      mouse.velocity > .7
+    ) {
+
+      createExposure();
+
+      lastExposureX =
+        mouse.x;
+
+      lastExposureY =
+        mouse.y;
+
+    }
+
+    /* -----------------------------------------------
+       MAIN WORD
+    ----------------------------------------------- */
+
+    const centerX =
+      window.innerWidth / 2;
+
+    const centerY =
+      window.innerHeight / 2;
+
+    const nx =
+      (mouse.x - centerX) /
+      (window.innerWidth / 2);
+
+    const ny =
+      (mouse.y - centerY) /
+      (window.innerHeight / 2);
+
+    const intensity =
+      Math.min(
+        mouse.velocity * .012,
+        .18
+      );
+
+    word.style.transform = `
+      translate(
+        calc(-50% + ${nx * 12}px),
+        calc(-50% + ${ny * 8}px)
+      )
+      scale(
+        ${1 + intensity}
+      )
+      rotate(
+        ${nx * 1.5}deg
+      )
+    `;
+
+    /* -----------------------------------------------
+       GRID PARALLAX
+    ----------------------------------------------- */
+
+    const grid =
+      stage.querySelector(
+        ".after67-grid"
+      );
+
+    if (grid) {
+
+      grid.style.transform = `
+        translate(
+          ${nx * -22}px,
+          ${ny * -22}px
+        )
+      `;
+
+    }
+
+
+
+
+
+
 /* =========================================================
    REFRESH
 ========================================================= */
