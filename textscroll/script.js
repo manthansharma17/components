@@ -23505,6 +23505,122 @@ magnet62Stage.addEventListener("click", () => {
       `;
 
     }
+/* -----------------------------------------------
+       CURSOR
+    ----------------------------------------------- */
+
+    if (!isMobile) {
+
+      gsap.to(
+        cursor,
+        {
+
+          x: mouse.targetX,
+          y: mouse.targetY,
+
+          duration: .2,
+
+          ease: "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+      gsap.to(
+        ring,
+        {
+
+          x: mouse.targetX,
+          y: mouse.targetY,
+
+          duration: .5,
+
+          ease: "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+    }
+
+  }
+
+  animate();
+
+  /* =====================================================
+     CAMERA FLASH
+  ===================================================== */
+
+  function cameraFlash() {
+
+    status.textContent =
+      "EXPOSURE LOCKED";
+
+    /* ---------------------------------------------------
+       FLASH
+    --------------------------------------------------- */
+
+    gsap.timeline()
+
+      .to(
+        flash,
+        {
+
+          opacity: .9,
+
+          duration: .08,
+
+          ease: "power4.out"
+
+        }
+      )
+
+      .to(
+        flash,
+        {
+
+          opacity: 0,
+
+          duration: .35,
+
+          ease: "power2.out"
+
+        }
+      );
+
+    /* ---------------------------------------------------
+       FREEZE CURRENT EXPOSURES
+    --------------------------------------------------- */
+
+    exposures.forEach(
+      (item, i) => {
+
+        gsap.killTweensOf(
+          item.element
+        );
+
+        gsap.to(
+          item.element,
+          {
+
+            opacity:
+              .55 -
+              i * .012,
+
+            filter:
+              "blur(0px)",
+
+            duration: .25,
+
+            ease: "power2.out"
+
+          }
+        );
+
+      }
+    );
 
 
 
