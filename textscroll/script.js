@@ -23198,6 +23198,121 @@ magnet62Stage.addEventListener("click", () => {
 
     }
   );
+  /* -------------------------------------------------------
+     CREATE AFTERIMAGE
+  ------------------------------------------------------- */
+
+  function createExposure() {
+
+    if (exposures.length >= MAX_EXPOSURES) {
+
+      const oldest =
+        exposures.shift();
+
+      gsap.killTweensOf(
+        oldest.element
+      );
+
+      oldest.element.remove();
+
+    }
+
+    const element =
+      document.createElement("div");
+
+    element.className =
+      "after67-copy";
+
+    element.textContent =
+      "AFTERIMAGE";
+
+    trail.appendChild(element);
+
+    const centerX =
+      window.innerWidth / 2;
+
+    const centerY =
+      window.innerHeight / 2;
+
+    const offsetX =
+      mouse.x - centerX;
+
+    const offsetY =
+      mouse.y - centerY;
+
+    const speed =
+      Math.min(
+        mouse.velocity,
+        40
+      );
+
+    const age =
+      exposures.length;
+
+    const direction =
+      Math.atan2(
+        offsetY,
+        offsetX
+      );
+
+    const distance =
+      10 +
+      age * 7 +
+      speed * 1.5;
+
+    const x =
+      offsetX * .16 +
+      Math.cos(direction) *
+      distance;
+
+    const y =
+      offsetY * .16 +
+      Math.sin(direction) *
+      distance;
+
+    const rotation =
+      (offsetX / window.innerWidth) *
+      8 +
+      (Math.random() - .5) *
+      2;
+
+    const scale =
+      .98 +
+      Math.random() *
+      .08;
+
+    const opacity =
+      Math.max(
+        .05,
+        .32 -
+        age * .012
+      );
+
+    element.style.opacity =
+      opacity;
+
+    element.style.transform = `
+      translate3d(
+        calc(-50% + ${x}px),
+        calc(-50% + ${y}px),
+        ${-age * 15}px
+      )
+      rotate(${rotation}deg)
+      scale(${scale})
+    `;
+
+    exposures.push({
+      element,
+      x,
+      y,
+      rotation,
+      scale,
+      age
+    });
+
+    counter.textContent =
+      `${String(exposures.length)
+        .padStart(3, "0")} EXPOSURES`;
 
 
 /* =========================================================
