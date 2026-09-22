@@ -13498,7 +13498,69 @@ JS animates every word toward these positions.
   z-index: 30;
 }
 
+/* ---------------------------------------------------------
+   COUNTER
+--------------------------------------------------------- */
 
+.after67-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .15em;
+
+  opacity: .22;
+
+  z-index: 30;
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+--------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+  .after67-header {
+    top: 22px;
+
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .after67-grid {
+    background-size: 50px 50px;
+  }
+
+  .after67-word,
+  .after67-copy {
+    font-size: clamp(
+      3.5rem,
+      16vw,
+      8rem
+    );
+  }
+
+  .after67-cursor,
+  .after67-ring {
+    display: none;
+  }
+
+  .after67-status {
+    bottom: 22px;
+  }
+
+  .after67-counter {
+    right: 20px;
+    bottom: 22px;
+  }
+}
 
 
 /* =========================================================
