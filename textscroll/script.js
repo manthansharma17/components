@@ -23314,7 +23314,77 @@ magnet62Stage.addEventListener("click", () => {
       `${String(exposures.length)
         .padStart(3, "0")} EXPOSURES`;
 
+ /* -----------------------------------------------------
+       NATURAL DECAY
+    ----------------------------------------------------- */
 
+    gsap.to(
+      element,
+      {
+
+        opacity: 0,
+
+        filter:
+          "blur(5px)",
+
+        duration:
+          1.8 +
+          Math.random() * 1.5,
+
+        ease:
+          "power2.out",
+
+        onComplete: () => {
+
+          const index =
+            exposures.findIndex(
+              item =>
+                item.element === element
+            );
+
+          if (index !== -1) {
+            exposures.splice(
+              index,
+              1
+            );
+          }
+
+          element.remove();
+
+          counter.textContent =
+            `${String(exposures.length)
+              .padStart(3, "0")} EXPOSURES`;
+
+        }
+
+      }
+    );
+
+  }
+
+  /* -------------------------------------------------------
+     MAIN LOOP
+  ------------------------------------------------------- */
+
+  function animate() {
+
+    requestAnimationFrame(
+      animate
+    );
+
+    if (locked) return;
+
+    /* -----------------------------------------------
+       SMOOTH MOUSE
+    ----------------------------------------------- */
+
+    mouse.x +=
+      (mouse.targetX - mouse.x) *
+      .1;
+
+    mouse.y +=
+      (mouse.targetY - mouse.y) *
+      .1;
 /* =========================================================
    REFRESH
 ========================================================= */
