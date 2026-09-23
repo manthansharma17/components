@@ -24123,7 +24123,91 @@ magnet62Stage.addEventListener("click", () => {
             (.12 - progress * .06),
             .18
           );
+ /* Shift the border toward
+           the active spectral direction. */
 
+        if (nx > .15) {
+
+          prism.style.borderColor =
+            "rgba(80,150,255,.16)";
+
+        } else if (nx < -.15) {
+
+          prism.style.borderColor =
+            "rgba(255,70,90,.16)";
+
+        } else {
+
+          prism.style.borderColor =
+            "rgba(255,255,255,.1)";
+
+        }
+
+      }
+    );
+
+    /* -----------------------------------------------
+       GRID PARALLAX
+    ----------------------------------------------- */
+
+    const grid =
+      stage.querySelector(
+        ".prism68-grid"
+      );
+
+    if (grid) {
+
+      grid.style.transform = `
+        translate(
+          ${nx * -25}px,
+          ${ny * -25}px
+        )
+        scale(
+          ${1 + intensity * .015}
+        )
+      `;
+
+    }
+
+    /* -----------------------------------------------
+       CURSOR
+    ----------------------------------------------- */
+
+    if (!isMobile) {
+
+      gsap.to(
+        cursor,
+        {
+
+          x: mouse.targetX,
+          y: mouse.targetY,
+
+          duration: .22,
+
+          ease: "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+      gsap.to(
+        ring,
+        {
+
+          x: mouse.targetX,
+          y: mouse.targetY,
+
+          duration: .5,
+
+          ease: "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+    }
 
 
 
