@@ -24069,6 +24069,64 @@ magnet62Stage.addEventListener("click", () => {
         ${1 + intensity * .015}
       )
     `;
+ /* -----------------------------------------------
+       SPECTRAL OPACITY
+    ----------------------------------------------- */
+
+    const spectralOpacity =
+      Math.min(
+        .2 + intensity * .65,
+        .9
+      );
+
+    red.style.opacity =
+      spectralOpacity;
+
+    green.style.opacity =
+      spectralOpacity * .85;
+
+    blue.style.opacity =
+      spectralOpacity;
+
+    /* -----------------------------------------------
+       PRISM RINGS
+    ----------------------------------------------- */
+
+    prismElements.forEach(
+      (prism, i) => {
+
+        const progress =
+          i / PRISM_COUNT;
+
+        const rotation =
+          45 +
+          i * 12 +
+          nx * (15 + i * 3) +
+          ny * 8;
+
+        const dynamicScale =
+          .4 +
+          i * .2 +
+          intensity *
+          (0.08 + i * .015);
+
+        prism.style.transform = `
+          translate(-50%, -50%)
+          rotate(${rotation}deg)
+          scale(${dynamicScale})
+        `;
+
+        prism.style.opacity =
+          Math.min(
+            .05 +
+            intensity *
+            (.12 - progress * .06),
+            .18
+          );
+
+
+
+
 /* =========================================================
    REFRESH
 ========================================================= */
