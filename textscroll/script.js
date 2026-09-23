@@ -24288,7 +24288,149 @@ magnet62Stage.addEventListener("click", () => {
         }
       );
 
+/* ---------------------------------------------------
+       FLASH
+    --------------------------------------------------- */
 
+    const flash =
+      document.createElement("div");
+
+    flash.className =
+      "prism68-flash";
+
+    stage.appendChild(flash);
+
+    gsap.timeline({
+
+      onComplete: () => {
+        flash.remove();
+      }
+
+    })
+
+      .to(
+        flash,
+        {
+
+          opacity: .45,
+
+          duration: .05
+
+        }
+      )
+
+      .to(
+        flash,
+        {
+
+          opacity: 0,
+
+          duration: .35,
+
+          ease: "power2.out"
+
+        }
+      );
+
+    /* ---------------------------------------------------
+       MASSIVE SPECTRAL SEPARATION
+    --------------------------------------------------- */
+
+    gsap.to(
+      red,
+      {
+
+        x: -180,
+
+        y: -20,
+
+        rotation: -8,
+
+        scale: 1.08,
+
+        opacity: .85,
+
+        duration: .65,
+
+        ease: "expo.out"
+
+      }
+    );
+
+    gsap.to(
+      green,
+      {
+
+        x: 0,
+
+        y: 80,
+
+        rotation: 0,
+
+        scale: 1.05,
+
+        opacity: .7,
+
+        duration: .65,
+
+        ease: "expo.out"
+
+      }
+    );
+
+    gsap.to(
+      blue,
+      {
+
+        x: 180,
+
+        y: 20,
+
+        rotation: 8,
+
+        scale: 1.08,
+
+        opacity: .85,
+
+        duration: .65,
+
+        ease: "expo.out"
+
+      }
+    );
+
+    /* ---------------------------------------------------
+       PRISM RING EXPANSION
+    --------------------------------------------------- */
+
+    prismElements.forEach(
+      (prism, i) => {
+
+        gsap.to(
+          prism,
+          {
+
+            scale:
+              1 +
+              i * .3,
+
+            rotation:
+              180 +
+              i * 30,
+
+            opacity: .22,
+
+            duration:
+              1 +
+              i * .04,
+
+            ease: "expo.out"
+
+          }
+        );
+
+      }
+    );
 /* =========================================================
    REFRESH
 ========================================================= */
