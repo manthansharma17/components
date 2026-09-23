@@ -24431,6 +24431,103 @@ magnet62Stage.addEventListener("click", () => {
 
       }
     );
+ /* ---------------------------------------------------
+       RECOMBINE
+    --------------------------------------------------- */
+
+    gsap.delayedCall(
+      .8,
+      () => {
+
+        status.textContent =
+          "SPECTRUM COLLAPSING";
+
+        gsap.to(
+          [red, green, blue],
+          {
+
+            x: 0,
+            y: 0,
+
+            rotation: 0,
+
+            scale: 1,
+
+            opacity: 0,
+
+            duration: .9,
+
+            stagger: .04,
+
+            ease: "expo.inOut"
+
+          }
+        );
+
+        gsap.to(
+          main,
+          {
+
+            scale: 1.05,
+
+            duration: .2,
+
+            yoyo: true,
+
+            repeat: 1,
+
+            ease: "power3.out"
+
+          }
+        );
+
+        gsap.to(
+          prismElements,
+          {
+
+            scale: (i) =>
+              .4 +
+              i * .2,
+
+            rotation: (i) =>
+              45 +
+              i * 12,
+
+            opacity: (i) =>
+              .05,
+
+            duration: 1.1,
+
+            stagger: .035,
+
+            ease: "expo.out"
+
+          }
+        );
+
+      }
+    );
+
+    /* ---------------------------------------------------
+       RESTORE
+    --------------------------------------------------- */
+
+    gsap.delayedCall(
+      2,
+      () => {
+
+        status.textContent =
+          "MOVE TO REFRACT";
+
+        locked = false;
+
+      }
+    );
+
+  }
+
+})();
+
 /* =========================================================
    REFRESH
 ========================================================= */
