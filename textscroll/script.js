@@ -24209,6 +24209,84 @@ magnet62Stage.addEventListener("click", () => {
 
     }
 
+ /* -----------------------------------------------
+       COORDINATES
+    ----------------------------------------------- */
+
+    const r =
+      Math.round(
+        Math.abs(
+          separation
+        )
+      );
+
+    const g =
+      Math.round(
+        Math.abs(
+          ny * 30
+        )
+      );
+
+    const b =
+      Math.round(
+        Math.abs(
+          separation
+        )
+      );
+
+    coordinates.textContent =
+      `R ${String(r).padStart(3, "0")} / ` +
+      `G ${String(g).padStart(3, "0")} / ` +
+      `B ${String(b).padStart(3, "0")}`;
+
+  }
+
+  animate();
+
+  /* =====================================================
+     SPECTRUM BURST
+  ===================================================== */
+
+  function spectrumBurst() {
+
+    status.textContent =
+      "SPECTRUM RELEASED";
+
+    /* ---------------------------------------------------
+       CENTER FLARE
+    --------------------------------------------------- */
+
+    gsap.timeline()
+
+      .to(
+        flare,
+        {
+
+          scale: 8,
+
+          opacity: 1,
+
+          duration: .12,
+
+          ease: "power4.out"
+
+        }
+      )
+
+      .to(
+        flare,
+        {
+
+          scale: 1,
+
+          opacity: 0,
+
+          duration: .7,
+
+          ease: "expo.out"
+
+        }
+      );
 
 
 /* =========================================================
