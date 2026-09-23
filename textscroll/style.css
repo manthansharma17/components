@@ -13564,6 +13564,45 @@ JS animates every word toward these positions.
 
 
 /* =========================================================
+   SECTION 68 — TYPOGRAPHY PRISM
+========================================================= */
+
+.section-sixty-eight {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #0c0c0c 0%,
+      #030303 48%,
+      #000 100%
+    );
+
+  color: #fff;
+
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------
+   STAGE
+--------------------------------------------------------- */
+
+.prism68-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  cursor: crosshair;
+}
+
+
+/* =========================================================
    REDUCED MOTION
 ========================================================= */
 
