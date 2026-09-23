@@ -23815,7 +23815,69 @@ magnet62Stage.addEventListener("click", () => {
 
   if (!stage || !main) return;
 
+/* -------------------------------------------------------
+     CONFIG
+  ------------------------------------------------------- */
 
+  const isMobile =
+    window.matchMedia("(max-width: 768px)").matches;
+
+  const PRISM_COUNT =
+    isMobile ? 5 : 9;
+
+  /* -------------------------------------------------------
+     CREATE PRISM SHAPES
+  ------------------------------------------------------- */
+
+  const prismElements = [];
+
+  for (let i = 0; i < PRISM_COUNT; i++) {
+
+    const prism =
+      document.createElement("div");
+
+    prism.className =
+      "prism68-prism";
+
+    const scale =
+      .4 + i * .2;
+
+    prism.style.width =
+      `${100 + i * 55}px`;
+
+    prism.style.height =
+      `${100 + i * 55}px`;
+
+    prism.style.transform = `
+      translate(-50%, -50%)
+      rotate(${45 + i * 12}deg)
+      scale(${scale})
+    `;
+
+    prisms.appendChild(prism);
+
+    prismElements.push(prism);
+
+  }
+
+  /* -------------------------------------------------------
+     MOUSE
+  ------------------------------------------------------- */
+
+  const mouse = {
+
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2,
+
+    targetX: window.innerWidth / 2,
+    targetY: window.innerHeight / 2,
+
+    previousX: window.innerWidth / 2,
+    previousY: window.innerHeight / 2,
+
+    velocity: 0
+
+  };
 
 /* =========================================================
    REFRESH
