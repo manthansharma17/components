@@ -23878,6 +23878,94 @@ magnet62Stage.addEventListener("click", () => {
     velocity: 0
 
   };
+ let locked = false;
+
+  /* -------------------------------------------------------
+     MOUSE MOVE
+  ------------------------------------------------------- */
+
+  window.addEventListener(
+    "mousemove",
+    (e) => {
+
+      mouse.targetX = e.clientX;
+      mouse.targetY = e.clientY;
+
+      status.textContent =
+        "REFRACTION ACTIVE";
+
+    }
+  );
+
+  /* -------------------------------------------------------
+     CLICK
+  ------------------------------------------------------- */
+
+  stage.addEventListener(
+    "click",
+    () => {
+
+      if (locked) return;
+
+      locked = true;
+
+      spectrumBurst();
+
+    }
+  );
+
+  /* -------------------------------------------------------
+     ANIMATION
+  ------------------------------------------------------- */
+
+  function animate() {
+
+    requestAnimationFrame(
+      animate
+    );
+
+    if (locked) return;
+
+    /* -----------------------------------------------
+       SMOOTH MOUSE
+    ----------------------------------------------- */
+
+    mouse.x +=
+      (mouse.targetX - mouse.x) *
+      .1;
+
+    mouse.y +=
+      (mouse.targetY - mouse.y) *
+      .1;
+
+    /* -----------------------------------------------
+       VELOCITY
+    ----------------------------------------------- */
+
+    const dx =
+      mouse.x -
+      mouse.previousX;
+
+    const dy =
+      mouse.y -
+      mouse.previousY;
+
+    const velocity =
+      Math.sqrt(
+        dx * dx +
+        dy * dy
+      );
+
+    mouse.velocity +=
+      (velocity -
+       mouse.velocity) *
+      .12;
+
+    mouse.previousX =
+      mouse.x;
+
+    mouse.previousY =
+      mouse.y;
 
 /* =========================================================
    REFRESH
