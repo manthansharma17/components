@@ -23966,7 +23966,109 @@ magnet62Stage.addEventListener("click", () => {
 
     mouse.previousY =
       mouse.y;
+ /* -----------------------------------------------
+       NORMALIZED POSITION
+    ----------------------------------------------- */
 
+    const centerX =
+      window.innerWidth / 2;
+
+    const centerY =
+      window.innerHeight / 2;
+
+    const nx =
+      (mouse.x - centerX) /
+      (window.innerWidth / 2);
+
+    const ny =
+      (mouse.y - centerY) /
+      (window.innerHeight / 2);
+
+    const speed =
+      Math.min(
+        mouse.velocity,
+        45
+      );
+
+    const intensity =
+      Math.min(
+        speed * .025,
+        1.2
+      );
+
+    /* -----------------------------------------------
+       SPECTRAL SEPARATION
+    ----------------------------------------------- */
+
+    const separation =
+      (18 + intensity * 70);
+
+    const verticalShift =
+      ny * 18;
+
+    const horizontalShift =
+      nx * 12;
+
+    /* RED
+       Moves opposite the blue channel.
+    */
+
+    red.style.transform = `
+      translate(
+        calc(-50% + ${horizontalShift - separation}px),
+        calc(-50% + ${verticalShift}px)
+      )
+      rotate(${nx * -3}deg)
+      scale(
+        ${1 + intensity * .025}
+      )
+    `;
+
+    /* GREEN */
+
+    green.style.transform = `
+      translate(
+        calc(-50% + ${horizontalShift}px),
+        calc(-50% + ${verticalShift + ny * 7}px)
+      )
+      rotate(${nx * 1.5}deg)
+      scale(
+        ${1 + intensity * .018}
+      )
+    `;
+
+    /* BLUE */
+
+    blue.style.transform = `
+      translate(
+        calc(-50% + ${horizontalShift + separation}px),
+        calc(-50% + ${verticalShift * -0.7}px)
+      )
+      rotate(${nx * 3}deg)
+      scale(
+        ${1 + intensity * .035}
+      )
+    `;
+
+    /* -----------------------------------------------
+       MAIN WORD
+    ----------------------------------------------- */
+
+    const mainX =
+      nx * 10;
+
+    const mainY =
+      ny * 7;
+
+    main.style.transform = `
+      translate(
+        calc(-50% + ${mainX}px),
+        calc(-50% + ${mainY}px)
+      )
+      scale(
+        ${1 + intensity * .015}
+      )
+    `;
 /* =========================================================
    REFRESH
 ========================================================= */
