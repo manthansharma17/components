@@ -13763,6 +13763,119 @@ JS animates every word toward these positions.
     blur(.3px);
 }
 
+/* ---------------------------------------------------------
+   PRISM RINGS
+--------------------------------------------------------- */
+
+.prism68-prisms {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+}
+
+.prism68-prism {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 100px;
+  height: 100px;
+
+  border:
+    1px solid rgba(255,255,255,.1);
+
+  transform:
+    translate(-50%, -50%)
+    rotate(45deg);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  will-change:
+    transform,
+    opacity,
+    border-color;
+}
+
+/* ---------------------------------------------------------
+   FLARE
+--------------------------------------------------------- */
+
+.prism68-flare {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 4px;
+  height: 4px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform:
+    translate(-50%, -50%)
+    scale(0);
+
+  opacity: 0;
+
+  box-shadow:
+    0 0 20px 5px rgba(255,255,255,.5);
+
+  pointer-events: none;
+
+  z-index: 20;
+}
+
+/* ---------------------------------------------------------
+   CURSOR
+--------------------------------------------------------- */
+
+.prism68-cursor {
+  position: fixed;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 50;
+
+  mix-blend-mode: difference;
+}
+
+.prism68-ring {
+  position: fixed;
+
+  width: 40px;
+  height: 40px;
+
+  border:
+    1px solid rgba(255,255,255,.45);
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 49;
+
+  mix-blend-mode: difference;
+}
 
 /* =========================================================
    REDUCED MOTION
