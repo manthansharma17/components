@@ -24529,6 +24529,75 @@ magnet62Stage.addEventListener("click", () => {
 })();
 
 /* =========================================================
+   SECTION 69 — TYPOGRAPHY FRACTURE
+========================================================= */
+
+(() => {
+
+  const stage =
+    document.getElementById("fracture69Stage");
+
+  const scene =
+    document.getElementById("fracture69Scene");
+
+  const word =
+    document.getElementById("fracture69Word");
+
+  const shards =
+    document.getElementById("fracture69Shards");
+
+  const cursor =
+    document.getElementById("fracture69Cursor");
+
+  const ring =
+    document.getElementById("fracture69Ring");
+
+  const status =
+    document.getElementById("fracture69Status");
+
+  const counter =
+    document.getElementById("fracture69Counter");
+
+  if (!stage || !word) return;
+
+  /* -------------------------------------------------------
+     CONFIG
+  ------------------------------------------------------- */
+
+  const isMobile =
+    window.matchMedia("(max-width: 768px)").matches;
+
+  const SHARD_COUNT =
+    isMobile ? 12 : 22;
+
+  const CRACK_COUNT =
+    isMobile ? 5 : 9;
+
+  /* -------------------------------------------------------
+     STATE
+  ------------------------------------------------------- */
+
+  const mouse = {
+
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2,
+
+    targetX: window.innerWidth / 2,
+    targetY: window.innerHeight / 2,
+
+    previousX: window.innerWidth / 2,
+    previousY: window.innerHeight / 2,
+
+    velocity: 0
+
+  };
+
+  const shardData = [];
+
+  let locked = false;
+
+
+/* =========================================================
    REFRESH
 ========================================================= */
 
