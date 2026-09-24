@@ -24924,7 +24924,110 @@ magnet62Stage.addEventListener("click", () => {
 
       }
     );
+ /* -----------------------------------------------
+       CRACKS
+    ----------------------------------------------- */
 
+    const crackIntensity =
+      influence * .45 +
+      velocityForce * .55;
+
+    [...crackContainer.children]
+      .forEach(
+        (crack, i) => {
+
+          crack.style.opacity =
+            crackIntensity *
+            (.15 +
+             Math.sin(i * 2.1) *
+             .08 +
+             .12);
+
+        }
+      );
+
+    /* -----------------------------------------------
+       GRID
+    ----------------------------------------------- */
+
+    const grid =
+      stage.querySelector(
+        ".fracture69-grid"
+      );
+
+    if (grid) {
+
+      grid.style.transform = `
+        translate(
+          ${nx * -24}px,
+          ${ny * -24}px
+        )
+      `;
+
+    }
+
+    /* -----------------------------------------------
+       CURSOR
+    ----------------------------------------------- */
+
+    if (!isMobile) {
+
+      gsap.to(
+        cursor,
+        {
+
+          x: mouse.targetX,
+          y: mouse.targetY,
+
+          duration: .22,
+
+          ease: "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+      gsap.to(
+        ring,
+        {
+
+          x: mouse.targetX,
+          y: mouse.targetY,
+
+          duration: .5,
+
+          ease: "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+    }
+
+    /* -----------------------------------------------
+       COUNTER
+    ----------------------------------------------- */
+
+    const fractureValue =
+      Math.round(
+        (influence +
+         velocityForce) *
+        50
+      );
+
+    counter.textContent =
+      `${String(
+        Math.min(
+          fractureValue,
+          99
+        )
+      ).padStart(3, "0")} / 100`;
+
+  }
+
+  animate();
 /* =========================================================
    REFRESH
 ========================================================= */
