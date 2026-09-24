@@ -14022,7 +14022,82 @@ JS animates every word toward these positions.
 
   cursor: crosshair;
 }
+/* ---------------------------------------------------------
+   GRID
+--------------------------------------------------------- */
 
+.fracture69-grid {
+  position: absolute;
+
+  inset: -10%;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 90px 90px;
+
+  opacity: .55;
+
+  mask-image:
+    radial-gradient(
+      circle at center,
+      black 0%,
+      rgba(0,0,0,.7) 45%,
+      transparent 80%
+    );
+
+  pointer-events: none;
+
+  will-change: transform;
+}
+
+/* ---------------------------------------------------------
+   HEADER
+--------------------------------------------------------- */
+
+.fracture69-header {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 9px;
+  letter-spacing: .25em;
+
+  opacity: .38;
+
+  z-index: 30;
+}
+
+/* ---------------------------------------------------------
+   SCENE
+--------------------------------------------------------- */
+
+.fracture69-scene {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
 
 
 
