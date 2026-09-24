@@ -24779,7 +24779,151 @@ magnet62Stage.addEventListener("click", () => {
     mouse.y +=
       (mouse.targetY - mouse.y) *
       .1;
+ /* -----------------------------------------------
+       VELOCITY
+    ----------------------------------------------- */
 
+    const dx =
+      mouse.x -
+      mouse.previousX;
+
+    const dy =
+      mouse.y -
+      mouse.previousY;
+
+    const velocity =
+      Math.sqrt(
+        dx * dx +
+        dy * dy
+      );
+
+    mouse.velocity +=
+      (velocity -
+       mouse.velocity) *
+      .12;
+
+    mouse.previousX =
+      mouse.x;
+
+    mouse.previousY =
+      mouse.y;
+
+    /* -----------------------------------------------
+       NORMALIZED MOUSE
+    ----------------------------------------------- */
+
+    const centerX =
+      window.innerWidth / 2;
+
+    const centerY =
+      window.innerHeight / 2;
+
+    const nx =
+      (mouse.x - centerX) /
+      (window.innerWidth / 2);
+
+    const ny =
+      (mouse.y - centerY) /
+      (window.innerHeight / 2);
+
+    const distance =
+      Math.sqrt(
+        nx * nx +
+        ny * ny
+      );
+
+    const influence =
+      Math.min(
+        distance,
+        1.25
+      );
+
+    const velocityForce =
+      Math.min(
+        mouse.velocity * .02,
+        1
+      );
+
+    /* -----------------------------------------------
+       MAIN WORD
+    ----------------------------------------------- */
+
+    word.style.transform = `
+      translate(
+        calc(-50% + ${nx * 12}px),
+        calc(-50% + ${ny * 8}px)
+      )
+      rotate(${nx * 1.5}deg)
+      scale(
+        ${1 + velocityForce * .018}
+      )
+    `;
+
+    /* -----------------------------------------------
+       SHARD PREVIEW
+    ----------------------------------------------- */
+
+    shardData.forEach(
+      (data, i) => {
+
+        const element =
+          data.element;
+
+        const wave =
+          Math.sin(
+            i * 1.7 +
+            nx * 3 +
+            ny * 2
+          );
+
+        const pull =
+          influence *
+          (8 + i * .8) +
+          velocityForce *
+          15;
+
+        const x =
+          data.baseX *
+          (0.25 + influence * .7) +
+          nx *
+          pull;
+
+        const y =
+          data.baseY *
+          (0.25 + influence * .7) +
+          ny *
+          pull;
+
+        const rotation =
+          data.rotation +
+          wave *
+          velocityForce *
+          5;
+
+        const opacity =
+          .03 +
+          influence *
+          .08 +
+          velocityForce *
+          .14;
+
+        element.style.transform = `
+          translate3d(
+            calc(-50% + ${x}px),
+            calc(-50% + ${y}px),
+            ${-i * 3}px
+          )
+          rotate(${rotation}deg)
+          scale(
+            ${1 + velocityForce * .015}
+          )
+        `;
+
+        element.style.opacity =
+          opacity;
+
+      }
+    );
 
 /* =========================================================
    REFRESH
