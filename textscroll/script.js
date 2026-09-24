@@ -24722,6 +24722,64 @@ magnet62Stage.addEventListener("click", () => {
     });
 
   }
+   /* -------------------------------------------------------
+     MOUSE
+  ------------------------------------------------------- */
+
+  window.addEventListener(
+    "mousemove",
+    (e) => {
+
+      mouse.targetX = e.clientX;
+      mouse.targetY = e.clientY;
+
+      status.textContent =
+        "STRUCTURE DESTABILIZING";
+
+    }
+  );
+
+  /* -------------------------------------------------------
+     CLICK
+  ------------------------------------------------------- */
+
+  stage.addEventListener(
+    "click",
+    () => {
+
+      if (locked) return;
+
+      locked = true;
+
+      fracture();
+
+    }
+  );
+
+  /* -------------------------------------------------------
+     ANIMATION
+  ------------------------------------------------------- */
+
+  function animate() {
+
+    requestAnimationFrame(
+      animate
+    );
+
+    if (locked) return;
+
+    /* -----------------------------------------------
+       SMOOTH MOUSE
+    ----------------------------------------------- */
+
+    mouse.x +=
+      (mouse.targetX - mouse.x) *
+      .1;
+
+    mouse.y +=
+      (mouse.targetY - mouse.y) *
+      .1;
+
 
 /* =========================================================
    REFRESH
