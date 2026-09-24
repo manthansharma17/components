@@ -14098,7 +14098,51 @@ JS animates every word toward these positions.
   perspective: 1400px;
   transform-style: preserve-3d;
 }
+/* ---------------------------------------------------------
+   MAIN WORD
+--------------------------------------------------------- */
 
+.fracture69-word {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: clamp(
+    4rem,
+    14vw,
+    17rem
+  );
+
+  font-weight: 900;
+
+  line-height: .75;
+
+  letter-spacing: -.085em;
+
+  white-space: nowrap;
+
+  color: #f4f4f4;
+
+  transform:
+    translate(-50%, -50%);
+
+  z-index: 10;
+
+  user-select: none;
+
+  pointer-events: none;
+
+  will-change:
+    transform,
+    opacity,
+    filter;
+
+  text-shadow:
+    0 0 50px rgba(255,255,255,.05);
+}
 
 
 
