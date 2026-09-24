@@ -25028,6 +25028,340 @@ magnet62Stage.addEventListener("click", () => {
   }
 
   animate();
+
+   /* =====================================================
+     FRACTURE SEQUENCE
+  ===================================================== */
+
+  function fracture() {
+
+    status.textContent =
+      "FRACTURE";
+
+    /* ---------------------------------------------------
+       CRACKS EXPLODE
+    --------------------------------------------------- */
+
+    [...crackContainer.children]
+      .forEach(
+        (crack, i) => {
+
+          gsap.fromTo(
+            crack,
+
+            {
+              opacity: 0,
+              scaleX: .2
+            },
+
+            {
+              opacity: .8,
+              scaleX: 1,
+
+              duration: .35,
+
+              delay:
+                i * .035,
+
+              ease: "power3.out"
+
+            }
+          );
+
+        }
+      );
+
+    /* ---------------------------------------------------
+       MAIN WORD COLLAPSE
+    --------------------------------------------------- */
+
+    gsap.to(
+      word,
+      {
+
+        scale: .98,
+
+        filter:
+          "blur(3px)",
+
+        duration: .25,
+
+        ease: "power3.in"
+
+      }
+    );
+
+    /* ---------------------------------------------------
+       SHARD EXPLOSION
+    --------------------------------------------------- */
+
+    shardData.forEach(
+      (data, i) => {
+
+        const angle =
+          data.angle +
+          (Math.random() - .5) *
+          .8;
+
+        const distance =
+          180 +
+          Math.random() *
+          650;
+
+        const x =
+          Math.cos(angle) *
+          distance;
+
+        const y =
+          Math.sin(angle) *
+          distance;
+
+        const z =
+          -200 +
+          Math.random() *
+          700;
+
+        gsap.to(
+          data.element,
+          {
+
+            x,
+            y,
+            z,
+
+            rotation:
+              data.rotation +
+              (Math.random() - .5) *
+              100,
+
+            rotationX:
+              (Math.random() - .5) *
+              180,
+
+            rotationY:
+              (Math.random() - .5) *
+              180,
+
+            scale:
+              .25 +
+              Math.random() *
+              .9,
+
+            opacity: 0,
+
+            filter:
+              "blur(4px)",
+
+            duration:
+              .9 +
+              Math.random() *
+              .65,
+
+            delay:
+              i * .012,
+
+            ease:
+              "expo.out"
+
+          }
+        );
+
+      }
+    );
+
+    /* ---------------------------------------------------
+       FLASH
+    --------------------------------------------------- */
+
+    const flash =
+      document.createElement("div");
+
+    flash.className =
+      "fracture69-flash";
+
+    stage.appendChild(flash);
+
+    gsap.timeline({
+
+      onComplete: () => {
+        flash.remove();
+      }
+
+    })
+
+      .to(
+        flash,
+        {
+
+          opacity: .3,
+
+          duration: .05
+
+        }
+      )
+
+      .to(
+        flash,
+        {
+
+          opacity: 0,
+
+          duration: .4,
+
+          ease: "power2.out"
+
+        }
+      );
+
+    /* ---------------------------------------------------
+       RECONSTRUCTION
+    --------------------------------------------------- */
+
+    gsap.delayedCall(
+      1.15,
+      () => {
+
+        status.textContent =
+          "RECONSTRUCTING";
+
+        shardData.forEach(
+          (data, i) => {
+
+            gsap.to(
+              data.element,
+              {
+
+                x: 0,
+                y: 0,
+                z: 0,
+
+                rotation:
+                  data.rotation,
+
+                rotationX: 0,
+                rotationY: 0,
+
+                scale: 1,
+
+                opacity:
+                  .16 +
+                  (i %
+                   4) *
+                  .025,
+
+                filter:
+                  "blur(0px)",
+
+                duration:
+                  1.1 +
+                  Math.random() *
+                  .35,
+
+                delay:
+                  i * .025,
+
+                ease:
+                  "expo.out"
+
+              }
+            );
+
+          }
+        );
+
+        gsap.to(
+          word,
+          {
+
+            scale: 1,
+
+            filter:
+              "blur(0px)",
+
+            duration: 1.1,
+
+            ease:
+              "expo.out"
+
+          }
+        );
+
+        [...crackContainer.children]
+          .forEach(
+            (crack) => {
+
+              gsap.to(
+                crack,
+                {
+
+                  opacity: 0,
+
+                  duration: .7,
+
+                  ease:
+                    "power2.out"
+
+                }
+              );
+
+            }
+          );
+
+      }
+    );
+
+    /* ---------------------------------------------------
+       CLEANUP
+    --------------------------------------------------- */
+
+    gsap.delayedCall(
+      2.8,
+      () => {
+
+        shardData.forEach(
+          (data) => {
+
+            gsap.set(
+              data.element,
+              {
+
+                x: 0,
+                y: 0,
+                z: 0,
+
+                rotation:
+                  data.rotation,
+
+                rotationX: 0,
+                rotationY: 0,
+
+                scale: 1,
+
+                opacity: 0,
+
+                filter:
+                  "blur(0px)"
+
+              }
+            );
+
+          }
+        );
+
+        status.textContent =
+          "MOVE TO FRACTURE";
+
+        counter.textContent =
+          "000 / 000";
+
+        locked = false;
+
+      }
+    );
+
+  }
+
+})();
 /* =========================================================
    REFRESH
 ========================================================= */
