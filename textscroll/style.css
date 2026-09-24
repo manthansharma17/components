@@ -13984,6 +13984,49 @@ JS animates every word toward these positions.
     font-size: 7px;
   }
 }
+
+/* =========================================================
+   SECTION 69 — TYPOGRAPHY FRACTURE
+========================================================= */
+
+.section-sixty-nine {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #101010 0%,
+      #050505 45%,
+      #000 100%
+    );
+
+  color: #fff;
+
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------
+   STAGE
+--------------------------------------------------------- */
+
+.fracture69-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  cursor: crosshair;
+}
+
+
+
+
+
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
