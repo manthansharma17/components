@@ -24595,7 +24595,133 @@ magnet62Stage.addEventListener("click", () => {
   const shardData = [];
 
   let locked = false;
+ /* -------------------------------------------------------
+     CRACK CONTAINER
+  ------------------------------------------------------- */
 
+  const crackContainer =
+    document.createElement("div");
+
+  crackContainer.className =
+    "fracture69-cracks";
+
+  stage.appendChild(crackContainer);
+
+  /* -------------------------------------------------------
+     CREATE CRACKS
+  ------------------------------------------------------- */
+
+  for (let i = 0; i < CRACK_COUNT; i++) {
+
+    const crack =
+      document.createElement("div");
+
+    crack.className =
+      "fracture69-crack";
+
+    const angle =
+      Math.random() * 360;
+
+    const length =
+      40 + Math.random() * 180;
+
+    crack.style.width =
+      `${length}px`;
+
+    crack.style.left =
+      `${50 + (Math.random() - .5) * 12}%`;
+
+    crack.style.top =
+      `${50 + (Math.random() - .5) * 18}%`;
+
+    crack.style.transform =
+      `rotate(${angle}deg)`;
+
+    crackContainer.appendChild(crack);
+
+  }
+
+  /* -------------------------------------------------------
+     CREATE SHARDS
+  ------------------------------------------------------- */
+
+  for (let i = 0; i < SHARD_COUNT; i++) {
+
+    const shard =
+      document.createElement("div");
+
+    shard.className =
+      "fracture69-shard";
+
+    shard.textContent =
+      "FRACTURE";
+
+    const angle =
+      Math.random() * Math.PI * 2;
+
+    const distance =
+      20 + Math.random() * 80;
+
+    const baseX =
+      Math.cos(angle) *
+      distance;
+
+    const baseY =
+      Math.sin(angle) *
+      distance;
+
+    const rotation =
+      (Math.random() - .5) * 8;
+
+    const clipX =
+      Math.random() * 85;
+
+    const clipY =
+      Math.random() * 80;
+
+    const clipW =
+      15 + Math.random() * 35;
+
+    const clipH =
+      12 + Math.random() * 35;
+
+    shard.style.clipPath = `
+      polygon(
+        ${clipX}% ${clipY}%,
+        ${Math.min(
+          clipX + clipW,
+          100
+        )}% ${clipY + Math.random() * 8}%,
+        ${Math.min(
+          clipX + clipW + 5,
+          100
+        )}% ${Math.min(
+          clipY + clipH,
+          100
+        )}%,
+        ${Math.max(
+          clipX - Math.random() * 8,
+          0
+        )}% ${Math.min(
+          clipY + clipH,
+          100
+        )}%
+      )
+    `;
+
+    shard.style.opacity = 0;
+
+    shards.appendChild(shard);
+
+    shardData.push({
+      element: shard,
+      baseX,
+      baseY,
+      rotation,
+      angle
+    });
+
+  }
 
 /* =========================================================
    REFRESH
