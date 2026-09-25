@@ -25852,6 +25852,138 @@ magnet62Stage.addEventListener("click", () => {
           detached++;
 
         }
+ /* -------------------------------------------
+           MAGNETIC DELAY
+        ------------------------------------------- */
+
+        const returnStrength =
+          p.exploded
+            ? .001
+            : .018;
+
+        p.vx +=
+          (p.baseX - p.x) *
+          returnStrength;
+
+        p.vy +=
+          (p.baseY - p.y) *
+          returnStrength;
+
+        /* -------------------------------------------
+           FRICTION
+        ------------------------------------------- */
+
+        p.vx *= .91;
+        p.vy *= .91;
+
+        /* -------------------------------------------
+           POSITION
+        ------------------------------------------- */
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        /* -------------------------------------------
+           MICRO NOISE
+        ------------------------------------------- */
+
+        p.noise += .015;
+
+        const noiseX =
+          Math.cos(p.noise) *
+          .15;
+
+        const noiseY =
+          Math.sin(p.noise * 1.3) *
+          .15;
+
+        /* -------------------------------------------
+           DRAW
+        ------------------------------------------- */
+
+        const speed =
+          Math.sqrt(
+            p.vx * p.vx +
+            p.vy * p.vy
+          );
+
+        const alpha =
+          Math.max(
+            .05,
+            p.alpha -
+            speed * .025
+          );
+
+        ctx.fillStyle =
+          `rgba(
+            255,
+            255,
+            255,
+            ${alpha}
+          )`;
+
+        const size =
+          p.size +
+          Math.min(
+            speed * .25,
+            2
+          );
+
+        ctx.fillRect(
+          p.x + noiseX,
+          p.y + noiseY,
+          size,
+          size
+        );
+
+      }
+    );
+
+    /* -----------------------------------------------
+       MAIN WORD VISIBILITY
+    ----------------------------------------------- */
+
+    const wordOpacity =
+      Math.max(
+        .06,
+        1 -
+        detached /
+        Math.max(
+          particles.length * .12,
+          1
+        )
+      );
+
+    word.style.opacity =
+      wordOpacity;
+
+    /* -----------------------------------------------
+       WORD PARALLAX
+    ----------------------------------------------- */
+
+    const nx =
+      (mouse.x -
+       width / 2) /
+      (width / 2);
+
+    const ny =
+      (mouse.y -
+       height / 2) /
+      (height / 2);
+
+    word.style.transform = `
+      translate(
+        calc(-50% + ${nx * 8}px),
+        calc(-50% + ${ny * 6}px)
+      )
+      scale(
+        ${1 +
+          Math.min(
+            mouse.velocity * .0008,
+            .025
+          )}
+      )
+    `;
 
 
 
