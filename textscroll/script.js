@@ -25985,6 +25985,333 @@ magnet62Stage.addEventListener("click", () => {
       )
     `;
 
+ /* -----------------------------------------------
+       GRID
+    ----------------------------------------------- */
+
+    const grid =
+      stage.querySelector(
+        ".dis70-grid"
+      );
+
+    if (grid) {
+
+      grid.style.transform = `
+        translate(
+          ${nx * -22}px,
+          ${ny * -22}px
+        )
+      `;
+
+    }
+
+    /* -----------------------------------------------
+       CURSOR
+    ----------------------------------------------- */
+
+    if (!isMobile) {
+
+      gsap.to(
+        cursor,
+        {
+
+          x: mouse.targetX,
+          y: mouse.targetY,
+
+          duration: .2,
+
+          ease: "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+      gsap.to(
+        ring,
+        {
+
+          x: mouse.targetX,
+          y: mouse.targetY,
+
+          duration: .5,
+
+          ease: "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+    }
+
+    /* -----------------------------------------------
+       COUNTER
+    ----------------------------------------------- */
+
+    const activeParticles =
+      particles.filter(
+        p =>
+          Math.abs(
+            p.x -
+            p.baseX
+          ) > 2 ||
+          Math.abs(
+            p.y -
+            p.baseY
+          ) > 2
+      ).length;
+
+    counter.textContent =
+      `${String(
+        activeParticles
+      ).padStart(5, "0")} PARTICLES`;
+
+  }
+
+  render();
+
+  /* =====================================================
+     CLICK — FULL DISINTEGRATION
+  ===================================================== */
+
+  stage.addEventListener(
+    "click",
+    () => {
+
+      if (locked) return;
+
+      locked = true;
+
+      disintegrate();
+
+    }
+  );
+
+  function disintegrate() {
+
+    status.textContent =
+      "TOTAL DISINTEGRATION";
+
+    /* ---------------------------------------------------
+       HIDE HTML WORD
+    --------------------------------------------------- */
+
+    gsap.to(
+      word,
+      {
+
+        opacity: 0,
+
+        scale: 1.04,
+
+        filter:
+          "blur(3px)",
+
+        duration: .25,
+
+        ease: "power2.in"
+
+      }
+    );
+
+    /* ---------------------------------------------------
+       PARTICLE EXPLOSION
+    --------------------------------------------------- */
+
+    particles.forEach(
+      (p) => {
+
+        const centerX =
+          width / 2;
+
+        const centerY =
+          height / 2;
+
+        const dx =
+          p.baseX -
+          centerX;
+
+        const dy =
+          p.baseY -
+          centerY;
+
+        const distance =
+          Math.sqrt(
+            dx * dx +
+            dy * dy
+          );
+
+        const safeDistance =
+          Math.max(
+            distance,
+            .001
+          );
+
+        const nx =
+          dx /
+          safeDistance;
+
+        const ny =
+          dy /
+          safeDistance;
+
+        const power =
+          2 +
+          Math.random() *
+          8;
+
+        p.vx =
+          nx *
+          power +
+          (Math.random() - .5) *
+          5;
+
+        p.vy =
+          ny *
+          power +
+          (Math.random() - .5) *
+          5;
+
+        p.exploded = true;
+
+      }
+    );
+
+    /* ---------------------------------------------------
+       FLASH
+    --------------------------------------------------- */
+
+    const flash =
+      document.createElement("div");
+
+    flash.className =
+      "dis70-flash";
+
+    stage.appendChild(
+      flash
+    );
+
+    gsap.timeline({
+
+      onComplete: () => {
+        flash.remove();
+      }
+
+    })
+
+      .to(
+        flash,
+        {
+
+          opacity: .4,
+
+          duration: .05
+
+        }
+      )
+
+      .to(
+        flash,
+        {
+
+          opacity: 0,
+
+          duration: .4,
+
+          ease: "power2.out"
+
+        }
+      );
+
+    /* ---------------------------------------------------
+       WAIT
+    --------------------------------------------------- */
+
+    gsap.delayedCall(
+      1.3,
+      () => {
+
+        status.textContent =
+          "RECONSTRUCTING";
+
+        /* ---------------------------------------------
+           REVERSE PARTICLE FLOW
+        --------------------------------------------- */
+
+        particles.forEach(
+          (p) => {
+
+            p.exploded = false;
+
+            p.vx *= -.15;
+            p.vy *= -.15;
+
+          }
+        );
+
+        gsap.to(
+          word,
+          {
+
+            opacity: 1,
+
+            scale: 1,
+
+            filter:
+              "blur(0px)",
+
+            duration: 1.5,
+
+            ease: "expo.out"
+
+          }
+        );
+
+      }
+    );
+
+    /* ---------------------------------------------------
+       RESTORE
+    --------------------------------------------------- */
+
+    gsap.delayedCall(
+      3,
+      () => {
+
+        particles.forEach(
+          (p) => {
+
+            p.x =
+              p.baseX;
+
+            p.y =
+              p.baseY;
+
+            p.vx = 0;
+            p.vy = 0;
+
+            p.exploded =
+              false;
+
+          }
+        );
+
+        status.textContent =
+          "MOVE TO DISINTEGRATE";
+
+        counter.textContent =
+          `${String(
+            particles.length
+          ).padStart(5, "0")} PARTICLES`;
+
+        locked = false;
+
+      }
+    );
+
+  }
+})();
 
 
 /* =========================================================
