@@ -25613,6 +25613,245 @@ magnet62Stage.addEventListener("click", () => {
     }
 
 
+  /* -----------------------------------------------
+       SAMPLE PARTICLES
+    ----------------------------------------------- */
+
+    let selected =
+      points;
+
+    if (
+      points.length >
+      PARTICLE_COUNT
+    ) {
+
+      selected = [];
+
+      const step =
+        points.length /
+        PARTICLE_COUNT;
+
+      for (
+        let i = 0;
+        i < PARTICLE_COUNT;
+        i++
+      ) {
+
+        selected.push(
+          points[
+            Math.floor(
+              i * step
+            )
+          ]
+        );
+
+      }
+
+    }
+
+    selected.forEach(
+      (point) => {
+
+        particles.push({
+
+          x: point.x,
+          y: point.y,
+
+          baseX: point.x,
+          baseY: point.y,
+
+          vx: 0,
+          vy: 0,
+
+          size:
+            PARTICLE_SIZE +
+            Math.random() * .7,
+
+          alpha:
+            .5 +
+            Math.random() * .5,
+
+          noise:
+            Math.random() *
+            Math.PI * 2,
+
+          seed:
+            Math.random(),
+
+          exploded: false
+
+        });
+
+      }
+    );
+
+    counter.textContent =
+      `${String(
+        particles.length
+      ).padStart(5, "0")} PARTICLES`;
+
+  }
+
+  /* -------------------------------------------------------
+     INITIALIZE
+  ------------------------------------------------------- */
+
+  resize();
+
+  mouse.x =
+    width / 2;
+
+  mouse.y =
+    height / 2;
+
+  mouse.targetX =
+    width / 2;
+
+  mouse.targetY =
+    height / 2;
+
+  /* -------------------------------------------------------
+     DRAW
+  ------------------------------------------------------- */
+
+  function render() {
+
+    requestAnimationFrame(
+      render
+    );
+
+    if (locked) return;
+
+    /* -----------------------------------------------
+       MOUSE SMOOTHING
+    ----------------------------------------------- */
+
+    mouse.x +=
+      (mouse.targetX -
+       mouse.x) *
+      .1;
+
+    mouse.y +=
+      (mouse.targetY -
+       mouse.y) *
+      .1;
+
+    /* -----------------------------------------------
+       VELOCITY
+    ----------------------------------------------- */
+
+    const dx =
+      mouse.x -
+      mouse.previousX;
+
+    const dy =
+      mouse.y -
+      mouse.previousY;
+
+    const velocity =
+      Math.sqrt(
+        dx * dx +
+        dy * dy
+      );
+
+    mouse.velocity +=
+      (velocity -
+       mouse.velocity) *
+      .12;
+
+    mouse.previousX =
+      mouse.x;
+
+    mouse.previousY =
+      mouse.y;
+
+    /* -----------------------------------------------
+       CLEAR
+    ----------------------------------------------- */
+
+    ctx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+    /* -----------------------------------------------
+       PARTICLES
+    ----------------------------------------------- */
+
+    let detached = 0;
+
+    const radius =
+      45 +
+      Math.min(
+        mouse.velocity * 1.8,
+        120
+      );
+
+    const force =
+      Math.min(
+        mouse.velocity * .08,
+        2.5
+      );
+
+    particles.forEach(
+      (p) => {
+
+        const dx =
+          p.x -
+          mouse.x;
+
+        const dy =
+          p.y -
+          mouse.y;
+
+        const distance =
+          Math.sqrt(
+            dx * dx +
+            dy * dy
+          );
+
+        /* -------------------------------------------
+           MOUSE REPULSION
+        ------------------------------------------- */
+
+        if (
+          mouse.active &&
+          distance < radius
+        ) {
+
+          const strength =
+            (1 -
+             distance / radius);
+
+          const safeDistance =
+            Math.max(
+              distance,
+              .001
+            );
+
+          const nx =
+            dx /
+            safeDistance;
+
+          const ny =
+            dy /
+            safeDistance;
+
+          p.vx +=
+            nx *
+            strength *
+            (.8 + force);
+
+          p.vy +=
+            ny *
+            strength *
+            (.8 + force);
+
+          detached++;
+
+        }
 
 
 
