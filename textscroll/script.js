@@ -25461,7 +25461,156 @@ magnet62Stage.addEventListener("click", () => {
     "resize",
     resize
   );
+  /* -------------------------------------------------------
+     MOUSE
+  ------------------------------------------------------- */
 
+  const mouse = {
+
+    x: width / 2,
+    y: height / 2,
+
+    targetX: width / 2,
+    targetY: height / 2,
+
+    previousX: width / 2,
+    previousY: height / 2,
+
+    velocity: 0,
+
+    active: false
+
+  };
+
+  let locked = false;
+
+  window.addEventListener(
+    "mousemove",
+    (e) => {
+
+      mouse.targetX =
+        e.clientX;
+
+      mouse.targetY =
+        e.clientY;
+
+      mouse.active = true;
+
+      status.textContent =
+        "PARTICLES DETACHING";
+
+    }
+  );
+
+  window.addEventListener(
+    "mouseleave",
+    () => {
+
+      mouse.active = false;
+
+      status.textContent =
+        "MOVE TO DISINTEGRATE";
+
+    }
+  );
+
+  /* -------------------------------------------------------
+     PARTICLES
+  ------------------------------------------------------- */
+
+  const particles = [];
+
+  function createTextParticles() {
+
+    particles.length = 0;
+
+    const offscreen =
+      document.createElement(
+        "canvas"
+      );
+
+    const offCtx =
+      offscreen.getContext("2d");
+
+    const fontSize =
+      Math.min(
+        width * .125,
+        240
+      );
+
+    offscreen.width =
+      width;
+
+    offscreen.height =
+      height;
+
+    offCtx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+    offCtx.fillStyle =
+      "#fff";
+
+    offCtx.font =
+      `900 ${fontSize}px Arial`;
+
+    offCtx.textAlign =
+      "center";
+
+    offCtx.textBaseline =
+      "middle";
+
+    offCtx.fillText(
+      "DISINTEGRATE",
+      width / 2,
+      height / 2
+    );
+
+    const image =
+      offCtx.getImageData(
+        0,
+        0,
+        width,
+        height
+      ).data;
+
+    const points = [];
+
+    for (
+      let y = 0;
+      y < height;
+      y += PARTICLE_GAP
+    ) {
+
+      for (
+        let x = 0;
+        x < width;
+        x += PARTICLE_GAP
+      ) {
+
+        const index =
+          (
+            y * width +
+            x
+          ) * 4;
+
+        if (
+          image[index + 3] > 100
+        ) {
+
+          points.push({
+            x,
+            y
+          });
+
+        }
+
+      }
+
+    }
 
 
 
