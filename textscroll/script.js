@@ -25363,6 +25363,111 @@ magnet62Stage.addEventListener("click", () => {
 
 })();
 /* =========================================================
+   SECTION 70 — TYPOGRAPHY DISINTEGRATE
+========================================================= */
+
+(() => {
+
+  const stage =
+    document.getElementById("dis70Stage");
+
+  const canvas =
+    document.getElementById("dis70Canvas");
+
+  const word =
+    document.getElementById("dis70Word");
+
+  const cursor =
+    document.getElementById("dis70Cursor");
+
+  const ring =
+    document.getElementById("dis70Ring");
+
+  const status =
+    document.getElementById("dis70Status");
+
+  const counter =
+    document.getElementById("dis70Counter");
+
+  if (!stage || !canvas || !word) return;
+
+  const ctx =
+    canvas.getContext("2d");
+
+  /* -------------------------------------------------------
+     CONFIG
+  ------------------------------------------------------- */
+
+  const isMobile =
+    window.matchMedia("(max-width: 768px)").matches;
+
+  const PARTICLE_COUNT =
+    isMobile ? 4200 : 8500;
+
+  const PARTICLE_SIZE =
+    isMobile ? 1.25 : 1.15;
+
+  const PARTICLE_GAP =
+    isMobile ? 4 : 3;
+
+  /* -------------------------------------------------------
+     CANVAS SIZE
+  ------------------------------------------------------- */
+
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+
+  function resize() {
+
+    width =
+      stage.clientWidth;
+
+    height =
+      stage.clientHeight;
+
+    dpr =
+      Math.min(
+        window.devicePixelRatio || 1,
+        2
+      );
+
+    canvas.width =
+      width * dpr;
+
+    canvas.height =
+      height * dpr;
+
+    canvas.style.width =
+      `${width}px`;
+
+    canvas.style.height =
+      `${height}px`;
+
+    ctx.setTransform(
+      dpr,
+      0,
+      0,
+      dpr,
+      0,
+      0
+    );
+
+    createTextParticles();
+
+  }
+
+  window.addEventListener(
+    "resize",
+    resize
+  );
+
+
+
+
+
+
+/* =========================================================
    REFRESH
 ========================================================= */
 
