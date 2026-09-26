@@ -26855,6 +26855,148 @@ magnet62Stage.addEventListener("click", () => {
     );
 
   }
+/* =======================================================
+     RENDER
+  ======================================================= */
+
+  function render() {
+
+    requestAnimationFrame(
+      render
+    );
+
+    mouse.x +=
+      (
+        mouse.targetX -
+        mouse.x
+      ) * .11;
+
+    mouse.y +=
+      (
+        mouse.targetY -
+        mouse.y
+      ) * .11;
+
+    const dx =
+      mouse.x -
+      mouse.previousX;
+
+    const dy =
+      mouse.y -
+      mouse.previousY;
+
+    const movement =
+      Math.sqrt(
+        dx * dx +
+        dy * dy
+      );
+
+    mouse.speed +=
+      (
+        movement -
+        mouse.speed
+      ) * .12;
+
+    mouse.previousX =
+      mouse.x;
+
+    mouse.previousY =
+      mouse.y;
+
+    ctx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+    let damaged = 0;
+
+    particles.forEach(
+      p => {
+
+        let erosionForce = 0;
+
+        /* =================================================
+           MANUAL EROSION
+        ================================================= */
+
+        if (
+          mouse.active &&
+          !automaticErosion
+        ) {
+
+          const dx =
+            p.baseX -
+            mouse.x;
+
+          const dy =
+            p.baseY -
+            mouse.y;
+
+          const distance =
+            Math.sqrt(
+              dx * dx +
+              dy * dy
+            );
+
+          if (
+            distance <
+            EROSION_RADIUS
+          ) {
+
+            const intensity =
+              1 -
+              distance /
+              EROSION_RADIUS;
+
+            erosionForce =
+              intensity *
+              (
+                .018 +
+                mouse.speed * .004
+              );
+
+            p.erosion +=
+              erosionForce;
+
+            p.erosion =
+              Math.min(
+                p.erosion,
+                .96
+              );
+
+            const safeDistance =
+              Math.max(
+                distance,
+                .001
+              );
+
+            p.vx +=
+              (
+                dx /
+                safeDistance
+              ) *
+              intensity *
+              (
+                .25 +
+                mouse.speed * .04
+              );
+
+            p.vy +=
+              (
+                dy /
+                safeDistance
+              ) *
+              intensity *
+              (
+                .25 +
+                mouse.speed * .04
+              );
+
+          }
+
+        }
 
 
 /* =========================================================
