@@ -14965,6 +14965,71 @@ JS animates every word toward these positions.
 
   z-index: 20;
 }
+/* =========================================================
+   COUNTER
+========================================================= */
+
+.ero71-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .16em;
+
+  opacity: .22;
+
+  z-index: 20;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .ero71-header {
+    top: 22px;
+
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .ero71-grid {
+    background-size: 50px 50px;
+  }
+
+  .ero71-ghost {
+    font-size:
+      clamp(
+        3.2rem,
+        18vw,
+        8rem
+      );
+  }
+
+  .ero71-cursor,
+  .ero71-ring {
+    display: none;
+  }
+
+  .ero71-status {
+    bottom: 22px;
+  }
+
+  .ero71-counter {
+    right: 20px;
+    bottom: 22px;
+
+    font-size: 7px;
+  }
+}
 
 
 
