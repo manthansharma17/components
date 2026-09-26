@@ -26997,7 +26997,260 @@ magnet62Stage.addEventListener("click", () => {
           }
 
         }
+ /* =================================================
+           AUTOMATIC WAVE
+        ================================================= */
 
+        if (
+          automaticErosion
+        ) {
+
+          const distance =
+            Math.abs(
+              p.baseX -
+              erosionProgress
+            );
+
+          if (
+            distance <
+            EROSION_RADIUS * 1.5
+          ) {
+
+            const intensity =
+              1 -
+              distance /
+              (
+                EROSION_RADIUS *
+                1.5
+              );
+
+            p.erosion +=
+              intensity *
+              .06;
+
+            p.erosion =
+              Math.min(
+                p.erosion,
+                1
+              );
+
+            p.vx +=
+              (
+                Math.random() -
+                .5
+              ) *
+              intensity *
+              .8;
+
+            p.vy +=
+              (
+                Math.random() -
+                .5
+              ) *
+              intensity *
+              .8;
+
+          }
+
+        }
+
+        /* =================================================
+           NATURAL RECOVERY
+        ================================================= */
+
+        if (
+          !automaticErosion
+        ) {
+
+          const dx =
+            p.baseX -
+            p.x;
+
+          const dy =
+            p.baseY -
+            p.y;
+
+          const distance =
+            Math.sqrt(
+              dx * dx +
+              dy * dy
+            );
+
+          if (
+            !mouse.active ||
+            distance >
+            EROSION_RADIUS * 1.7
+          ) {
+
+            p.erosion -=
+              .0025;
+
+          }
+
+        }
+
+        p.erosion =
+          Math.max(
+            0,
+            Math.min(
+              1,
+              p.erosion
+            )
+          );
+
+        /* =================================================
+           PARTICLE MOTION
+        ================================================= */
+
+        const erosion =
+          p.erosion;
+
+        if (
+          erosion > .02
+        ) {
+
+          const direction =
+            p.seed > .5
+              ? 1
+              : -1;
+
+          p.vx +=
+            Math.cos(
+              p.angle
+            ) *
+            erosion *
+            .025 *
+            direction;
+
+          p.vy +=
+            Math.sin(
+              p.angle
+            ) *
+            erosion *
+            .025;
+
+        }
+
+        /* =================================================
+           RETURN FORCE
+        ================================================= */
+
+        const returnForce =
+          automaticErosion
+            ? .004
+            : .016;
+
+        p.vx +=
+          (
+            p.baseX -
+            p.x
+          ) *
+          returnForce;
+
+        p.vy +=
+          (
+            p.baseY -
+            p.y
+          ) *
+          returnForce;
+
+        p.vx *=
+          .91;
+
+        p.vy *=
+          .91;
+
+        p.x +=
+          p.vx;
+
+        p.y +=
+          p.vy;
+
+        /* =================================================
+           EROSION VISIBILITY
+        ================================================= */
+
+        const visibility =
+          1 -
+          p.erosion;
+
+        if (
+          p.erosion >
+          .08
+        ) {
+
+          damaged++;
+
+        }
+
+        if (
+          visibility <
+          .025
+        ) return;
+
+        /* =================================================
+           DRAW
+        ================================================= */
+
+        const size =
+          p.size *
+          (
+            .65 +
+            visibility *
+            .7
+          );
+
+        const alpha =
+          p.alpha *
+          visibility;
+
+        ctx.fillStyle =
+          `rgba(
+            255,
+            255,
+            255,
+            ${alpha}
+          )`;
+
+        ctx.fillRect(
+          p.x,
+          p.y,
+          size,
+          size
+        );
+
+        /* =================================================
+           DUST
+        ================================================= */
+
+        if (
+          erosion > .4 &&
+          p.seed > .82
+        ) {
+
+          ctx.fillStyle =
+            `rgba(
+              255,
+              255,
+              255,
+              ${alpha * .35}
+            )`;
+
+          ctx.fillRect(
+            p.x +
+            p.vx * 3,
+
+            p.y +
+            p.vy * 3,
+
+            size * .55,
+            size * .55
+          );
+
+        }
+
+      }
+    );
 
 /* =========================================================
    REFRESH
