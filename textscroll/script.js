@@ -27251,6 +27251,104 @@ magnet62Stage.addEventListener("click", () => {
 
       }
     );
+ /* =====================================================
+       COUNTER
+    ===================================================== */
+
+    counter.textContent =
+      `${String(
+        damaged
+      ).padStart(5, "0")} / ${String(
+        totalParticles
+      ).padStart(5, "0")}`;
+
+    /* =====================================================
+       CURSOR
+    ===================================================== */
+
+    if (!mobile) {
+
+      gsap.to(
+        cursor,
+        {
+
+          x: mouse.targetX,
+          y: mouse.targetY,
+
+          duration: .18,
+
+          ease: "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+      gsap.to(
+        ring,
+        {
+
+          x: mouse.targetX,
+          y: mouse.targetY,
+
+          duration: .45,
+
+          ease: "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+    }
+
+    /* =====================================================
+       GRID PARALLAX
+    ===================================================== */
+
+    const grid =
+      stage.querySelector(
+        ".ero71-grid"
+      );
+
+    if (grid) {
+
+      const offsetX =
+        (
+          mouse.x -
+          width / 2
+        ) /
+        width *
+        -25;
+
+      const offsetY =
+        (
+          mouse.y -
+          height / 2
+        ) /
+        height *
+        -25;
+
+      grid.style.transform =
+        `translate(
+          ${offsetX}px,
+          ${offsetY}px
+        )`;
+
+    }
+
+  }
+
+  /* =======================================================
+     START
+  ======================================================= */
+
+  resize();
+
+  render();
+
+})();
+
 
 /* =========================================================
    REFRESH
