@@ -26312,7 +26312,175 @@ magnet62Stage.addEventListener("click", () => {
 
   }
 })();
+/* =========================================================
+   SECTION 71 — EROSION ENGINE
+========================================================= */
 
+(() => {
+
+  const stage =
+    document.getElementById(
+      "ero71Stage"
+    );
+
+  const canvas =
+    document.getElementById(
+      "ero71Canvas"
+    );
+
+  const cursor =
+    document.getElementById(
+      "ero71Cursor"
+    );
+
+  const ring =
+    document.getElementById(
+      "ero71Ring"
+    );
+
+  const status =
+    document.getElementById(
+      "ero71Status"
+    );
+
+  const counter =
+    document.getElementById(
+      "ero71Counter"
+    );
+
+  if (
+    !stage ||
+    !canvas
+  ) return;
+
+  const ctx =
+    canvas.getContext("2d");
+
+  /* =======================================================
+     CONFIG
+  ======================================================= */
+
+  const mobile =
+    window.matchMedia(
+      "(max-width: 768px)"
+    ).matches;
+
+  const GAP =
+    mobile ? 4 : 3;
+
+  const MAX_PARTICLES =
+    mobile ? 4500 : 9000;
+
+  const EROSION_RADIUS =
+    mobile ? 42 : 62;
+
+  /* =======================================================
+     SIZE
+  ======================================================= */
+
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+
+  /* =======================================================
+     PARTICLES
+  ======================================================= */
+
+  const particles = [];
+
+  let totalParticles = 0;
+
+  /* =======================================================
+     MOUSE
+  ======================================================= */
+
+  const mouse = {
+
+    x: 0,
+    y: 0,
+
+    targetX: 0,
+    targetY: 0,
+
+    previousX: 0,
+    previousY: 0,
+
+    speed: 0,
+
+    active: false
+
+  };
+
+  let automaticErosion =
+    false;
+
+  let erosionProgress = 0;
+
+  /* =======================================================
+     RESIZE
+  ======================================================= */
+
+  function resize() {
+
+    width =
+      stage.clientWidth;
+
+    height =
+      stage.clientHeight;
+
+    dpr =
+      Math.min(
+        window.devicePixelRatio || 1,
+        2
+      );
+
+    canvas.width =
+      width * dpr;
+
+    canvas.height =
+      height * dpr;
+
+    canvas.style.width =
+      width + "px";
+
+    canvas.style.height =
+      height + "px";
+
+    ctx.setTransform(
+      dpr,
+      0,
+      0,
+      dpr,
+      0,
+      0
+    );
+
+    mouse.x =
+      width / 2;
+
+    mouse.y =
+      height / 2;
+
+    mouse.targetX =
+      width / 2;
+
+    mouse.targetY =
+      height / 2;
+
+    mouse.previousX =
+      width / 2;
+
+    mouse.previousY =
+      height / 2;
+
+    createParticles();
+
+  }
+
+  window.addEventListener(
+    "resize",
+    resize
+  );
 
 /* =========================================================
    REFRESH
