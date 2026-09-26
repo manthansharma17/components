@@ -26673,7 +26673,95 @@ magnet62Stage.addEventListener("click", () => {
       ).padStart(5, "0")}`;
 
   }
+ /* =======================================================
+     MOUSE
+  ======================================================= */
 
+  window.addEventListener(
+    "mousemove",
+    e => {
+
+      mouse.targetX =
+        e.clientX;
+
+      mouse.targetY =
+        e.clientY;
+
+      mouse.active =
+        true;
+
+      status.textContent =
+        "ERODING MATERIAL";
+
+    }
+  );
+
+  window.addEventListener(
+    "mouseleave",
+    () => {
+
+      mouse.active =
+        false;
+
+      status.textContent =
+        "MOVE ACROSS THE TYPE";
+
+    }
+  );
+
+  /* =======================================================
+     CLICK
+  ======================================================= */
+
+  stage.addEventListener(
+    "click",
+    () => {
+
+      if (
+        automaticErosion
+      ) return;
+
+      automaticErosion =
+        true;
+
+      status.textContent =
+        "EROSION WAVE";
+
+      erosionProgress =
+        0;
+
+      gsap.to(
+        {
+          value: 0
+        },
+        {
+          value: width + 200,
+
+          duration: 2.3,
+
+          ease: "power2.inOut",
+
+          onUpdate: function () {
+
+            erosionProgress =
+              this.targets()[0].value;
+
+          },
+
+          onComplete: () => {
+
+            status.textContent =
+              "REBUILDING";
+
+            rebuild();
+
+          }
+
+        }
+      );
+
+    }
+  );
 
 /* =========================================================
    REFRESH
