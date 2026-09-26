@@ -14789,6 +14789,64 @@ JS animates every word toward these positions.
   pointer-events: none;
 }
 
+/* =========================================================
+   HEADER
+========================================================= */
+
+.ero71-header {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 9px;
+
+  letter-spacing: .28em;
+
+  opacity: .38;
+
+  z-index: 20;
+}
+
+/* =========================================================
+   SCENE
+========================================================= */
+
+.ero71-scene {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================================================
+   CANVAS
+========================================================= */
+
+.ero71-canvas {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 5;
+
+  pointer-events: none;
+}
 
 
 
