@@ -26763,6 +26763,100 @@ magnet62Stage.addEventListener("click", () => {
     }
   );
 
+   /* =======================================================
+     REBUILD
+  ======================================================= */
+
+  function rebuild() {
+
+    gsap.delayedCall(
+      .25,
+      () => {
+
+        particles.forEach(
+          p => {
+
+            p.erosion = 1;
+
+            p.vx =
+              (Math.random() - .5) *
+              2;
+
+            p.vy =
+              (Math.random() - .5) *
+              2;
+
+          }
+        );
+
+        gsap.to(
+          {
+            value: 0
+          },
+          {
+
+            value: 1,
+
+            duration: 2.4,
+
+            ease: "expo.out",
+
+            onUpdate:
+              function () {
+
+                const progress =
+                  this.targets()
+                    [0]
+                    .value;
+
+                particles.forEach(
+                  p => {
+
+                    p.erosion =
+                      1 -
+                      progress;
+
+                  }
+                );
+
+              },
+
+            onComplete: () => {
+
+              particles.forEach(
+                p => {
+
+                  p.x =
+                    p.baseX;
+
+                  p.y =
+                    p.baseY;
+
+                  p.vx = 0;
+                  p.vy = 0;
+
+                  p.erosion = 0;
+
+                }
+              );
+
+              automaticErosion =
+                false;
+
+              status.textContent =
+                "MOVE ACROSS THE TYPE";
+
+            }
+
+          }
+        );
+
+      }
+    );
+
+  }
+
+
 /* =========================================================
    REFRESH
 ========================================================= */
