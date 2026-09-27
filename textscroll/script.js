@@ -28180,6 +28180,143 @@ magnet62Stage.addEventListener("click", () => {
         );
 
         ctx.shadowBlur = 0;
+
+/* =================================================
+           VAPOR TRAILS
+        ================================================= */
+
+        if (
+          heat > .45 &&
+          p.seed > .72
+        ) {
+
+          ctx.beginPath();
+
+          ctx.moveTo(
+            p.x,
+            p.y
+          );
+
+          ctx.lineTo(
+            p.x -
+            p.vx * 3,
+
+            p.y -
+            p.vy * 3
+          );
+
+          ctx.strokeStyle =
+            `rgba(
+              255,
+              255,
+              255,
+              ${heat * .12}
+            )`;
+
+          ctx.lineWidth =
+            .6;
+
+          ctx.stroke();
+
+        }
+
+      }
+    );
+
+    /* =====================================================
+       COUNTER
+    ===================================================== */
+
+    counter.textContent =
+      `${String(
+        vaporCount
+      ).padStart(5, "0")} / ${String(
+        totalParticles
+      ).padStart(5, "0")}`;
+
+    /* =====================================================
+       CURSOR
+    ===================================================== */
+
+    if (!mobile) {
+
+      gsap.to(
+        cursor,
+        {
+
+          x: mouse.targetX,
+          y: mouse.targetY,
+
+          duration: .18,
+
+          ease: "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+      gsap.to(
+        ring,
+        {
+
+          x: mouse.targetX,
+          y: mouse.targetY,
+
+          duration: .45,
+
+          ease: "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+    }
+
+    /* =====================================================
+       GRID PARALLAX
+    ===================================================== */
+
+    const grid =
+      stage.querySelector(
+        ".vap72-grid"
+      );
+
+    if (grid) {
+
+      const gx =
+        (
+          mouse.x -
+          width / 2
+        ) /
+        width *
+        -24;
+
+      const gy =
+        (
+          mouse.y -
+          height / 2
+        ) /
+        height *
+        -24;
+
+      grid.style.transform =
+        `translate(
+          ${gx}px,
+          ${gy}px
+        )`;
+
+    }
+
+  }
+
+
+
+
+
+
+
 /* =========================================================
    REFRESH
 ========================================================= */
