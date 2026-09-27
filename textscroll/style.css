@@ -15659,7 +15659,168 @@ JS animates every word toward these positions.
       ).padStart(5, "0")}`;
 
   }
+ /* =======================================================
+     MOUSE EVENTS
+  ======================================================= */
 
+  window.addEventListener(
+    "mousemove",
+    e => {
+
+      mouse.targetX =
+        e.clientX;
+
+      mouse.targetY =
+        e.clientY;
+
+      mouse.active =
+        true;
+
+      if (!vaporizing) {
+
+        status.textContent =
+          "HEAT FIELD ACTIVE";
+
+      }
+
+    }
+  );
+
+  window.addEventListener(
+    "mouseleave",
+    () => {
+
+      mouse.active =
+        false;
+
+      if (!vaporizing) {
+
+        status.textContent =
+          "MOVE THROUGH THE HEAT";
+
+      }
+
+    }
+  );
+
+  /* =======================================================
+     CLICK — TOTAL VAPORIZATION
+  ======================================================= */
+
+  stage.addEventListener(
+    "click",
+    () => {
+
+      if (vaporizing) return;
+
+      vaporizing =
+        true;
+
+      vaporWave = 0;
+
+      status.textContent =
+        "VAPORIZATION";
+
+      gsap.to(
+        {
+          value: 0
+        },
+        {
+
+          value: width + 200,
+
+          duration: 2.1,
+
+          ease: "power2.inOut",
+
+          onUpdate: function () {
+
+            vaporWave =
+              this.targets()[0].value;
+
+          },
+
+          onComplete: () => {
+
+            status.textContent =
+              "CONDENSING";
+
+            condense();
+
+          }
+
+        }
+      );
+
+    }
+  );
+
+  /* =======================================================
+     CONDENSE
+  ======================================================= */
+
+  function condense() {
+
+    gsap.to(
+      {
+        value: 1
+      },
+      {
+
+        value: 0,
+
+        duration: 2.6,
+
+        ease: "expo.out",
+
+        onUpdate: function () {
+
+          const amount =
+            this.targets()[0].value;
+
+          particles.forEach(
+            p => {
+
+              p.vapor =
+                amount;
+
+            }
+          );
+
+        },
+
+        onComplete: () => {
+
+          particles.forEach(
+            p => {
+
+              p.x =
+                p.baseX;
+
+              p.y =
+                p.baseY;
+
+              p.vx = 0;
+              p.vy = 0;
+
+              p.heat = 0;
+              p.vapor = 0;
+
+            }
+          );
+
+          vaporizing =
+            false;
+
+          status.textContent =
+            "MOVE THROUGH THE HEAT";
+
+        }
+
+      }
+    );
+
+  }
 
 
 
