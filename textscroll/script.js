@@ -27349,6 +27349,339 @@ magnet62Stage.addEventListener("click", () => {
 
 })();
 
+/* =========================================================
+   SECTION 72 — VAPORIZE ENGINE
+========================================================= */
+
+(() => {
+
+  const stage =
+    document.getElementById("vap72Stage");
+
+  const canvas =
+    document.getElementById("vap72Canvas");
+
+  const cursor =
+    document.getElementById("vap72Cursor");
+
+  const ring =
+    document.getElementById("vap72Ring");
+
+  const status =
+    document.getElementById("vap72Status");
+
+  const counter =
+    document.getElementById("vap72Counter");
+
+  if (!stage || !canvas) return;
+
+  const ctx =
+    canvas.getContext("2d");
+
+  const mobile =
+    window.matchMedia(
+      "(max-width: 768px)"
+    ).matches;
+
+  const GAP =
+    mobile ? 5 : 3;
+
+  const MAX_PARTICLES =
+    mobile ? 4200 : 8500;
+
+  const HEAT_RADIUS =
+    mobile ? 50 : 72;
+
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+
+  const particles = [];
+
+  let totalParticles = 0;
+
+  /* =======================================================
+     MOUSE
+  ======================================================= */
+
+  const mouse = {
+
+    x: 0,
+    y: 0,
+
+    targetX: 0,
+    targetY: 0,
+
+    previousX: 0,
+    previousY: 0,
+
+    speed: 0,
+
+    active: false
+
+  };
+
+  let vaporizing = false;
+
+  let vaporWave = 0;
+
+  /* =======================================================
+     RESIZE
+  ======================================================= */
+
+  function resize() {
+
+    width =
+      stage.clientWidth;
+
+    height =
+      stage.clientHeight;
+
+    dpr =
+      Math.min(
+        window.devicePixelRatio || 1,
+        2
+      );
+
+    canvas.width =
+      width * dpr;
+
+    canvas.height =
+      height * dpr;
+
+    canvas.style.width =
+      width + "px";
+
+    canvas.style.height =
+      height + "px";
+
+    ctx.setTransform(
+      dpr,
+      0,
+      0,
+      dpr,
+      0,
+      0
+    );
+
+    mouse.x =
+      width / 2;
+
+    mouse.y =
+      height / 2;
+
+    mouse.targetX =
+      width / 2;
+
+    mouse.targetY =
+      height / 2;
+
+    mouse.previousX =
+      width / 2;
+
+    mouse.previousY =
+      height / 2;
+
+    createParticles();
+
+  }
+
+  window.addEventListener(
+    "resize",
+    resize
+  );
+
+  /* =======================================================
+     CREATE TEXT PARTICLES
+  ======================================================= */
+
+  function createParticles() {
+
+    particles.length = 0;
+
+    const sample =
+      document.createElement("canvas");
+
+    const sampleCtx =
+      sample.getContext("2d");
+
+    sample.width =
+      width;
+
+    sample.height =
+      height;
+
+    let fontSize =
+      Math.min(
+        width * .17,
+        245
+      );
+
+    sampleCtx.font =
+      `900 ${fontSize}px Arial`;
+
+    while (
+      sampleCtx.measureText("VAPORIZE").width >
+      width * .82
+    ) {
+
+      fontSize -= 2;
+
+      sampleCtx.font =
+        `900 ${fontSize}px Arial`;
+
+    }
+
+    sampleCtx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+    sampleCtx.fillStyle =
+      "#fff";
+
+    sampleCtx.textAlign =
+      "center";
+
+    sampleCtx.textBaseline =
+      "middle";
+
+    sampleCtx.fillText(
+      "VAPORIZE",
+      width / 2,
+      height / 2
+    );
+
+    const image =
+      sampleCtx.getImageData(
+        0,
+        0,
+        width,
+        height
+      ).data;
+
+    const points = [];
+
+    for (
+      let y = 0;
+      y < height;
+      y += GAP
+    ) {
+
+      for (
+        let x = 0;
+        x < width;
+        x += GAP
+      ) {
+
+        const index =
+          (
+            y * width +
+            x
+          ) * 4;
+
+        if (
+          image[index + 3] > 100
+        ) {
+
+          points.push({
+            x,
+            y
+          });
+
+        }
+
+      }
+
+    }
+
+    let selected =
+      points;
+
+    if (
+      points.length >
+      MAX_PARTICLES
+    ) {
+
+      selected = [];
+
+      const step =
+        points.length /
+        MAX_PARTICLES;
+
+      for (
+        let i = 0;
+        i < MAX_PARTICLES;
+        i++
+      ) {
+
+        selected.push(
+          points[
+            Math.floor(
+              i * step
+            )
+          ]
+        );
+
+      }
+
+    }
+
+    selected.forEach(
+      point => {
+
+        particles.push({
+
+          x: point.x,
+          y: point.y,
+
+          baseX: point.x,
+          baseY: point.y,
+
+          vx: 0,
+          vy: 0,
+
+          heat: 0,
+
+          vapor: 0,
+
+          size:
+            .8 +
+            Math.random() * 1.5,
+
+          alpha:
+            .55 +
+            Math.random() * .45,
+
+          seed:
+            Math.random(),
+
+          phase:
+            Math.random() *
+            Math.PI * 2,
+
+          rise:
+            .3 +
+            Math.random() * .9
+
+        });
+
+      }
+    );
+
+    totalParticles =
+      particles.length;
+
+    counter.textContent =
+      `00000 / ${String(
+        totalParticles
+      ).padStart(5, "0")}`;
+
+  }
+
+
 
 /* =========================================================
    REFRESH
