@@ -27959,7 +27959,227 @@ magnet62Stage.addEventListener("click", () => {
 
         }
 
+/* =================================================
+           AUTOMATIC VAPORIZATION WAVE
+        ================================================= */
 
+        if (vaporizing) {
+
+          const distance =
+            Math.abs(
+              p.baseX -
+              vaporWave
+            );
+
+          const waveRadius =
+            HEAT_RADIUS * 1.8;
+
+          if (
+            distance <
+            waveRadius
+          ) {
+
+            const intensity =
+              1 -
+              distance /
+              waveRadius;
+
+            p.heat +=
+              intensity * .09;
+
+            p.heat =
+              Math.min(
+                p.heat,
+                1
+              );
+
+          }
+
+        }
+
+        /* =================================================
+           COOL DOWN
+        ================================================= */
+
+        if (
+          !vaporizing &&
+          (
+            !mouse.active ||
+            localHeat === 0
+          )
+        ) {
+
+          p.heat -=
+            .006;
+
+        }
+
+        p.heat =
+          Math.max(
+            0,
+            Math.min(
+              1,
+              p.heat
+            )
+          );
+
+        /* =================================================
+           VAPOR MOTION
+        ================================================= */
+
+        const heat =
+          p.heat;
+
+        if (heat > .03) {
+
+          p.vx +=
+            (
+              Math.sin(
+                p.phase +
+                performance.now() * .001
+              ) *
+              .018
+            ) *
+            heat;
+
+          p.vy -=
+            (
+              .035 +
+              p.rise * .035
+            ) *
+            heat;
+
+          p.vx +=
+            (
+              Math.random() -
+              .5
+            ) *
+            heat *
+            .025;
+
+          p.vy +=
+            (
+              Math.random() -
+              .5
+            ) *
+            heat *
+            .015;
+
+        }
+
+        /* =================================================
+           RETURN TO FORM
+        ================================================= */
+
+        const returnForce =
+          vaporizing
+            ? .003
+            : .018;
+
+        p.vx +=
+          (
+            p.baseX -
+            p.x
+          ) *
+          returnForce *
+          (1 - heat);
+
+        p.vy +=
+          (
+            p.baseY -
+            p.y
+          ) *
+          returnForce *
+          (1 - heat);
+
+        p.vx *=
+          .92;
+
+        p.vy *=
+          .92;
+
+        p.x +=
+          p.vx;
+
+        p.y +=
+          p.vy;
+
+        /* =================================================
+           VISIBILITY
+        ================================================= */
+
+        const visibility =
+          Math.max(
+            .035,
+            1 -
+            heat * .88
+          );
+
+        if (
+          heat > .1
+        ) {
+
+          vaporCount++;
+
+        }
+
+        /* =================================================
+           PARTICLE SIZE
+        ================================================= */
+
+        const size =
+          p.size *
+          (
+            1 +
+            heat * 1.2
+          );
+
+        const alpha =
+          p.alpha *
+          visibility;
+
+        /* =================================================
+           HEAT GLOW
+        ================================================= */
+
+        if (
+          heat > .2
+        ) {
+
+          ctx.shadowBlur =
+            5 +
+            heat * 8;
+
+          ctx.shadowColor =
+            `rgba(
+              255,
+              255,
+              255,
+              ${heat * .35}
+            )`;
+
+        } else {
+
+          ctx.shadowBlur = 0;
+
+        }
+
+        ctx.fillStyle =
+          `rgba(
+            255,
+            255,
+            255,
+            ${alpha}
+          )`;
+
+        ctx.fillRect(
+          p.x,
+          p.y,
+          size,
+          size
+        );
+
+        ctx.shadowBlur = 0;
 /* =========================================================
    REFRESH
 ========================================================= */
