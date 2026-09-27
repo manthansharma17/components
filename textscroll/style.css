@@ -15330,7 +15330,81 @@ JS animates every word toward these positions.
     bottom: 22px;
   }
 }
+/* =========================================================
+   SECTION 72 — VAPORIZE ENGINE
+========================================================= */
 
+(() => {
+
+  const stage =
+    document.getElementById("vap72Stage");
+
+  const canvas =
+    document.getElementById("vap72Canvas");
+
+  const cursor =
+    document.getElementById("vap72Cursor");
+
+  const ring =
+    document.getElementById("vap72Ring");
+
+  const status =
+    document.getElementById("vap72Status");
+
+  const counter =
+    document.getElementById("vap72Counter");
+
+  if (!stage || !canvas) return;
+
+  const ctx =
+    canvas.getContext("2d");
+
+  const mobile =
+    window.matchMedia(
+      "(max-width: 768px)"
+    ).matches;
+
+  const GAP =
+    mobile ? 5 : 3;
+
+  const MAX_PARTICLES =
+    mobile ? 4200 : 8500;
+
+  const HEAT_RADIUS =
+    mobile ? 50 : 72;
+
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+
+  const particles = [];
+
+  let totalParticles = 0;
+
+  /* =======================================================
+     MOUSE
+  ======================================================= */
+
+  const mouse = {
+
+    x: 0,
+    y: 0,
+
+    targetX: 0,
+    targetY: 0,
+
+    previousX: 0,
+    previousY: 0,
+
+    speed: 0,
+
+    active: false
+
+  };
+
+  let vaporizing = false;
+
+  let vaporWave = 0;
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
