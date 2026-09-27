@@ -27680,6 +27680,101 @@ magnet62Stage.addEventListener("click", () => {
       ).padStart(5, "0")}`;
 
   }
+/* =======================================================
+     MOUSE EVENTS
+  ======================================================= */
+
+  window.addEventListener(
+    "mousemove",
+    e => {
+
+      mouse.targetX =
+        e.clientX;
+
+      mouse.targetY =
+        e.clientY;
+
+      mouse.active =
+        true;
+
+      if (!vaporizing) {
+
+        status.textContent =
+          "HEAT FIELD ACTIVE";
+
+      }
+
+    }
+  );
+
+  window.addEventListener(
+    "mouseleave",
+    () => {
+
+      mouse.active =
+        false;
+
+      if (!vaporizing) {
+
+        status.textContent =
+          "MOVE THROUGH THE HEAT";
+
+      }
+
+    }
+  );
+
+  /* =======================================================
+     CLICK — TOTAL VAPORIZATION
+  ======================================================= */
+
+  stage.addEventListener(
+    "click",
+    () => {
+
+      if (vaporizing) return;
+
+      vaporizing =
+        true;
+
+      vaporWave = 0;
+
+      status.textContent =
+        "VAPORIZATION";
+
+      gsap.to(
+        {
+          value: 0
+        },
+        {
+
+          value: width + 200,
+
+          duration: 2.1,
+
+          ease: "power2.inOut",
+
+          onUpdate: function () {
+
+            vaporWave =
+              this.targets()[0].value;
+
+          },
+
+          onComplete: () => {
+
+            status.textContent =
+              "CONDENSING";
+
+            condense();
+
+          }
+
+        }
+      );
+
+    }
+  );
 
 
 
