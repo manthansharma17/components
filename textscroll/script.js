@@ -27776,6 +27776,188 @@ magnet62Stage.addEventListener("click", () => {
     }
   );
 
+/* =======================================================
+     CONDENSE
+  ======================================================= */
+
+  function condense() {
+
+    gsap.to(
+      {
+        value: 1
+      },
+      {
+
+        value: 0,
+
+        duration: 2.6,
+
+        ease: "expo.out",
+
+        onUpdate: function () {
+
+          const amount =
+            this.targets()[0].value;
+
+          particles.forEach(
+            p => {
+
+              p.vapor =
+                amount;
+
+            }
+          );
+
+        },
+
+        onComplete: () => {
+
+          particles.forEach(
+            p => {
+
+              p.x =
+                p.baseX;
+
+              p.y =
+                p.baseY;
+
+              p.vx = 0;
+              p.vy = 0;
+
+              p.heat = 0;
+              p.vapor = 0;
+
+            }
+          );
+
+          vaporizing =
+            false;
+
+          status.textContent =
+            "MOVE THROUGH THE HEAT";
+
+        }
+
+      }
+    );
+
+  }
+
+  /* =======================================================
+     RENDER
+  ======================================================= */
+
+  function render() {
+
+    requestAnimationFrame(render);
+
+    mouse.x +=
+      (
+        mouse.targetX -
+        mouse.x
+      ) * .1;
+
+    mouse.y +=
+      (
+        mouse.targetY -
+        mouse.y
+      ) * .1;
+
+    const mdx =
+      mouse.x -
+      mouse.previousX;
+
+    const mdy =
+      mouse.y -
+      mouse.previousY;
+
+    const movement =
+      Math.sqrt(
+        mdx * mdx +
+        mdy * mdy
+      );
+
+    mouse.speed +=
+      (
+        movement -
+        mouse.speed
+      ) * .12;
+
+    mouse.previousX =
+      mouse.x;
+
+    mouse.previousY =
+      mouse.y;
+
+    ctx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+    let vaporCount = 0;
+
+    particles.forEach(
+      p => {
+
+        /* =================================================
+           HEAT FIELD
+        ================================================= */
+
+        let localHeat = 0;
+
+        if (
+          mouse.active &&
+          !vaporizing
+        ) {
+
+          const dx =
+            p.baseX -
+            mouse.x;
+
+          const dy =
+            p.baseY -
+            mouse.y;
+
+          const distance =
+            Math.sqrt(
+              dx * dx +
+              dy * dy
+            );
+
+          if (
+            distance <
+            HEAT_RADIUS
+          ) {
+
+            const intensity =
+              1 -
+              distance /
+              HEAT_RADIUS;
+
+            localHeat =
+              intensity *
+              (
+                .7 +
+                Math.min(
+                  mouse.speed * .035,
+                  1.6
+                )
+              );
+
+            p.heat +=
+              localHeat * .035;
+
+            p.heat =
+              Math.min(
+                p.heat,
+                1
+              );
+
+          }
+
+        }
 
 
 /* =========================================================
