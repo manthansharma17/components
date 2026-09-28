@@ -28684,7 +28684,112 @@ magnet62Stage.addEventListener("click", () => {
     }
   );
 
-  
+   /* =======================================================
+     CLICK — LIQUID SHOCKWAVE
+  ======================================================= */
+
+  stage.addEventListener(
+    "click",
+    e => {
+
+      shockwave = 1;
+
+      shockPower = 1;
+
+      status.textContent =
+        "LIQUID SHOCKWAVE";
+
+      gsap.fromTo(
+        { value: 0 },
+        {
+          value: 1
+        },
+        {
+          value: 0,
+
+          duration: 2.4,
+
+          ease: "expo.out",
+
+          onUpdate: function () {
+
+            shockwave =
+              this.targets()[0].value;
+
+          },
+
+          onComplete: () => {
+
+            status.textContent =
+              "MOVE THROUGH THE LIQUID";
+
+          }
+        }
+      );
+
+    }
+  );
+
+  /* =======================================================
+     RENDER
+  ======================================================= */
+
+  function render() {
+
+    requestAnimationFrame(
+      render
+    );
+
+    mouse.x +=
+      (
+        mouse.targetX -
+        mouse.x
+      ) * .1;
+
+    mouse.y +=
+      (
+        mouse.targetY -
+        mouse.y
+      ) * .1;
+
+    const dx =
+      mouse.x -
+      mouse.previousX;
+
+    const dy =
+      mouse.y -
+      mouse.previousY;
+
+    const movement =
+      Math.sqrt(
+        dx * dx +
+        dy * dy
+      );
+
+    mouse.speed +=
+      (
+        movement -
+        mouse.speed
+      ) * .12;
+
+    mouse.previousX =
+      mouse.x;
+
+    mouse.previousY =
+      mouse.y;
+
+    ctx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+    let distorted = 0;
+
+    const time =
+      performance.now() * .001;
+
 
 
 
