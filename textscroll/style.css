@@ -15502,7 +15502,101 @@ JS animates every word toward these positions.
 
   z-index: 2;
 }
+/* =========================================================
+   CURSOR
+========================================================= */
 
+.liq73-cursor {
+  position: fixed;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 50;
+
+  mix-blend-mode: difference;
+}
+
+.liq73-ring {
+  position: fixed;
+
+  width: 64px;
+  height: 64px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.4);
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 49;
+
+  mix-blend-mode: difference;
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.liq73-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform:
+    translateX(-50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .32em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 20;
+}
+
+/* =========================================================
+   COUNTER
+========================================================= */
+
+.liq73-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .16em;
+
+  opacity: .22;
+
+  z-index: 20;
+}
 
 
 
