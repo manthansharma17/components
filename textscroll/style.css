@@ -15598,7 +15598,48 @@ JS animates every word toward these positions.
   z-index: 20;
 }
 
+/* =========================================================
+   MOBILE
+========================================================= */
 
+@media (max-width: 768px) {
+
+  .liq73-header {
+    top: 22px;
+
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .liq73-grid {
+    background-size: 50px 50px;
+  }
+
+  .liq73-ghost {
+    font-size:
+      clamp(
+        3.2rem,
+        18vw,
+        8rem
+      );
+  }
+
+  .liq73-cursor,
+  .liq73-ring {
+    display: none;
+  }
+
+  .liq73-status {
+    bottom: 22px;
+  }
+
+  .liq73-counter {
+    right: 20px;
+    bottom: 22px;
+  }
+}
 
 
 /* =========================================================
