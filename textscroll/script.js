@@ -29056,7 +29056,177 @@ magnet62Stage.addEventListener("click", () => {
             )
           );
 
+        const distortion =
+          Math.min(
+            displacement / 35,
+            1
+          );
 
+        /* =================================================
+           PARTICLE DRAW
+        ================================================= */
+
+        const size =
+          p.size +
+          distortion * 1.2;
+
+        const alpha =
+          p.alpha;
+
+        ctx.fillStyle =
+          `rgba(
+            255,
+            255,
+            255,
+            ${alpha}
+          )`;
+
+        ctx.fillRect(
+          p.x,
+          p.y,
+          size,
+          size
+        );
+
+        /* =================================================
+           LIQUID TRAIL
+        ================================================= */
+
+        if (
+          distortion > .35 &&
+          p.seed > .65
+        ) {
+
+          ctx.beginPath();
+
+          ctx.moveTo(
+            p.x,
+            p.y
+          );
+
+          ctx.lineTo(
+            p.x -
+            p.vx * 5,
+
+            p.y -
+            p.vy * 5
+          );
+
+          ctx.strokeStyle =
+            `rgba(
+              255,
+              255,
+              255,
+              ${distortion * .14}
+            )`;
+
+          ctx.lineWidth =
+            .6;
+
+          ctx.stroke();
+
+        }
+
+      }
+    );
+
+    /* =====================================================
+       COUNTER
+    ===================================================== */
+
+    counter.textContent =
+      `${String(
+        distorted
+      ).padStart(5, "0")} / ${String(
+        totalParticles
+      ).padStart(5, "0")}`;
+
+    /* =====================================================
+       CURSOR
+    ===================================================== */
+
+    if (!mobile) {
+
+      gsap.to(
+        cursor,
+        {
+
+          x: mouse.targetX,
+          y: mouse.targetY,
+
+          duration: .16,
+
+          ease: "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+      gsap.to(
+        ring,
+        {
+
+          x: mouse.targetX,
+          y: mouse.targetY,
+
+          duration: .45,
+
+          ease: "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+    }
+
+    /* =====================================================
+       GRID PARALLAX
+    ===================================================== */
+
+    const grid =
+      stage.querySelector(
+        ".liq73-grid"
+      );
+
+    if (grid) {
+
+      const gx =
+        (
+          mouse.x -
+          width / 2
+        ) /
+        width *
+        -25;
+
+      const gy =
+        (
+          mouse.y -
+          height / 2
+        ) /
+        height *
+        -25;
+
+      grid.style.transform =
+        `translate(
+          ${gx}px,
+          ${gy}px
+        )`;
+
+    }
+
+  }
+
+  /* =======================================================
+     INIT
+  ======================================================= */
+
+  resize();
+
+  render();
+
+})();
 /* =========================================================
    REFRESH
 ========================================================= */
