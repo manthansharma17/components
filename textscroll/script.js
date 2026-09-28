@@ -28791,7 +28791,78 @@ magnet62Stage.addEventListener("click", () => {
       performance.now() * .001;
 
 
+/* =====================================================
+       PARTICLES
+    ===================================================== */
 
+    particles.forEach(
+      p => {
+
+        let forceX = 0;
+        let forceY = 0;
+
+        /* =================================================
+           CURSOR LIQUID FIELD
+        ================================================= */
+
+        if (mouse.active) {
+
+          const dx =
+            p.baseX -
+            mouse.x;
+
+          const dy =
+            p.baseY -
+            mouse.y;
+
+          const distance =
+            Math.sqrt(
+              dx * dx +
+              dy * dy
+            );
+
+          if (
+            distance <
+            LIQUID_RADIUS
+          ) {
+
+            const strength =
+              1 -
+              distance /
+              LIQUID_RADIUS;
+
+            const safeDistance =
+              Math.max(
+                distance,
+                .001
+              );
+
+            const nx =
+              dx /
+              safeDistance;
+
+            const ny =
+              dy /
+              safeDistance;
+
+            /* ---------------------------------------------
+               SIDEWAYS LIQUID FLOW
+            --------------------------------------------- */
+
+            const flow =
+              strength *
+              (
+                .35 +
+                mouse.speed * .045
+              );
+
+            forceX +=
+              -ny *
+              flow;
+
+            forceY +=
+              nx *
+              flow;
 
 
 /* =========================================================
