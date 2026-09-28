@@ -28863,7 +28863,127 @@ magnet62Stage.addEventListener("click", () => {
             forceY +=
               nx *
               flow;
+ /* ---------------------------------------------
+               CURSOR PUSH
+            --------------------------------------------- */
 
+            const push =
+              strength *
+              mouse.speed *
+              .025;
+
+            forceX +=
+              nx *
+              push;
+
+            forceY +=
+              ny *
+              push;
+
+            /* ---------------------------------------------
+               WAVE DISTORTION
+            --------------------------------------------- */
+
+            const wave =
+              Math.sin(
+                distance * .09 -
+                time * 6
+              ) *
+              strength *
+              (
+                .5 +
+                mouse.speed * .025
+              );
+
+            forceX +=
+              nx * wave;
+
+            forceY +=
+              ny * wave;
+
+            distorted++;
+
+          }
+
+        }
+
+        /* =================================================
+           CLICK SHOCKWAVE
+        ================================================= */
+
+        if (shockwave > .001) {
+
+          const centerX =
+            width / 2;
+
+          const centerY =
+            height / 2;
+
+          const dx =
+            p.baseX -
+            centerX;
+
+          const dy =
+            p.baseY -
+            centerY;
+
+          const distance =
+            Math.sqrt(
+              dx * dx +
+              dy * dy
+            );
+
+          const waveRadius =
+            shockwave *
+            Math.max(
+              width,
+              height
+            );
+
+          const difference =
+            Math.abs(
+              distance -
+              waveRadius
+            );
+
+          if (
+            difference <
+            100
+          ) {
+
+            const intensity =
+              1 -
+              difference / 100;
+
+            const safeDistance =
+              Math.max(
+                distance,
+                .001
+              );
+
+            const nx =
+              dx /
+              safeDistance;
+
+            const ny =
+              dy /
+              safeDistance;
+
+            forceX +=
+              nx *
+              intensity *
+              4;
+
+            forceY +=
+              ny *
+              intensity *
+              4;
+
+            distorted++;
+
+          }
+
+        }
 
 /* =========================================================
    REFRESH
