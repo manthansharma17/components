@@ -15640,6 +15640,41 @@ JS animates every word toward these positions.
     bottom: 22px;
   }
 }
+/* =========================================================
+   SECTION 74 — LIQUID MIRROR
+========================================================= */
+
+.section-seventy-four {
+  position: relative;
+
+  width: 100%;
+  height: 100dvh;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 38%,
+      #171717 0%,
+      #090909 48%,
+      #000 100%
+    );
+
+  color: #fff;
+}
+
+.mir74-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  cursor: crosshair;
+}
 
 
 /* =========================================================
