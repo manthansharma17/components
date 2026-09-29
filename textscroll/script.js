@@ -29572,7 +29572,263 @@ magnet62Stage.addEventListener("click", () => {
 
   }
 
+ /* =======================================================
+     MOUSE
+  ======================================================= */
 
+  window.addEventListener(
+    "mousemove",
+    e => {
+
+      mouse.targetX =
+        e.clientX;
+
+      mouse.targetY =
+        e.clientY;
+
+      mouse.active =
+        true;
+
+      status.textContent =
+        "SURFACE DISTURBED";
+
+    }
+  );
+
+  window.addEventListener(
+    "mouseleave",
+    () => {
+
+      mouse.active =
+        false;
+
+      status.textContent =
+        "MOVE ACROSS THE SURFACE";
+
+    }
+  );
+
+  /* =======================================================
+     CLICK — GLOBAL RIPPLE
+  ======================================================= */
+
+  stage.addEventListener(
+    "click",
+    e => {
+
+      ripples.push({
+
+        x: e.clientX,
+        y: e.clientY,
+
+        radius: 0,
+
+        strength: 1
+
+      });
+
+      status.textContent =
+        "MIRROR WAVE";
+
+      gsap.to(
+        {},
+        {
+          duration: 1.8,
+
+          onComplete: () => {
+
+            status.textContent =
+              "MOVE ACROSS THE SURFACE";
+
+          }
+        }
+      );
+
+    }
+  );
+
+  /* =======================================================
+     RENDER
+  ======================================================= */
+
+  function render() {
+
+    requestAnimationFrame(
+      render
+    );
+
+    mouse.x +=
+      (
+        mouse.targetX -
+        mouse.x
+      ) * .1;
+
+    mouse.y +=
+      (
+        mouse.targetY -
+        mouse.y
+      ) * .1;
+
+    const mdx =
+      mouse.x -
+      mouse.previousX;
+
+    const mdy =
+      mouse.y -
+      mouse.previousY;
+
+    const movement =
+      Math.sqrt(
+        mdx * mdx +
+        mdy * mdy
+      );
+
+    mouse.speed +=
+      (
+        movement -
+        mouse.speed
+      ) * .12;
+
+    mouse.previousX =
+      mouse.x;
+
+    mouse.previousY =
+      mouse.y;
+
+    ctx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+    const time =
+      performance.now() *
+      .001;
+
+    let distorted = 0;
+
+    /* =====================================================
+       RIPPLE UPDATE
+    ===================================================== */
+
+    ripples.forEach(
+      ripple => {
+
+        ripple.radius += 12;
+
+        ripple.strength *= .965;
+
+      }
+    );
+
+    while (
+      ripples.length &&
+      (
+        ripples[0].strength <
+        .015
+      )
+    ) {
+
+      ripples.shift();
+
+    }
+
+    /* =====================================================
+       PARTICLES
+    ===================================================== */
+
+    particles.forEach(
+      p => {
+
+        let fx = 0;
+        let fy = 0;
+
+        /* =================================================
+           CURSOR RIPPLE
+        ================================================= */
+
+        if (mouse.active) {
+
+          const dx =
+            p.baseX -
+            mouse.x;
+
+          const dy =
+            p.baseY -
+            mouse.y;
+
+          const distance =
+            Math.sqrt(
+              dx * dx +
+              dy * dy
+            );
+
+          if (
+            distance <
+            RIPPLE_RADIUS
+          ) {
+
+            const strength =
+              1 -
+              distance /
+              RIPPLE_RADIUS;
+
+            const wave =
+              Math.sin(
+                distance * .14 -
+                time * 7
+              );
+
+            const force =
+              wave *
+              strength *
+              (
+                .8 +
+                mouse.speed * .025
+              );
+
+            const safe =
+              Math.max(
+                distance,
+                .001
+              );
+
+            fx +=
+              (
+                dx / safe
+              ) *
+              force;
+
+            fy +=
+              (
+                dy / safe
+              ) *
+              force;
+
+            /* SIDE FLOW */
+
+            fx +=
+              -(
+                dy / safe
+              ) *
+              strength *
+              mouse.speed *
+              .025;
+
+            fy +=
+              (
+                dx / safe
+              ) *
+              strength *
+              mouse.speed *
+              .025;
+
+            distorted++;
+
+          }
+
+        }
 
 
 
