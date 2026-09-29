@@ -30006,7 +30006,244 @@ magnet62Stage.addEventListener("click", () => {
           p.size +
           distortion * 1.4
         );
+ /* =================================================
+           REFLECTIVE TRAIL
+        ================================================= */
 
+        if (
+          distortion > .2
+        ) {
+
+          ctx.beginPath();
+
+          ctx.moveTo(
+            p.x,
+            p.y
+          );
+
+          ctx.lineTo(
+            p.x -
+            p.vx * 7,
+
+            p.y -
+            p.vy * 7
+          );
+
+          ctx.strokeStyle =
+            `rgba(
+              255,
+              255,
+              255,
+              ${distortion * .15}
+            )`;
+
+          ctx.lineWidth =
+            .55;
+
+          ctx.stroke();
+
+        }
+
+      }
+    );
+
+    /* =====================================================
+       REFLECTION
+    ===================================================== */
+
+    ctx.save();
+
+    ctx.globalAlpha = .11;
+
+    ctx.translate(
+      0,
+      height
+    );
+
+    ctx.scale(
+      1,
+      -1
+    );
+
+    particles.forEach(
+      p => {
+
+        const reflectionY =
+          height -
+          p.y;
+
+        const fade =
+          Math.max(
+            0,
+            1 -
+            Math.abs(
+              reflectionY -
+              height * .53
+            ) /
+            (height * .35)
+          );
+
+        if (
+          fade <= 0
+        ) return;
+
+        ctx.fillStyle =
+          `rgba(
+            255,
+            255,
+            255,
+            ${fade * .18}
+          )`;
+
+        ctx.fillRect(
+          p.x,
+          p.y,
+          p.size,
+          p.size
+        );
+
+      }
+    );
+
+    ctx.restore();
+
+    /* =====================================================
+       REFLECTION HORIZONTAL WATER LINE
+    ===================================================== */
+
+    const waterY =
+      height * .64;
+
+    const gradient =
+      ctx.createLinearGradient(
+        0,
+        waterY - 30,
+        0,
+        waterY + 100
+      );
+
+    gradient.addColorStop(
+      0,
+      "rgba(255,255,255,.08)"
+    );
+
+    gradient.addColorStop(
+      .25,
+      "rgba(255,255,255,.025)"
+    );
+
+    gradient.addColorStop(
+      1,
+      "rgba(255,255,255,0)"
+    );
+
+    ctx.fillStyle =
+      gradient;
+
+    ctx.fillRect(
+      0,
+      waterY,
+      width,
+      100
+    );
+
+    /* =====================================================
+       COUNTER
+    ===================================================== */
+
+    counter.textContent =
+      `${String(
+        distorted
+      ).padStart(5, "0")} / ${String(
+        totalParticles
+      ).padStart(5, "0")}`;
+
+    /* =====================================================
+       CURSOR
+    ===================================================== */
+
+    if (!mobile) {
+
+      gsap.to(
+        cursor,
+        {
+
+          x: mouse.targetX,
+          y: mouse.targetY,
+
+          duration: .16,
+
+          ease: "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+      gsap.to(
+        ring,
+        {
+
+          x: mouse.targetX,
+          y: mouse.targetY,
+
+          duration: .45,
+
+          ease: "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+    }
+
+    /* =====================================================
+       GRID PARALLAX
+    ===================================================== */
+
+    const grid =
+      stage.querySelector(
+        ".mir74-grid"
+      );
+
+    if (grid) {
+
+      const gx =
+        (
+          mouse.x -
+          width / 2
+        ) /
+        width *
+        -24;
+
+      const gy =
+        (
+          mouse.y -
+          height / 2
+        ) /
+        height *
+        -24;
+
+      grid.style.transform =
+        `translate(
+          ${gx}px,
+          ${gy}px
+        )`;
+
+    }
+
+  }
+
+  /* =======================================================
+     INIT
+  ======================================================= */
+
+  resize();
+
+  render();
+
+})();
 
 /* =========================================================
    REFRESH
