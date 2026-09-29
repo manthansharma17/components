@@ -15941,6 +15941,89 @@ JS animates every word toward these positions.
   }
 }
 
+/* =========================================================
+   SECTION 74 — LIQUID MIRROR ENGINE
+========================================================= */
+
+(() => {
+
+  const stage =
+    document.getElementById(
+      "mir74Stage"
+    );
+
+  const canvas =
+    document.getElementById(
+      "mir74Canvas"
+    );
+
+  const cursor =
+    document.getElementById(
+      "mir74Cursor"
+    );
+
+  const ring =
+    document.getElementById(
+      "mir74Ring"
+    );
+
+  const status =
+    document.getElementById(
+      "mir74Status"
+    );
+
+  const counter =
+    document.getElementById(
+      "mir74Counter"
+    );
+
+  if (!stage || !canvas) return;
+
+  const ctx =
+    canvas.getContext("2d");
+
+  const mobile =
+    window.matchMedia(
+      "(max-width: 768px)"
+    ).matches;
+
+  const GAP =
+    mobile ? 5 : 3;
+
+  const MAX_PARTICLES =
+    mobile ? 4200 : 8500;
+
+  const RIPPLE_RADIUS =
+    mobile ? 75 : 110;
+
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+
+  const particles = [];
+
+  let totalParticles = 0;
+
+  /* =======================================================
+     MOUSE
+  ======================================================= */
+
+  const mouse = {
+
+    x: 0,
+    y: 0,
+
+    targetX: 0,
+    targetY: 0,
+
+    previousX: 0,
+    previousY: 0,
+
+    speed: 0,
+
+    active: false
+
+  };
 
 
 
