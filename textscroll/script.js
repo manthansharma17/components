@@ -29829,7 +29829,183 @@ magnet62Stage.addEventListener("click", () => {
           }
 
         }
+   /* =================================================
+           CLICK RIPPLES
+        ================================================= */
 
+        ripples.forEach(
+          ripple => {
+
+            const dx =
+              p.baseX -
+              ripple.x;
+
+            const dy =
+              p.baseY -
+              ripple.y;
+
+            const distance =
+              Math.sqrt(
+                dx * dx +
+                dy * dy
+              );
+
+            const waveWidth =
+              80;
+
+            const difference =
+              Math.abs(
+                distance -
+                ripple.radius
+              );
+
+            if (
+              difference <
+              waveWidth
+            ) {
+
+              const intensity =
+                (
+                  1 -
+                  difference /
+                  waveWidth
+                ) *
+                ripple.strength;
+
+              const safe =
+                Math.max(
+                  distance,
+                  .001
+                );
+
+              const nx =
+                dx / safe;
+
+              const ny =
+                dy / safe;
+
+              const wave =
+                Math.sin(
+                  difference * .08
+                );
+
+              fx +=
+                nx *
+                intensity *
+                wave *
+                3;
+
+              fy +=
+                ny *
+                intensity *
+                wave *
+                3;
+
+              distorted++;
+
+            }
+
+          }
+        );
+
+        /* =================================================
+           LIQUID SINE DISTORTION
+        ================================================= */
+
+        const organic =
+          Math.sin(
+            p.baseY * .018 +
+            time * 2.4 +
+            p.phase
+          ) *
+          Math.cos(
+            p.baseX * .012 +
+            time * 1.7
+          );
+
+        fx +=
+          organic *
+          .018;
+
+        fy +=
+          organic *
+          .015;
+
+        /* =================================================
+           RETURN TO BASE
+        ================================================= */
+
+        fx +=
+          (
+            p.baseX -
+            p.x
+          ) *
+          .021;
+
+        fy +=
+          (
+            p.baseY -
+            p.y
+          ) *
+          .021;
+
+        /* =================================================
+           VELOCITY
+        ================================================= */
+
+        p.vx += fx;
+        p.vy += fy;
+
+        p.vx *= .9;
+        p.vy *= .9;
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        /* =================================================
+           DISTORTION
+        ================================================= */
+
+        const displacement =
+          Math.sqrt(
+            Math.pow(
+              p.x -
+              p.baseX,
+              2
+            ) +
+            Math.pow(
+              p.y -
+              p.baseY,
+              2
+            )
+          );
+
+        const distortion =
+          Math.min(
+            displacement / 30,
+            1
+          );
+
+        /* =================================================
+           DRAW MAIN PARTICLE
+        ================================================= */
+
+        ctx.fillStyle =
+          `rgba(
+            255,
+            255,
+            255,
+            ${p.alpha}
+          )`;
+
+        ctx.fillRect(
+          p.x,
+          p.y,
+          p.size +
+          distortion * 1.4,
+          p.size +
+          distortion * 1.4
+        );
 
 
 /* =========================================================
