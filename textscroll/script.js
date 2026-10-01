@@ -30953,7 +30953,169 @@ magnet62Stage.addEventListener("click", () => {
           Math.min(
             displacement / 25,
             1
+);
 
+        /* =================================================
+           MAIN PARTICLE
+        ================================================= */
+
+        ctx.fillStyle =
+          `rgba(
+            255,
+            255,
+            255,
+            ${p.alpha}
+          )`;
+
+        ctx.fillRect(
+          p.x,
+          p.y,
+
+          p.size +
+          distortion * 1.2,
+
+          p.size +
+          distortion * 1.2
+        );
+
+        /* =================================================
+           OSCILLATION TRAIL
+        ================================================= */
+
+        if (
+          distortion > .15
+        ) {
+
+          ctx.beginPath();
+
+          ctx.moveTo(
+            p.x,
+            p.y
+          );
+
+          ctx.lineTo(
+            p.x -
+            p.vx * 6,
+
+            p.y -
+            p.vy * 6
+          );
+
+          ctx.strokeStyle =
+            `rgba(
+              255,
+              255,
+              255,
+              ${distortion * .18}
+            )`;
+
+          ctx.lineWidth =
+            .6;
+
+          ctx.stroke();
+
+        }
+
+      }
+    );
+
+    /* =====================================================
+       COUNTER
+    ===================================================== */
+
+    counter.textContent =
+      `${String(
+        activeParticles
+      ).padStart(5, "0")} / ${String(
+        totalParticles
+      ).padStart(5, "0")}`;
+
+    /* =====================================================
+       CURSOR
+    ===================================================== */
+
+    if (!mobile) {
+
+      gsap.to(
+        cursor,
+        {
+
+          x: mouse.targetX,
+          y: mouse.targetY,
+
+          duration: .16,
+
+          ease: "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+      gsap.to(
+        ring,
+        {
+
+          x: mouse.targetX,
+          y: mouse.targetY,
+
+          duration: .45,
+
+          ease: "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+    }
+
+    /* =====================================================
+       GRID PARALLAX
+    ===================================================== */
+
+    const grid =
+      stage.querySelector(
+        ".osc75-grid"
+      );
+
+    if (grid) {
+
+      const gx =
+        (
+          mouse.x -
+          width / 2
+        ) /
+        width *
+        -25;
+
+      const gy =
+        (
+          mouse.y -
+          height / 2
+        ) /
+        height *
+        -25;
+
+      grid.style.transform =
+        `translate(
+          ${gx}px,
+          ${gy}px
+        )`;
+
+    }
+
+  }
+
+  /* =======================================================
+     INIT
+  ======================================================= */
+
+  resize();
+
+  render();
+
+})();
 
 
 
