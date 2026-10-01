@@ -30386,7 +30386,573 @@ magnet62Stage.addEventListener("click", () => {
     resize
   );
 
+ /* =======================================================
+     CREATE TYPOGRAPHY PARTICLES
+  ======================================================= */
 
+  function createParticles() {
+
+    particles.length = 0;
+
+    const sample =
+      document.createElement("canvas");
+
+    const sampleCtx =
+      sample.getContext("2d");
+
+    sample.width =
+      width;
+
+    sample.height =
+      height;
+
+    let fontSize =
+      Math.min(
+        width * .17,
+        245
+      );
+
+    sampleCtx.font =
+      `900 ${fontSize}px Arial`;
+
+    while (
+      sampleCtx.measureText(
+        "OSCILLATE"
+      ).width >
+      width * .84
+    ) {
+
+      fontSize -= 2;
+
+      sampleCtx.font =
+        `900 ${fontSize}px Arial`;
+
+    }
+
+    sampleCtx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+    sampleCtx.fillStyle =
+      "#fff";
+
+    sampleCtx.textAlign =
+      "center";
+
+    sampleCtx.textBaseline =
+      "middle";
+
+    sampleCtx.fillText(
+      "OSCILLATE",
+      width / 2,
+      height / 2
+    );
+
+    const image =
+      sampleCtx.getImageData(
+        0,
+        0,
+        width,
+        height
+      ).data;
+
+    const points = [];
+
+    for (
+      let y = 0;
+      y < height;
+      y += GAP
+    ) {
+
+      for (
+        let x = 0;
+        x < width;
+        x += GAP
+      ) {
+
+        const index =
+          (
+            y * width +
+            x
+          ) * 4;
+
+        if (
+          image[index + 3] > 100
+        ) {
+
+          points.push({
+            x,
+            y
+          });
+
+        }
+
+      }
+
+    }
+
+    let selected =
+      points;
+
+    if (
+      points.length >
+      MAX_PARTICLES
+    ) {
+
+      selected = [];
+
+      const step =
+        points.length /
+        MAX_PARTICLES;
+
+      for (
+        let i = 0;
+        i < MAX_PARTICLES;
+        i++
+      ) {
+
+        selected.push(
+          points[
+            Math.floor(
+              i * step
+            )
+          ]
+        );
+
+      }
+
+    }
+
+    selected.forEach(
+      point => {
+
+        particles.push({
+
+          x: point.x,
+          y: point.y,
+
+          baseX: point.x,
+          baseY: point.y,
+
+          vx: 0,
+          vy: 0,
+
+          phase:
+            Math.random() *
+            Math.PI * 2,
+
+          frequency:
+            .7 +
+            Math.random() * .8,
+
+          size:
+            .8 +
+            Math.random() * 1.4,
+
+          alpha:
+            .6 +
+            Math.random() * .4,
+
+          seed:
+            Math.random()
+
+        });
+
+      }
+    );
+
+    totalParticles =
+      particles.length;
+
+    counter.textContent =
+      `00000 / ${String(
+        totalParticles
+      ).padStart(5, "0")}`;
+
+  }
+
+  /* =======================================================
+     MOUSE EVENTS
+  ======================================================= */
+
+  window.addEventListener(
+    "mousemove",
+    e => {
+
+      mouse.targetX =
+        e.clientX;
+
+      mouse.targetY =
+        e.clientY;
+
+      mouse.active =
+        true;
+
+      status.textContent =
+        "OSCILLATION FIELD ACTIVE";
+
+    }
+  );
+
+  window.addEventListener(
+    "mouseleave",
+    () => {
+
+      mouse.active =
+        false;
+
+      status.textContent =
+        "MOVE TO OSCILLATE";
+
+    }
+  );
+
+  /* =======================================================
+     CLICK — GLOBAL OSCILLATION
+  ======================================================= */
+
+  stage.addEventListener(
+    "click",
+    () => {
+
+      pulse = 0;
+      pulseStrength = 1;
+
+      status.textContent =
+        "RESONANCE";
+
+      gsap.to(
+        { value: 0 },
+        {
+
+          value: 1,
+
+          duration: 2.6,
+
+          ease: "power2.inOut",
+
+          onUpdate: function () {
+
+            pulse =
+              this.targets()[0].value;
+
+          },
+
+          onComplete: () => {
+
+            status.textContent =
+              "MOVE TO OSCILLATE";
+
+          }
+
+        }
+      );
+
+    }
+  );
+
+  /* =======================================================
+     RENDER
+  ======================================================= */
+
+  function render() {
+
+    requestAnimationFrame(
+      render
+    );
+
+    mouse.x +=
+      (
+        mouse.targetX -
+        mouse.x
+      ) * .1;
+
+    mouse.y +=
+      (
+        mouse.targetY -
+        mouse.y
+      ) * .1;
+
+    const mdx =
+      mouse.x -
+      mouse.previousX;
+
+    const mdy =
+      mouse.y -
+      mouse.previousY;
+
+    const movement =
+      Math.sqrt(
+        mdx * mdx +
+        mdy * mdy
+      );
+
+    mouse.speed +=
+      (
+        movement -
+        mouse.speed
+      ) * .12;
+
+    mouse.previousX =
+      mouse.x;
+
+    mouse.previousY =
+      mouse.y;
+
+    ctx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+    const time =
+      performance.now() *
+      .001;
+
+    let activeParticles = 0;
+
+    /* =====================================================
+       PARTICLES
+    ===================================================== */
+
+    particles.forEach(
+      p => {
+
+        let waveX = 0;
+        let waveY = 0;
+
+        /* =================================================
+           CURSOR OSCILLATION
+        ================================================= */
+
+        if (mouse.active) {
+
+          const dx =
+            p.baseX -
+            mouse.x;
+
+          const dy =
+            p.baseY -
+            mouse.y;
+
+          const distance =
+            Math.sqrt(
+              dx * dx +
+              dy * dy
+            );
+
+          if (
+            distance <
+            WAVE_RADIUS
+          ) {
+
+            const influence =
+              1 -
+              distance /
+              WAVE_RADIUS;
+
+            /*
+             * A sinusoidal field that travels
+             * perpendicular to the cursor.
+             */
+
+            const wave =
+              Math.sin(
+                distance * .11 -
+                time * (
+                  5 +
+                  mouse.speed * .12
+                ) +
+                p.phase
+              );
+
+            const amplitude =
+              influence *
+              (
+                2.5 +
+                mouse.speed * .18
+              );
+
+            waveX +=
+              wave *
+              amplitude;
+
+            waveY +=
+              Math.cos(
+                distance * .08 -
+                time * 3
+              ) *
+              amplitude *
+              .32;
+
+            activeParticles++;
+
+          }
+
+        }
+
+        /* =================================================
+           GLOBAL CLICK RESONANCE
+        ================================================= */
+
+        if (
+          pulse > .001
+        ) {
+
+          const centerX =
+            width / 2;
+
+          const centerY =
+            height / 2;
+
+          const dx =
+            p.baseX -
+            centerX;
+
+          const dy =
+            p.baseY -
+            centerY;
+
+          const distance =
+            Math.sqrt(
+              dx * dx +
+              dy * dy
+            );
+
+          const waveFront =
+            pulse *
+            Math.max(
+              width,
+              height
+            );
+
+          const difference =
+            Math.abs(
+              distance -
+              waveFront
+            );
+
+          const spread =
+            130;
+
+          if (
+            difference <
+            spread
+          ) {
+
+            const influence =
+              1 -
+              difference /
+              spread;
+
+            const wave =
+              Math.sin(
+                difference * .075
+              );
+
+            waveX +=
+              wave *
+              influence *
+              20;
+
+            waveY +=
+              Math.cos(
+                difference * .05
+              ) *
+              influence *
+              8;
+
+            activeParticles++;
+
+          }
+
+        }
+
+        /* =================================================
+           CONTINUOUS BREATHING
+        ================================================= */
+
+        const globalWave =
+          Math.sin(
+            p.baseX * .012 +
+            time * 1.4 +
+            p.phase
+          ) *
+          Math.cos(
+            p.baseY * .009 +
+            time * .8
+          );
+
+        waveY +=
+          globalWave *
+          .35;
+
+        /* =================================================
+           TARGET
+        ================================================= */
+
+        const targetX =
+          p.baseX +
+          waveX;
+
+        const targetY =
+          p.baseY +
+          waveY;
+
+        /* =================================================
+           SPRING
+        ================================================= */
+
+        p.vx +=
+          (
+            targetX -
+            p.x
+          ) *
+          .035;
+
+        p.vy +=
+          (
+            targetY -
+            p.y
+          ) *
+          .035;
+
+        /* =================================================
+           VELOCITY
+        ================================================= */
+
+        p.vx *= .82;
+        p.vy *= .82;
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        /* =================================================
+           DISPLACEMENT
+        ================================================= */
+
+        const displacement =
+          Math.sqrt(
+            Math.pow(
+              p.x -
+              p.baseX,
+              2
+            ) +
+            Math.pow(
+              p.y -
+              p.baseY,
+              2
+            )
+          );
+
+        const distortion =
+          Math.min(
+            displacement / 25,
+            1
 
 
 
