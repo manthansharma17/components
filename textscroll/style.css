@@ -16114,7 +16114,144 @@ JS animates every word toward these positions.
   z-index: 2;
 }
 
+/* =========================================================
+   CURSOR
+========================================================= */
 
+.osc75-cursor {
+  position: fixed;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 60;
+
+  mix-blend-mode: difference;
+}
+
+.osc75-ring {
+  position: fixed;
+
+  width: 58px;
+  height: 58px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.4);
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 59;
+
+  mix-blend-mode: difference;
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.osc75-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform:
+    translateX(-50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .32em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 30;
+}
+
+/* =========================================================
+   COUNTER
+========================================================= */
+
+.osc75-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .16em;
+
+  opacity: .22;
+
+  z-index: 30;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .osc75-header {
+    top: 22px;
+
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .osc75-grid {
+    background-size: 50px 50px;
+  }
+
+  .osc75-ghost {
+    font-size:
+      clamp(
+        3.2rem,
+        18vw,
+        8rem
+      );
+  }
+
+  .osc75-cursor,
+  .osc75-ring {
+    display: none;
+  }
+
+  .osc75-status {
+    bottom: 22px;
+  }
+
+  .osc75-counter {
+    right: 20px;
+    bottom: 22px;
+  }
+}
 
 
 
