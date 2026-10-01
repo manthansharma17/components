@@ -15940,7 +15940,78 @@ JS animates every word toward these positions.
     bottom: 22px;
   }
 }
+/* =========================================================
+   SECTION 75 — OSCILLATE
+========================================================= */
 
+.section-seventy-five {
+  position: relative;
+
+  width: 100%;
+  height: 100dvh;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      #151515 0%,
+      #080808 45%,
+      #000 100%
+    );
+
+  color: #fff;
+}
+
+.osc75-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  cursor: crosshair;
+}
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.osc75-grid {
+  position: absolute;
+
+  inset: -12%;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    );
+
+  background-size: 85px 85px;
+
+  opacity: .5;
+
+  mask-image:
+    radial-gradient(
+      circle at center,
+      #000 0%,
+      rgba(0,0,0,.7) 42%,
+      transparent 82%
+    );
+
+  pointer-events: none;
+
+  will-change: transform;
+}
 
 
 
