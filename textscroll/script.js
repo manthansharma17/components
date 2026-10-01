@@ -30246,6 +30246,152 @@ magnet62Stage.addEventListener("click", () => {
 })();
 
 /* =========================================================
+   SECTION 75 — OSCILLATE ENGINE
+========================================================= */
+
+(() => {
+
+  const stage =
+    document.getElementById("osc75Stage");
+
+  const canvas =
+    document.getElementById("osc75Canvas");
+
+  const cursor =
+    document.getElementById("osc75Cursor");
+
+  const ring =
+    document.getElementById("osc75Ring");
+
+  const status =
+    document.getElementById("osc75Status");
+
+  const counter =
+    document.getElementById("osc75Counter");
+
+  if (!stage || !canvas) return;
+
+  const ctx =
+    canvas.getContext("2d");
+
+  const mobile =
+    window.matchMedia(
+      "(max-width: 768px)"
+    ).matches;
+
+  const GAP =
+    mobile ? 5 : 3;
+
+  const MAX_PARTICLES =
+    mobile ? 4200 : 8500;
+
+  const WAVE_RADIUS =
+    mobile ? 95 : 130;
+
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+
+  const particles = [];
+
+  let totalParticles = 0;
+
+  let pulse = 0;
+  let pulseStrength = 0;
+
+  /* =======================================================
+     MOUSE
+  ======================================================= */
+
+  const mouse = {
+
+    x: 0,
+    y: 0,
+
+    targetX: 0,
+    targetY: 0,
+
+    previousX: 0,
+    previousY: 0,
+
+    speed: 0,
+
+    active: false
+
+  };
+
+  /* =======================================================
+     RESIZE
+  ======================================================= */
+
+  function resize() {
+
+    width =
+      stage.clientWidth;
+
+    height =
+      stage.clientHeight;
+
+    dpr =
+      Math.min(
+        window.devicePixelRatio || 1,
+        2
+      );
+
+    canvas.width =
+      width * dpr;
+
+    canvas.height =
+      height * dpr;
+
+    canvas.style.width =
+      width + "px";
+
+    canvas.style.height =
+      height + "px";
+
+    ctx.setTransform(
+      dpr,
+      0,
+      0,
+      dpr,
+      0,
+      0
+    );
+
+    mouse.x =
+      width / 2;
+
+    mouse.y =
+      height / 2;
+
+    mouse.targetX =
+      width / 2;
+
+    mouse.targetY =
+      height / 2;
+
+    mouse.previousX =
+      width / 2;
+
+    mouse.previousY =
+      height / 2;
+
+    createParticles();
+
+  }
+
+  window.addEventListener(
+    "resize",
+    resize
+  );
+
+
+
+
+
+
+/* =========================================================
    REFRESH
 ========================================================= */
 
