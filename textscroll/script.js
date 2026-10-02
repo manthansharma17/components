@@ -31747,7 +31747,148 @@ magnet62Stage.addEventListener("click", () => {
 
         }
 
+/* =================================================
+           GLOBAL RESONANCE PULSE
+        ================================================= */
 
+        if (
+          pulse > .001
+        ) {
+
+          const dx =
+            p.baseX -
+            width / 2;
+
+          const dy =
+            p.baseY -
+            height / 2;
+
+          const distance =
+            Math.sqrt(
+              dx * dx +
+              dy * dy
+            );
+
+          const wave =
+            Math.sin(
+              distance * .055 -
+              pulse * 22
+            );
+
+          const influence =
+            pulse *
+            Math.max(
+              0,
+              1 -
+              distance /
+              (
+                Math.max(
+                  width,
+                  height
+                ) * .7
+              )
+            );
+
+          targetX +=
+            wave *
+            influence *
+            28 *
+            Math.sin(
+              p.phase
+            );
+
+          targetY +=
+            Math.cos(
+              distance * .045 -
+              pulse * 18
+            ) *
+            influence *
+            15;
+
+          resonance =
+            Math.max(
+              resonance,
+              influence
+            );
+
+          activeParticles++;
+
+        }
+
+        /* =================================================
+           SPRING
+        ================================================= */
+
+        p.vx +=
+          (
+            targetX -
+            p.x
+          ) *
+          .065;
+
+        p.vy +=
+          (
+            targetY -
+            p.y
+          ) *
+          .065;
+
+        /* =================================================
+           FRICTION
+        ================================================= */
+
+        p.vx *= .72;
+        p.vy *= .72;
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        /* =================================================
+           DISPLACEMENT
+        ================================================= */
+
+        const displacement =
+          Math.sqrt(
+            Math.pow(
+              p.x -
+              p.baseX,
+              2
+            ) +
+            Math.pow(
+              p.y -
+              p.baseY,
+              2
+            )
+          );
+
+        const distortion =
+          Math.min(
+            displacement / 20,
+            1
+          );
+
+        /* =================================================
+           DRAW
+        ================================================= */
+
+        ctx.fillStyle =
+          `rgba(
+            255,
+            255,
+            255,
+            ${p.alpha}
+          )`;
+
+        ctx.fillRect(
+          p.x,
+          p.y,
+
+          p.size +
+          distortion * 1.4,
+
+          p.size +
+          distortion * 1.4
+        );
 
 /* =========================================================
    REFRESH
