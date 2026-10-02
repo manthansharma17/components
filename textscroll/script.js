@@ -31259,6 +31259,145 @@ magnet62Stage.addEventListener("click", () => {
     "resize",
     resize
   );
+/* =======================================================
+     CREATE TEXT PARTICLES
+  ======================================================= */
+
+  function createParticles() {
+
+    particles.length = 0;
+
+    const sample =
+      document.createElement("canvas");
+
+    const sampleCtx =
+      sample.getContext("2d");
+
+    sample.width =
+      width;
+
+    sample.height =
+      height;
+
+    let fontSize =
+      Math.min(
+        width * .17,
+        245
+      );
+
+    sampleCtx.font =
+      `900 ${fontSize}px Arial`;
+
+    while (
+      sampleCtx.measureText(
+        "RESONANCE"
+      ).width >
+      width * .84
+    ) {
+
+      fontSize -= 2;
+
+      sampleCtx.font =
+        `900 ${fontSize}px Arial`;
+
+    }
+
+    sampleCtx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+    sampleCtx.fillStyle =
+      "#fff";
+
+    sampleCtx.textAlign =
+      "center";
+
+    sampleCtx.textBaseline =
+      "middle";
+
+    sampleCtx.fillText(
+      "RESONANCE",
+      width / 2,
+      height / 2
+    );
+
+    const image =
+      sampleCtx.getImageData(
+        0,
+        0,
+        width,
+        height
+      ).data;
+
+    const points = [];
+
+    for (
+      let y = 0;
+      y < height;
+      y += GAP
+    ) {
+
+      for (
+        let x = 0;
+        x < width;
+        x += GAP
+      ) {
+
+        const index =
+          (
+            y * width +
+            x
+          ) * 4;
+
+        if (
+          image[index + 3] > 100
+        ) {
+
+          points.push({
+            x,
+            y
+          });
+
+        }
+
+      }
+
+    }
+
+    let selected =
+      points;
+
+    if (
+      points.length >
+      MAX_PARTICLES
+    ) {
+
+      selected = [];
+
+      const step =
+        points.length /
+        MAX_PARTICLES;
+
+      for (
+        let i = 0;
+        i < MAX_PARTICLES;
+        i++
+      ) {
+
+        selected.push(
+          points[
+            Math.floor(
+              i * step
+            )
+          ]
+        );
+
+      }
+
+    }
 
 
 /* =========================================================
