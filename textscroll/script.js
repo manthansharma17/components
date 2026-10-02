@@ -31116,6 +31116,84 @@ magnet62Stage.addEventListener("click", () => {
   render();
 
 })();
+/* =========================================================
+   SECTION 76 — RESONANCE ENGINE
+========================================================= */
+
+(() => {
+
+  const stage =
+    document.getElementById("res76Stage");
+
+  const canvas =
+    document.getElementById("res76Canvas");
+
+  const cursor =
+    document.getElementById("res76Cursor");
+
+  const ring =
+    document.getElementById("res76Ring");
+
+  const status =
+    document.getElementById("res76Status");
+
+  const counter =
+    document.getElementById("res76Counter");
+
+  const energyRings =
+    document.querySelectorAll(
+      "#res76Rings span"
+    );
+
+  if (!stage || !canvas) return;
+
+  const ctx =
+    canvas.getContext("2d");
+
+  const mobile =
+    window.matchMedia(
+      "(max-width: 768px)"
+    ).matches;
+
+  const GAP =
+    mobile ? 5 : 3;
+
+  const MAX_PARTICLES =
+    mobile ? 4200 : 8500;
+
+  const RESONANCE_RADIUS =
+    mobile ? 90 : 125;
+
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+
+  const particles = [];
+
+  let totalParticles = 0;
+
+  let pulse = 0;
+
+  /* =======================================================
+     MOUSE
+  ======================================================= */
+
+  const mouse = {
+
+    x: 0,
+    y: 0,
+
+    targetX: 0,
+    targetY: 0,
+
+    previousX: 0,
+    previousY: 0,
+
+    speed: 0,
+
+    active: false
+
+  };
 
 
 
