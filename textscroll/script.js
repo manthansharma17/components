@@ -31398,7 +31398,93 @@ magnet62Stage.addEventListener("click", () => {
       }
 
     }
+ selected.forEach(
+      point => {
 
+        particles.push({
+
+          x: point.x,
+          y: point.y,
+
+          baseX: point.x,
+          baseY: point.y,
+
+          vx: 0,
+          vy: 0,
+
+          phase:
+            Math.random() *
+            Math.PI * 2,
+
+          frequency:
+            .7 +
+            Math.random() * 1.3,
+
+          amplitude:
+            .5 +
+            Math.random() * .9,
+
+          size:
+            .8 +
+            Math.random() * 1.4,
+
+          alpha:
+            .6 +
+            Math.random() * .4,
+
+          seed:
+            Math.random()
+
+        });
+
+      }
+    );
+
+    totalParticles =
+      particles.length;
+
+    counter.textContent =
+      `00000 / ${String(
+        totalParticles
+      ).padStart(5, "0")}`;
+
+  }
+
+  /* =======================================================
+     MOUSE
+  ======================================================= */
+
+  window.addEventListener(
+    "mousemove",
+    e => {
+
+      mouse.targetX =
+        e.clientX;
+
+      mouse.targetY =
+        e.clientY;
+
+      mouse.active =
+        true;
+
+      status.textContent =
+        "RESONANCE FIELD ACTIVE";
+
+    }
+  );
+
+  window.addEventListener(
+    "mouseleave",
+    () => {
+
+      mouse.active =
+        false;
+
+      status.textContent =
+        "MOVE TO RESONATE";
+
+    }
+  );
 
 /* =========================================================
    REFRESH
