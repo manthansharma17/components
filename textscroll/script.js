@@ -31194,7 +31194,71 @@ magnet62Stage.addEventListener("click", () => {
     active: false
 
   };
+  /* =======================================================
+     RESIZE
+  ======================================================= */
 
+  function resize() {
+
+    width =
+      stage.clientWidth;
+
+    height =
+      stage.clientHeight;
+
+    dpr =
+      Math.min(
+        window.devicePixelRatio || 1,
+        2
+      );
+
+    canvas.width =
+      width * dpr;
+
+    canvas.height =
+      height * dpr;
+
+    canvas.style.width =
+      width + "px";
+
+    canvas.style.height =
+      height + "px";
+
+    ctx.setTransform(
+      dpr,
+      0,
+      0,
+      dpr,
+      0,
+      0
+    );
+
+    mouse.x =
+      width / 2;
+
+    mouse.y =
+      height / 2;
+
+    mouse.targetX =
+      width / 2;
+
+    mouse.targetY =
+      height / 2;
+
+    mouse.previousX =
+      width / 2;
+
+    mouse.previousY =
+      height / 2;
+
+    createParticles();
+
+  }
+
+  window.addEventListener(
+    "resize",
+    resize
+  );
 
 
 /* =========================================================
