@@ -31485,6 +31485,145 @@ magnet62Stage.addEventListener("click", () => {
 
     }
   );
+/* =======================================================
+     CLICK — MASSIVE RESONANCE
+  ======================================================= */
+
+  stage.addEventListener(
+    "click",
+    () => {
+
+      pulse = 1;
+
+      status.textContent =
+        "RESONANCE PEAK";
+
+      energyRings.forEach(
+        (el, index) => {
+
+          gsap.killTweensOf(el);
+
+          gsap.fromTo(
+            el,
+            {
+              scale: .2,
+              opacity: .8
+            },
+            {
+              scale:
+                5 +
+                index * 2,
+
+              opacity: 0,
+
+              duration:
+                1.8 +
+                index * .35,
+
+              delay:
+                index * .15,
+
+              ease: "power2.out"
+            }
+          );
+
+        }
+      );
+
+      gsap.to(
+        { value: 1 },
+        {
+
+          value: 0,
+
+          duration: 2.5,
+
+          ease: "power3.out",
+
+          onUpdate: function () {
+
+            pulse =
+              this.targets()[0].value;
+
+          },
+
+          onComplete: () => {
+
+            status.textContent =
+              "MOVE TO RESONATE";
+
+          }
+
+        }
+      );
+
+    }
+  );
+
+  /* =======================================================
+     RENDER
+  ======================================================= */
+
+  function render() {
+
+    requestAnimationFrame(
+      render
+    );
+
+    mouse.x +=
+      (
+        mouse.targetX -
+        mouse.x
+      ) * .1;
+
+    mouse.y +=
+      (
+        mouse.targetY -
+        mouse.y
+      ) * .1;
+
+    const dx =
+      mouse.x -
+      mouse.previousX;
+
+    const dy =
+      mouse.y -
+      mouse.previousY;
+
+    const movement =
+      Math.sqrt(
+        dx * dx +
+        dy * dy
+      );
+
+    mouse.speed +=
+      (
+        movement -
+        mouse.speed
+      ) * .12;
+
+    mouse.previousX =
+      mouse.x;
+
+    mouse.previousY =
+      mouse.y;
+
+    ctx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+    const time =
+      performance.now() *
+      .001;
+
+    let activeParticles = 0;
+
+
+
+
 
 /* =========================================================
    REFRESH
