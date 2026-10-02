@@ -31621,7 +31621,131 @@ magnet62Stage.addEventListener("click", () => {
 
     let activeParticles = 0;
 
+/* =====================================================
+       PARTICLES
+    ===================================================== */
 
+    particles.forEach(
+      p => {
+
+        let targetX =
+          p.baseX;
+
+        let targetY =
+          p.baseY;
+
+        let resonance =
+          0;
+
+        /* =================================================
+           CURSOR RESONANCE FIELD
+        ================================================= */
+
+        if (mouse.active) {
+
+          const dx =
+            p.baseX -
+            mouse.x;
+
+          const dy =
+            p.baseY -
+            mouse.y;
+
+          const distance =
+            Math.sqrt(
+              dx * dx +
+              dy * dy
+            );
+
+          if (
+            distance <
+            RESONANCE_RADIUS
+          ) {
+
+            const influence =
+              1 -
+              distance /
+              RESONANCE_RADIUS;
+
+            const frequency =
+              6 +
+              mouse.speed * .18;
+
+            const wave =
+              Math.sin(
+                time *
+                frequency *
+                p.frequency +
+                p.phase
+              );
+
+            const amplitude =
+              influence *
+              (
+                2 +
+                mouse.speed * .22
+              ) *
+              p.amplitude;
+
+            /*
+             * Vibrate perpendicular to
+             * the direction from cursor.
+             */
+
+            const safe =
+              Math.max(
+                distance,
+                .001
+              );
+
+            const nx =
+              dx / safe;
+
+            const ny =
+              dy / safe;
+
+            targetX +=
+              -ny *
+              wave *
+              amplitude;
+
+            targetY +=
+              nx *
+              wave *
+              amplitude;
+
+            /*
+             * Secondary vibration
+             */
+
+            targetX +=
+              Math.sin(
+                time *
+                12 +
+                p.phase
+              ) *
+              influence *
+              mouse.speed *
+              .08;
+
+            targetY +=
+              Math.cos(
+                time *
+                10 +
+                p.phase
+              ) *
+              influence *
+              mouse.speed *
+              .08;
+
+            resonance =
+              influence;
+
+            activeParticles++;
+
+          }
+
+        }
 
 
 
