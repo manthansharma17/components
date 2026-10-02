@@ -16516,6 +16516,103 @@ JS animates every word toward these positions.
 }
 
 /* =========================================================
+   STATUS
+========================================================= */
+
+.res76-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform:
+    translateX(-50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .32em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 30;
+}
+
+/* =========================================================
+   COUNTER
+========================================================= */
+
+.res76-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .16em;
+
+  opacity: .22;
+
+  z-index: 30;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .res76-header {
+    top: 22px;
+
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .res76-grid {
+    background-size: 50px 50px;
+  }
+
+  .res76-ghost {
+    font-size:
+      clamp(
+        3rem,
+        18vw,
+        8rem
+      );
+  }
+
+  .res76-cursor,
+  .res76-ring {
+    display: none;
+  }
+
+  .res76-status {
+    bottom: 22px;
+  }
+
+  .res76-counter {
+    right: 20px;
+    bottom: 22px;
+  }
+
+  .res76-rings {
+    display: none;
+  }
+}
+
+/* =========================================================
    REDUCED MOTION
 ========================================================= */
 
