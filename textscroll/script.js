@@ -32173,6 +32173,193 @@ magnet62Stage.addEventListener("click", () => {
     resize
   );
 
+   /* =======================================================
+     CREATE TEXT PARTICLES
+  ======================================================= */
+
+  function createParticles() {
+
+    particles.length = 0;
+
+    const sample =
+      document.createElement("canvas");
+
+    const sampleCtx =
+      sample.getContext("2d");
+
+    sample.width =
+      width;
+
+    sample.height =
+      height;
+
+    let fontSize =
+      Math.min(
+        width * .16,
+        235
+      );
+
+    sampleCtx.font =
+      `900 ${fontSize}px Arial`;
+
+    while (
+      sampleCtx.measureText(
+        "PHASE SHIFT"
+      ).width >
+      width * .84
+    ) {
+
+      fontSize -= 2;
+
+      sampleCtx.font =
+        `900 ${fontSize}px Arial`;
+
+    }
+
+    sampleCtx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+    sampleCtx.fillStyle =
+      "#fff";
+
+    sampleCtx.textAlign =
+      "center";
+
+    sampleCtx.textBaseline =
+      "middle";
+
+    sampleCtx.fillText(
+      "PHASE SHIFT",
+      width / 2,
+      height / 2
+    );
+
+    const image =
+      sampleCtx.getImageData(
+        0,
+        0,
+        width,
+        height
+      ).data;
+
+    const points = [];
+
+    for (
+      let y = 0;
+      y < height;
+      y += GAP
+    ) {
+
+      for (
+        let x = 0;
+        x < width;
+        x += GAP
+      ) {
+
+        const index =
+          (
+            y * width +
+            x
+          ) * 4;
+
+        if (
+          image[index + 3] > 100
+        ) {
+
+          points.push({
+            x,
+            y
+          });
+
+        }
+
+      }
+
+    }
+
+    let selected =
+      points;
+
+    if (
+      points.length >
+      MAX_PARTICLES
+    ) {
+
+      selected = [];
+
+      const step =
+        points.length /
+        MAX_PARTICLES;
+
+      for (
+        let i = 0;
+        i < MAX_PARTICLES;
+        i++
+      ) {
+
+        selected.push(
+          points[
+            Math.floor(
+              i * step
+            )
+          ]
+        );
+
+      }
+
+    }
+
+    selected.forEach(
+      point => {
+
+        particles.push({
+
+          x: point.x,
+          y: point.y,
+
+          baseX: point.x,
+          baseY: point.y,
+
+          vx: 0,
+          vy: 0,
+
+          phase:
+            Math.random() *
+            Math.PI * 2,
+
+          frequency:
+            .5 +
+            Math.random() * 1.4,
+
+          seed:
+            Math.random(),
+
+          size:
+            .8 +
+            Math.random() * 1.4,
+
+          alpha:
+            .55 +
+            Math.random() * .45
+
+        });
+
+      }
+    );
+
+    totalParticles =
+      particles.length;
+
+    counter.textContent =
+      `00000 / ${String(
+        totalParticles
+      ).padStart(5, "0")}`;
+
+  }
 
 /* =========================================================
    REFRESH
