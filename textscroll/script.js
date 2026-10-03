@@ -32360,9 +32360,181 @@ magnet62Stage.addEventListener("click", () => {
       ).padStart(5, "0")}`;
 
   }
+/* =======================================================
+     MOUSE
+  ======================================================= */
+
+  window.addEventListener(
+    "mousemove",
+    e => {
+
+      mouse.targetX =
+        e.clientX;
+
+      mouse.targetY =
+        e.clientY;
+
+      mouse.active =
+        true;
+
+      status.textContent =
+        "PHASE FIELD ACTIVE";
+
+    }
+  );
+
+  window.addEventListener(
+    "mouseleave",
+    () => {
+
+      mouse.active =
+        false;
+
+      status.textContent =
+        "MOVE THROUGH THE PHASE";
+
+    }
+  );
+
+  /* =======================================================
+     CLICK — PHASE COLLAPSE
+  ======================================================= */
+
+  stage.addEventListener(
+    "click",
+    () => {
+
+      phasePulse = 1;
+
+      status.textContent =
+        "PHASE COLLAPSE";
+
+      phaseLines.forEach(
+        (line, index) => {
+
+          gsap.killTweensOf(
+            line
+          );
+
+          gsap.fromTo(
+            line,
+            {
+              scaleX: .05,
+              opacity: .7
+            },
+            {
+              scaleX:
+                1.5 +
+                index * .35,
+
+              opacity: 0,
+
+              duration:
+                1.4 +
+                index * .25,
+
+              delay:
+                index * .13,
+
+              ease: "power3.out"
+            }
+          );
+
+        }
+      );
+
+      gsap.to(
+        { value: 1 },
+        {
+
+          value: 0,
+
+          duration: 2.6,
+
+          ease: "power3.out",
+
+          onUpdate: function () {
+
+            phasePulse =
+              this.targets()[0].value;
+
+          },
+
+          onComplete: () => {
+
+            status.textContent =
+              "MOVE THROUGH THE PHASE";
+
+          }
+
+        }
+      );
+
+    }
+  );
+
+  /* =======================================================
+     RENDER
+  ======================================================= */
+
+  function render() {
+
+    requestAnimationFrame(
+      render
+    );
+
+    mouse.x +=
+      (
+        mouse.targetX -
+        mouse.x
+      ) * .1;
+
+    mouse.y +=
+      (
+        mouse.targetY -
+        mouse.y
+      ) * .1;
+
+    const mdx =
+      mouse.x -
+      mouse.previousX;
+
+    const mdy =
+      mouse.y -
+      mouse.previousY;
+
+    const movement =
+      Math.sqrt(
+        mdx * mdx +
+        mdy * mdy
+      );
+
+    mouse.speed +=
+      (
+        movement -
+        mouse.speed
+      ) * .12;
+
+    mouse.previousX =
+      mouse.x;
+
+    mouse.previousY =
+      mouse.y;
+
+    ctx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+    const time =
+      performance.now() *
+      .001;
+
+    let activeParticles = 0;
 
 
-  
 /* =========================================================
    REFRESH
 ========================================================= */
