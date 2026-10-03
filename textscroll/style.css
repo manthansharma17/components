@@ -16882,7 +16882,102 @@ JS animates every word toward these positions.
   mix-blend-mode: difference;
 }
 
+/* =========================================================
+   STATUS
+========================================================= */
 
+.pha77-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform:
+    translateX(-50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .32em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 30;
+}
+
+/* =========================================================
+   COUNTER
+========================================================= */
+
+.pha77-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .16em;
+
+  opacity: .22;
+
+  z-index: 30;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .pha77-header {
+    top: 22px;
+
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .pha77-grid {
+    background-size: 50px 50px;
+  }
+
+  .pha77-ghost {
+    font-size:
+      clamp(
+        2.8rem,
+        17vw,
+        8rem
+      );
+  }
+
+  .pha77-cursor,
+  .pha77-ring {
+    display: none;
+  }
+
+  .pha77-status {
+    bottom: 22px;
+  }
+
+  .pha77-counter {
+    right: 20px;
+    bottom: 22px;
+  }
+
+  .pha77-phase-lines {
+    width: 75vw;
+  }
+}
 
 /* =========================================================
    REDUCED MOTION
