@@ -32534,7 +32534,258 @@ magnet62Stage.addEventListener("click", () => {
 
     let activeParticles = 0;
 
-    
+    /* =================================================
+           DISPLACEMENT
+        ================================================= */
+
+        const displacement =
+          Math.sqrt(
+            Math.pow(
+              p.x -
+              p.baseX,
+              2
+            ) +
+            Math.pow(
+              p.y -
+              p.baseY,
+              2
+            )
+          );
+
+        const distortion =
+          Math.min(
+            displacement / 24,
+            1
+          );
+
+        /* =================================================
+           PHASE TRAILS
+        ================================================= */
+
+        if (
+          distortion > .12
+        ) {
+
+          const trail =
+            4 +
+            distortion * 8;
+
+          ctx.fillStyle =
+            `rgba(
+              255,
+              255,
+              255,
+              ${p.alpha *
+              distortion *
+              .14}
+            )`;
+
+          ctx.fillRect(
+            p.x -
+            p.vx *
+            trail,
+
+            p.y -
+            p.vy *
+            trail,
+
+            p.size,
+
+            p.size
+          );
+
+        }
+
+        /* =================================================
+           MAIN PARTICLE
+        ================================================= */
+
+        ctx.fillStyle =
+          `rgba(
+            255,
+            255,
+            255,
+            ${p.alpha}
+          )`;
+
+        ctx.fillRect(
+          p.x,
+          p.y,
+
+          p.size +
+          distortion * 1.3,
+
+          p.size +
+          distortion * 1.3
+        );
+
+      }
+    );
+
+    /* =====================================================
+       SPECTRAL PHASE LAYERS
+    ===================================================== */
+
+    if (
+      mouse.active ||
+      phasePulse > .01
+    ) {
+
+      const phaseAmount =
+        Math.min(
+          .9,
+          mouse.speed * .025 +
+          phasePulse
+        );
+
+      /*
+       * Draw extremely subtle offset
+       * particle echoes.
+       */
+
+      particles.forEach(
+        p => {
+
+          if (
+            p.seed < .86
+          ) return;
+
+          const offset =
+            3 +
+            phaseAmount * 12;
+
+          ctx.fillStyle =
+            `rgba(
+              255,
+              255,
+              255,
+              ${phaseAmount * .08}
+            )`;
+
+          ctx.fillRect(
+            p.x + offset,
+            p.y,
+            p.size,
+            p.size
+          );
+
+          ctx.fillStyle =
+            `rgba(
+              255,
+              255,
+              255,
+              ${phaseAmount * .06}
+            )`;
+
+          ctx.fillRect(
+            p.x - offset,
+            p.y,
+            p.size,
+            p.size
+          );
+
+        }
+      );
+
+    }
+
+    /* =====================================================
+       COUNTER
+    ===================================================== */
+
+    counter.textContent =
+      `${String(
+        activeParticles
+      ).padStart(5, "0")} / ${String(
+        totalParticles
+      ).padStart(5, "0")}`;
+
+    /* =====================================================
+       CURSOR
+    ===================================================== */
+
+    if (!mobile) {
+
+      gsap.to(
+        cursor,
+        {
+
+          x: mouse.targetX,
+          y: mouse.targetY,
+
+          duration: .15,
+
+          ease: "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+      gsap.to(
+        ring,
+        {
+
+          x: mouse.targetX,
+          y: mouse.targetY,
+
+          duration: .42,
+
+          ease: "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+    }
+
+    /* =====================================================
+       GRID PARALLAX
+    ===================================================== */
+
+    const grid =
+      stage.querySelector(
+        ".pha77-grid"
+      );
+
+    if (grid) {
+
+      const gx =
+        (
+          mouse.x -
+          width / 2
+        ) /
+        width *
+        -25;
+
+      const gy =
+        (
+          mouse.y -
+          height / 2
+        ) /
+        height *
+        -25;
+
+      grid.style.transform =
+        `translate(
+          ${gx}px,
+          ${gy}px
+        )`;
+
+    }
+
+  }
+
+  /* =======================================================
+     INIT
+  ======================================================= */
+
+  resize();
+
+  render();
+
+})();
 
 
 /* =========================================================
