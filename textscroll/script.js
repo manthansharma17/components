@@ -32787,6 +32787,181 @@ magnet62Stage.addEventListener("click", () => {
 
 })();
 
+/* =========================================================
+   SECTION 78
+   CHROMATIC DRIFT ENGINE
+========================================================= */
+
+(() => {
+
+  const stage =
+    document.getElementById(
+      "chd78Stage"
+    );
+
+  const canvas =
+    document.getElementById(
+      "chd78Canvas"
+    );
+
+  const cursor =
+    document.getElementById(
+      "chd78Cursor"
+    );
+
+  const ring =
+    document.getElementById(
+      "chd78Ring"
+    );
+
+  const status =
+    document.getElementById(
+      "chd78Status"
+    );
+
+  const counter =
+    document.getElementById(
+      "chd78Counter"
+    );
+
+  if (
+    !stage ||
+    !canvas
+  ) return;
+
+
+  const ctx =
+    canvas.getContext("2d");
+
+
+  /* =======================================================
+     CONFIG
+  ======================================================= */
+
+  const isMobile =
+    window.matchMedia(
+      "(max-width: 768px)"
+    ).matches;
+
+  const GAP =
+    isMobile ? 5 : 3;
+
+  const MAX_PARTICLES =
+    isMobile
+      ? 4300
+      : 8500;
+
+
+  /* =======================================================
+     STATE
+  ======================================================= */
+
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+
+  let particles = [];
+
+  let totalParticles = 0;
+
+  let burst = 0;
+
+  let burstVelocity = 0;
+
+
+  /* =======================================================
+     MOUSE
+  ======================================================= */
+
+  const mouse = {
+
+    x: 0,
+    y: 0,
+
+    targetX: 0,
+    targetY: 0,
+
+    previousX: 0,
+    previousY: 0,
+
+    velocityX: 0,
+    velocityY: 0,
+
+    speed: 0,
+
+    active: false
+
+  };
+
+
+  /* =======================================================
+     RESIZE
+  ======================================================= */
+
+  function resize() {
+
+    width =
+      stage.clientWidth;
+
+    height =
+      stage.clientHeight;
+
+    dpr =
+      Math.min(
+        window.devicePixelRatio || 1,
+        2
+      );
+
+    canvas.width =
+      width * dpr;
+
+    canvas.height =
+      height * dpr;
+
+    canvas.style.width =
+      width + "px";
+
+    canvas.style.height =
+      height + "px";
+
+    ctx.setTransform(
+      dpr,
+      0,
+      0,
+      dpr,
+      0,
+      0
+    );
+
+    mouse.x =
+      width / 2;
+
+    mouse.y =
+      height / 2;
+
+    mouse.targetX =
+      width / 2;
+
+    mouse.targetY =
+      height / 2;
+
+    mouse.previousX =
+      width / 2;
+
+    mouse.previousY =
+      height / 2;
+
+    createText();
+
+  }
+
+
+  window.addEventListener(
+    "resize",
+    resize
+  );
+
+
 
 /* =========================================================
    REFRESH
