@@ -17296,6 +17296,71 @@ JS animates every word toward these positions.
   z-index: 20;
 }
 
+/* =========================================================
+   COUNTER
+========================================================= */
+
+.chd78-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .16em;
+
+  opacity: .22;
+
+  z-index: 20;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .chd78-header {
+    top: 22px;
+
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .chd78-grid {
+    background-size: 50px 50px;
+  }
+
+  .chd78-ghost {
+    font-size:
+      clamp(
+        2.3rem,
+        15vw,
+        8rem
+      );
+  }
+
+  .chd78-cursor,
+  .chd78-ring {
+    display: none;
+  }
+
+  .chd78-status {
+    bottom: 22px;
+  }
+
+  .chd78-counter {
+    right: 20px;
+    bottom: 22px;
+  }
+
+}
 
 
 
