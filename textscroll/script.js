@@ -33084,6 +33084,217 @@ magnet62Stage.addEventListener("click", () => {
 
     }
 
+ let selected =
+      points;
+
+
+    if (
+      points.length >
+      MAX_PARTICLES
+    ) {
+
+      selected = [];
+
+      const step =
+        points.length /
+        MAX_PARTICLES;
+
+
+      for (
+        let i = 0;
+        i < MAX_PARTICLES;
+        i++
+      ) {
+
+        selected.push(
+          points[
+            Math.floor(
+              i * step
+            )
+          ]
+        );
+
+      }
+
+    }
+
+
+    selected.forEach(
+      point => {
+
+        particles.push({
+
+          x: point.x,
+          y: point.y,
+
+          baseX: point.x,
+          baseY: point.y,
+
+          vx: 0,
+          vy: 0,
+
+          phase:
+            Math.random() *
+            Math.PI * 2,
+
+          frequency:
+            .5 +
+            Math.random() * 1.4,
+
+          seed:
+            Math.random(),
+
+          size:
+            .8 +
+            Math.random() * 1.2,
+
+          alpha:
+            .55 +
+            Math.random() * .45
+
+        });
+
+      }
+    );
+
+
+    totalParticles =
+      particles.length;
+
+
+    counter.textContent =
+      `00000 / ${String(
+        totalParticles
+      ).padStart(
+        5,
+        "0"
+      )}`;
+
+  }
+
+
+  /* =======================================================
+     POINTER
+  ======================================================= */
+
+  window.addEventListener(
+    "mousemove",
+    event => {
+
+      mouse.targetX =
+        event.clientX;
+
+      mouse.targetY =
+        event.clientY;
+
+      mouse.active =
+        true;
+
+      status.textContent =
+        "SPECTRAL FIELD ACTIVE";
+
+    }
+  );
+
+
+  window.addEventListener(
+    "mouseleave",
+    () => {
+
+      mouse.active =
+        false;
+
+      status.textContent =
+        "MOVE TO DRIFT THE CHANNELS";
+
+    }
+  );
+
+
+  /* =======================================================
+     CLICK — SPECTRAL EXPLOSION
+  ======================================================= */
+
+  stage.addEventListener(
+    "click",
+    () => {
+
+      burst = 1;
+
+      burstVelocity = 1;
+
+      status.textContent =
+        "CHANNEL SEPARATION";
+
+
+      const state = {
+        value: 0
+      };
+
+
+      gsap.killTweensOf(
+        state
+      );
+
+
+      gsap.timeline({
+
+        onUpdate: () => {
+
+          burst =
+            state.value;
+
+        },
+
+        onComplete: () => {
+
+          status.textContent =
+            "MOVE TO DRIFT THE CHANNELS";
+
+        }
+
+      })
+
+      .to(
+        state,
+        {
+          value: 1,
+
+          duration: .55,
+
+          ease: "power3.out"
+        }
+      )
+
+      .to(
+        state,
+        {
+          value: 1.8,
+
+          duration: .65,
+
+          ease: "power2.inOut"
+        }
+      )
+
+      .to(
+        state,
+        {
+          value: 0,
+
+          duration: 1.35,
+
+          ease: "expo.out"
+        }
+      );
+
+    }
+  );
+
+
+
+
+
 /* =========================================================
    REFRESH
 ========================================================= */
