@@ -33290,7 +33290,220 @@ magnet62Stage.addEventListener("click", () => {
 
     }
   );
+/* =======================================================
+     DRAW
+  ======================================================= */
 
+  function render() {
+
+    requestAnimationFrame(
+      render
+    );
+
+
+    /* -----------------------------------------------------
+       SMOOTH POINTER
+    ----------------------------------------------------- */
+
+    mouse.x +=
+      (
+        mouse.targetX -
+        mouse.x
+      ) * .1;
+
+
+    mouse.y +=
+      (
+        mouse.targetY -
+        mouse.y
+      ) * .1;
+
+
+    mouse.velocityX =
+      mouse.targetX -
+      mouse.previousX;
+
+
+    mouse.velocityY =
+      mouse.targetY -
+      mouse.previousY;
+
+
+    const rawSpeed =
+      Math.sqrt(
+        mouse.velocityX *
+        mouse.velocityX +
+        mouse.velocityY *
+        mouse.velocityY
+      );
+
+
+    mouse.speed +=
+      (
+        rawSpeed -
+        mouse.speed
+      ) * .12;
+
+
+    mouse.previousX =
+      mouse.targetX;
+
+    mouse.previousY =
+      mouse.targetY;
+
+
+    /* -----------------------------------------------------
+       CLEAR
+    ----------------------------------------------------- */
+
+    ctx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+
+    const time =
+      performance.now() *
+      .001;
+
+
+    let affected =
+      0;
+
+
+    /* =====================================================
+       PARTICLES
+    ===================================================== */
+
+    particles.forEach(
+      p => {
+
+        let driftX = 0;
+        let driftY = 0;
+
+        let influence = 0;
+
+
+        /* -------------------------------------------------
+           CURSOR DISTANCE
+        ------------------------------------------------- */
+
+        if (
+          mouse.active
+        ) {
+
+          const dx =
+            p.baseX -
+            mouse.x;
+
+          const dy =
+            p.baseY -
+            mouse.y;
+
+          const distance =
+            Math.sqrt(
+              dx * dx +
+              dy * dy
+            );
+
+
+          const radius =
+            isMobile
+              ? 100
+              : 145;
+
+
+          if (
+            distance <
+            radius
+          ) {
+
+            influence =
+              1 -
+              distance /
+              radius;
+
+
+            affected++;
+
+
+            /*
+             * Direction of mouse movement.
+             */
+
+            const moveAngle =
+              Math.atan2(
+                mouse.velocityY,
+                mouse.velocityX
+              );
+
+
+            const localPhase =
+              time *
+              (
+                2.5 +
+                mouse.speed * .08
+              ) *
+              p.frequency +
+              p.phase;
+
+
+            const separation =
+              influence *
+              (
+                2 +
+                mouse.speed * .65
+              );
+
+
+            /*
+             * Horizontal movement
+             * creates lateral spectral drift.
+             */
+
+            driftX +=
+              Math.cos(
+                moveAngle
+              ) *
+              separation;
+
+
+            /*
+             * Vertical component.
+             */
+
+            driftY +=
+              Math.sin(
+                moveAngle
+              ) *
+              separation *
+              .65;
+
+
+            /*
+             * Organic oscillation.
+             */
+
+            driftX +=
+              Math.sin(
+                localPhase
+              ) *
+              influence *
+              5;
+
+
+            driftY +=
+              Math.cos(
+                localPhase * .8
+              ) *
+              influence *
+              3;
+
+          }
+
+        }
 
 
 
