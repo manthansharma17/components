@@ -16980,6 +16980,129 @@ JS animates every word toward these positions.
 }
 
 /* =========================================================
+   SECTION 78
+========================================================= */
+
+.section-seventy-eight {
+  position: relative;
+
+  width: 100%;
+  height: 100dvh;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      #161616 0%,
+      #080808 48%,
+      #000 100%
+    );
+
+  color: #fff;
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.chd78-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  cursor: crosshair;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.chd78-grid {
+  position: absolute;
+
+  inset: -15%;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    );
+
+  background-size: 80px 80px;
+
+  opacity: .45;
+
+  mask-image:
+    radial-gradient(
+      circle at center,
+      #000 0%,
+      rgba(0,0,0,.7) 42%,
+      transparent 82%
+    );
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.chd78-header {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 9px;
+
+  letter-spacing: .28em;
+
+  opacity: .35;
+
+  z-index: 20;
+}
+
+
+/* =========================================================
+   SCENE
+========================================================= */
+
+.chd78-scene {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+/* =========================================================
    REDUCED MOTION
 ========================================================= */
 
