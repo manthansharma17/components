@@ -33505,7 +33505,1035 @@ magnet62Stage.addEventListener("click", () => {
 
         }
 
+/* =================================================
+           CLICK BURST
+        ================================================= */
 
+        if (
+          burst > .001
+        ) {
+
+          const dx =
+            p.baseX -
+            width / 2;
+
+          const dy =
+            p.baseY -
+            height / 2;
+
+          const distance =
+            Math.sqrt(
+              dx * dx +
+              dy * dy
+            );
+
+
+          const maxDistance =
+            Math.max(
+              width,
+              height
+            ) * .72;
+
+
+          const normalized =
+            Math.min(
+              distance /
+              maxDistance,
+              1
+            );
+
+
+          const radialWave =
+            Math.sin(
+              normalized * 18 -
+              burst * 16
+            );
+
+
+          const strength =
+            burst *
+            (1 - normalized);
+
+
+          driftX +=
+            radialWave *
+            strength *
+            48;
+
+
+          driftY +=
+            Math.cos(
+              normalized * 15 -
+              burst * 13
+            ) *
+            strength *
+            30;
+
+        }
+
+
+        /* =================================================
+           CHANNEL BREATHING
+        ================================================= */
+
+        const breathing =
+          Math.sin(
+            time * .9 +
+            p.phase
+          );
+
+
+        driftX +=
+          breathing *
+          influence *
+          1.5;
+
+
+        driftY +=
+          Math.cos(
+            time * .7 +
+            p.phase
+          ) *
+          influence;
+
+
+        /* =================================================
+           TARGET
+        ================================================= */
+
+        const targetX =
+          p.baseX +
+          driftX;
+
+
+        const targetY =
+          p.baseY +
+          driftY;
+
+
+        p.vx +=
+          (
+            targetX -
+            p.x
+          ) * .055;
+
+
+        p.vy +=
+          (
+            targetY -
+            p.y
+          ) * .055;
+
+
+        p.vx *= .76;
+        p.vy *= .76;
+
+
+        p.x +=
+          p.vx;
+
+        p.y +=
+          p.vy;
+
+
+        /* =================================================
+           SPECTRAL SEPARATION
+        ================================================= */
+
+        const displacement =
+          Math.sqrt(
+            (
+              p.x -
+              p.baseX
+            ) ** 2 +
+            (
+              p.y -
+              p.baseY
+            ) ** 2
+          );
+
+
+        const separation =
+          Math.min(
+            displacement * .8 +
+            influence *
+            mouse.speed *
+            .22 +
+            burst * 18,
+
+            32
+          );
+
+
+        /*
+         * Direction follows
+         * pointer velocity.
+         */
+
+        const angle =
+          Math.atan2(
+            mouse.velocityY,
+            mouse.velocityX
+          );
+
+
+        const dirX =
+          Math.cos(angle);
+
+        const dirY =
+          Math.sin(angle);
+
+
+        /* =================================================
+           CHANNEL OFFSETS
+        ================================================= */
+
+        const redX =
+          p.x -
+          dirX *
+          separation;
+
+        const redY =
+          p.y -
+          dirY *
+          separation;
+
+
+        const blueX =
+          p.x +
+          dirX *
+          separation;
+
+        const blueY =
+          p.y +
+          dirY *
+          separation;
+
+
+        const secondary =
+          separation *
+          .38;
+
+
+        const greenX =
+          p.x +
+          Math.cos(
+            angle +
+            Math.PI / 2
+          ) *
+          secondary;
+
+
+        const greenY =
+          p.y +
+          Math.sin(
+            angle +
+            Math.PI / 2
+          ) *
+          secondary;
+
+
+        /* =================================================
+           RGB CHANNELS
+        ================================================= */
+
+        const channelAlpha =
+          Math.min(
+            .75,
+            .08 +
+            separation * .025
+          );
+
+
+        /*
+         * RED
+         */
+
+        ctx.fillStyle =
+          `rgba(
+            255,
+            65,
+            75,
+            ${channelAlpha}
+          )`;
+
+
+        ctx.fillRect(
+          redX,
+          redY,
+
+          p.size,
+          p.size
+        );
+
+
+        /*
+         * BLUE
+         */
+
+        ctx.fillStyle =
+          `rgba(
+            80,
+            150,
+            255,
+            ${channelAlpha}
+          )`;
+
+
+        ctx.fillRect(
+          blueX,
+          blueY,
+
+          p.size,
+          p.size
+        );
+
+
+        /*
+         * GREEN / CENTRAL SECONDARY
+         */
+
+        ctx.fillStyle =
+          `rgba(
+            110,
+            255,
+            190,
+            ${channelAlpha * .45}
+          )`;
+
+
+        ctx.fillRect(
+          greenX,
+          greenY,
+
+          p.size,
+          p.size
+        );
+
+
+        /* =================================================
+           MAIN WHITE PARTICLE
+        ================================================= */
+
+        const mainAlpha =
+          Math.max(
+            .35,
+            p.alpha -
+            separation *
+            .012
+          );
+
+
+        ctx.fillStyle =
+          `rgba(
+            255,
+            255,
+            255,
+            ${mainAlpha}
+          )`;
+
+
+        ctx.fillRect(
+          p.x,
+          p.y,
+
+          p.size +
+          Math.min(
+            separation * .045,
+            1.2
+          ),
+
+          p.size +
+          Math.min(
+            separation * .045,
+            1.2
+          )
+        );
+
+
+        /* =================================================
+           HIGH VELOCITY TRAIL
+        ================================================= */
+
+        if (
+          mouse.speed > 8 &&
+          influence > .15
+        ) {
+
+          const trail =
+            Math.min(
+              mouse.speed * .35,
+              18
+            );
+
+
+          ctx.fillStyle =
+            `rgba(
+              255,
+              255,
+              255,
+              ${influence * .08}
+            )`;
+
+
+          ctx.fillRect(
+            p.x -
+            mouse.velocityX *
+            trail *
+            .04,
+
+            p.y -
+            mouse.velocityY *
+            trail *
+            .04,
+
+            p.size,
+            p.size
+          );
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       COUNTER
+    ===================================================== */
+
+    counter.textContent =
+      `${String(
+        affected
+      ).padStart(
+        5,
+        "0"
+      )} / ${String(
+        totalParticles
+      ).padStart(
+        5,
+        "0"
+      )}`;
+
+
+    /* =====================================================
+       CURSOR
+    ===================================================== */
+
+    if (
+      !isMobile
+    ) {
+
+      gsap.to(
+        cursor,
+        {
+
+          x:
+            mouse.targetX,
+
+          y:
+            mouse.targetY,
+
+          duration: .14,
+
+          ease:
+            "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+
+      gsap.to(
+        ring,
+        {
+
+          x:
+            mouse.targetX,
+
+          y:
+            mouse.targetY,
+
+          duration: .4,
+
+          ease:
+            "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       GRID PARALLAX
+    ===================================================== */
+
+    const grid =
+      stage.querySelector(
+        ".chd78-grid"
+      );
+
+
+    if (
+      grid
+    ) {
+
+      const gx =
+        (
+          mouse.x -
+          width / 2
+        ) /
+        width *
+        -24;
+
+
+      const gy =
+        (
+          mouse.y -
+          height / 2
+        ) /
+        height *
+        -24;
+
+
+      grid.style.transform =
+        `translate(
+          ${gx}px,
+          ${gy}px
+        )`;
+
+    }
+
+  }
+
+
+  /* =======================================================
+     INITIALIZE
+  ======================================================= */
+
+  resize();
+
+  render();
+
+})();
+
+/* =================================================
+           CLICK BURST
+        ================================================= */
+
+        if (
+          burst > .001
+        ) {
+
+          const dx =
+            p.baseX -
+            width / 2;
+
+          const dy =
+            p.baseY -
+            height / 2;
+
+          const distance =
+            Math.sqrt(
+              dx * dx +
+              dy * dy
+            );
+
+
+          const maxDistance =
+            Math.max(
+              width,
+              height
+            ) * .72;
+
+
+          const normalized =
+            Math.min(
+              distance /
+              maxDistance,
+              1
+            );
+
+
+          const radialWave =
+            Math.sin(
+              normalized * 18 -
+              burst * 16
+            );
+
+
+          const strength =
+            burst *
+            (1 - normalized);
+
+
+          driftX +=
+            radialWave *
+            strength *
+            48;
+
+
+          driftY +=
+            Math.cos(
+              normalized * 15 -
+              burst * 13
+            ) *
+            strength *
+            30;
+
+        }
+
+
+        /* =================================================
+           CHANNEL BREATHING
+        ================================================= */
+
+        const breathing =
+          Math.sin(
+            time * .9 +
+            p.phase
+          );
+
+
+        driftX +=
+          breathing *
+          influence *
+          1.5;
+
+
+        driftY +=
+          Math.cos(
+            time * .7 +
+            p.phase
+          ) *
+          influence;
+
+
+        /* =================================================
+           TARGET
+        ================================================= */
+
+        const targetX =
+          p.baseX +
+          driftX;
+
+
+        const targetY =
+          p.baseY +
+          driftY;
+
+
+        p.vx +=
+          (
+            targetX -
+            p.x
+          ) * .055;
+
+
+        p.vy +=
+          (
+            targetY -
+            p.y
+          ) * .055;
+
+
+        p.vx *= .76;
+        p.vy *= .76;
+
+
+        p.x +=
+          p.vx;
+
+        p.y +=
+          p.vy;
+
+
+        /* =================================================
+           SPECTRAL SEPARATION
+        ================================================= */
+
+        const displacement =
+          Math.sqrt(
+            (
+              p.x -
+              p.baseX
+            ) ** 2 +
+            (
+              p.y -
+              p.baseY
+            ) ** 2
+          );
+
+
+        const separation =
+          Math.min(
+            displacement * .8 +
+            influence *
+            mouse.speed *
+            .22 +
+            burst * 18,
+
+            32
+          );
+
+
+        /*
+         * Direction follows
+         * pointer velocity.
+         */
+
+        const angle =
+          Math.atan2(
+            mouse.velocityY,
+            mouse.velocityX
+          );
+
+
+        const dirX =
+          Math.cos(angle);
+
+        const dirY =
+          Math.sin(angle);
+
+
+        /* =================================================
+           CHANNEL OFFSETS
+        ================================================= */
+
+        const redX =
+          p.x -
+          dirX *
+          separation;
+
+        const redY =
+          p.y -
+          dirY *
+          separation;
+
+
+        const blueX =
+          p.x +
+          dirX *
+          separation;
+
+        const blueY =
+          p.y +
+          dirY *
+          separation;
+
+
+        const secondary =
+          separation *
+          .38;
+
+
+        const greenX =
+          p.x +
+          Math.cos(
+            angle +
+            Math.PI / 2
+          ) *
+          secondary;
+
+
+        const greenY =
+          p.y +
+          Math.sin(
+            angle +
+            Math.PI / 2
+          ) *
+          secondary;
+
+
+        /* =================================================
+           RGB CHANNELS
+        ================================================= */
+
+        const channelAlpha =
+          Math.min(
+            .75,
+            .08 +
+            separation * .025
+          );
+
+
+        /*
+         * RED
+         */
+
+        ctx.fillStyle =
+          `rgba(
+            255,
+            65,
+            75,
+            ${channelAlpha}
+          )`;
+
+
+        ctx.fillRect(
+          redX,
+          redY,
+
+          p.size,
+          p.size
+        );
+
+
+        /*
+         * BLUE
+         */
+
+        ctx.fillStyle =
+          `rgba(
+            80,
+            150,
+            255,
+            ${channelAlpha}
+          )`;
+
+
+        ctx.fillRect(
+          blueX,
+          blueY,
+
+          p.size,
+          p.size
+        );
+
+
+        /*
+         * GREEN / CENTRAL SECONDARY
+         */
+
+        ctx.fillStyle =
+          `rgba(
+            110,
+            255,
+            190,
+            ${channelAlpha * .45}
+          )`;
+
+
+        ctx.fillRect(
+          greenX,
+          greenY,
+
+          p.size,
+          p.size
+        );
+
+
+        /* =================================================
+           MAIN WHITE PARTICLE
+        ================================================= */
+
+        const mainAlpha =
+          Math.max(
+            .35,
+            p.alpha -
+            separation *
+            .012
+          );
+
+
+        ctx.fillStyle =
+          `rgba(
+            255,
+            255,
+            255,
+            ${mainAlpha}
+          )`;
+
+
+        ctx.fillRect(
+          p.x,
+          p.y,
+
+          p.size +
+          Math.min(
+            separation * .045,
+            1.2
+          ),
+
+          p.size +
+          Math.min(
+            separation * .045,
+            1.2
+          )
+        );
+
+
+        /* =================================================
+           HIGH VELOCITY TRAIL
+        ================================================= */
+
+        if (
+          mouse.speed > 8 &&
+          influence > .15
+        ) {
+
+          const trail =
+            Math.min(
+              mouse.speed * .35,
+              18
+            );
+
+
+          ctx.fillStyle =
+            `rgba(
+              255,
+              255,
+              255,
+              ${influence * .08}
+            )`;
+
+
+          ctx.fillRect(
+            p.x -
+            mouse.velocityX *
+            trail *
+            .04,
+
+            p.y -
+            mouse.velocityY *
+            trail *
+            .04,
+
+            p.size,
+            p.size
+          );
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       COUNTER
+    ===================================================== */
+
+    counter.textContent =
+      `${String(
+        affected
+      ).padStart(
+        5,
+        "0"
+      )} / ${String(
+        totalParticles
+      ).padStart(
+        5,
+        "0"
+      )}`;
+
+
+    /* =====================================================
+       CURSOR
+    ===================================================== */
+
+    if (
+      !isMobile
+    ) {
+
+      gsap.to(
+        cursor,
+        {
+
+          x:
+            mouse.targetX,
+
+          y:
+            mouse.targetY,
+
+          duration: .14,
+
+          ease:
+            "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+
+      gsap.to(
+        ring,
+        {
+
+          x:
+            mouse.targetX,
+
+          y:
+            mouse.targetY,
+
+          duration: .4,
+
+          ease:
+            "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       GRID PARALLAX
+    ===================================================== */
+
+    const grid =
+      stage.querySelector(
+        ".chd78-grid"
+      );
+
+
+    if (
+      grid
+    ) {
+
+      const gx =
+        (
+          mouse.x -
+          width / 2
+        ) /
+        width *
+        -24;
+
+
+      const gy =
+        (
+          mouse.y -
+          height / 2
+        ) /
+        height *
+        -24;
+
+
+      grid.style.transform =
+        `translate(
+          ${gx}px,
+          ${gy}px
+        )`;
+
+    }
+
+  }
+
+
+  /* =======================================================
+     INITIALIZE
+  ======================================================= */
+
+  resize();
+
+  render();
+
+})();
 
 
 /* =========================================================
