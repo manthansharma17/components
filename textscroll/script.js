@@ -32961,7 +32961,128 @@ magnet62Stage.addEventListener("click", () => {
     resize
   );
 
+ /* =======================================================
+     TEXT PARTICLE GENERATION
+  ======================================================= */
 
+  function createText() {
+
+    particles = [];
+
+    const source =
+      document.createElement(
+        "canvas"
+      );
+
+    source.width =
+      width;
+
+    source.height =
+      height;
+
+    const sourceCtx =
+      source.getContext(
+        "2d"
+      );
+
+
+    let fontSize =
+      Math.min(
+        width * .145,
+        220
+      );
+
+
+    sourceCtx.font =
+      `900 ${fontSize}px Arial`;
+
+
+    while (
+      sourceCtx.measureText(
+        "CHROMATIC DRIFT"
+      ).width >
+      width * .84
+    ) {
+
+      fontSize -= 2;
+
+      sourceCtx.font =
+        `900 ${fontSize}px Arial`;
+
+    }
+
+
+    sourceCtx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+
+    sourceCtx.fillStyle =
+      "#fff";
+
+    sourceCtx.textAlign =
+      "center";
+
+    sourceCtx.textBaseline =
+      "middle";
+
+
+    sourceCtx.fillText(
+      "CHROMATIC DRIFT",
+      width / 2,
+      height / 2
+    );
+
+
+    const data =
+      sourceCtx.getImageData(
+        0,
+        0,
+        width,
+        height
+      ).data;
+
+
+    const points = [];
+
+
+    for (
+      let y = 0;
+      y < height;
+      y += GAP
+    ) {
+
+      for (
+        let x = 0;
+        x < width;
+        x += GAP
+      ) {
+
+        const index =
+          (
+            y * width +
+            x
+          ) * 4;
+
+
+        if (
+          data[index + 3] >
+          100
+        ) {
+
+          points.push({
+            x,
+            y
+          });
+
+        }
+
+      }
+
+    }
 
 /* =========================================================
    REFRESH
