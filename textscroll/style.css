@@ -17362,6 +17362,91 @@ JS animates every word toward these positions.
 
 }
 
+/* =========================================================
+   SECTION 79 — PARALLAX DEPTH
+========================================================= */
+
+.section-seventy-nine {
+  position: relative;
+
+  width: 100%;
+  height: 100dvh;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 48%,
+      #171717 0%,
+      #080808 48%,
+      #000 100%
+    );
+
+  color: #fff;
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.prd79-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  perspective: 1200px;
+
+  cursor: crosshair;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.prd79-grid {
+  position: absolute;
+
+  inset: -15%;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    );
+
+  background-size: 85px 85px;
+
+  opacity: .4;
+
+  transform:
+    perspective(900px)
+    rotateX(2deg);
+
+  mask-image:
+    radial-gradient(
+      circle at center,
+      #000 0%,
+      rgba(0,0,0,.65) 48%,
+      transparent 84%
+    );
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
 
 
 /* =========================================================
