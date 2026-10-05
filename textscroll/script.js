@@ -35393,7 +35393,218 @@ magnet62Stage.addEventListener("click", () => {
 
         }
 
+  /* -----------------------------------------------
+           DEPTH GHOST
+        ----------------------------------------------- */
 
+        if (
+          localDepth > .35
+        ) {
+
+          const ghostOffset =
+            localDepth *
+            8;
+
+
+          ctx.fillStyle =
+            `rgba(
+              255,
+              255,
+              255,
+              ${p.alpha *
+              .12}
+            )`;
+
+
+          ctx.fillRect(
+            p.x -
+            ghostOffset,
+
+            p.y,
+
+            size,
+            size
+          );
+
+
+          ctx.fillRect(
+            p.x +
+            ghostOffset,
+
+            p.y,
+
+            size,
+            size
+          );
+
+        }
+
+
+        /* -----------------------------------------------
+           MAIN PARTICLE
+        ----------------------------------------------- */
+
+        const opacity =
+          Math.max(
+            .22,
+            p.alpha -
+            localDepth * .12
+          );
+
+
+        ctx.fillStyle =
+          `rgba(
+            255,
+            255,
+            255,
+            ${opacity}
+          )`;
+
+
+        ctx.fillRect(
+          p.x,
+          p.y,
+          size,
+          size
+        );
+
+      }
+    );
+
+
+    /* =====================================================
+       DEPTH HUD
+    ===================================================== */
+
+    const depthValue =
+      Math.round(
+        camera.depth * 999
+      );
+
+
+    counter.textContent =
+      `Z ${String(
+        depthValue
+      ).padStart(
+        3,
+        "0"
+      )} / ${String(
+        totalParticles
+      ).padStart(
+        5,
+        "0"
+      )}`;
+
+
+    /* =====================================================
+       CURSOR
+    ===================================================== */
+
+    if (
+      !mobile
+    ) {
+
+      gsap.to(
+        cursor,
+        {
+
+          x:
+            camera.targetX,
+
+          y:
+            camera.targetY,
+
+          duration: .15,
+
+          ease:
+            "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+
+      gsap.to(
+        ring,
+        {
+
+          x:
+            camera.targetX,
+
+          y:
+            camera.targetY,
+
+          duration: .42,
+
+          ease:
+            "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       GRID PARALLAX
+    ===================================================== */
+
+    const grid =
+      stage.querySelector(
+        ".prd79-grid"
+      );
+
+
+    if (
+      grid
+    ) {
+
+      const gx =
+        (
+          camera.x -
+          width / 2
+        ) /
+        width *
+        -30;
+
+
+      const gy =
+        (
+          camera.y -
+          height / 2
+        ) /
+        height *
+        -30;
+
+
+      grid.style.transform =
+        `
+          perspective(900px)
+          rotateX(${rotateX * 8}deg)
+          rotateY(${rotateY * 8}deg)
+          translate(
+            ${gx}px,
+            ${gy}px
+          )
+        `;
+
+    }
+
+  }
+
+
+  /* =======================================================
+     INIT
+  ======================================================= */
+
+  resize();
+
+  render();
+
+})();
 
 /* =========================================================
    REFRESH
