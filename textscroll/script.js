@@ -34534,6 +34534,387 @@ magnet62Stage.addEventListener("click", () => {
   render();
 
 })();
+/* =========================================================
+   SECTION 79
+   PARALLAX DEPTH ENGINE
+========================================================= */
+
+(() => {
+
+  const stage =
+    document.getElementById(
+      "prd79Stage"
+    );
+
+  const canvas =
+    document.getElementById(
+      "prd79Canvas"
+    );
+
+  const cursor =
+    document.getElementById(
+      "prd79Cursor"
+    );
+
+  const ring =
+    document.getElementById(
+      "prd79Ring"
+    );
+
+  const status =
+    document.getElementById(
+      "prd79Status"
+    );
+
+  const counter =
+    document.getElementById(
+      "prd79Counter"
+    );
+
+  if (
+    !stage ||
+    !canvas
+  ) return;
+
+
+  const ctx =
+    canvas.getContext("2d");
+
+
+  /* =======================================================
+     CONFIG
+  ======================================================= */
+
+  const mobile =
+    window.matchMedia(
+      "(max-width: 768px)"
+    ).matches;
+
+  const GAP =
+    mobile ? 5 : 3;
+
+  const MAX_PARTICLES =
+    mobile
+      ? 4200
+      : 8200;
+
+
+  /* =======================================================
+     STATE
+  ======================================================= */
+
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+
+  let particles = [];
+
+  let totalParticles = 0;
+
+  let depthBurst = 0;
+
+
+  /* =======================================================
+     CAMERA
+  ======================================================= */
+
+  const camera = {
+
+    x: 0,
+    y: 0,
+
+    targetX: 0,
+    targetY: 0,
+
+    depth: 0,
+    targetDepth: 0,
+
+    previousX: 0,
+    previousY: 0,
+
+    speed: 0
+
+  };
+
+
+  /* =======================================================
+     RESIZE
+  ======================================================= */
+
+  function resize() {
+
+    width =
+      stage.clientWidth;
+
+    height =
+      stage.clientHeight;
+
+    dpr =
+      Math.min(
+        window.devicePixelRatio || 1,
+        2
+      );
+
+    canvas.width =
+      width * dpr;
+
+    canvas.height =
+      height * dpr;
+
+    canvas.style.width =
+      width + "px";
+
+    canvas.style.height =
+      height + "px";
+
+    ctx.setTransform(
+      dpr,
+      0,
+      0,
+      dpr,
+      0,
+      0
+    );
+
+    camera.x =
+      width / 2;
+
+    camera.y =
+      height / 2;
+
+    camera.targetX =
+      width / 2;
+
+    camera.targetY =
+      height / 2;
+
+    camera.previousX =
+      width / 2;
+
+    camera.previousY =
+      height / 2;
+
+    createText();
+
+  }
+
+
+  window.addEventListener(
+    "resize",
+    resize
+  );
+
+
+  /* =======================================================
+     CREATE TEXT
+  ======================================================= */
+
+  function createText() {
+
+    particles = [];
+
+    const source =
+      document.createElement(
+        "canvas"
+      );
+
+    source.width =
+      width;
+
+    source.height =
+      height;
+
+    const sourceCtx =
+      source.getContext(
+        "2d"
+      );
+
+
+    let fontSize =
+      Math.min(
+        width * .145,
+        225
+      );
+
+
+    sourceCtx.font =
+      `900 ${fontSize}px Arial`;
+
+
+    while (
+      sourceCtx.measureText(
+        "PARALLAX DEPTH"
+      ).width >
+      width * .84
+    ) {
+
+      fontSize -= 2;
+
+      sourceCtx.font =
+        `900 ${fontSize}px Arial`;
+
+    }
+
+
+    sourceCtx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+
+    sourceCtx.fillStyle =
+      "#fff";
+
+    sourceCtx.textAlign =
+      "center";
+
+    sourceCtx.textBaseline =
+      "middle";
+
+
+    sourceCtx.fillText(
+      "PARALLAX DEPTH",
+      width / 2,
+      height / 2
+    );
+
+
+    const pixels =
+      sourceCtx.getImageData(
+        0,
+        0,
+        width,
+        height
+      ).data;
+
+
+    const points = [];
+
+
+    for (
+      let y = 0;
+      y < height;
+      y += GAP
+    ) {
+
+      for (
+        let x = 0;
+        x < width;
+        x += GAP
+      ) {
+
+        const index =
+          (
+            y * width +
+            x
+          ) * 4;
+
+
+        if (
+          pixels[index + 3] >
+          100
+        ) {
+
+          points.push({
+            x,
+            y
+          });
+
+        }
+
+      }
+
+    }
+
+
+    let selected =
+      points;
+
+
+    if (
+      points.length >
+      MAX_PARTICLES
+    ) {
+
+      selected = [];
+
+      const step =
+        points.length /
+        MAX_PARTICLES;
+
+
+      for (
+        let i = 0;
+        i < MAX_PARTICLES;
+        i++
+      ) {
+
+        selected.push(
+          points[
+            Math.floor(
+              i * step
+            )
+          ]
+        );
+
+      }
+
+    }
+
+
+    selected.forEach(
+      point => {
+
+        particles.push({
+
+          x: point.x,
+          y: point.y,
+
+          baseX: point.x,
+          baseY: point.y,
+
+          vx: 0,
+          vy: 0,
+
+          depth:
+            Math.random(),
+
+          depthTarget:
+            Math.random(),
+
+          phase:
+            Math.random() *
+            Math.PI * 2,
+
+          size:
+            .75 +
+            Math.random() * 1.25,
+
+          alpha:
+            .45 +
+            Math.random() * .55
+
+        });
+
+      }
+    );
+
+
+    totalParticles =
+      particles.length;
+
+
+    counter.textContent =
+      `Z 000 / ${String(
+        totalParticles
+      ).padStart(
+        5,
+        "0"
+      )}`;
+
+  }
 
 
 /* =========================================================
