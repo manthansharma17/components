@@ -34915,6 +34915,484 @@ magnet62Stage.addEventListener("click", () => {
       )}`;
 
   }
+ /* =======================================================
+     POINTER
+  ======================================================= */
+
+  window.addEventListener(
+    "mousemove",
+    event => {
+
+      camera.targetX =
+        event.clientX;
+
+      camera.targetY =
+        event.clientY;
+
+
+      const dx =
+        event.clientX -
+        width / 2;
+
+      const dy =
+        event.clientY -
+        height / 2;
+
+
+      camera.targetDepth =
+        Math.sqrt(
+          dx * dx +
+          dy * dy
+        ) /
+        (
+          Math.max(
+            width,
+            height
+          ) * .7
+        );
+
+
+      status.textContent =
+        "DEPTH FIELD ACTIVE";
+
+    }
+  );
+
+
+  window.addEventListener(
+    "mouseleave",
+    () => {
+
+      camera.targetX =
+        width / 2;
+
+      camera.targetY =
+        height / 2;
+
+      camera.targetDepth =
+        0;
+
+      status.textContent =
+        "MOVE TO CONTROL DEPTH";
+
+    }
+  );
+
+
+  /* =======================================================
+     CLICK — DEPTH EXPANSION
+  ======================================================= */
+
+  stage.addEventListener(
+    "click",
+    () => {
+
+      status.textContent =
+        "DEPTH EXPANSION";
+
+
+      const state = {
+        value: 0
+      };
+
+
+      gsap.timeline({
+
+        onUpdate: () => {
+
+          depthBurst =
+            state.value;
+
+        },
+
+        onComplete: () => {
+
+          status.textContent =
+            "MOVE TO CONTROL DEPTH";
+
+        }
+
+      })
+
+      .to(
+        state,
+        {
+          value: 1,
+
+          duration: .55,
+
+          ease: "power3.out"
+        }
+      )
+
+      .to(
+        state,
+        {
+          value: 2.2,
+
+          duration: .75,
+
+          ease: "power2.inOut"
+        }
+      )
+
+      .to(
+        state,
+        {
+          value: 0,
+
+          duration: 1.5,
+
+          ease: "expo.out"
+        }
+      );
+
+    }
+  );
+
+
+  /* =======================================================
+     RENDER
+  ======================================================= */
+
+  function render() {
+
+    requestAnimationFrame(
+      render
+    );
+
+
+    /* -----------------------------------------------------
+       CAMERA
+    ----------------------------------------------------- */
+
+    camera.x +=
+      (
+        camera.targetX -
+        camera.x
+      ) * .08;
+
+
+    camera.y +=
+      (
+        camera.targetY -
+        camera.y
+      ) * .08;
+
+
+    camera.depth +=
+      (
+        camera.targetDepth -
+        camera.depth
+      ) * .06;
+
+
+    const vx =
+      camera.targetX -
+      camera.previousX;
+
+
+    const vy =
+      camera.targetY -
+      camera.previousY;
+
+
+    const speed =
+      Math.sqrt(
+        vx * vx +
+        vy * vy
+      );
+
+
+    camera.speed +=
+      (
+        speed -
+        camera.speed
+      ) * .12;
+
+
+    camera.previousX =
+      camera.targetX;
+
+    camera.previousY =
+      camera.targetY;
+
+
+    /* -----------------------------------------------------
+       CLEAR
+    ----------------------------------------------------- */
+
+    ctx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+
+    const time =
+      performance.now() *
+      .001;
+
+
+    /* =====================================================
+       CAMERA ROTATION
+    ===================================================== */
+
+    const rotateX =
+      (
+        camera.y -
+        height / 2
+      ) /
+      height *
+      -.22;
+
+
+    const rotateY =
+      (
+        camera.x -
+        width / 2
+      ) /
+      width *
+      .22;
+
+
+    /* =====================================================
+       PARTICLES
+    ===================================================== */
+
+    particles.forEach(
+      p => {
+
+        /* -----------------------------------------------
+           LOCAL DEPTH
+        ----------------------------------------------- */
+
+        const localDepth =
+          (
+            p.depth +
+            camera.depth * .45
+          ) /
+          1.45;
+
+
+        /* -----------------------------------------------
+           PERSPECTIVE
+        ----------------------------------------------- */
+
+        const perspective =
+          1 +
+          localDepth *
+          .34;
+
+
+        const centerX =
+          width / 2;
+
+        const centerY =
+          height / 2;
+
+
+        let targetX =
+          centerX +
+          (
+            p.baseX -
+            centerX
+          ) *
+          perspective;
+
+
+        let targetY =
+          centerY +
+          (
+            p.baseY -
+            centerY
+          ) *
+          perspective;
+
+
+        /* -----------------------------------------------
+           CAMERA PARALLAX
+        ----------------------------------------------- */
+
+        targetX +=
+          rotateY *
+          localDepth *
+          110;
+
+
+        targetY +=
+          rotateX *
+          localDepth *
+          110;
+
+
+        /* -----------------------------------------------
+           DEPTH BURST
+        ----------------------------------------------- */
+
+        if (
+          depthBurst > .001
+        ) {
+
+          const dx =
+            p.baseX -
+            centerX;
+
+          const dy =
+            p.baseY -
+            centerY;
+
+
+          const distance =
+            Math.sqrt(
+              dx * dx +
+              dy * dy
+            );
+
+
+          const normalized =
+            Math.min(
+              distance /
+              (
+                Math.max(
+                  width,
+                  height
+                ) * .7
+              ),
+              1
+            );
+
+
+          const wave =
+            Math.sin(
+              normalized * 16 -
+              depthBurst * 13
+            );
+
+
+          const burstStrength =
+            depthBurst *
+            (1 - normalized);
+
+
+          targetX +=
+            dx *
+            burstStrength *
+            .18;
+
+
+          targetY +=
+            dy *
+            burstStrength *
+            .18;
+
+
+          targetX +=
+            wave *
+            burstStrength *
+            18;
+
+
+          targetY +=
+            Math.cos(
+              normalized * 13 -
+              depthBurst * 11
+            ) *
+            burstStrength *
+            12;
+
+        }
+
+
+        /* -----------------------------------------------
+           SPRING
+        ----------------------------------------------- */
+
+        p.vx +=
+          (
+            targetX -
+            p.x
+          ) * .045;
+
+
+        p.vy +=
+          (
+            targetY -
+            p.y
+          ) * .045;
+
+
+        p.vx *= .78;
+        p.vy *= .78;
+
+
+        p.x +=
+          p.vx;
+
+        p.y +=
+          p.vy;
+
+
+        /* -----------------------------------------------
+           DEPTH SCALE
+        ----------------------------------------------- */
+
+        const scale =
+          .65 +
+          localDepth * .75;
+
+
+        const size =
+          p.size *
+          scale;
+
+
+        /* -----------------------------------------------
+           DEPTH BLUR SIMULATION
+        ----------------------------------------------- */
+
+        const blur =
+          Math.max(
+            0,
+            localDepth * 2.2 -
+            .7
+          );
+
+
+        /* -----------------------------------------------
+           FAR DEPTH TRAIL
+        ----------------------------------------------- */
+
+        if (
+          localDepth > .55
+        ) {
+
+          ctx.fillStyle =
+            `rgba(
+              255,
+              255,
+              255,
+              ${p.alpha *
+              .06}
+            )`;
+
+
+          ctx.fillRect(
+            p.x -
+            p.vx *
+            (2 + blur * 3),
+
+            p.y -
+            p.vy *
+            (2 + blur * 3),
+
+            size * 1.8,
+            size * 1.8
+          );
+
+        }
+
 
 
 /* =========================================================
