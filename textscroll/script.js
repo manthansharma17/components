@@ -36575,6 +36575,315 @@ selected.forEach(
       ctx.restore();
 
     }
+
+/* =====================================================
+       BURST ECHOES
+    ===================================================== */
+
+    if (
+      burst > .01
+    ) {
+
+      const centerX =
+        width / 2;
+
+      const centerY =
+        height / 2;
+
+
+      const burstOffset =
+        burst * 35;
+
+
+      ctx.save();
+
+
+      ctx.globalAlpha =
+        burst * .08;
+
+
+      ctx.translate(
+        centerX,
+        centerY
+      );
+
+
+      ctx.scale(
+        1 +
+        burst * .045,
+        1 +
+        burst * .045
+      );
+
+
+      ctx.translate(
+        -centerX +
+        mouse.directionX *
+        burstOffset,
+
+        -centerY +
+        mouse.directionY *
+        burstOffset *
+        .6
+      );
+
+
+      ctx.fillStyle =
+        "#fff";
+
+
+      particles.forEach(
+        p => {
+
+          ctx.fillRect(
+            p.x,
+            p.y,
+            p.size * 1.3,
+            p.size * 1.3
+          );
+
+        }
+      );
+
+
+      ctx.restore();
+
+    }
+
+
+    /* =====================================================
+       MAIN PRESENT MOMENT
+    ===================================================== */
+
+    particles.forEach(
+      p => {
+
+        const velocity =
+          Math.sqrt(
+            p.vx * p.vx +
+            p.vy * p.vy
+          );
+
+
+        const stretch =
+          Math.min(
+            velocity * .25,
+            3
+          );
+
+
+        ctx.fillStyle =
+          `rgba(
+            255,
+            255,
+            255,
+            ${p.alpha}
+          )`;
+
+
+        ctx.fillRect(
+          p.x -
+          p.vx *
+          .05,
+
+          p.y -
+          p.vy *
+          .05,
+
+          p.size +
+          stretch,
+
+          p.size +
+          stretch
+        );
+
+      }
+    );
+
+
+    /* =====================================================
+       TEMPORAL SCAN
+    ===================================================== */
+
+    const scan =
+      (
+        time * 80
+      ) %
+      (height + 300) -
+      150;
+
+
+    const gradient =
+      ctx.createLinearGradient(
+        0,
+        scan - 50,
+        0,
+        scan + 50
+      );
+
+
+    gradient.addColorStop(
+      0,
+      "rgba(255,255,255,0)"
+    );
+
+
+    gradient.addColorStop(
+      .5,
+      "rgba(255,255,255,.025)"
+    );
+
+
+    gradient.addColorStop(
+      1,
+      "rgba(255,255,255,0)"
+    );
+
+
+    ctx.fillStyle =
+      gradient;
+
+
+    ctx.fillRect(
+      0,
+      scan - 50,
+      width,
+      100
+    );
+
+
+    /* =====================================================
+       COUNTER
+    ===================================================== */
+
+    const echoCount =
+      Math.min(
+        snapshots.length,
+        MAX_ECHOES
+      );
+
+
+    counter.textContent =
+      `ECHO ${String(
+        echoCount
+      ).padStart(
+        2,
+        "0"
+      )} / ${String(
+        MAX_ECHOES
+      ).padStart(
+        2,
+        "0"
+      )}`;
+
+
+    /* =====================================================
+       CURSOR
+    ===================================================== */
+
+    if (
+      !mobile
+    ) {
+
+      gsap.to(
+        cursor,
+        {
+
+          x:
+            mouse.targetX,
+
+          y:
+            mouse.targetY,
+
+          duration: .15,
+
+          ease:
+            "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+
+      gsap.to(
+        ring,
+        {
+
+          x:
+            mouse.targetX,
+
+          y:
+            mouse.targetY,
+
+          duration: .42,
+
+          ease:
+            "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       GRID PARALLAX
+    ===================================================== */
+
+    const grid =
+      stage.querySelector(
+        ".te80-grid"
+      );
+
+
+    if (
+      grid
+    ) {
+
+      const gx =
+        (
+          mouse.x -
+          width / 2
+        ) /
+        width *
+        -25;
+
+
+      const gy =
+        (
+          mouse.y -
+          height / 2
+        ) /
+        height *
+        -25;
+
+
+      grid.style.transform =
+        `translate(
+          ${gx}px,
+          ${gy}px
+        )`;
+
+    }
+
+  }
+
+
+  /* =======================================================
+     INIT
+  ======================================================= */
+
+  resize();
+
+  render();
+
+})();
+
+
+
 /* =========================================================
    REFRESH
 ========================================================= */
