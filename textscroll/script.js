@@ -36247,7 +36247,334 @@ selected.forEach(
       mouse.targetY;
 
 
+/* -----------------------------------------------------
+       CLEAR
+    ----------------------------------------------------- */
 
+    ctx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+
+    const time =
+      performance.now() *
+      .001;
+
+
+    /* =====================================================
+       UPDATE MAIN TYPOGRAPHY
+    ===================================================== */
+
+    particles.forEach(
+      p => {
+
+        const dx =
+          p.baseX -
+          mouse.x;
+
+        const dy =
+          p.baseY -
+          mouse.y;
+
+
+        const distance =
+          Math.sqrt(
+            dx * dx +
+            dy * dy
+          );
+
+
+        const radius =
+          mobile
+            ? 110
+            : 150;
+
+
+        let influence =
+          0;
+
+
+        if (
+          mouse.active &&
+          distance < radius
+        ) {
+
+          influence =
+            1 -
+            distance /
+            radius;
+
+        }
+
+
+        /*
+         * Cursor movement bends
+         * the present moment.
+         */
+
+        const wave =
+          Math.sin(
+            p.phase +
+            time * 3 +
+            p.baseX * .008
+          );
+
+
+        const displacement =
+          influence *
+          (
+            3 +
+            mouse.speed * .28
+          );
+
+
+        const targetX =
+          p.baseX +
+          mouse.directionX *
+          displacement +
+          wave *
+          influence *
+          2;
+
+
+        const targetY =
+          p.baseY +
+          mouse.directionY *
+          displacement *
+          .65 +
+          Math.cos(
+            p.phase +
+            time * 2
+          ) *
+          influence *
+          1.5;
+
+
+        /*
+         * Freeze makes the
+         * present moment rigid.
+         */
+
+        const stiffness =
+          frozen > .3
+            ? .12
+            : .055;
+
+
+        p.vx +=
+          (
+            targetX -
+            p.x
+          ) *
+          stiffness;
+
+
+        p.vy +=
+          (
+            targetY -
+            p.y
+          ) *
+          stiffness;
+
+
+        p.vx *= .76;
+        p.vy *= .76;
+
+
+        p.x +=
+          p.vx;
+
+        p.y +=
+          p.vy;
+
+      }
+    );
+
+
+    /* =====================================================
+       CAPTURE CURRENT FRAME
+    ===================================================== */
+
+    if (
+      frame % 3 === 0 &&
+      frozen < .6
+    ) {
+
+      saveSnapshot();
+
+    }
+
+
+    /* =====================================================
+       DRAW ECHOES
+    ===================================================== */
+
+    for (
+      let echo = snapshots.length - 1;
+      echo >= 0;
+      echo--
+    ) {
+
+      const snapshot =
+        snapshots[echo];
+
+
+      const age =
+        echo + 1;
+
+
+      /*
+       * Older echoes are
+       * farther behind.
+       */
+
+      const normalizedAge =
+        age /
+        Math.max(
+          snapshots.length,
+          1
+        );
+
+
+      let opacity =
+        (
+          1 -
+          normalizedAge
+        ) *
+        .075;
+
+
+      opacity *=
+        Math.min(
+          1 +
+          mouse.speed * .025,
+          2.4
+        );
+
+
+      if (
+        burst > .01
+      ) {
+
+        opacity *=
+          1 +
+          burst * 1.5;
+
+      }
+
+
+      if (
+        opacity <= .001
+      ) continue;
+
+
+      /*
+       * Temporal displacement.
+       */
+
+      const timeOffset =
+        age *
+        (
+          2 +
+          mouse.speed * .12
+        );
+
+
+      const echoX =
+        mouse.directionX *
+        timeOffset;
+
+
+      const echoY =
+        mouse.directionY *
+        timeOffset *
+        .65;
+
+
+      /*
+       * Older echoes slowly
+       * collapse toward center.
+       */
+
+      const collapse =
+        frozen > .1
+          ? 1
+          : 1 -
+            normalizedAge *
+            .18;
+
+
+      ctx.save();
+
+
+      ctx.globalAlpha =
+        opacity;
+
+
+      ctx.translate(
+        width / 2,
+        height / 2
+      );
+
+
+      ctx.scale(
+        collapse,
+        collapse
+      );
+
+
+      ctx.translate(
+        -width / 2 +
+        echoX,
+
+        -height / 2 +
+        echoY
+      );
+
+
+      ctx.fillStyle =
+        "#ffffff";
+
+
+      for (
+        let i = 0;
+        i < particles.length;
+        i++
+      ) {
+
+        const x =
+          snapshot[i * 2];
+
+        const y =
+          snapshot[i * 2 + 1];
+
+
+        const size =
+          particles[i].size *
+          (
+            .7 +
+            (1 -
+              normalizedAge) *
+            .25
+          );
+
+
+        ctx.fillRect(
+          x,
+          y,
+          size,
+          size
+        );
+
+      }
+
+
+      ctx.restore();
+
+    }
 /* =========================================================
    REFRESH
 ========================================================= */
