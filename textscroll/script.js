@@ -36034,6 +36034,217 @@ selected.forEach(
     }
   );
 
+  /* =======================================================
+     CLICK — TIME FREEZE + ECHO BURST
+  ======================================================= */
+
+  stage.addEventListener(
+    "click",
+    () => {
+
+      status.textContent =
+        "TIME FROZEN";
+
+
+      gsap.killTweensOf(
+        window
+      );
+
+
+      const state = {
+        value: 0
+      };
+
+
+      gsap.timeline({
+
+        onUpdate: () => {
+
+          frozen =
+            state.value;
+
+          burst =
+            state.value;
+
+        },
+
+        onComplete: () => {
+
+          status.textContent =
+            "MOVE TO CREATE TIME";
+
+        }
+
+      })
+
+      .to(
+        state,
+        {
+          value: 1,
+
+          duration: .35,
+
+          ease: "power3.out"
+        }
+      )
+
+      .to(
+        state,
+        {
+          value: 1.8,
+
+          duration: .7,
+
+          ease: "power2.inOut"
+        }
+      )
+
+      .to(
+        state,
+        {
+          value: 0,
+
+          duration: 1.5,
+
+          ease: "expo.out"
+        }
+      );
+
+    }
+  );
+
+
+  /* =======================================================
+     SAVE TEMPORAL SNAPSHOT
+  ======================================================= */
+
+  function saveSnapshot() {
+
+    const snapshot =
+      new Float32Array(
+        particles.length * 2
+      );
+
+
+    for (
+      let i = 0;
+      i < particles.length;
+      i++
+    ) {
+
+      snapshot[i * 2] =
+        particles[i].x;
+
+      snapshot[i * 2 + 1] =
+        particles[i].y;
+
+    }
+
+
+    snapshots.unshift(
+      snapshot
+    );
+
+
+    if (
+      snapshots.length >
+      MAX_ECHOES
+    ) {
+
+      snapshots.pop();
+
+    }
+
+  }
+
+
+  /* =======================================================
+     RENDER
+  ======================================================= */
+
+  let frame = 0;
+
+
+  function render() {
+
+    requestAnimationFrame(
+      render
+    );
+
+
+    frame++;
+
+
+    /* -----------------------------------------------------
+       POINTER SMOOTHING
+    ----------------------------------------------------- */
+
+    mouse.x +=
+      (
+        mouse.targetX -
+        mouse.x
+      ) * .1;
+
+
+    mouse.y +=
+      (
+        mouse.targetY -
+        mouse.y
+      ) * .1;
+
+
+    mouse.velocityX =
+      mouse.targetX -
+      mouse.previousX;
+
+
+    mouse.velocityY =
+      mouse.targetY -
+      mouse.previousY;
+
+
+    const rawSpeed =
+      Math.sqrt(
+        mouse.velocityX *
+        mouse.velocityX +
+        mouse.velocityY *
+        mouse.velocityY
+      );
+
+
+    mouse.speed +=
+      (
+        rawSpeed -
+        mouse.speed
+      ) * .12;
+
+
+    if (
+      rawSpeed > .4
+    ) {
+
+      mouse.directionX =
+        mouse.velocityX /
+        Math.max(
+          rawSpeed,
+          .001
+        );
+
+      mouse.directionY =
+        mouse.velocityY /
+        Math.max(
+          rawSpeed,
+          .001
+        );
+
+    }
+
+
+    mouse.previousX =
+      mouse.targetX;
+
+    mouse.previousY =
+      mouse.targetY;
 
 
 
