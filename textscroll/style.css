@@ -17977,6 +17977,132 @@ JS animates every word toward these positions.
 
   mix-blend-mode: difference;
 }
+
+/* =========================================================
+   RING
+========================================================= */
+
+.te80-ring {
+  position: fixed;
+
+  width: 62px;
+  height: 62px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.35);
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 59;
+
+  mix-blend-mode: difference;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.te80-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform:
+    translateX(-50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .32em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 30;
+}
+
+
+/* =========================================================
+   COUNTER
+========================================================= */
+
+.te80-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .16em;
+
+  opacity: .22;
+
+  z-index: 30;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .te80-header {
+    top: 22px;
+
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .te80-grid {
+    background-size: 50px 50px;
+  }
+
+  .te80-ghost {
+    font-size:
+      clamp(
+        3rem,
+        17vw,
+        8rem
+      );
+  }
+
+  .te80-cursor,
+  .te80-ring {
+    display: none;
+  }
+
+  .te80-status {
+    bottom: 22px;
+  }
+
+  .te80-counter {
+    right: 20px;
+    bottom: 22px;
+  }
+
+}
+
+
+
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
