@@ -35947,6 +35947,96 @@ magnet62Stage.addEventListener("click", () => {
 
     }
 
+selected.forEach(
+      point => {
+
+        particles.push({
+
+          x: point.x,
+          y: point.y,
+
+          baseX: point.x,
+          baseY: point.y,
+
+          vx: 0,
+          vy: 0,
+
+          phase:
+            Math.random() *
+            Math.PI * 2,
+
+          seed:
+            Math.random(),
+
+          size:
+            .8 +
+            Math.random() * 1.25,
+
+          alpha:
+            .55 +
+            Math.random() * .45
+
+        });
+
+      }
+    );
+
+
+    totalParticles =
+      particles.length;
+
+
+    counter.textContent =
+      `ECHO 00 / ${String(
+        totalParticles
+      ).padStart(
+        5,
+        "0"
+      )}`;
+
+  }
+
+
+  /* =======================================================
+     POINTER
+  ======================================================= */
+
+  window.addEventListener(
+    "mousemove",
+    event => {
+
+      mouse.targetX =
+        event.clientX;
+
+      mouse.targetY =
+        event.clientY;
+
+      mouse.active =
+        true;
+
+      status.textContent =
+        "TEMPORAL FIELD ACTIVE";
+
+    }
+  );
+
+
+  window.addEventListener(
+    "mouseleave",
+    () => {
+
+      mouse.active =
+        false;
+
+      status.textContent =
+        "MOVE TO CREATE TIME";
+
+    }
+  );
+
+
+
+
 /* =========================================================
    REFRESH
 ========================================================= */
