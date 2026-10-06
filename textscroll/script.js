@@ -35605,6 +35605,347 @@ magnet62Stage.addEventListener("click", () => {
   render();
 
 })();
+/* =========================================================
+   SECTION 80 — TIME ECHO ENGINE
+========================================================= */
+
+(() => {
+
+  const stage =
+    document.getElementById(
+      "te80Stage"
+    );
+
+  const canvas =
+    document.getElementById(
+      "te80Canvas"
+    );
+
+  const cursor =
+    document.getElementById(
+      "te80Cursor"
+    );
+
+  const ring =
+    document.getElementById(
+      "te80Ring"
+    );
+
+  const status =
+    document.getElementById(
+      "te80Status"
+    );
+
+  const counter =
+    document.getElementById(
+      "te80Counter"
+    );
+
+  if (
+    !stage ||
+    !canvas
+  ) return;
+
+
+  const ctx =
+    canvas.getContext("2d");
+
+
+  /* =======================================================
+     CONFIG
+  ======================================================= */
+
+  const mobile =
+    window.matchMedia(
+      "(max-width: 768px)"
+    ).matches;
+
+  const GAP =
+    mobile ? 5 : 3;
+
+  const MAX_PARTICLES =
+    mobile
+      ? 4000
+      : 8000;
+
+  const MAX_ECHOES =
+    mobile ? 5 : 8;
+
+
+  /* =======================================================
+     STATE
+  ======================================================= */
+
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+
+  let particles = [];
+
+  let snapshots = [];
+
+  let totalParticles = 0;
+
+  let burst = 0;
+
+  let frozen = 0;
+
+
+  /* =======================================================
+     MOUSE
+  ======================================================= */
+
+  const mouse = {
+
+    x: 0,
+    y: 0,
+
+    targetX: 0,
+    targetY: 0,
+
+    previousX: 0,
+    previousY: 0,
+
+    velocityX: 0,
+    velocityY: 0,
+
+    speed: 0,
+
+    directionX: 0,
+    directionY: 0,
+
+    active: false
+
+  };
+
+
+  /* =======================================================
+     RESIZE
+  ======================================================= */
+
+  function resize() {
+
+    width =
+      stage.clientWidth;
+
+    height =
+      stage.clientHeight;
+
+    dpr =
+      Math.min(
+        window.devicePixelRatio || 1,
+        2
+      );
+
+    canvas.width =
+      width * dpr;
+
+    canvas.height =
+      height * dpr;
+
+    canvas.style.width =
+      width + "px";
+
+    canvas.style.height =
+      height + "px";
+
+    ctx.setTransform(
+      dpr,
+      0,
+      0,
+      dpr,
+      0,
+      0
+    );
+
+    mouse.x =
+      width / 2;
+
+    mouse.y =
+      height / 2;
+
+    mouse.targetX =
+      width / 2;
+
+    mouse.targetY =
+      height / 2;
+
+    mouse.previousX =
+      width / 2;
+
+    mouse.previousY =
+      height / 2;
+
+    createText();
+
+  }
+
+
+  window.addEventListener(
+    "resize",
+    resize
+  );
+
+
+  /* =======================================================
+     CREATE TEXT
+  ======================================================= */
+
+  function createText() {
+
+    particles = [];
+
+    snapshots = [];
+
+    const source =
+      document.createElement(
+        "canvas"
+      );
+
+    source.width =
+      width;
+
+    source.height =
+      height;
+
+    const sourceCtx =
+      source.getContext(
+        "2d"
+      );
+
+
+    let fontSize =
+      Math.min(
+        width * .17,
+        235
+      );
+
+
+    sourceCtx.font =
+      `900 ${fontSize}px Arial`;
+
+
+    while (
+      sourceCtx.measureText(
+        "TIME ECHO"
+      ).width >
+      width * .82
+    ) {
+
+      fontSize -= 2;
+
+      sourceCtx.font =
+        `900 ${fontSize}px Arial`;
+
+    }
+
+
+    sourceCtx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+
+    sourceCtx.fillStyle =
+      "#fff";
+
+    sourceCtx.textAlign =
+      "center";
+
+    sourceCtx.textBaseline =
+      "middle";
+
+
+    sourceCtx.fillText(
+      "TIME ECHO",
+      width / 2,
+      height / 2
+    );
+
+
+    const pixels =
+      sourceCtx.getImageData(
+        0,
+        0,
+        width,
+        height
+      ).data;
+
+
+    const points = [];
+
+
+    for (
+      let y = 0;
+      y < height;
+      y += GAP
+    ) {
+
+      for (
+        let x = 0;
+        x < width;
+        x += GAP
+      ) {
+
+        const index =
+          (
+            y * width +
+            x
+          ) * 4;
+
+
+        if (
+          pixels[index + 3] >
+          100
+        ) {
+
+          points.push({
+            x,
+            y
+          });
+
+        }
+
+      }
+
+    }
+
+
+    let selected =
+      points;
+
+
+    if (
+      points.length >
+      MAX_PARTICLES
+    ) {
+
+      selected = [];
+
+      const step =
+        points.length /
+        MAX_PARTICLES;
+
+
+      for (
+        let i = 0;
+        i < MAX_PARTICLES;
+        i++
+      ) {
+
+        selected.push(
+          points[
+            Math.floor(
+              i * step
+            )
+          ]
+        );
+
+      }
+
+    }
 
 /* =========================================================
    REFRESH
