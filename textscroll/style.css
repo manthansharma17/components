@@ -18371,6 +18371,102 @@ JS animates every word toward these positions.
 }
 
 /* =========================================================
+   STATUS
+========================================================= */
+
+.tf81-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform:
+    translateX(-50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .32em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 30;
+}
+
+
+/* =========================================================
+   COUNTER
+========================================================= */
+
+.tf81-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .16em;
+
+  opacity: .22;
+
+  z-index: 30;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .tf81-header {
+    top: 22px;
+
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .tf81-grid {
+    background-size: 50px 50px;
+  }
+
+  .tf81-ghost {
+    font-size:
+      clamp(
+        2.2rem,
+        15vw,
+        8rem
+      );
+  }
+
+  .tf81-cursor,
+  .tf81-ring {
+    display: none;
+  }
+
+  .tf81-status {
+    bottom: 22px;
+  }
+
+  .tf81-counter {
+    right: 20px;
+    bottom: 22px;
+  }
+
+}
+
+/* =========================================================
    REDUCED MOTION
 ========================================================= */
 
