@@ -38022,7 +38022,159 @@ selected.forEach(
       ctx.restore();
 
     }
+/* =====================================================
+       SYNC VALUE
+    ===================================================== */
 
+    let averageOffset = 0;
+
+
+    slices.forEach(
+      slice => {
+
+        averageOffset +=
+          Math.abs(
+            slice.offsetX
+          ) +
+          Math.abs(
+            slice.offsetY
+          );
+
+      }
+    );
+
+
+    averageOffset /=
+      slices.length;
+
+
+    const sync =
+      Math.max(
+        0,
+        Math.min(
+          100,
+          100 -
+          averageOffset *
+          2.4 -
+          fracture *
+          30
+        )
+      );
+
+
+    counter.textContent =
+      `SYNC ${String(
+        Math.round(sync)
+      ).padStart(
+        3,
+        "0"
+      )}%`;
+
+
+    /* =====================================================
+       CURSOR
+    ===================================================== */
+
+    if (
+      !mobile
+    ) {
+
+      gsap.to(
+        cursor,
+        {
+
+          x:
+            mouse.targetX,
+
+          y:
+            mouse.targetY,
+
+          duration: .15,
+
+          ease:
+            "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+
+      gsap.to(
+        ring,
+        {
+
+          x:
+            mouse.targetX,
+
+          y:
+            mouse.targetY,
+
+          duration: .42,
+
+          ease:
+            "power3.out",
+
+          overwrite: true
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       GRID PARALLAX
+    ===================================================== */
+
+    const grid =
+      stage.querySelector(
+        ".tf81-grid"
+      );
+
+
+    if (
+      grid
+    ) {
+
+      const gx =
+        (
+          mouse.x -
+          width / 2
+        ) /
+        width *
+        -25;
+
+
+      const gy =
+        (
+          mouse.y -
+          height / 2
+        ) /
+        height *
+        -25;
+
+
+      grid.style.transform =
+        `translate(
+          ${gx}px,
+          ${gy}px
+        )`;
+
+    }
+
+  }
+
+
+  /* =======================================================
+     INIT
+  ======================================================= */
+
+  resize();
+
+  render();
+
+})();
 
 
 
