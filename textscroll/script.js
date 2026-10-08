@@ -37652,6 +37652,376 @@ selected.forEach(
 
       }
     );
+ /* =====================================================
+       PARTICLES
+    ===================================================== */
+
+    let fracturedParticles =
+      0;
+
+
+    particles.forEach(
+      p => {
+
+        const slice =
+          slices[p.slice];
+
+
+        const normalizedSlice =
+          (
+            p.slice /
+            (
+              SLICE_COUNT - 1
+            )
+          ) * 2 - 1;
+
+
+        /*
+         * Base slice position.
+         */
+
+        let targetX =
+          p.baseX +
+          slice.offsetX;
+
+
+        let targetY =
+          p.baseY +
+          slice.offsetY;
+
+
+        /* =================================================
+           LOCAL FRACTURE WAVE
+        ================================================= */
+
+        if (
+          fracture > .001
+        ) {
+
+          const distanceFromCenter =
+            Math.abs(
+              normalizedSlice
+            );
+
+
+          const wave =
+            Math.sin(
+              normalizedSlice *
+              12 -
+              fracture *
+              14
+            );
+
+
+          const strength =
+            fracture *
+            (
+              1 -
+              distanceFromCenter *
+              .25
+            );
+
+
+          targetX +=
+            wave *
+            strength *
+            12;
+
+
+          targetY +=
+            Math.cos(
+              normalizedSlice *
+              9 -
+              fracture *
+              12
+            ) *
+            strength *
+            9;
+
+
+          fracturedParticles++;
+
+        }
+
+
+        /* =================================================
+           PARTICLE SPRING
+        ================================================= */
+
+        p.vx +=
+          (
+            targetX -
+            p.x
+          ) * .055;
+
+
+        p.vy +=
+          (
+            targetY -
+            p.y
+          ) * .055;
+
+
+        p.vx *= .76;
+        p.vy *= .76;
+
+
+        p.x +=
+          p.vx;
+
+        p.y +=
+          p.vy;
+
+
+        /* =================================================
+           TEMPORAL OFFSET
+        ================================================= */
+
+        const temporalDistance =
+          Math.abs(
+            normalizedSlice
+          );
+
+
+        const echoStrength =
+          temporalDistance *
+          (
+            .8 +
+            mouse.speed * .025
+          );
+
+
+        /*
+         * Older slices receive
+         * subtle echo trails.
+         */
+
+        if (
+          echoStrength > .12
+        ) {
+
+          const trailX =
+            p.x -
+            p.vx *
+            (
+              4 +
+              echoStrength * 5
+            );
+
+
+          const trailY =
+            p.y -
+            p.vy *
+            (
+              4 +
+              echoStrength * 5
+            );
+
+
+          ctx.fillStyle =
+            `rgba(
+              255,
+              255,
+              255,
+              ${p.alpha *
+              echoStrength *
+              .08}
+            )`;
+
+
+          ctx.fillRect(
+            trailX,
+            trailY,
+
+            p.size,
+            p.size
+          );
+
+        }
+
+
+        /* =================================================
+           FRACTURE GHOSTS
+        ================================================= */
+
+        if (
+          fracture > .1
+        ) {
+
+          const ghostDistance =
+            fracture *
+            (
+              5 +
+              temporalDistance *
+              18
+            );
+
+
+          ctx.fillStyle =
+            `rgba(
+              255,
+              255,
+              255,
+              ${fracture *
+              .08}
+            )`;
+
+
+          ctx.fillRect(
+            p.x -
+            ghostDistance,
+
+            p.y,
+
+            p.size,
+            p.size
+          );
+
+
+          ctx.fillStyle =
+            `rgba(
+              255,
+              255,
+              255,
+              ${fracture *
+              .06}
+            )`;
+
+
+          ctx.fillRect(
+            p.x +
+            ghostDistance,
+
+            p.y,
+
+            p.size,
+            p.size
+          );
+
+        }
+
+
+        /* =================================================
+           MAIN PARTICLE
+        ================================================= */
+
+        const velocity =
+          Math.sqrt(
+            p.vx * p.vx +
+            p.vy * p.vy
+          );
+
+
+        const stretch =
+          Math.min(
+            velocity * .22,
+            3
+          );
+
+
+        const opacity =
+          Math.max(
+            .28,
+            p.alpha -
+            temporalDistance *
+            .1
+          );
+
+
+        ctx.fillStyle =
+          `rgba(
+            255,
+            255,
+            255,
+            ${opacity}
+          )`;
+
+
+        ctx.fillRect(
+          p.x -
+          p.vx *
+          .04,
+
+          p.y -
+          p.vy *
+          .04,
+
+          p.size +
+          stretch,
+
+          p.size +
+          stretch
+        );
+
+      }
+    );
+
+
+    /* =====================================================
+       TEMPORAL DIVISION LINES
+    ===================================================== */
+
+    if (
+      mouse.active ||
+      fracture > .01
+    ) {
+
+      ctx.save();
+
+
+      ctx.globalAlpha =
+        .08 +
+        fracture * .08;
+
+
+      for (
+        let i = 1;
+        i < SLICE_COUNT;
+        i++
+      ) {
+
+        const y =
+          (
+            height /
+            SLICE_COUNT
+          ) *
+          i;
+
+
+        const slice =
+          slices[i];
+
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+          width * .1 +
+          slice.offsetX,
+          y +
+          slice.offsetY
+        );
+
+        ctx.lineTo(
+          width * .9 +
+          slice.offsetX,
+          y +
+          slice.offsetY
+        );
+
+        ctx.strokeStyle =
+          "#fff";
+
+        ctx.lineWidth =
+          .35;
+
+        ctx.stroke();
+
+      }
+
+
+      ctx.restore();
+
+    }
 
 
 
