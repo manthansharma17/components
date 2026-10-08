@@ -36882,7 +36882,116 @@ selected.forEach(
 
 })();
 
+/* =========================================================
+   SECTION 81 — TIME FRACTURE ENGINE
+========================================================= */
 
+(() => {
+
+  const stage =
+    document.getElementById(
+      "tf81Stage"
+    );
+
+  const canvas =
+    document.getElementById(
+      "tf81Canvas"
+    );
+
+  const cursor =
+    document.getElementById(
+      "tf81Cursor"
+    );
+
+  const ring =
+    document.getElementById(
+      "tf81Ring"
+    );
+
+  const status =
+    document.getElementById(
+      "tf81Status"
+    );
+
+  const counter =
+    document.getElementById(
+      "tf81Counter"
+    );
+
+  if (
+    !stage ||
+    !canvas
+  ) return;
+
+
+  const ctx =
+    canvas.getContext("2d");
+
+
+  /* =======================================================
+     CONFIG
+  ======================================================= */
+
+  const mobile =
+    window.matchMedia(
+      "(max-width: 768px)"
+    ).matches;
+
+  const GAP =
+    mobile ? 5 : 3;
+
+  const MAX_PARTICLES =
+    mobile
+      ? 4000
+      : 8200;
+
+  const SLICE_COUNT =
+    mobile ? 14 : 22;
+
+
+  /* =======================================================
+     STATE
+  ======================================================= */
+
+  let width = 0;
+  let height = 0;
+
+  let dpr = 1;
+
+  let particles = [];
+
+  let slices = [];
+
+  let totalParticles = 0;
+
+  let fracture = 0;
+
+  let fractureWave = 0;
+
+
+  /* =======================================================
+     MOUSE
+  ======================================================= */
+
+  const mouse = {
+
+    x: 0,
+    y: 0,
+
+    targetX: 0,
+    targetY: 0,
+
+    previousX: 0,
+    previousY: 0,
+
+    velocityX: 0,
+    velocityY: 0,
+
+    speed: 0,
+
+    active: false
+
+  };
 
 /* =========================================================
    REFRESH
