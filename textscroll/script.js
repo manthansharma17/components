@@ -36992,6 +36992,256 @@ selected.forEach(
     active: false
 
   };
+/* =======================================================
+     RESIZE
+  ======================================================= */
+
+  function resize() {
+
+    width =
+      stage.clientWidth;
+
+    height =
+      stage.clientHeight;
+
+    dpr =
+      Math.min(
+        window.devicePixelRatio || 1,
+        2
+      );
+
+    canvas.width =
+      width * dpr;
+
+    canvas.height =
+      height * dpr;
+
+    canvas.style.width =
+      width + "px";
+
+    canvas.style.height =
+      height + "px";
+
+    ctx.setTransform(
+      dpr,
+      0,
+      0,
+      dpr,
+      0,
+      0
+    );
+
+    mouse.x =
+      width / 2;
+
+    mouse.y =
+      height / 2;
+
+    mouse.targetX =
+      width / 2;
+
+    mouse.targetY =
+      height / 2;
+
+    mouse.previousX =
+      width / 2;
+
+    mouse.previousY =
+      height / 2;
+
+    createText();
+
+  }
+
+
+  window.addEventListener(
+    "resize",
+    resize
+  );
+
+
+  /* =======================================================
+     CREATE TEXT
+  ======================================================= */
+
+  function createText() {
+
+    particles = [];
+
+    slices = [];
+
+    const source =
+      document.createElement(
+        "canvas"
+      );
+
+    source.width =
+      width;
+
+    source.height =
+      height;
+
+    const sourceCtx =
+      source.getContext(
+        "2d"
+      );
+
+
+    let fontSize =
+      Math.min(
+        width * .145,
+        220
+      );
+
+
+    sourceCtx.font =
+      `900 ${fontSize}px Arial`;
+
+
+    while (
+      sourceCtx.measureText(
+        "TIME FRACTURE"
+      ).width >
+      width * .84
+    ) {
+
+      fontSize -= 2;
+
+      sourceCtx.font =
+        `900 ${fontSize}px Arial`;
+
+    }
+
+
+    sourceCtx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+
+    sourceCtx.fillStyle =
+      "#fff";
+
+    sourceCtx.textAlign =
+      "center";
+
+    sourceCtx.textBaseline =
+      "middle";
+
+
+    sourceCtx.fillText(
+      "TIME FRACTURE",
+      width / 2,
+      height / 2
+    );
+
+
+    const pixels =
+      sourceCtx.getImageData(
+        0,
+        0,
+        width,
+        height
+      ).data;
+
+
+    const points = [];
+
+
+    for (
+      let y = 0;
+      y < height;
+      y += GAP
+    ) {
+
+      for (
+        let x = 0;
+        x < width;
+        x += GAP
+      ) {
+
+        const index =
+          (
+            y * width +
+            x
+          ) * 4;
+
+
+        if (
+          pixels[index + 3] >
+          100
+        ) {
+
+          points.push({
+            x,
+            y
+          });
+
+        }
+
+      }
+
+    }
+
+
+    let selected =
+      points;
+
+
+    if (
+      points.length >
+      MAX_PARTICLES
+    ) {
+
+      selected = [];
+
+      const step =
+        points.length /
+        MAX_PARTICLES;
+
+
+      for (
+        let i = 0;
+        i < MAX_PARTICLES;
+        i++
+      ) {
+
+        selected.push(
+          points[
+            Math.floor(
+              i * step
+            )
+          ]
+        );
+
+      }
+
+    }
+
+
+    selected.forEach(
+      point => {
+
+        const normalizedY =
+          point.y /
+          height;
+
+
+        const slice =
+          Math.min(
+            SLICE_COUNT - 1,
+            Math.floor(
+              normalizedY *
+              SLICE_COUNT
+            )
+          );
+
+
+
+
+
 
 /* =========================================================
    REFRESH
