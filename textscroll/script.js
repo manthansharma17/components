@@ -37238,6 +37238,421 @@ selected.forEach(
             )
           );
 
+            particles.push({
+
+          x: point.x,
+          y: point.y,
+
+          baseX: point.x,
+          baseY: point.y,
+
+          vx: 0,
+          vy: 0,
+
+          slice,
+
+          phase:
+            Math.random() *
+            Math.PI * 2,
+
+          seed:
+            Math.random(),
+
+          size:
+            .8 +
+            Math.random() * 1.2,
+
+          alpha:
+            .55 +
+            Math.random() * .45
+
+        });
+
+      }
+    );
+
+
+    totalParticles =
+      particles.length;
+
+
+    /*
+     * Individual temporal slices.
+     */
+
+    for (
+      let i = 0;
+      i < SLICE_COUNT;
+      i++
+    ) {
+
+      slices.push({
+
+        offsetX: 0,
+        offsetY: 0,
+
+        targetX: 0,
+        targetY: 0,
+
+        velocityX: 0,
+        velocityY: 0,
+
+        phase:
+          i *
+          .8 +
+          Math.random() *
+          Math.PI,
+
+        timeOffset:
+          (
+            i -
+            SLICE_COUNT / 2
+          ) /
+          SLICE_COUNT
+
+      });
+
+    }
+
+
+    counter.textContent =
+      "SYNC 100%";
+
+  }
+
+
+  /* =======================================================
+     POINTER
+  ======================================================= */
+
+  window.addEventListener(
+    "mousemove",
+    event => {
+
+      mouse.targetX =
+        event.clientX;
+
+      mouse.targetY =
+        event.clientY;
+
+      mouse.active =
+        true;
+
+      status.textContent =
+        "TEMPORAL FRACTURE ACTIVE";
+
+    }
+  );
+
+
+  window.addEventListener(
+    "mouseleave",
+    () => {
+
+      mouse.active =
+        false;
+
+      status.textContent =
+        "MOVE THROUGH TIME";
+
+    }
+  );
+
+
+  /* =======================================================
+     CLICK — COMPLETE FRACTURE
+  ======================================================= */
+
+  stage.addEventListener(
+    "click",
+    () => {
+
+      status.textContent =
+        "TIME FRACTURE";
+
+
+      const state = {
+        value: 0
+      };
+
+
+      gsap.timeline({
+
+        onUpdate: () => {
+
+          fracture =
+            state.value;
+
+        },
+
+        onComplete: () => {
+
+          fracture =
+            0;
+
+          status.textContent =
+            "MOVE THROUGH TIME";
+
+        }
+
+      })
+
+      .to(
+        state,
+        {
+          value: 1,
+
+          duration: .5,
+
+          ease: "power3.out"
+        }
+      )
+
+      .to(
+        state,
+        {
+          value: 2.4,
+
+          duration: .75,
+
+          ease: "power2.inOut"
+        }
+      )
+
+      .to(
+        state,
+        {
+          value: 0,
+
+          duration: 1.6,
+
+          ease: "expo.out"
+        }
+      );
+
+    }
+  );
+
+
+  /* =======================================================
+     RENDER
+  ======================================================= */
+
+  function render() {
+
+    requestAnimationFrame(
+      render
+    );
+
+
+    /* -----------------------------------------------------
+       MOUSE
+    ----------------------------------------------------- */
+
+    mouse.x +=
+      (
+        mouse.targetX -
+        mouse.x
+      ) * .1;
+
+
+    mouse.y +=
+      (
+        mouse.targetY -
+        mouse.y
+      ) * .1;
+
+
+    mouse.velocityX =
+      mouse.targetX -
+      mouse.previousX;
+
+
+    mouse.velocityY =
+      mouse.targetY -
+      mouse.previousY;
+
+
+    const rawSpeed =
+      Math.sqrt(
+        mouse.velocityX *
+        mouse.velocityX +
+        mouse.velocityY *
+        mouse.velocityY
+      );
+
+
+    mouse.speed +=
+      (
+        rawSpeed -
+        mouse.speed
+      ) * .12;
+
+
+    mouse.previousX =
+      mouse.targetX;
+
+    mouse.previousY =
+      mouse.targetY;
+
+
+    /* -----------------------------------------------------
+       CLEAR
+    ----------------------------------------------------- */
+
+    ctx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+
+    const time =
+      performance.now() *
+      .001;
+
+
+    /* =====================================================
+       UPDATE SLICES
+    ===================================================== */
+
+    slices.forEach(
+      (slice, index) => {
+
+        const normalized =
+          (
+            index /
+            (
+              SLICE_COUNT - 1
+            )
+          ) * 2 - 1;
+
+
+        /*
+         * Vertical mouse position
+         * controls temporal offset.
+         */
+
+        const verticalInfluence =
+          mouse.active
+            ? (
+                mouse.y -
+                height / 2
+              ) /
+              height
+            : 0;
+
+
+        /*
+         * Horizontal mouse position
+         * controls lateral distortion.
+         */
+
+        const horizontalInfluence =
+          mouse.active
+            ? (
+                mouse.x -
+                width / 2
+              ) /
+              width
+            : 0;
+
+
+        const wave =
+          Math.sin(
+            time * 2.2 +
+            slice.phase +
+            normalized * 3
+          );
+
+
+        const timeSeparation =
+          verticalInfluence *
+          normalized *
+          (
+            18 +
+            mouse.speed * .6
+          );
+
+
+        const lateralSeparation =
+          horizontalInfluence *
+          normalized *
+          (
+            14 +
+            mouse.speed * .4
+          );
+
+
+        /*
+         * Click fracture expands
+         * every temporal slice.
+         */
+
+        const fractureAmount =
+          fracture *
+          normalized;
+
+
+        slice.targetX =
+          lateralSeparation +
+          wave *
+          Math.abs(
+            verticalInfluence
+          ) *
+          3 +
+          fractureAmount *
+          45;
+
+
+        slice.targetY =
+          timeSeparation +
+          Math.cos(
+            time * 1.7 +
+            slice.phase
+          ) *
+          Math.abs(
+            horizontalInfluence
+          ) *
+          3 +
+          fractureAmount *
+          28;
+
+
+        /*
+         * Ease slices toward
+         * their temporal positions.
+         */
+
+        slice.velocityX +=
+          (
+            slice.targetX -
+            slice.offsetX
+          ) * .045;
+
+
+        slice.velocityY +=
+          (
+            slice.targetY -
+            slice.offsetY
+          ) * .045;
+
+
+        slice.velocityX *= .76;
+        slice.velocityY *= .76;
+
+
+        slice.offsetX +=
+          slice.velocityX;
+
+
+        slice.offsetY +=
+          slice.velocityY;
+
+      }
+    );
+
 
 
 
