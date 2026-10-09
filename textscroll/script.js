@@ -38165,6 +38165,156 @@ selected.forEach(
 
   }
 
+// SECTION 82
+
+(() => {
+  const stage = document.getElementById("ca82Stage");
+  const word = document.getElementById("ca82Word");
+  const cursor = document.getElementById("ca82Cursor");
+  const ring = document.getElementById("ca82Ring");
+  const wave = document.getElementById("ca82Wave");
+  const status = document.getElementById("ca82Status");
+  const counter = document.getElementById("ca82Counter");
+
+  if (!stage || !word || !window.gsap) return;
+
+  const letters = [...word.querySelectorAll("span")];
+  const mobile = matchMedia("(max-width: 768px)").matches;
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  let lastTriggered = -1;
+  let lastTriggerTime = 0;
+  let chainRunning = false;
+  let waveTimeline;
+
+  const pointer = {
+    x: innerWidth / 2,
+    y: innerHeight / 2,
+    previousX: innerWidth / 2,
+    previousY: innerHeight / 2,
+    speed: 0
+  };
+
+  const clamp = (value, min, max) =>
+    Math.max(min, Math.min(max, value));
+
+  /* Cursor follows pointer using persistent GSAP quickTo tweens. */
+  if (!mobile) {
+    const cursorX = gsap.quickTo(cursor, "x", {
+      duration: .15,
+      ease: "power3.out"
+    });
+
+    const cursorY = gsap.quickTo(cursor, "y", {
+      duration: .15,
+      ease: "power3.out"
+    });
+
+    const ringX = gsap.quickTo(ring, "x", {
+      duration: .4,
+      ease: "power3.out"
+    });
+
+    const ringY = gsap.quickTo(ring, "y", {
+      duration: .4,
+      ease: "power3.out"
+    });
+
+    window.addEventListener("mousemove", event => {
+      pointer.x = event.clientX;
+      pointer.y = event.clientY;
+
+      cursorX(event.clientX);
+      cursorY(event.clientY);
+      ringX(event.clientX);
+      ringY(event.clientY);
+
+      const dx = pointer.x - pointer.previousX;
+      const dy = pointer.y - pointer.previousY;
+
+      pointer.speed = Math.min(Math.hypot(dx, dy), 50);
+
+      pointer.previousX = pointer.x;
+      pointer.previousY = pointer.y;
+
+      const closest = getClosestLetter(event.clientX, event.clientY);
+
+      if (closest && !chainRunning) {
+        triggerLetter(closest.index, pointer.speed);
+      }
+    });
+  }
+
+  function getClosestLetter(x, y) {
+    let closest = null;
+    let minDistance = Infinity;
+
+    letters.forEach((letter, index) => {
+      const rect = letter.getBoundingClientRect();
+
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const distance = Math.hypot(x - cx, y - cy);
+
+      if (distance < minDistance) {
+        minDistance = distance;
+        closest = { index, distance };
+      }
+    });
+
+    return closest && closest.distance < (mobile ? 85 : 115)
+      ? closest
+      : null;
+  }
+
+  function triggerLetter(index, speed = 0) {
+    if (reduceMotion || chainRunning) return;
+
+    const now = performance.now();
+
+    if (
+      index === lastTriggered &&
+      now - lastTriggerTime < 220
+    ) return;
+
+    lastTriggered = index;
+    lastTriggerTime = now;
+
+    const strength = clamp(.8 + speed / 35, .8, 2.1);
+
+    status.textContent = `CAUSE DETECTED / ${String(index + 1).padStart(2, "0")}`;
+    counter.textContent = `REACTION / ${String(index + 1).padStart(2, "0")}`;
+
+    letters.forEach((letter, i) => {
+      const distance = Math.abs(i - index);
+      const direction = i < index ? -1 : 1;
+      const delay = distance * .045;
+
+      if (i === index) {
+        letter.classList.add("ca82-active");
+
+        gsap.timeline({
+          onComplete: () => letter.classList.remove("ca82-active")
+        })
+          .to(letter, {
+            y: -22 * strength,
+            rotationX: 28 * direction,
+            rotationZ: 5 * direction,
+            scale: 1.13,
+            duration: .18,
+            ease: "power3.out"
+          })
+          .to(letter, {
+            y: 0,
+            rotationX: 0,
+            rotationZ: 0,
+            scale: 1,
+            duration: .7,
+            ease: "elastic.out(1, .45)"
+          });
+
+
+
 
   /* =======================================================
      INIT
