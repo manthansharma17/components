@@ -38447,6 +38447,25 @@ selected.forEach(
       ease: "sine.inOut"
     });
 
+    gsap.to(".ca82-orbit-two", {
+      rotation: -5,
+      scale: .97,
+      duration: 9,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+
+    gsap.to(".ca82-grid", {
+      x: 12,
+      y: -8,
+      duration: 8,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+  }
+})();
 
   /* =======================================================
      INIT
