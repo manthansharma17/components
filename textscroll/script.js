@@ -38313,7 +38313,139 @@ selected.forEach(
             ease: "elastic.out(1, .45)"
           });
 
+} else if (distance <= 4) {
+        gsap.timeline()
+          .to(letter, {
+            x: direction * (8 + strength * 5) * Math.max(0, 1 - distance * .14),
+            y: Math.sin(i * 1.7) * 8 * strength,
+            rotationZ: direction * 2.5,
+            duration: .22,
+            delay,
+            ease: "power2.out"
+          })
+          .to(letter, {
+            x: 0,
+            y: 0,
+            rotationZ: 0,
+            duration: .8,
+            ease: "elastic.out(1, .5)"
+          });
+      }
+    });
 
+    triggerWave(index);
+  }
+
+  function triggerWave(index) {
+    if (waveTimeline) waveTimeline.kill();
+
+    const rect = letters[index].getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+
+    gsap.set(wave, {
+      left: x,
+      top: y,
+      xPercent: -50,
+      yPercent: -50,
+      scale: 0,
+      opacity: .65
+    });
+
+    waveTimeline = gsap.timeline()
+      .to(wave, {
+        scale: mobile ? 18 : 28,
+        opacity: 0,
+        duration: 1.1,
+        ease: "power2.out"
+      });
+  }
+
+  /* Tap and click create a complete causal chain. */
+  function triggerChain() {
+    if (chainRunning || reduceMotion) return;
+
+    chainRunning = true;
+    status.textContent = "CASCADE INITIATED";
+    counter.textContent = "SYSTEM / CASCADING";
+
+    const order = letters.map((_, i) => i);
+    const tl = gsap.timeline({
+      onComplete: () => {
+        chainRunning = false;
+        status.textContent = "HOVER TO TRIGGER A REACTION";
+        counter.textContent = "SYSTEM / READY";
+      }
+    });
+
+    order.forEach((index, orderIndex) => {
+      const letter = letters[index];
+      const direction = orderIndex % 2 === 0 ? 1 : -1;
+
+      tl.to(letter, {
+        x: direction * (mobile ? 12 : 35),
+        y: -direction * (mobile ? 10 : 25),
+        rotationY: direction * 40,
+        rotationZ: direction * 8,
+        scale: 1.18,
+        opacity: .45,
+        duration: .2,
+        ease: "power3.out"
+      }, orderIndex * .065);
+
+      tl.to(letter, {
+        x: 0,
+        y: 0,
+        rotationY: 0,
+        rotationZ: 0,
+        scale: 1,
+        opacity: 1,
+        duration: .75,
+        ease: "elastic.out(1, .5)"
+      }, orderIndex * .065 + .2);
+    });
+
+    gsap.fromTo(
+      wave,
+      {
+        left: "50%",
+        top: "50%",
+        xPercent: -50,
+        yPercent: -50,
+        scale: 0,
+        opacity: .7
+      },
+      {
+        scale: mobile ? 20 : 32,
+        opacity: 0,
+        duration: 1.5,
+        ease: "power3.out"
+      }
+    );
+  }
+
+  stage.addEventListener("click", triggerChain);
+
+  /* Mobile interaction: tap a letter or tap the stage for a cascade. */
+  if (mobile) {
+    letters.forEach((letter, index) => {
+      letter.addEventListener("touchstart", event => {
+        event.stopPropagation();
+        triggerLetter(index, 10);
+      }, { passive: true });
+    });
+  }
+
+  /* Gentle idle breathing keeps the scene alive. */
+  if (!reduceMotion) {
+    gsap.to(".ca82-orbit-one", {
+      rotation: 4,
+      scale: 1.04,
+      duration: 7,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
 
 
   /* =======================================================
