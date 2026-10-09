@@ -18607,7 +18607,93 @@ JS animates every word toward these positions.
   );
   pointer-events: none;
 }
+.ca82-cursor {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 60;
+  mix-blend-mode: difference;
+}
 
+.ca82-ring {
+  position: fixed;
+  width: 54px;
+  height: 54px;
+  border: 1px solid rgba(255,255,255,.35);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 59;
+  mix-blend-mode: difference;
+}
+
+.ca82-bottom {
+  position: absolute;
+  left: 35px;
+  right: 35px;
+  bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font: 8px monospace;
+  letter-spacing: .2em;
+  opacity: .4;
+  z-index: 20;
+}
+
+@media (max-width: 768px) {
+  .ca82-header {
+    top: 22px;
+    left: 20px;
+    right: 20px;
+    font-size: 7px;
+  }
+
+  .ca82-grid {
+    background-size: 50px 50px;
+  }
+
+  .ca82-word {
+    padding: 0 5vw;
+  }
+
+  .ca82-word span {
+    font-size: clamp(2.5rem, 12.5vw, 6rem);
+    letter-spacing: -.09em;
+  }
+
+  .ca82-orbit {
+    width: 90vw;
+    height: 36vw;
+  }
+
+  .ca82-orbit-two {
+    width: 100vw;
+    height: 48vw;
+  }
+
+  .ca82-cursor,
+  .ca82-ring {
+    display: none;
+  }
+
+  .ca82-bottom {
+    left: 20px;
+    right: 20px;
+    bottom: 22px;
+    font-size: 7px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca82-word span {
+    transition: none;
+  }
+}
 
 
 
