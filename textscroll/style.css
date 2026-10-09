@@ -18467,6 +18467,152 @@ JS animates every word toward these positions.
 }
 
 /* =========================================================
+   SECTION 82 — CAUSALITY
+========================================================= */
+
+.section-eighty-two {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      ellipse at 50% 48%,
+      #171717 0%,
+      #090909 48%,
+      #000 100%
+    );
+  color: #fff;
+}
+
+.ca82-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  cursor: crosshair;
+}
+
+.ca82-grid {
+  position: absolute;
+  inset: -15%;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: .4;
+  mask-image: radial-gradient(ellipse, #000 0%, transparent 80%);
+  pointer-events: none;
+}
+
+.ca82-header {
+  position: absolute;
+  top: 30px;
+  left: 35px;
+  right: 35px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font: 9px Arial, sans-serif;
+  letter-spacing: .25em;
+  opacity: .4;
+  z-index: 20;
+}
+
+.ca82-scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+.ca82-word {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0 3vw;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.ca82-word span {
+  position: relative;
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(3rem, 13.5vw, 15rem);
+  font-weight: 900;
+  line-height: .9;
+  letter-spacing: -.095em;
+  transform-origin: 50% 55%;
+  will-change: transform, opacity, filter;
+  cursor: crosshair;
+  transition: color .2s ease;
+}
+
+.ca82-word span.ca82-active {
+  color: #fff;
+  text-shadow: 0 0 28px rgba(255,255,255,.2);
+}
+
+.ca82-orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(72vw, 1000px);
+  height: min(25vw, 320px);
+  border: 1px solid rgba(255,255,255,.055);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  pointer-events: none;
+}
+
+.ca82-orbit-two {
+  width: min(84vw, 1200px);
+  height: min(32vw, 400px);
+  transform: translate(-50%, -50%) rotate(8deg);
+  opacity: .45;
+}
+
+.ca82-wave {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border: 1px solid rgba(255,255,255,.45);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.ca82-center-mark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1px;
+  height: 48vh;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(
+    transparent,
+    rgba(255,255,255,.08),
+    transparent
+  );
+  pointer-events: none;
+}
+
+
+
+
+
+/* =========================================================
    REDUCED MOTION
 ========================================================= */
 
