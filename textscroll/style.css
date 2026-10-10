@@ -18695,7 +18695,191 @@ JS animates every word toward these positions.
   }
 }
 
+/* ================SECTION 83 =======================*/
 
+ .section-eighty-three {
+    --en83-white: #f3f3ef;
+    --en83-muted: #777873;
+    --en83-line: rgba(243, 243, 239, 0.13);
+
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    min-height: 100svh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(20px, 3vw, 48px);
+    background: #080908;
+    color: var(--en83-white);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .section-eighty-three *,
+  .section-eighty-three *::before,
+  .section-eighty-three *::after {
+    box-sizing: border-box;
+  }
+
+  .en83-grid {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    opacity: 0.22;
+    background-image:
+      linear-gradient(to right, var(--en83-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--en83-line) 1px, transparent 1px);
+    background-size: 9vw 9vw;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black 20%,
+      black 80%,
+      transparent
+    );
+  }
+
+  .en83-glow {
+    position: absolute;
+    z-index: -1;
+    width: min(70vw, 900px);
+    aspect-ratio: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    background: radial-gradient(
+      circle,
+      rgba(180, 184, 169, 0.075),
+      rgba(100, 104, 95, 0.025) 38%,
+      transparent 70%
+    );
+  }
+
+  .en83-header,
+  .en83-footer,
+  .en83-footer-left,
+  .en83-brand,
+  .en83-index {
+    display: flex;
+    align-items: center;
+  }
+
+  .en83-header,
+  .en83-footer {
+    position: relative;
+    z-index: 2;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .en83-brand,
+  .en83-index,
+  .en83-coordinate,
+  .en83-instruction,
+  .en83-footer,
+  .en83-word-caption {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+  }
+
+  .en83-brand {
+    gap: 10px;
+  }
+
+  .en83-dot,
+  .en83-instruction-dot {
+    width: 6px;
+    height: 6px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: var(--en83-white);
+  }
+
+  .en83-index {
+    color: var(--en83-muted);
+    gap: 10px;
+  }
+
+  .en83-index span {
+    color: var(--en83-white);
+  }
+
+  .en83-coordinate {
+    position: absolute;
+    z-index: 2;
+    top: 25%;
+    right: clamp(20px, 3vw, 48px);
+    color: var(--en83-muted);
+    font-size: 9px;
+  }
+
+  #en83Status {
+    margin-left: 8px;
+    color: var(--en83-white);
+  }
+
+  .en83-stage {
+    position: relative;
+    width: 100%;
+    min-height: 55vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+    touch-action: pan-y;
+  }
+
+  .en83-word {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0px, 0.5vw, 9px);
+    max-width: 100%;
+    white-space: nowrap;
+    user-select: none;
+    transform-style: preserve-3d;
+  }
+
+  .en83-letter {
+    position: relative;
+    display: inline-block;
+    color: var(--en83-white);
+    font-size: clamp(4rem, 15.5vw, 17rem);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.085em;
+    transform-origin: center center;
+    transform-style: preserve-3d;
+    will-change: transform, opacity;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .en83-letter::after {
+    content: "";
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    bottom: -12px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0;
+    transform: scaleX(0.2);
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .en83-letter:hover::after {
+    opacity: 0.35;
+    transform: scaleX(1);
+  }
 
 
 /* =========================================================
