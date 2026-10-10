@@ -38654,7 +38654,138 @@ selected.forEach(
       quickCursorY(event.clientY);
     }
 
+ if (reducedMotion) return;
 
+    let nearest = -1;
+    let nearestDistance = Infinity;
+
+    letters.forEach((letter, index) => {
+      const rect = letter.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const distance = Math.hypot(event.clientX - cx, event.clientY - cy);
+
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearest = index;
+      }
+    });
+
+    const threshold = finePointer ? 115 : 75;
+
+    if (nearest !== -1 && nearestDistance < threshold) {
+      const power = 0.7 + velocity;
+      disturbLetter(letters[nearest], nearest, power);
+    } else if (velocity > 1.3 && now - lastHitTime > 160) {
+      const randomIndex = Math.floor(Math.random() * letters.length);
+      disturbLetter(letters[randomIndex], randomIndex, velocity * 0.65);
+    }
+  }
+
+  function onPointerLeave() {
+    gsap.to(cursor, {
+      opacity: 0,
+      duration: 0.2,
+      overwrite: true
+    });
+  }
+
+  function onLetterPress(event) {
+    event.stopPropagation();
+    const letter = event.currentTarget;
+    const index = letters.indexOf(letter);
+    disturbLetter(letter, index, 1.35);
+  }
+
+  function onResetPress() {
+    scatterAndRebuild();
+  }
+
+  function onStagePress(event) {
+    if (event.target.closest(".en83-letter")) return;
+    scatterAndRebuild();
+  }
+
+  function onVisibilityChange() {
+    if (document.hidden) {
+      gsap.killTweensOf(letters);
+      gsap.set(letters, {
+        x: 0,
+        y: 0,
+        rotationX: 0,
+        rotationY: 0,
+        rotationZ: 0,
+        scale: 1,
+        opacity: 1
+      });
+      isScattering = false;
+      updateStatus("STABLE");
+    }
+  }
+
+  const orbitOne = root.querySelector(".en83-orbit-one");
+  const orbitTwo = root.querySelector(".en83-orbit-two");
+
+  if (!reducedMotion) {
+    gsap.to(orbitOne, {
+      rotation: 360,
+      duration: 80,
+      repeat: -1,
+      ease: "none",
+      transformOrigin: "center center"
+    });
+
+    gsap.to(orbitTwo, {
+      rotation: -360,
+      duration: 110,
+      repeat: -1,
+      ease: "none",
+      transformOrigin: "center center"
+    });
+
+    gsap.from(letters, {
+      y: 35,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.08,
+      ease: "power3.out",
+      delay: 0.2
+    });
+
+    gsap.from(
+      [
+        root.querySelector(".en83-header"),
+        root.querySelector(".en83-coordinate"),
+        root.querySelector(".en83-instruction"),
+        root.querySelector(".en83-footer")
+      ],
+      {
+        opacity: 0,
+        y: 10,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: "power2.out",
+        delay: 0.15
+      }
+    );
+  }
+
+  letters.forEach(letter => {
+    letter.addEventListener("pointerdown", onLetterPress);
+  });
+
+  stage.addEventListener("pointermove", onPointerMove);
+  stage.addEventListener("pointerleave", onPointerLeave);
+  stage.addEventListener("pointerdown", onStagePress);
+  resetButton.addEventListener("click", onResetPress);
+  document.addEventListener("visibilitychange", onVisibilityChange);
+
+  window.addEventListener("pagehide", () => {
+    isDestroyed = true;
+    gsap.killTweensOf(letters);
+    gsap.killTweensOf([orbitOne, orbitTwo, cursor]);
+  }, { once: true });
+})();
 
   /* =======================================================
      INIT
