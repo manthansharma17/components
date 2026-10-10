@@ -18969,7 +18969,162 @@ JS animates every word toward these positions.
     height: 1px;
     background: var(--en83-muted);
   }
+  .en83-reset {
+    padding: 10px 14px;
+    border: 1px solid rgba(243, 243, 239, 0.24);
+    border-radius: 2px;
+    background: transparent;
+    color: var(--en83-white);
+    font: inherit;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
 
+  .en83-reset:hover {
+    background: var(--en83-white);
+    color: #080908;
+  }
+
+  .en83-reset span {
+    display: inline-block;
+    margin-right: 6px;
+    font-size: 14px;
+    vertical-align: -1px;
+  }
+
+  .en83-counter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  #en83Count {
+    color: var(--en83-white);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .en83-counter-label {
+    font-size: 8px;
+  }
+
+  .en83-cursor {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 26px;
+    height: 26px;
+    border: 1px solid rgba(243, 243, 239, 0.65);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+  }
+
+  .en83-cursor span {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    background: var(--en83-white);
+    transform: translate(-50%, -50%);
+  }
+
+  @media (pointer: fine) {
+    .section-eighty-three,
+    .section-eighty-three button,
+    .section-eighty-three .en83-letter {
+      cursor: none;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .section-eighty-three {
+      min-height: 90svh;
+      padding: 22px 18px;
+    }
+
+    .en83-brand,
+    .en83-index {
+      font-size: 8px;
+      letter-spacing: 0.1em;
+    }
+
+    .en83-header {
+      gap: 10px;
+    }
+
+    .en83-stage {
+      min-height: 48vh;
+    }
+
+    .en83-word {
+      gap: 1px;
+    }
+
+    .en83-letter {
+      font-size: clamp(3.2rem, 14vw, 7rem);
+    }
+
+    .en83-orbit {
+      width: 95vw;
+    }
+
+    .en83-orbit-two {
+      width: 70vw;
+    }
+
+    .en83-coordinate {
+      top: 20%;
+      right: 18px;
+      font-size: 7px;
+    }
+
+    .en83-instruction {
+      margin-bottom: 22px;
+      font-size: 8px;
+      letter-spacing: 0.1em;
+    }
+
+    .en83-footer {
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 8px;
+    }
+
+    .en83-footer-left {
+      gap: 7px;
+      order: 1;
+      width: 100%;
+    }
+
+    .en83-reset {
+      padding: 9px;
+      font-size: 8px;
+    }
+
+    .en83-counter {
+      margin-left: auto;
+    }
+
+    .en83-cursor {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .en83-instruction-dot {
+      animation: none;
+    }
+
+    .en83-letter::after,
+    .en83-reset {
+      transition: none;
+    }
+  }
 
 /* =========================================================
    REDUCED MOTION
