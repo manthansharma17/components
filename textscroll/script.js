@@ -38467,6 +38467,195 @@ selected.forEach(
   }
 })();
 
+// SECTTION 83
+
+(() => {
+  const root = document.querySelector("#en83Section");
+  if (!root || !window.gsap || root.dataset.en83Ready) return;
+  root.dataset.en83Ready = "true";
+
+  const stage = root.querySelector("#en83Stage");
+  const letters = [...root.querySelectorAll(".en83-letter")];
+  const status = root.querySelector("#en83Status");
+  const countDisplay = root.querySelector("#en83Count");
+  const resetButton = root.querySelector("#en83Reset");
+  const cursor = root.querySelector("#en83Cursor");
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+  const finePointer = window.matchMedia("(pointer: fine)").matches;
+
+  let disturbances = 0;
+  let lastX = 0;
+  let lastY = 0;
+  let lastMoveTime = 0;
+  let velocity = 0;
+  let lastHit = -1;
+  let lastHitTime = 0;
+  let isScattering = false;
+  let isDestroyed = false;
+
+  const quickCursorX = gsap.quickTo(cursor, "x", {
+    duration: 0.18,
+    ease: "power3.out"
+  });
+  const quickCursorY = gsap.quickTo(cursor, "y", {
+    duration: 0.18,
+    ease: "power3.out"
+  });
+
+  const random = (min, max) => Math.random() * (max - min) + min;
+
+  function updateStatus(value) {
+    status.textContent = value;
+  }
+
+  function updateCount() {
+    disturbances += 1;
+    countDisplay.textContent = String(disturbances).padStart(3, "0");
+  }
+
+  function disturbLetter(letter, index, power = 1) {
+    if (reducedMotion || isScattering || isDestroyed) return;
+
+    const now = performance.now();
+    if (index === lastHit && now - lastHitTime < 100) return;
+
+    lastHit = index;
+    lastHitTime = now;
+    updateCount();
+    updateStatus("UNSTABLE");
+
+    gsap.killTweensOf(letter);
+
+    const strength = Math.min(1.8, power);
+    const duration = random(0.2, 0.38);
+
+    gsap.to(letter, {
+      x: random(-34, 34) * strength,
+      y: random(-28, 28) * strength,
+      rotationZ: random(-24, 24) * strength,
+      rotationX: random(-30, 30) * strength,
+      rotationY: random(-35, 35) * strength,
+      scale: random(0.88, 1.14),
+      duration,
+      ease: "power3.out",
+      overwrite: true,
+      onComplete: () => {
+        if (isDestroyed) return;
+
+        gsap.to(letter, {
+          x: 0,
+          y: 0,
+          rotationZ: 0,
+          rotationX: 0,
+          rotationY: 0,
+          scale: 1,
+          duration: 0.75,
+          ease: "elastic.out(1, 0.45)",
+          overwrite: true,
+          onComplete: () => {
+            if (!isScattering) updateStatus("STABLE");
+          }
+        });
+      }
+    });
+  }
+
+  function scatterAndRebuild() {
+    if (reducedMotion || isScattering || isDestroyed) {
+      if (reducedMotion) {
+        gsap.set(letters, {
+          clearProps: "transform,opacity"
+        });
+        updateStatus("STABLE");
+      }
+      return;
+    }
+
+    isScattering = true;
+    updateCount();
+    updateStatus("ENTROPY");
+
+    letters.forEach(letter => gsap.killTweensOf(letter));
+
+    const timeline = gsap.timeline({
+      onComplete: () => {
+        isScattering = false;
+        updateStatus("STABLE");
+      }
+    });
+
+    timeline.to(letters, {
+      x: () => random(-window.innerWidth * 0.34, window.innerWidth * 0.34),
+      y: () => random(-window.innerHeight * 0.28, window.innerHeight * 0.28),
+      rotationZ: () => random(-140, 140),
+      rotationX: () => random(-100, 100),
+      rotationY: () => random(-120, 120),
+      scale: () => random(0.55, 1.3),
+      opacity: () => random(0.2, 0.65),
+      duration: 0.55,
+      ease: "power3.in",
+      stagger: {
+        each: 0.035,
+        from: "random"
+      }
+    });
+
+    timeline.to(letters, {
+      x: 0,
+      y: 0,
+      rotationZ: 0,
+      rotationX: 0,
+      rotationY: 0,
+      scale: 1,
+      opacity: 1,
+      duration: 1.15,
+      ease: "elastic.out(1, 0.42)",
+      stagger: {
+        each: 0.075,
+        from: "center"
+      }
+    }, "+=0.12");
+
+    timeline.fromTo(
+      root.querySelector(".en83-word-line"),
+      { scaleX: 0.15, opacity: 0.3 },
+      {
+        scaleX: 1,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power3.out"
+      },
+      "<"
+    );
+  }
+
+  function onPointerMove(event) {
+    if (isDestroyed || isScattering) return;
+
+    const now = performance.now();
+    const dx = event.clientX - lastX;
+    const dy = event.clientY - lastY;
+    const elapsed = Math.max(16, now - lastMoveTime);
+    velocity = Math.min(2.2, Math.hypot(dx, dy) / elapsed * 1.7);
+
+    lastX = event.clientX;
+    lastY = event.clientY;
+    lastMoveTime = now;
+
+    if (finePointer) {
+      gsap.to(cursor, {
+        opacity: 1,
+        duration: 0.15,
+        overwrite: true
+      });
+      quickCursorX(event.clientX);
+      quickCursorY(event.clientY);
+    }
+
+
+
   /* =======================================================
      INIT
   ======================================================= */
