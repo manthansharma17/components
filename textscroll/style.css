@@ -18881,6 +18881,95 @@ JS animates every word toward these positions.
     transform: scaleX(1);
   }
 
+  .en83-word-line {
+    width: min(56vw, 560px);
+    height: 1px;
+    margin-top: clamp(25px, 5vw, 64px);
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(243, 243, 239, 0.45),
+      transparent
+    );
+    transform-origin: center;
+  }
+
+  .en83-word-caption {
+    margin-top: 17px;
+    color: var(--en83-muted);
+    font-size: 9px;
+    text-align: center;
+  }
+
+  .en83-orbit {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: min(65vw, 760px);
+    aspect-ratio: 1;
+    border: 1px solid rgba(243, 243, 239, 0.055);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .en83-orbit-two {
+    width: min(48vw, 550px);
+    border-style: dashed;
+    border-color: rgba(243, 243, 239, 0.055);
+  }
+
+  .en83-center-mark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--en83-white);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .en83-instruction {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    color: var(--en83-muted);
+    font-size: 9px;
+  }
+
+  .en83-instruction-dot {
+    width: 4px;
+    height: 4px;
+    animation: en83Pulse 1.8s ease-in-out infinite;
+  }
+
+  @keyframes en83Pulse {
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 1; }
+  }
+
+  .en83-footer {
+    min-height: 42px;
+    padding-top: 20px;
+    border-top: 1px solid var(--en83-line);
+    color: var(--en83-muted);
+    font-size: 9px;
+  }
+
+  .en83-footer-left {
+    gap: 12px;
+  }
+
+  .en83-footer-divider {
+    width: 22px;
+    height: 1px;
+    background: var(--en83-muted);
+  }
+
 
 /* =========================================================
    REDUCED MOTION
