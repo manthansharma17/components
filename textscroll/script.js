@@ -38905,7 +38905,220 @@ selected.forEach(
         Math.floor(i * state.targets.length / count)
       ];
 
+ state.particles.push({
+        x: target.x + random(-2, 2),
+        y: target.y + random(-2, 2),
+        originX: target.x,
+        originY: target.y,
+        scatterX: random(-state.width * 0.65, state.width * 0.65),
+        scatterY: random(-state.height * 0.6, state.height * 0.6),
+        driftX: random(-0.7, 0.7),
+        driftY: random(-1.1, 0.2),
+        size: random(0.45, 1.5),
+        alpha: random(0.35, 0.95),
+        phase: random(0, Math.PI * 2),
+        speed: random(0.3, 1.3)
+      });
+    }
+  }
 
+  function drawFrame(time = 0) {
+    if (state.destroyed) return;
+
+    const dt = Math.min(32, time - (state.lastTime || time));
+    state.lastTime = time;
+
+    ctx.clearRect(0, 0, state.width, state.height);
+
+    const progress = state.progress;
+    const dissolution = clamp((progress - 0.08) / 0.84, 0, 1);
+    const cursorRadius = state.width < 700 ? 70 : 125;
+    const elapsed = time * 0.001;
+
+    for (const particle of state.particles) {
+      const wave = Math.sin(elapsed * particle.speed + particle.phase);
+      const wobble = progress > 0.03 ? wave * 3 * dissolution : 0;
+
+      const dispersedX =
+        particle.originX + particle.scatterX * dissolution +
+        particle.driftX * elapsed * 20 * dissolution;
+      const dispersedY =
+        particle.originY + particle.scatterY * dissolution +
+        particle.driftY * elapsed * 20 * dissolution;
+
+      let x = particle.originX + (dispersedX - particle.originX) * dissolution;
+      let y = particle.originY + (dispersedY - particle.originY) * dissolution;
+
+      x += wobble;
+      y += Math.cos(particle.phase + elapsed) * 1.2;
+
+      if (state.pointerActive) {
+        const dx = state.pointerX - x;
+        const dy = state.pointerY - y;
+        const distance = Math.hypot(dx, dy);
+
+        if (distance < cursorRadius && distance > 0.01) {
+          const force = 1 - distance / cursorRadius;
+          const pull = force * (1 - dissolution * 0.55);
+
+          x += dx * pull * 0.75;
+          y += dy * pull * 0.75;
+
+          if (dissolution > 0.15) {
+            x -= dx * force * dissolution * 0.5;
+            y -= dy * force * dissolution * 0.5;
+          }
+        }
+      }
+
+      const alpha = particle.alpha * (1 - dissolution * 0.9);
+      if (alpha <= 0.015) continue;
+
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = "#f2f0e9";
+      ctx.fillRect(x, y, particle.size, particle.size);
+    }
+
+    ctx.globalAlpha = 1;
+
+    if (!reducedMotion) {
+      state.raf = requestAnimationFrame(drawFrame);
+    }
+  }
+
+  function updateProgress(progress) {
+    state.progress = clamp(progress, 0, 1);
+
+    const percentage = Math.round(state.progress * 100);
+    progressText.textContent = String(percentage).padStart(2, "0") + "%";
+
+    gsap.set(fill, {
+      scaleX: state.progress
+    });
+
+    gsap.set(word, {
+      opacity: 1 - clamp((state.progress - 0.05) / 0.75, 0, 0.97),
+      filter: `blur(${state.progress * 4}px)`
+    });
+
+    gsap.set(scrollIndicator, {
+      opacity: state.progress > 0.08 ? 0.25 : 1
+    });
+
+    if (reducedMotion) drawFrame();
+  }
+
+  function onPointerMove(event) {
+    const rect = root.getBoundingClientRect();
+    state.pointerX = event.clientX - rect.left;
+    state.pointerY = event.clientY - rect.top;
+    state.pointerActive = true;
+  }
+
+  function onPointerLeave() {
+    state.pointerActive = false;
+    state.pointerX = -1000;
+    state.pointerY = -1000;
+  }
+
+  function recallMemory() {
+    if (reducedMotion) {
+      updateProgress(0);
+      return;
+    }
+
+    gsap.to(state, {
+      progress: 0,
+      duration: 1.3,
+      ease: "power3.inOut",
+      onUpdate: () => updateProgress(state.progress)
+    });
+
+    gsap.to(window, {
+      scrollTo: { y: root, offsetY: 0 },
+      duration: 1.1,
+      ease: "power2.inOut",
+      onComplete: () => {
+        if (window.ScrollTrigger) ScrollTrigger.refresh();
+      }
+    });
+  }
+
+  resizeCanvas();
+
+  if (window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    ScrollTrigger.create({
+      trigger: root,
+      start: "top top",
+      end: "+=160%",
+      pin: true,
+      scrub: 0.8,
+      onUpdate: self => updateProgress(self.progress)
+    });
+  } else {
+    gsap.to(state, {
+      progress: 1,
+      ease: "none",
+      scrollTrigger: {
+        trigger: root,
+        start: "top top",
+        end: "bottom top",
+        scrub: true
+      },
+      onUpdate: () => updateProgress(state.progress)
+    });
+  }
+
+  if (!reducedMotion) {
+    state.raf = requestAnimationFrame(drawFrame);
+
+    gsap.from(root.querySelector(".en84-header"), {
+      opacity: 0,
+      y: -12,
+      duration: 0.8,
+      ease: "power2.out"
+    });
+
+    gsap.from(
+      [
+        root.querySelector(".en84-overline"),
+        root.querySelector(".en84-subtitle"),
+        root.querySelector(".en84-progress"),
+        root.querySelector(".en84-bottom")
+      ],
+      {
+        opacity: 0,
+        y: 12,
+        duration: 0.8,
+        stagger: 0.12,
+        delay: 0.15,
+        ease: "power2.out"
+      }
+    );
+  }
+
+  root.addEventListener("pointermove", onPointerMove);
+  root.addEventListener("pointerleave", onPointerLeave);
+  recallButton.addEventListener("click", recallMemory);
+
+  let resizeTimer;
+  function onResize() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(resizeCanvas, 120);
+  }
+
+  window.addEventListener("resize", onResize);
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      cancelAnimationFrame(state.raf);
+    } else if (!reducedMotion && !state.destroyed) {
+      state.lastTime = 0;
+      state.raf = requestAnimationFrame(drawFrame);
+    }
+  });
 
 
 
