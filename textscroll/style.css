@@ -19380,6 +19380,105 @@ JS animates every word toward these positions.
     50% { transform: translateY(5px); opacity: 1; }
   }
 
+ .en84-recall {
+    padding: 12px 14px;
+    border: 1px solid rgba(242, 240, 233, 0.3);
+    background: transparent;
+    color: #f2f0e9;
+    cursor: pointer;
+    transition: color 0.25s ease, background 0.25s ease;
+  }
+
+  .en84-recall span {
+    margin-left: 10px;
+    font-size: 12px;
+  }
+
+  .en84-recall:hover {
+    color: #050505;
+    background: #f2f0e9;
+  }
+
+  @media (max-width: 700px) {
+    .section-eighty-four {
+      padding: 22px 18px;
+    }
+
+    .en84-brand,
+    .en84-index {
+      font-size: 7px;
+      letter-spacing: 0.09em;
+    }
+
+    .en84-header {
+      gap: 8px;
+    }
+
+    .en84-side-label {
+      display: none;
+    }
+
+    .en84-overline {
+      width: 90%;
+      font-size: 7px;
+    }
+
+    .en84-word,
+    .en84-word-ghost {
+      font-size: clamp(3.15rem, 13.8vw, 6.5rem);
+      letter-spacing: -0.09em;
+    }
+
+    .en84-subtitle {
+      gap: 8px;
+      font-size: 7px;
+      letter-spacing: 0.12em;
+    }
+
+    .en84-progress {
+      margin-top: 40px;
+    }
+
+    .en84-bottom {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .en84-bottom-note {
+      order: 1;
+      width: 100%;
+    }
+
+    .en84-scroll-indicator {
+      position: static;
+      transform: none;
+      margin-right: auto;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .en84-recall {
+      padding: 10px;
+      font-size: 7px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .en84-scroll-arrow {
+      animation: none;
+    }
+
+    .en84-recall,
+    .en84-scroll-indicator {
+      transition: none;
+    }
+  }
+
+
+
+
+
+
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
