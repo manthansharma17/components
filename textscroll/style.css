@@ -19126,6 +19126,118 @@ JS animates every word toward these positions.
     }
   }
 
+/*============================== SECTION 84: OBLIVION ==============================*/
+
+ .section-eighty-four {
+    position: relative;
+    isolation: isolate;
+    min-height: 100svh;
+    height: 100svh;
+    overflow: hidden;
+    background: #050505;
+    color: #f2f0e9;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(20px, 3vw, 46px);
+  }
+
+  .section-eighty-four *,
+  .section-eighty-four *::before,
+  .section-eighty-four *::after {
+    box-sizing: border-box;
+  }
+
+  .en84-canvas,
+  .en84-grain,
+  .en84-vignette {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .en84-canvas {
+    z-index: -1;
+  }
+
+  .en84-grain {
+    z-index: 0;
+    opacity: 0.075;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  }
+
+  .en84-vignette {
+    z-index: 0;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 25%,
+      rgba(0, 0, 0, 0.35) 75%,
+      #000 130%
+    );
+  }
+
+  .en84-header,
+  .en84-bottom {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .en84-brand,
+  .en84-index,
+  .en84-side-label,
+  .en84-overline,
+  .en84-subtitle,
+  .en84-progress,
+  .en84-bottom,
+  .en84-recall {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+  }
+
+  .en84-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .en84-live-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #f2f0e9;
+    box-shadow: 0 0 12px rgba(242, 240, 233, 0.7);
+  }
+
+  .en84-index {
+    color: #777772;
+  }
+
+  .en84-index span {
+    margin: 0 8px;
+    color: #f2f0e9;
+  }
+
+  .en84-side-label {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    color: #656560;
+    font-size: 8px;
+    writing-mode: vertical-rl;
+    transform: translateY(-50%);
+  }
+
+
+
+
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
