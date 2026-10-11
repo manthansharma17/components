@@ -19235,6 +19235,70 @@ JS animates every word toward these positions.
     transform: translateY(-50%);
   }
 
+.en84-side-left {
+    left: clamp(20px, 3vw, 46px);
+    rotate: 180deg;
+  }
+
+  .en84-side-right {
+    right: clamp(20px, 3vw, 46px);
+  }
+
+  .en84-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
+
+  .en84-overline {
+    width: min(75%, 900px);
+    display: flex;
+    justify-content: space-between;
+    color: #85857e;
+    margin-bottom: clamp(20px, 4vh, 48px);
+    font-size: 8px;
+  }
+
+  .en84-word-wrap {
+    position: relative;
+    width: 100%;
+    display: grid;
+    place-items: center;
+  }
+
+  .en84-word,
+  .en84-word-ghost {
+    grid-area: 1 / 1;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    white-space: nowrap;
+    font-size: clamp(3.4rem, 14.5vw, 17rem);
+    font-weight: 800;
+    line-height: 0.86;
+    letter-spacing: -0.095em;
+  }
+
+  .en84-word {
+    color: #f2f0e9;
+    position: relative;
+    z-index: 2;
+    will-change: opacity, filter;
+  }
+
+  .en84-word-ghost {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(242, 240, 233, 0.18);
+    filter: blur(1px);
+    opacity: 0.4;
+    transform: translateY(3px);
+    pointer-events: none;
+  }
 
 
 
