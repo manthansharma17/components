@@ -38787,6 +38787,128 @@ selected.forEach(
   }, { once: true });
 })();
 
+/* =============== Section 84: OBLIVION ================*/
+
+(() => {
+  const root = document.querySelector("#en84Section");
+  if (!root || !window.gsap || root.dataset.en84Ready) return;
+  root.dataset.en84Ready = "true";
+
+  const canvas = root.querySelector("#en84Canvas");
+  const ctx = canvas.getContext("2d");
+  const word = root.querySelector("#en84Word");
+  const fill = root.querySelector("#en84ProgressFill");
+  const progressText = root.querySelector("#en84ProgressText");
+  const scrollIndicator = root.querySelector("#en84ScrollIndicator");
+  const recallButton = root.querySelector("#en84Recall");
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  const state = {
+    width: 0,
+    height: 0,
+    dpr: 1,
+    particles: [],
+    targets: [],
+    progress: 0,
+    pointerX: -1000,
+    pointerY: -1000,
+    pointerActive: false,
+    lastTime: 0,
+    raf: 0,
+    destroyed: false
+  };
+
+  const random = (min, max) => Math.random() * (max - min) + min;
+  const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+
+  function resizeCanvas() {
+    const rect = root.getBoundingClientRect();
+
+    state.width = rect.width;
+    state.height = rect.height;
+    state.dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    canvas.width = Math.round(state.width * state.dpr);
+    canvas.height = Math.round(state.height * state.dpr);
+    canvas.style.width = state.width + "px";
+    canvas.style.height = state.height + "px";
+
+    ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
+    createParticles();
+    drawFrame();
+  }
+
+  function getWordTargets() {
+    const offscreen = document.createElement("canvas");
+    const offCtx = offscreen.getContext("2d");
+    const fontSize = Math.min(
+      state.width * (state.width < 700 ? 0.14 : 0.145),
+      state.width < 700 ? 105 : 272
+    );
+
+    offscreen.width = Math.ceil(state.width);
+    offscreen.height = Math.ceil(state.height);
+
+    offCtx.font = `800 ${fontSize}px Arial, Helvetica, sans-serif`;
+    offCtx.textAlign = "center";
+    offCtx.textBaseline = "middle";
+
+    const metrics = offCtx.measureText("OBLIVION");
+    const textWidth = metrics.width;
+    const x = state.width / 2;
+    const y = state.height * 0.49;
+
+    offCtx.fillStyle = "#ffffff";
+    offCtx.fillText("OBLIVION", x, y);
+
+    const imageData = offCtx.getImageData(
+      0, 0, offscreen.width, offscreen.height
+    ).data;
+
+    const targets = [];
+    const step = state.width < 700 ? 5 : 6;
+    const left = Math.max(0, Math.floor(x - textWidth / 2 - 8));
+    const right = Math.min(
+      offscreen.width,
+      Math.ceil(x + textWidth / 2 + 8)
+    );
+
+    for (let py = Math.max(0, Math.floor(y - fontSize)); 
+         py < Math.min(offscreen.height, y + fontSize); py += step) {
+      for (let px = left; px < right; px += step) {
+        const alpha = imageData[(py * offscreen.width + px) * 4 + 3];
+        if (alpha > 100 && Math.random() > 0.1) {
+          targets.push({ x: px, y: py });
+        }
+      }
+    }
+
+    return targets;
+  }
+
+  function createParticles() {
+    if (!state.width || !state.height) return;
+
+    state.targets = getWordTargets();
+
+    const count = Math.min(
+      state.targets.length,
+      state.width < 700 ? 1800 : 3400
+    );
+
+    state.particles = [];
+
+    for (let i = 0; i < count; i++) {
+      const target = state.targets[
+        Math.floor(i * state.targets.length / count)
+      ];
+
+
+
+
+
   /* =======================================================
      INIT
   ======================================================= */
