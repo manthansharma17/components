@@ -39120,7 +39120,12 @@ selected.forEach(
     }
   });
 
-
+window.addEventListener("pagehide", () => {
+    state.destroyed = true;
+    cancelAnimationFrame(state.raf);
+    clearTimeout(resizeTimer);
+  }, { once: true });
+})();
 
   /* =======================================================
      INIT
