@@ -39282,7 +39282,122 @@ function onPointerLeave() {
         ease: "power3.out"
       }, "<");
 
+if (window.ScrollTrigger) {
+      const trigger = ScrollTrigger.getById("en85Scroll");
+      if (trigger) {
+        window.scrollTo({
+          top: root.getBoundingClientRect().top + window.scrollY,
+          behavior: "smooth"
+        });
+      }
+    }
+  }
 
+  if (!reducedMotion) {
+    gsap.set(echoes, {
+      opacity: 0,
+      scale: 1,
+      x: 0,
+      y: 0
+    });
+
+    const timeline = gsap.timeline({
+      scrollTrigger: {
+        id: "en85Scroll",
+        trigger: root,
+        start: "top top",
+        end: "+=150%",
+        scrub: 0.8,
+        pin: true,
+        invalidateOnRefresh: true,
+        onUpdate: self => setProgress(self.progress)
+      }
+    });
+
+    timeline
+      .to(word, {
+        scale: 0.8,
+        letterSpacing: "-0.12em",
+        duration: 0.2,
+        ease: "power2.inOut"
+      }, 0)
+      .to(echoes, {
+        opacity: (index) => 0.12 + index * 0.105,
+        scale: (index) => 1 + index * 0.065,
+        x: (index) => (index - 2) * 28,
+        y: (index) => (index - 2) * 12,
+        duration: 0.35,
+        stagger: 0.025,
+        ease: "power2.out"
+      }, 0.12)
+      .to(echoes, {
+        x: (index) => (index - 2) * 115,
+        y: (index) => (index - 2) * 42,
+        rotationY: (index) => (index - 2) * 12,
+        opacity: (index) => 0.32 - Math.abs(index - 2) * 0.055,
+        duration: 0.4,
+        stagger: 0.02,
+        ease: "power2.inOut"
+      }, 0.48)
+      .to(word, {
+        scale: 0.7,
+        opacity: 0.12,
+        filter: "blur(5px)",
+        duration: 0.25,
+        ease: "power2.in"
+      }, 0.58)
+      .to(echoes, {
+        x: 0,
+        y: 0,
+        rotationY: 0,
+        scale: 1,
+        opacity: 0,
+        duration: 0.28,
+        stagger: 0.025,
+        ease: "power3.inOut"
+      }, 0.74)
+      .to(word, {
+        scale: 1,
+        opacity: 1,
+        filter: "blur(0px)",
+        letterSpacing: "-0.09em",
+        duration: 0.25,
+        ease: "power3.out"
+      }, 0.78);
+  } else {
+    setProgress(0);
+  }
+
+  gsap.from(
+    [
+      root.querySelector(".en85-header"),
+      root.querySelector(".en85-top-meta"),
+      root.querySelector(".en85-footer")
+    ],
+    {
+      opacity: 0,
+      y: 10,
+      duration: 0.8,
+      stagger: 0.12,
+      ease: "power2.out"
+    }
+  );
+
+  root.addEventListener("pointermove", onPointerMove);
+  root.addEventListener("pointerleave", onPointerLeave);
+  replayButton.addEventListener("click", replay);
+
+  window.addEventListener("pagehide", () => {
+    state.destroyed = true;
+    if (moveFrame) cancelAnimationFrame(moveFrame);
+    if (activeTimeline) activeTimeline.kill();
+
+    if (window.ScrollTrigger) {
+      const trigger = ScrollTrigger.getById("en85Scroll");
+      if (trigger) trigger.kill();
+    }
+  }, { once: true });
+})();
 
   /* =======================================================
      INIT
