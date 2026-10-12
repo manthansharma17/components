@@ -19474,6 +19474,139 @@ JS animates every word toward these positions.
     }
   }
 
+.section-eighty-five {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100svh;
+    min-height: 520px;
+    overflow: hidden;
+    padding: clamp(20px, 3vw, 46px);
+    background: #070707;
+    color: #f2f1ed;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .section-eighty-five *,
+  .section-eighty-five *::before,
+  .section-eighty-five *::after {
+    box-sizing: border-box;
+  }
+
+  .en85-grid,
+  .en85-noise {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .en85-grid {
+    opacity: 0.18;
+    background-image:
+      linear-gradient(rgba(255,255,255,.075) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.075) 1px, transparent 1px);
+    background-size: 9vw 9vw;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black 20%,
+      black 80%,
+      transparent
+    );
+  }
+
+  .en85-noise {
+    z-index: 3;
+    opacity: 0.055;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  }
+
+  .en85-header,
+  .en85-footer {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .en85-brand,
+  .en85-index,
+  .en85-top-meta,
+  .en85-coordinate,
+  .en85-word-caption,
+  .en85-trail-hint,
+  .en85-footer,
+  .en85-replay {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+  }
+
+  .en85-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .en85-dot,
+  .en85-hint-dot {
+    width: 5px;
+    height: 5px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: #f2f1ed;
+  }
+
+  .en85-index {
+    color: #7e7e79;
+  }
+
+  .en85-index span {
+    padding: 0 7px;
+    color: #f2f1ed;
+  }
+
+  .en85-top-meta {
+    position: absolute;
+    z-index: 4;
+    top: 19%;
+    left: clamp(20px, 3vw, 46px);
+    right: clamp(20px, 3vw, 46px);
+    display: flex;
+    justify-content: space-between;
+    color: #73736e;
+    font-size: 8px;
+  }
+
+  #en85State {
+    color: #c4c4bc;
+  }
+
+  .en85-stage {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+    perspective: 1000px;
+  }
+
+  .en85-echo-field {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+    transform-style: preserve-3d;
+  }
 
 
 
