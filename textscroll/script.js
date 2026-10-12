@@ -39126,6 +39126,112 @@ window.addEventListener("pagehide", () => {
     clearTimeout(resizeTimer);
   }, { once: true });
 })();
+/* =================== SECTION 85: ECHO ============================ */
+
+(() => {
+  const root = document.querySelector("#en85Section");
+  if (!root || !window.gsap || root.dataset.en85Ready) return;
+  root.dataset.en85Ready = "true";
+
+  const stage = root.querySelector("#en85Stage");
+  const word = root.querySelector("#en85Word");
+  const echoes = [...root.querySelectorAll(".en85-echo")];
+  const stateLabel = root.querySelector("#en85State");
+  const progressFill = root.querySelector("#en85Progress");
+  const percentLabel = root.querySelector("#en85Percent");
+  const replayButton = root.querySelector("#en85Replay");
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  const state = {
+    mouseX: 0,
+    mouseY: 0,
+    targetX: 0,
+    targetY: 0,
+    scrollProgress: 0,
+    destroyed: false
+  };
+
+  let moveFrame = 0;
+  let activeTimeline = null;
+
+  const xTo = gsap.quickTo(word, "x", {
+    duration: 0.35,
+    ease: "power3.out"
+  });
+
+  const yTo = gsap.quickTo(word, "y", {
+    duration: 0.35,
+    ease: "power3.out"
+  });
+
+  const rotateTo = gsap.quickTo(word, "rotationY", {
+    duration: 0.4,
+    ease: "power3.out"
+  });
+
+  function setProgress(progress) {
+    state.scrollProgress = progress;
+
+    const percent = Math.round(progress * 100);
+    percentLabel.textContent = String(percent).padStart(2, "0") + "%";
+
+    gsap.set(progressFill, {
+      scaleX: progress
+    });
+
+    if (progress < 0.08) {
+      stateLabel.textContent = "ONE MOMENT";
+    } else if (progress < 0.45) {
+      stateLabel.textContent = "MULTIPLE FRAMES";
+    } else if (progress < 0.88) {
+      stateLabel.textContent = "TIME DISTORTED";
+    } else {
+      stateLabel.textContent = "RECOLLECTION";
+    }
+  }
+
+  function onPointerMove(event) {
+    if (reducedMotion || state.destroyed) return;
+
+    const rect = stage.getBoundingClientRect();
+    const nx = (event.clientX - rect.left) / rect.width;
+    const ny = (event.clientY - rect.top) / rect.height;
+
+    state.targetX = (nx - 0.5) * 2;
+    state.targetY = (ny - 0.5) * 2;
+
+    if (moveFrame) return;
+
+    moveFrame = requestAnimationFrame(() => {
+      moveFrame = 0;
+
+      const px = state.targetX;
+      const py = state.targetY;
+
+      xTo(px * 15);
+      yTo(py * 8);
+      rotateTo(px * -5);
+
+      echoes.forEach((echo, index) => {
+        const depth = Number(echo.dataset.depth);
+        gsap.to(echo, {
+          x: px * depth * -10,
+          y: py * depth * -4,
+          rotationY: px * depth * -1.3,
+          duration: 0.5 + index * 0.06,
+          ease: "power3.out",
+          overwrite: "auto"
+        });
+      });
+    });
+  }
+
+
+
+
 
   /* =======================================================
      INIT
