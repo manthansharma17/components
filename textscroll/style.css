@@ -19610,6 +19610,75 @@ JS animates every word toward these positions.
     transform-style: preserve-3d;
   }
 
+ .en85-echo,
+  .en85-word {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    white-space: nowrap;
+    font-size: clamp(3rem, 13.3vw, 15rem);
+    font-weight: 800;
+    line-height: 0.88;
+    letter-spacing: -0.09em;
+  }
+
+  .en85-echo {
+    position: absolute;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(242, 241, 237, 0.3);
+    opacity: 0;
+    will-change: transform, opacity;
+    transform-origin: center center;
+  }
+
+  .en85-word {
+    position: relative;
+    z-index: 2;
+    color: #f2f1ed;
+    will-change: transform, opacity;
+    user-select: none;
+  }
+
+  .en85-word-caption {
+    position: absolute;
+    top: calc(50% + clamp(45px, 8vw, 110px));
+    color: #81817b;
+    font-size: 8px;
+    letter-spacing: 0.22em;
+    text-align: center;
+  }
+
+  .en85-coordinate {
+    position: absolute;
+    bottom: 12%;
+    color: #676761;
+    font-size: 8px;
+  }
+
+  .en85-coordinate-left {
+    left: 0;
+  }
+
+  .en85-coordinate-right {
+    right: 0;
+  }
+
+  .en85-cross {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .en85-cross::before,
+  .en85-cross::after {
+    content: "";
+    position: absolute;
+    background: #a3a39b;
+  }
 
 
 
