@@ -19680,7 +19680,187 @@ JS animates every word toward these positions.
     background: #a3a39b;
   }
 
+ .en85-cross::before {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+  }
 
+  .en85-cross::after {
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 100%;
+  }
+
+  .en85-cross-a {
+    transform: translate(-50%, -50%);
+  }
+
+  .en85-cross-b {
+    transform: translate(-50%, -50%) rotate(45deg) scale(1.6);
+    opacity: 0.08;
+  }
+
+  .en85-trail-hint {
+    position: relative;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 26px;
+    color: #81817b;
+    font-size: 8px;
+  }
+
+  .en85-hint-dot {
+    width: 4px;
+    height: 4px;
+    animation: en85Pulse 1.8s ease-in-out infinite;
+  }
+
+  @keyframes en85Pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  .en85-footer {
+    min-height: 45px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.13);
+    color: #777770;
+    font-size: 8px;
+  }
+
+  .en85-footer-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .en85-separator {
+    width: 20px;
+    height: 1px;
+    background: #777770;
+  }
+
+  .en85-progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .en85-progress-line {
+    display: block;
+    width: clamp(65px, 10vw, 130px);
+    height: 1px;
+    background: rgba(255,255,255,0.2);
+  }
+
+  #en85Progress {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #f2f1ed;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .en85-replay {
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 10px 12px;
+    background: transparent;
+    color: #f2f1ed;
+    cursor: pointer;
+    transition: background .25s ease, color .25s ease;
+  }
+
+  .en85-replay span {
+    margin-left: 8px;
+    font-size: 13px;
+  }
+
+  .en85-replay:hover {
+    background: #f2f1ed;
+    color: #070707;
+  }
+
+  @media (max-width: 700px) {
+    .section-eighty-five {
+      padding: 22px 18px;
+    }
+
+    .en85-brand,
+    .en85-index {
+      font-size: 7px;
+      letter-spacing: 0.08em;
+    }
+
+    .en85-header {
+      gap: 8px;
+    }
+
+    .en85-top-meta {
+      top: 17%;
+      font-size: 7px;
+      letter-spacing: 0.1em;
+    }
+
+    .en85-echo,
+    .en85-word {
+      font-size: clamp(2.8rem, 13.2vw, 6.2rem);
+      letter-spacing: -0.085em;
+    }
+
+    .en85-word-caption {
+      top: calc(50% + 45px);
+      font-size: 7px;
+      letter-spacing: 0.12em;
+    }
+
+    .en85-coordinate {
+      bottom: 10%;
+      font-size: 7px;
+    }
+
+    .en85-trail-hint {
+      margin-bottom: 20px;
+      font-size: 7px;
+      letter-spacing: 0.1em;
+    }
+
+    .en85-footer {
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .en85-footer-label {
+      width: 100%;
+      gap: 8px;
+    }
+
+    .en85-progress-wrap {
+      margin-right: auto;
+    }
+
+    .en85-replay {
+      padding: 9px;
+      font-size: 7px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .en85-hint-dot {
+      animation: none;
+    }
+
+    .en85-replay {
+      transition: none;
+    }
+}
 
 
 /* =========================================================
