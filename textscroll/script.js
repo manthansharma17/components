@@ -39229,7 +39229,58 @@ window.addEventListener("pagehide", () => {
     });
   }
 
+function onPointerLeave() {
+    if (reducedMotion) return;
 
+    xTo(0);
+    yTo(0);
+    rotateTo(0);
+
+    echoes.forEach(echo => {
+      gsap.to(echo, {
+        x: 0,
+        y: 0,
+        rotationY: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        overwrite: "auto"
+      });
+    });
+  }
+
+  function replay() {
+    if (reducedMotion) {
+      setProgress(0);
+      gsap.set([word, ...echoes], {
+        clearProps: "transform,opacity,filter"
+      });
+      return;
+    }
+
+    if (activeTimeline) activeTimeline.kill();
+
+    activeTimeline = gsap.timeline();
+
+    activeTimeline
+      .to(echoes, {
+        opacity: 0,
+        x: 0,
+        y: 0,
+        rotationY: 0,
+        duration: 0.35,
+        stagger: 0.035,
+        ease: "power2.in"
+      })
+      .to(word, {
+        x: 0,
+        y: 0,
+        rotationY: 0,
+        scale: 1,
+        opacity: 1,
+        filter: "blur(0px)",
+        duration: 0.65,
+        ease: "power3.out"
+      }, "<");
 
 
 
