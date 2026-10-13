@@ -20186,7 +20186,92 @@ JS animates every word toward these positions.
     color: #030303;
   }
 
+@media (max-width: 700px) {
+    .section-eighty-six {
+      padding: 22px 18px;
+    }
 
+    .en86-brand,
+    .en86-index {
+      font-size: 7px;
+      letter-spacing: .08em;
+    }
+
+    .en86-header {
+      gap: 8px;
+    }
+
+    .en86-top-meta {
+      top: 17%;
+      font-size: 7px;
+      letter-spacing: .08em;
+    }
+
+    .en86-word {
+      gap: 0;
+    }
+
+    .en86-letter {
+      font-size: clamp(2.35rem, 10.3vw, 4.7rem);
+      letter-spacing: -.085em;
+    }
+
+    .en86-ring-one {
+      width: 45vw;
+    }
+
+    .en86-ring-two {
+      width: 70vw;
+    }
+
+    .en86-ring-three {
+      width: 95vw;
+    }
+
+    .en86-caption {
+      top: calc(50% + 50px);
+      font-size: 7px;
+      letter-spacing: .13em;
+    }
+
+    .en86-coord {
+      bottom: 8%;
+    }
+
+    .en86-hint {
+      font-size: 7px;
+      margin-bottom: 20px;
+    }
+
+    .en86-footer {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .en86-footer-label {
+      width: 100%;
+      gap: 8px;
+    }
+
+    .en86-progress-wrap {
+      margin-right: auto;
+    }
+
+    .en86-reset {
+      padding: 9px;
+      font-size: 7px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .en86-hint-dot {
+      animation: none;
+    }
+
+    .en86-reset {
+      transition: none;
+    }
+  }
 
 
 
