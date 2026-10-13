@@ -19863,6 +19863,168 @@ JS animates every word toward these positions.
 }
 
 
+/* ===================== SECTION 86 SINGULARITY ============================== */
+
+.section-eighty-six {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    height: 100svh;
+    min-height: 540px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(20px, 3vw, 46px);
+    background: #030303;
+    color: #f4f3ee;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .section-eighty-six *,
+  .section-eighty-six *::before,
+  .section-eighty-six *::after {
+    box-sizing: border-box;
+  }
+
+  .en86-canvas,
+  .en86-grid,
+  .en86-vignette {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .en86-canvas {
+    z-index: -1;
+  }
+
+  .en86-grid {
+    z-index: -1;
+    opacity: 0.13;
+    background-image:
+      linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+    background-size: 9vw 9vw;
+    mask-image: radial-gradient(ellipse, black, transparent 78%);
+  }
+
+  .en86-vignette {
+    z-index: 1;
+    background: radial-gradient(
+      circle at center,
+      transparent 15%,
+      rgba(0,0,0,.25) 65%,
+      #030303 120%
+    );
+  }
+
+  .en86-header,
+  .en86-footer {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+  }
+
+  .en86-brand,
+  .en86-index,
+  .en86-top-meta,
+  .en86-caption,
+  .en86-coord,
+  .en86-hint,
+  .en86-footer,
+  .en86-reset {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: .15em;
+  }
+
+  .en86-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .en86-live-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #f4f3ee;
+    box-shadow: 0 0 10px rgba(244,243,238,.7);
+  }
+
+  .en86-index,
+  .en86-top-meta,
+  .en86-coord,
+  .en86-caption,
+  .en86-hint,
+  .en86-footer {
+    color: #81817a;
+  }
+
+  .en86-index span {
+    color: #f4f3ee;
+    margin: 0 7px;
+  }
+
+  .en86-top-meta {
+    position: absolute;
+    z-index: 4;
+    top: 19%;
+    left: clamp(20px, 3vw, 46px);
+    right: clamp(20px, 3vw, 46px);
+    display: flex;
+    justify-content: space-between;
+    font-size: 8px;
+  }
+
+  #en86Status {
+    color: #f4f3ee;
+  }
+
+  .en86-stage {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+  }
+
+  .en86-word {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(0px, .15vw, 3px);
+    white-space: nowrap;
+    transform-style: preserve-3d;
+  }
+
+  .en86-letter {
+    display: inline-block;
+    font-size: clamp(2.6rem, 10.5vw, 12rem);
+    line-height: .9;
+    font-weight: 800;
+    letter-spacing: -.09em;
+    transform-origin: center center;
+    transform-style: preserve-3d;
+    will-change: transform, opacity;
+  }
+
+
+
+
+
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
