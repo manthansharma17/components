@@ -39399,6 +39399,148 @@ if (window.ScrollTrigger) {
   }, { once: true });
 })();
 
+
+
+/* ==================== SECTION 86 Sigularity ========================= */
+
+(() => {
+  const root = document.querySelector("#en86Section");
+  if (!root || !window.gsap || root.dataset.en86Ready) return;
+  root.dataset.en86Ready = "true";
+
+  const stage = root.querySelector("#en86Stage");
+  const canvas = root.querySelector("#en86Canvas");
+  const ctx = canvas.getContext("2d");
+  const letters = [...root.querySelectorAll(".en86-letter")];
+  const rings = [...root.querySelectorAll(".en86-ring")];
+  const core = root.querySelector("#en86Core");
+  const flash = root.querySelector("#en86Flash");
+  const status = root.querySelector("#en86Status");
+  const progress = root.querySelector("#en86Progress");
+  const percent = root.querySelector("#en86Percent");
+  const resetButton = root.querySelector("#en86Reset");
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  const state = {
+    width: 0,
+    height: 0,
+    dpr: 1,
+    progress: 0,
+    pointerX: 0,
+    pointerY: 0,
+    pointerActive: false,
+    particles: [],
+    raf: 0,
+    lastTime: 0,
+    destroyed: false
+  };
+
+  let collapseTimeline = null;
+  let moveFrame = 0;
+
+  const random = (min, max) => Math.random() * (max - min) + min;
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+  function createParticles() {
+    state.particles = [];
+
+    const count = window.innerWidth < 700 ? 100 : 200;
+
+    for (let i = 0; i < count; i++) {
+      const angle = random(0, Math.PI * 2);
+      const distance = random(50, Math.max(state.width, state.height) * .7);
+
+      state.particles.push({
+        x: state.width / 2 + Math.cos(angle) * distance,
+        y: state.height / 2 + Math.sin(angle) * distance,
+        vx: random(-.25, .25),
+        vy: random(-.25, .25),
+        size: random(.5, 1.5),
+        alpha: random(.15, .65),
+        phase: random(0, Math.PI * 2)
+      });
+    }
+  }
+
+  function resize() {
+    const rect = root.getBoundingClientRect();
+
+    state.width = rect.width;
+    state.height = rect.height;
+    state.dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    canvas.width = Math.round(state.width * state.dpr);
+    canvas.height = Math.round(state.height * state.dpr);
+    canvas.style.width = state.width + "px";
+    canvas.style.height = state.height + "px";
+
+    ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
+    createParticles();
+    draw(0);
+  }
+
+  function draw(time = 0) {
+    if (state.destroyed) return;
+
+    ctx.clearRect(0, 0, state.width, state.height);
+
+    const centerX = state.width / 2;
+    const centerY = state.height / 2;
+    const collapse = state.progress;
+    const dt = Math.min(2, (time - (state.lastTime || time)) / 16.67 || 1);
+    state.lastTime = time;
+
+    for (const p of state.particles) {
+      if (!reducedMotion) {
+        p.phase += .005 * dt;
+
+        if (collapse > .01) {
+          const dx = centerX - p.x;
+          const dy = centerY - p.y;
+          const distance = Math.hypot(dx, dy) || 1;
+          const force = .003 + collapse * .06;
+
+          p.vx += dx / distance * force * dt;
+          p.vy += dy / distance * force * dt;
+        } else {
+          p.vx += Math.sin(p.phase) * .003 * dt;
+          p.vy += Math.cos(p.phase) * .003 * dt;
+        }
+
+        if (state.pointerActive) {
+          const dx = state.pointerX - p.x;
+          const dy = state.pointerY - p.y;
+          const distance = Math.hypot(dx, dy) || 1;
+
+          if (distance < 150) {
+            const force = (1 - distance / 150) * .055;
+            p.vx += dx / distance * force * dt;
+            p.vy += dy / distance * force * dt;
+          }
+        }
+
+        p.vx *= .985;
+        p.vy *= .985;
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+      }
+
+      ctx.globalAlpha = p.alpha * (1 - collapse * .6);
+      ctx.fillStyle = "#f4f3ee";
+      ctx.fillRect(p.x, p.y, p.size, p.size);
+    }
+
+    ctx.globalAlpha = 1;
+
+    if (!reducedMotion) {
+      state.raf = requestAnimationFrame(draw);
+    }
+  }
+
+
   /* =======================================================
      INIT
   ======================================================= */
