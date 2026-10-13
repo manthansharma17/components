@@ -39539,7 +39539,353 @@ if (window.ScrollTrigger) {
       state.raf = requestAnimationFrame(draw);
     }
   }
+function updateProgress(value) {
+    state.progress = clamp(value, 0, 1);
 
+    const p = state.progress;
+    percent.textContent = String(Math.round(p * 100)).padStart(2, "0") + "%";
+
+    gsap.set(progress, { scaleX: p });
+
+    if (p < .1) {
+      status.textContent = "FIELD STABLE";
+    } else if (p < .45) {
+      status.textContent = "GRAVITY INCREASING";
+    } else if (p < .8) {
+      status.textContent = "COLLAPSE IMMINENT";
+    } else {
+      status.textContent = "SINGULARITY";
+    }
+
+    if (reducedMotion) draw(0);
+  }
+
+  function onPointerMove(event) {
+    const rect = stage.getBoundingClientRect();
+
+    state.pointerX = event.clientX - rect.left;
+    state.pointerY = event.clientY - rect.top;
+    state.pointerActive = true;
+
+    if (reducedMotion || moveFrame) return;
+
+    moveFrame = requestAnimationFrame(() => {
+      moveFrame = 0;
+
+      const cx = state.width / 2;
+      const cy = state.height / 2;
+      const px = state.pointerX - cx;
+      const py = state.pointerY - cy;
+
+      letters.forEach((letter, index) => {
+        const rect = letter.getBoundingClientRect();
+        const lx = rect.left + rect.width / 2 - (window.innerWidth / 2);
+        const ly = rect.top + rect.height / 2 - (window.innerHeight / 2);
+
+        const dx = state.pointerX + stage.getBoundingClientRect().left - window.innerWidth / 2 - lx;
+        const dy = state.pointerY + stage.getBoundingClientRect().top - window.innerHeight / 2 - ly;
+        const distance = Math.hypot(dx, dy);
+        const influence = clamp(1 - distance / 260, 0, 1);
+
+        gsap.to(letter, {
+          x: -px * .04 * influence,
+          y: -py * .04 * influence,
+          rotationY: dx * .035 * influence,
+          duration: .35,
+          ease: "power3.out",
+          overwrite: "auto"
+        });
+      });
+
+      gsap.to(rings, {
+        rotation: px * .015,
+        scale: 1 + clamp(Math.hypot(px, py) / 1200, 0, .06),
+        duration: .5,
+        ease: "power2.out",
+        overwrite: "auto"
+      });
+    });
+  }
+
+  function onPointerLeave() {
+    state.pointerActive = false;
+
+    if (reducedMotion) return;
+
+    gsap.to(letters, {
+      x: 0,
+      y: 0,
+      rotationY: 0,
+      duration: .7,
+      ease: "elastic.out(1, .6)",
+      overwrite: "auto"
+    });
+
+    gsap.to(rings, {
+      rotation: 0,
+      scale: 1,
+      duration: .8,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+  }
+
+  function collapseAndReveal() {
+    if (reducedMotion) {
+      gsap.set(letters, {
+        clearProps: "transform,opacity"
+      });
+      gsap.set(core, { opacity: 0, scale: .2 });
+      updateProgress(0);
+      return;
+    }
+
+    if (collapseTimeline) collapseTimeline.kill();
+
+    gsap.killTweensOf(letters);
+    gsap.killTweensOf([core, flash, rings]);
+
+    collapseTimeline = gsap.timeline({
+      onComplete: () => {
+        updateProgress(0);
+      }
+    });
+
+    collapseTimeline
+      .to(status, {
+        opacity: .25,
+        duration: .2,
+        yoyo: true,
+        repeat: 1
+      }, 0)
+      .to(letters, {
+        x: (index, target) => {
+          const rect = target.getBoundingClientRect();
+          return state.width / 2 - (rect.left + rect.width / 2);
+        },
+        y: (index, target) => {
+          const rect = target.getBoundingClientRect();
+          return state.height / 2 - (rect.top + rect.height / 2);
+        },
+        scale: .01,
+        rotationZ: (index) => (index % 2 ? 180 : -180),
+        opacity: 0,
+        duration: 1.05,
+        ease: "power4.in",
+        stagger: .025
+      }, 0)
+      .to(rings, {
+        scale: .1,
+        opacity: 0,
+        duration: .95,
+        ease: "power3.in"
+      }, 0)
+      .to(core, {
+        opacity: 1,
+        scale: 2.8,
+        duration: .2,
+        ease: "power2.out"
+      }, .85)
+      .to(flash, {
+        opacity: .9,
+        scale: 25,
+        duration: .18,
+        ease: "power2.out"
+      }, 1.05)
+      .to(flash, {
+        opacity: 0,
+        scale: 1,
+        duration: .5,
+        ease: "power2.in"
+      }, 1.2)
+      .to(core, {
+        opacity: 0,
+        scale: .1,
+        duration: .3
+      }, 1.25)
+      .to(letters, {
+        x: 0,
+        y: 0,
+        scale: 1,
+        rotationZ: 0,
+        rotationY: 0,
+        opacity: 1,
+        duration: .85,
+        ease: "elastic.out(1, .65)",
+        stagger: {
+          each: .04,
+          from: "center"
+        }
+      }, 1.55)
+      .to(rings, {
+        scale: 1,
+        opacity: 1,
+        duration: .8,
+        ease: "power3.out"
+      }, 1.65);
+  }
+
+  function resetSection() {
+    if (window.ScrollTrigger) {
+      const trigger = ScrollTrigger.getById("en86Scroll");
+      if (trigger) {
+        trigger.scroll(0);
+        trigger.update();
+      }
+    }
+
+    collapseAndReveal();
+  }
+
+  resize();
+
+  if (window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.timeline({
+      scrollTrigger: {
+        id: "en86Scroll",
+        trigger: root,
+        start: "top top",
+        end: "+=170%",
+        pin: true,
+        scrub: .8,
+        invalidateOnRefresh: true,
+        onUpdate: self => updateProgress(self.progress)
+      }
+    })
+    .to(letters, {
+      x: (index, target) => {
+        const rect = target.getBoundingClientRect();
+        return state.width / 2 - (rect.left + rect.width / 2);
+      },
+      y: (index, target) => {
+        const rect = target.getBoundingClientRect();
+        return state.height / 2 - (rect.top + rect.height / 2);
+      },
+      scale: .02,
+      opacity: .08,
+      rotationZ: (index) => (index % 2 ? 120 : -120),
+      stagger: {
+        each: .025,
+        from: "edges"
+      },
+      duration: .7,
+      ease: "power3.in"
+    }, .25)
+    .to(rings, {
+      scale: .15,
+      opacity: 0,
+      duration: .7,
+      ease: "power3.in"
+    }, .3)
+    .to(core, {
+      opacity: 1,
+      scale: 3,
+      duration: .15
+    }, .8)
+    .to(letters, {
+      x: 0,
+      y: 0,
+      scale: 1,
+      opacity: 1,
+      rotationZ: 0,
+      duration: .5,
+      stagger: {
+        each: .025,
+        from: "center"
+      },
+      ease: "power3.out"
+    }, .88)
+    .to(rings, {
+      scale: 1,
+      opacity: 1,
+      duration: .5
+    }, .88)
+    .to(core, {
+      opacity: 0,
+      scale: .2,
+      duration: .25
+    }, .9);
+  }
+
+  if (!reducedMotion) {
+    state.raf = requestAnimationFrame(draw);
+
+    gsap.from(root.querySelector(".en86-header"), {
+      opacity: 0,
+      y: -12,
+      duration: .8,
+      ease: "power2.out"
+    });
+
+    gsap.from(
+      [
+        root.querySelector(".en86-top-meta"),
+        root.querySelector(".en86-caption"),
+        root.querySelector(".en86-hint"),
+        root.querySelector(".en86-footer")
+      ],
+      {
+        opacity: 0,
+        y: 10,
+        duration: .8,
+        stagger: .12,
+        delay: .15,
+        ease: "power2.out"
+      }
+    );
+
+    gsap.to(rings[1], {
+      rotation: 360,
+      duration: 80,
+      repeat: -1,
+      ease: "none"
+    });
+
+    gsap.to(rings[2], {
+      rotation: -360,
+      duration: 110,
+      repeat: -1,
+      ease: "none"
+    });
+  }
+
+  root.addEventListener("pointermove", onPointerMove);
+  root.addEventListener("pointerleave", onPointerLeave);
+  resetButton.addEventListener("click", resetSection);
+
+  let resizeTimer;
+
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      resize();
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    }, 120);
+  });
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      cancelAnimationFrame(state.raf);
+    } else if (!reducedMotion && !state.destroyed) {
+      state.lastTime = 0;
+      state.raf = requestAnimationFrame(draw);
+    }
+  });
+
+  window.addEventListener("pagehide", () => {
+    state.destroyed = true;
+    cancelAnimationFrame(state.raf);
+    if (moveFrame) cancelAnimationFrame(moveFrame);
+    if (collapseTimeline) collapseTimeline.kill();
+
+    if (window.ScrollTrigger) {
+      const trigger = ScrollTrigger.getById("en86Scroll");
+      if (trigger) trigger.kill();
+    }
+  }, { once: true });
+})();
 
   /* =======================================================
      INIT
