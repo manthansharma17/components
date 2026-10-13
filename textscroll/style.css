@@ -20355,7 +20355,84 @@ JS animates every word toward these positions.
     draw(0);
   }
 
+function draw(time = 0) {
+    if (state.destroyed) return;
 
+    ctx.clearRect(0, 0, state.width, state.height);
+
+    const centerX = state.width / 2;
+    const centerY = state.height / 2;
+    const collapse = state.progress;
+    const dt = Math.min(2, (time - (state.lastTime || time)) / 16.67 || 1);
+    state.lastTime = time;
+
+    for (const p of state.particles) {
+      if (!reducedMotion) {
+        p.phase += .005 * dt;
+
+        if (collapse > .01) {
+          const dx = centerX - p.x;
+          const dy = centerY - p.y;
+          const distance = Math.hypot(dx, dy) || 1;
+          const force = .003 + collapse * .06;
+
+          p.vx += dx / distance * force * dt;
+          p.vy += dy / distance * force * dt;
+        } else {
+          p.vx += Math.sin(p.phase) * .003 * dt;
+          p.vy += Math.cos(p.phase) * .003 * dt;
+        }
+
+        if (state.pointerActive) {
+          const dx = state.pointerX - p.x;
+          const dy = state.pointerY - p.y;
+          const distance = Math.hypot(dx, dy) || 1;
+
+          if (distance < 150) {
+            const force = (1 - distance / 150) * .055;
+            p.vx += dx / distance * force * dt;
+            p.vy += dy / distance * force * dt;
+          }
+        }
+
+        p.vx *= .985;
+        p.vy *= .985;
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+      }
+
+      ctx.globalAlpha = p.alpha * (1 - collapse * .6);
+      ctx.fillStyle = "#f4f3ee";
+      ctx.fillRect(p.x, p.y, p.size, p.size);
+    }
+
+    ctx.globalAlpha = 1;
+
+    if (!reducedMotion) {
+      state.raf = requestAnimationFrame(draw);
+    }
+  }
+
+  function updateProgress(value) {
+    state.progress = clamp(value, 0, 1);
+
+    const p = state.progress;
+    percent.textContent = String(Math.round(p * 100)).padStart(2, "0") + "%";
+
+    gsap.set(progress, { scaleX: p });
+
+    if (p < .1) {
+      status.textContent = "FIELD STABLE";
+    } else if (p < .45) {
+      status.textContent = "GRAVITY INCREASING";
+    } else if (p < .8) {
+      status.textContent = "COLLAPSE IMMINENT";
+    } else {
+      status.textContent = "SINGULARITY";
+    }
+
+    if (reducedMotion) draw(0);
+  }
 
 
 
