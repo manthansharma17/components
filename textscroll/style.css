@@ -20525,7 +20525,173 @@ function draw(time = 0) {
       }
     });
 
+collapseTimeline
+      .to(status, {
+        opacity: .25,
+        duration: .2,
+        yoyo: true,
+        repeat: 1
+      }, 0)
+      .to(letters, {
+        x: (index, target) => {
+          const rect = target.getBoundingClientRect();
+          return state.width / 2 - (rect.left + rect.width / 2);
+        },
+        y: (index, target) => {
+          const rect = target.getBoundingClientRect();
+          return state.height / 2 - (rect.top + rect.height / 2);
+        },
+        scale: .01,
+        rotationZ: (index) => (index % 2 ? 180 : -180),
+        opacity: 0,
+        duration: 1.05,
+        ease: "power4.in",
+        stagger: .025
+      }, 0)
+      .to(rings, {
+        scale: .1,
+        opacity: 0,
+        duration: .95,
+        ease: "power3.in"
+      }, 0)
+      .to(core, {
+        opacity: 1,
+        scale: 2.8,
+        duration: .2,
+        ease: "power2.out"
+      }, .85)
+      .to(flash, {
+        opacity: .9,
+        scale: 25,
+        duration: .18,
+        ease: "power2.out"
+      }, 1.05)
+      .to(flash, {
+        opacity: 0,
+        scale: 1,
+        duration: .5,
+        ease: "power2.in"
+      }, 1.2)
+      .to(core, {
+        opacity: 0,
+        scale: .1,
+        duration: .3
+      }, 1.25)
+      .to(letters, {
+        x: 0,
+        y: 0,
+        scale: 1,
+        rotationZ: 0,
+        rotationY: 0,
+        opacity: 1,
+        duration: .85,
+        ease: "elastic.out(1, .65)",
+        stagger: {
+          each: .04,
+          from: "center"
+        }
+      }, 1.55)
+      .to(rings, {
+        scale: 1,
+        opacity: 1,
+        duration: .8,
+        ease: "power3.out"
+      }, 1.65);
+  }
 
+  function resetSection() {
+    if (window.ScrollTrigger) {
+      const trigger = ScrollTrigger.getById("en86Scroll");
+      if (trigger) {
+        trigger.scroll(0);
+        trigger.update();
+      }
+    }
+
+    collapseAndReveal();
+  }
+
+  resize();
+
+  if (window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.timeline({
+      scrollTrigger: {
+        id: "en86Scroll",
+        trigger: root,
+        start: "top top",
+        end: "+=170%",
+        pin: true,
+        scrub: .8,
+        invalidateOnRefresh: true,
+        onUpdate: self => updateProgress(self.progress)
+      }
+    })
+    .to(letters, {
+      x: (index, target) => {
+        const rect = target.getBoundingClientRect();
+        return state.width / 2 - (rect.left + rect.width / 2);
+      },
+      y: (index, target) => {
+        const rect = target.getBoundingClientRect();
+        return state.height / 2 - (rect.top + rect.height / 2);
+      },
+      scale: .02,
+      opacity: .08,
+      rotationZ: (index) => (index % 2 ? 120 : -120),
+      stagger: {
+        each: .025,
+        from: "edges"
+      },
+      duration: .7,
+      ease: "power3.in"
+    }, .25)
+    .to(rings, {
+      scale: .15,
+      opacity: 0,
+      duration: .7,
+      ease: "power3.in"
+    }, .3)
+    .to(core, {
+      opacity: 1,
+      scale: 3,
+      duration: .15
+    }, .8)
+    .to(letters, {
+      x: 0,
+      y: 0,
+      scale: 1,
+      opacity: 1,
+      rotationZ: 0,
+      duration: .5,
+      stagger: {
+        each: .025,
+        from: "center"
+      },
+      ease: "power3.out"
+    }, .88)
+    .to(rings, {
+      scale: 1,
+      opacity: 1,
+      duration: .5
+    }, .88)
+    .to(core, {
+      opacity: 0,
+      scale: .2,
+      duration: .25
+    }, .9);
+  }
+
+  if (!reducedMotion) {
+    state.raf = requestAnimationFrame(draw);
+
+    gsap.from(root.querySelector(".en86-header"), {
+      opacity: 0,
+      y: -12,
+      duration: .8,
+      ease: "power2.out"
+    });
 
 
 /* =========================================================
