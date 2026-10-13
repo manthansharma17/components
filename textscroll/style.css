@@ -20103,12 +20103,95 @@ JS animates every word toward these positions.
     right: 0;
   }
 
+  .en86-hint {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    font-size: 8px;
+  }
+
+  .en86-hint-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #f4f3ee;
+    animation: en86Pulse 1.8s ease-in-out infinite;
+  }
+
+  @keyframes en86Pulse {
+    0%, 100% { opacity: .3; }
+    50% { opacity: 1; }
+  }
+
+  .en86-footer {
+    min-height: 44px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,.13);
+    font-size: 8px;
+  }
+
+  .en86-footer-label {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+  }
+
+  .en86-divider {
+    width: 20px;
+    height: 1px;
+    background: #81817a;
+  }
+
+  .en86-progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .en86-progress-track {
+    width: clamp(65px, 10vw, 130px);
+    height: 1px;
+    background: rgba(255,255,255,.2);
+  }
+
+  #en86Progress {
+    height: 100%;
+    width: 100%;
+    background: #f4f3ee;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .en86-reset {
+    padding: 10px 12px;
+    border: 1px solid rgba(255,255,255,.25);
+    background: transparent;
+    color: #f4f3ee;
+    cursor: pointer;
+    transition: background .25s ease, color .25s ease;
+  }
+
+  .en86-reset span {
+    margin-left: 8px;
+    font-size: 13px;
+  }
+
+  .en86-reset:hover {
+    background: #f4f3ee;
+    color: #030303;
+  }
 
 
 
 
 
-  
+
+
 
 
 
