@@ -20434,6 +20434,97 @@ function draw(time = 0) {
     if (reducedMotion) draw(0);
   }
 
+   function onPointerMove(event) {
+    const rect = stage.getBoundingClientRect();
+
+    state.pointerX = event.clientX - rect.left;
+    state.pointerY = event.clientY - rect.top;
+    state.pointerActive = true;
+
+    if (reducedMotion || moveFrame) return;
+
+    moveFrame = requestAnimationFrame(() => {
+      moveFrame = 0;
+
+      const cx = state.width / 2;
+      const cy = state.height / 2;
+      const px = state.pointerX - cx;
+      const py = state.pointerY - cy;
+
+      letters.forEach((letter, index) => {
+        const rect = letter.getBoundingClientRect();
+        const lx = rect.left + rect.width / 2 - (window.innerWidth / 2);
+        const ly = rect.top + rect.height / 2 - (window.innerHeight / 2);
+
+        const dx = state.pointerX + stage.getBoundingClientRect().left - window.innerWidth / 2 - lx;
+        const dy = state.pointerY + stage.getBoundingClientRect().top - window.innerHeight / 2 - ly;
+        const distance = Math.hypot(dx, dy);
+        const influence = clamp(1 - distance / 260, 0, 1);
+
+        gsap.to(letter, {
+          x: -px * .04 * influence,
+          y: -py * .04 * influence,
+          rotationY: dx * .035 * influence,
+          duration: .35,
+          ease: "power3.out",
+          overwrite: "auto"
+        });
+      });
+
+      gsap.to(rings, {
+        rotation: px * .015,
+        scale: 1 + clamp(Math.hypot(px, py) / 1200, 0, .06),
+        duration: .5,
+        ease: "power2.out",
+        overwrite: "auto"
+      });
+    });
+  }
+
+  function onPointerLeave() {
+    state.pointerActive = false;
+
+    if (reducedMotion) return;
+
+    gsap.to(letters, {
+      x: 0,
+      y: 0,
+      rotationY: 0,
+      duration: .7,
+      ease: "elastic.out(1, .6)",
+      overwrite: "auto"
+    });
+
+    gsap.to(rings, {
+      rotation: 0,
+      scale: 1,
+      duration: .8,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+  }
+
+  function collapseAndReveal() {
+    if (reducedMotion) {
+      gsap.set(letters, {
+        clearProps: "transform,opacity"
+      });
+      gsap.set(core, { opacity: 0, scale: .2 });
+      updateProgress(0);
+      return;
+    }
+
+    if (collapseTimeline) collapseTimeline.kill();
+
+    gsap.killTweensOf(letters);
+    gsap.killTweensOf([core, flash, rings]);
+
+    collapseTimeline = gsap.timeline({
+      onComplete: () => {
+        updateProgress(0);
+      }
+    });
+
 
 
 
