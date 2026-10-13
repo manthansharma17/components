@@ -20693,6 +20693,73 @@ collapseTimeline
       ease: "power2.out"
     });
 
+    gsap.from(
+      [
+        root.querySelector(".en86-top-meta"),
+        root.querySelector(".en86-caption"),
+        root.querySelector(".en86-hint"),
+        root.querySelector(".en86-footer")
+      ],
+      {
+        opacity: 0,
+        y: 10,
+        duration: .8,
+        stagger: .12,
+        delay: .15,
+        ease: "power2.out"
+      }
+    );
+
+    gsap.to(rings[1], {
+      rotation: 360,
+      duration: 80,
+      repeat: -1,
+      ease: "none"
+    });
+
+    gsap.to(rings[2], {
+      rotation: -360,
+      duration: 110,
+      repeat: -1,
+      ease: "none"
+    });
+  }
+
+  root.addEventListener("pointermove", onPointerMove);
+  root.addEventListener("pointerleave", onPointerLeave);
+  resetButton.addEventListener("click", resetSection);
+
+  let resizeTimer;
+
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      resize();
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    }, 120);
+  });
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      cancelAnimationFrame(state.raf);
+    } else if (!reducedMotion && !state.destroyed) {
+      state.lastTime = 0;
+      state.raf = requestAnimationFrame(draw);
+    }
+  });
+
+  window.addEventListener("pagehide", () => {
+    state.destroyed = true;
+    cancelAnimationFrame(state.raf);
+    if (moveFrame) cancelAnimationFrame(moveFrame);
+    if (collapseTimeline) collapseTimeline.kill();
+
+    if (window.ScrollTrigger) {
+      const trigger = ScrollTrigger.getById("en86Scroll");
+      if (trigger) trigger.kill();
+    }
+  }, { once: true });
+})();
 
 /* =========================================================
    REDUCED MOTION
