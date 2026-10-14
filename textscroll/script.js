@@ -39974,7 +39974,76 @@ function updateProgress(value) {
         overwrite: "auto"
       });
 
+layers.forEach((layer, index) => {
+        const depth = Number(layer.dataset.depth);
+        const intensity = 1 + depth * .12;
 
+        gsap.to(layer, {
+          xPercent: -50 + pointerX * intensity * 1.6,
+          yPercent: -50 + pointerY * intensity,
+          duration: .6 + depth * .025,
+          ease: "power3.out",
+          overwrite: "auto"
+        });
+      });
+    });
+  }
+
+  function onPointerLeave() {
+    if (reducedMotion) return;
+
+    gsap.to(world, {
+      rotationX: 0,
+      rotationY: 0,
+      x: 0,
+      y: 0,
+      duration: .8,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+
+    layers.forEach(layer => {
+      gsap.to(layer, {
+        xPercent: -50,
+        yPercent: -50,
+        duration: .8,
+        ease: "power3.out",
+        overwrite: "auto"
+      });
+    });
+  }
+
+  function resetTunnel() {
+    if (reducedMotion) {
+      updateProgress(0);
+      layoutTunnel();
+      return;
+    }
+
+    if (window.ScrollTrigger) {
+      const trigger = ScrollTrigger.getById("en87Scroll");
+      if (trigger) {
+        window.scrollTo({
+          top: root.getBoundingClientRect().top + window.scrollY,
+          behavior: "smooth"
+        });
+      }
+    }
+
+    gsap.to(world, {
+      rotationX: 0,
+      rotationY: 0,
+      x: 0,
+      y: 0,
+      duration: .9,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+
+    layoutTunnel();
+  }
+
+  layoutTunnel();
 
 
 /* =======================================================
