@@ -40044,7 +40044,115 @@ layers.forEach((layer, index) => {
   }
 
   layoutTunnel();
+ if (!reducedMotion && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
 
+    scrollTimeline = gsap.timeline({
+      scrollTrigger: {
+        id: "en87Scroll",
+        trigger: root,
+        start: "top top",
+        end: "+=180%",
+        pin: true,
+        scrub: .8,
+        invalidateOnRefresh: true,
+        onUpdate: self => updateProgress(self.progress)
+      }
+    });
+
+    scrollTimeline
+      .to(layers, {
+        z: (index) => 500 + index * 24,
+        scale: (index) => 1.2 + index * .045,
+        opacity: 1,
+        duration: .42,
+        stagger: {
+          each: .015,
+          from: "start"
+        },
+        ease: "power2.in"
+      }, 0)
+      .to(world, {
+        rotationY: 8,
+        rotationX: -4,
+        duration: .4,
+        ease: "power2.inOut"
+      }, .18)
+      .to(layers, {
+        z: (index) => -index * 145,
+        scale: (index) => Math.max(.25, 1 - index * .055),
+        opacity: (index) => index === 0 ? 1 : Math.max(.06, .52 - index * .038),
+        duration: .4,
+        stagger: {
+          each: .012,
+          from: "end"
+        },
+        ease: "power3.out"
+      }, .62)
+      .to(world, {
+        rotationY: 0,
+        rotationX: 0,
+        duration: .25,
+        ease: "power2.out"
+      }, .72);
+  }
+
+  if (!reducedMotion) {
+    gsap.from(
+      [
+        root.querySelector(".en87-header"),
+        root.querySelector(".en87-meta"),
+        root.querySelector(".en87-caption"),
+        root.querySelector(".en87-footer")
+      ],
+      {
+        opacity: 0,
+        y: 12,
+        duration: .8,
+        stagger: .1,
+        ease: "power2.out"
+      }
+    );
+
+    gsap.to(layers[1], {
+      opacity: .65,
+      duration: 2,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+  }
+
+  root.addEventListener("pointermove", onPointerMove);
+  root.addEventListener("pointerleave", onPointerLeave);
+  resetButton.addEventListener("click", resetTunnel);
+
+  let resizeTimer;
+
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+
+    resizeTimer = setTimeout(() => {
+      layoutTunnel();
+
+      if (window.ScrollTrigger) {
+        ScrollTrigger.refresh();
+      }
+    }, 120);
+  });
+
+  window.addEventListener("pagehide", () => {
+    destroyed = true;
+
+    if (moveFrame) cancelAnimationFrame(moveFrame);
+    if (scrollTimeline) scrollTimeline.kill();
+
+    if (window.ScrollTrigger) {
+      const trigger = ScrollTrigger.getById("en87Scroll");
+      if (trigger) trigger.kill();
+    }
+  }, { once: true });
+})();
 
 /* =======================================================
      INIT
