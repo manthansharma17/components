@@ -20523,7 +20523,107 @@ JS animates every word toward these positions.
     align-items: center;
     gap: 11px;
   }
+.en87-divider {
+    width: 20px;
+    height: 1px;
+    background: #777770;
+  }
 
+  .en87-progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .en87-progress-track {
+    width: clamp(65px, 10vw, 130px);
+    height: 1px;
+    background: rgba(255,255,255,.2);
+  }
+
+  #en87Progress {
+    width: 100%;
+    height: 100%;
+    background: #f2f1ec;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .en87-reset {
+    padding: 10px 12px;
+    border: 1px solid rgba(255,255,255,.25);
+    background: transparent;
+    color: #f2f1ec;
+    cursor: pointer;
+    transition: background .25s ease, color .25s ease;
+  }
+
+  .en87-reset span {
+    margin-left: 8px;
+    font-size: 12px;
+  }
+
+  .en87-reset:hover {
+    color: #050505;
+    background: #f2f1ec;
+  }
+
+  @media (max-width: 700px) {
+    .section-eighty-seven {
+      padding: 22px 18px;
+    }
+
+    .en87-brand,
+    .en87-index {
+      font-size: 7px;
+      letter-spacing: .08em;
+    }
+
+    .en87-header {
+      gap: 8px;
+    }
+
+    .en87-meta {
+      top: 17%;
+      font-size: 7px;
+      letter-spacing: .08em;
+    }
+
+    .en87-layer {
+      font-size: clamp(2.9rem, 12.7vw, 6rem);
+      letter-spacing: -.085em;
+    }
+
+    .en87-caption {
+      font-size: 7px;
+      letter-spacing: .12em;
+      gap: 8px;
+    }
+
+    .en87-coordinate {
+      bottom: 5%;
+    }
+
+    .en87-footer {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .en87-footer-label {
+      width: 100%;
+      gap: 8px;
+    }
+
+    .en87-progress-wrap {
+      margin-right: auto;
+    }
+
+    .en87-reset {
+      padding: 9px;
+      font-size: 7px;
+    }
+  }
 
 
 
