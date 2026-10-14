@@ -39887,7 +39887,97 @@ function updateProgress(value) {
   }, { once: true });
 })();
 
-  /* =======================================================
+
+/* =========== SECTION 87 INFINITY ================= */
+
+(() => {
+  const root = document.querySelector("#en87Section");
+  if (!root || !window.gsap || root.dataset.en87Ready) return;
+  root.dataset.en87Ready = "true";
+
+  const stage = root.querySelector("#en87Stage");
+  const world = root.querySelector("#en87World");
+  const tunnel = root.querySelector("#en87Tunnel");
+  const layers = [...root.querySelectorAll(".en87-layer")];
+  const status = root.querySelector("#en87Status");
+  const progressBar = root.querySelector("#en87Progress");
+  const percentLabel = root.querySelector("#en87Percent");
+  const resetButton = root.querySelector("#en87Reset");
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  let pointerX = 0;
+  let pointerY = 0;
+  let moveFrame = 0;
+  let currentProgress = 0;
+  let destroyed = false;
+  let scrollTimeline = null;
+
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+  function layoutTunnel() {
+    const isMobile = window.innerWidth < 700;
+    const spacing = isMobile ? 105 : 145;
+
+    layers.forEach((layer, index) => {
+      const depth = Number(layer.dataset.depth);
+      const z = -depth * spacing;
+      const scale = Math.max(.25, 1 - depth * .055);
+
+      gsap.set(layer, {
+        z,
+        scale,
+        opacity: index === 0 ? 1 : Math.max(.06, .52 - depth * .038),
+        zIndex: layers.length - index
+      });
+    });
+  }
+
+  function updateProgress(progress) {
+    currentProgress = clamp(progress, 0, 1);
+
+    percentLabel.textContent =
+      String(Math.round(currentProgress * 100)).padStart(2, "0") + "%";
+
+    gsap.set(progressBar, { scaleX: currentProgress });
+
+    if (currentProgress < .12) {
+      status.textContent = "DEPTH: 000";
+    } else if (currentProgress < .45) {
+      status.textContent = "DEPTH: 128";
+    } else if (currentProgress < .8) {
+      status.textContent = "DEPTH: 512";
+    } else {
+      status.textContent = "DEPTH: ∞";
+    }
+  }
+
+  function onPointerMove(event) {
+    if (reducedMotion || destroyed || moveFrame) return;
+
+    const rect = stage.getBoundingClientRect();
+    pointerX = ((event.clientX - rect.left) / rect.width - .5) * 2;
+    pointerY = ((event.clientY - rect.top) / rect.height - .5) * 2;
+
+    moveFrame = requestAnimationFrame(() => {
+      moveFrame = 0;
+
+      gsap.to(world, {
+        rotationY: pointerX * 7,
+        rotationX: -pointerY * 5,
+        x: pointerX * 12,
+        y: pointerY * 8,
+        duration: .6,
+        ease: "power3.out",
+        overwrite: "auto"
+      });
+
+
+
+
+/* =======================================================
      INIT
   ======================================================= */
 

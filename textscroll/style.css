@@ -20625,7 +20625,11 @@ JS animates every word toward these positions.
     }
   }
 
-
+ @media (prefers-reduced-motion: reduce) {
+    .en87-reset {
+      transition: none;
+    }
+  }
 
 
 
