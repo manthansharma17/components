@@ -20273,7 +20273,112 @@ JS animates every word toward these positions.
     }
   }
 
+/*===== SECTION 87 INFINITY ============= */
+.section-eighty-seven {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    height: 100svh;
+    min-height: 540px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(20px, 3vw, 46px);
+    background: #050505;
+    color: #f2f1ec;
+    font-family: Arial, Helvetica, sans-serif;
+  }
 
+  .section-eighty-seven *,
+  .section-eighty-seven *::before,
+  .section-eighty-seven *::after {
+    box-sizing: border-box;
+  }
+
+  .en87-grid,
+  .en87-grain,
+  .en87-vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .en87-grid {
+    z-index: -1;
+    opacity: .15;
+    background-image:
+      linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px);
+    background-size: 9vw 9vw;
+    mask-image: radial-gradient(ellipse, black, transparent 80%);
+  }
+
+  .en87-grain {
+    z-index: 4;
+    opacity: .045;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  }
+
+  .en87-vignette {
+    z-index: 2;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 10%,
+      rgba(0,0,0,.28) 55%,
+      #050505 110%
+    );
+  }
+
+  .en87-header,
+  .en87-footer {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+  }
+
+  .en87-brand,
+  .en87-index,
+  .en87-meta,
+  .en87-coordinate,
+  .en87-caption,
+  .en87-footer,
+  .en87-reset {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: .15em;
+  }
+
+  .en87-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .en87-dot {
+    width: 5px;
+    height: 5px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: #f2f1ec;
+    box-shadow: 0 0 10px rgba(255,255,255,.5);
+  }
+
+  .en87-index,
+  .en87-meta,
+  .en87-coordinate,
+  .en87-caption,
+  .en87-footer {
+    color: #7e7e77;
+  }
+
+  .en87-index span {
+    margin: 0 7px;
+    color: #f2f1ec;
+  }
 
 
 
