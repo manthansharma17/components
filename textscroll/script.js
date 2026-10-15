@@ -40436,7 +40436,35 @@ layers.forEach((layer, index) => {
       ease: "power3.out",
       delay: .15
     });
+gsap.from([...bottomLetters], {
+      y: -20,
+      opacity: 0,
+      duration: .8,
+      stagger: .045,
+      ease: "power3.out",
+      delay: .25
+    });
+  }
 
+  root.addEventListener("pointermove", onPointerMove);
+  root.addEventListener("pointerleave", onPointerLeave);
+  resetButton.addEventListener("click", restoreReality);
+
+  window.addEventListener("resize", () => {
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
+  });
+
+  window.addEventListener("pagehide", () => {
+    destroyed = true;
+    if (moveFrame) cancelAnimationFrame(moveFrame);
+    if (scrollTimeline) scrollTimeline.kill();
+
+    if (window.ScrollTrigger) {
+      const trigger = ScrollTrigger.getById("en88Scroll");
+      if (trigger) trigger.kill();
+    }
+  }, { once: true });
+})();
 
 
 /* =======================================================
