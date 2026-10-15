@@ -20987,7 +20987,50 @@ JS animates every word toward these positions.
       letter-spacing: .08em;
     }
 
+.en88-half {
+      height: clamp(36px, 7vw, 52px);
+    }
 
+    .en88-word {
+      font-size: clamp(3rem, 12.2vw, 5.5rem);
+      letter-spacing: -.085em;
+    }
+
+    .en88-caption {
+      font-size: 7px;
+      letter-spacing: .12em;
+      gap: 8px;
+    }
+
+    .en88-coord {
+      bottom: 5%;
+    }
+
+    .en88-footer {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .en88-footer-label {
+      width: 100%;
+      gap: 8px;
+    }
+
+    .en88-progress-wrap {
+      margin-right: auto;
+    }
+
+    .en88-reset {
+      padding: 9px;
+      font-size: 7px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .en88-reset {
+      transition: none;
+    }
+  }
 
 
 
