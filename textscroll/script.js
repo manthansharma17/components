@@ -40154,6 +40154,109 @@ layers.forEach((layer, index) => {
   }, { once: true });
 })();
 
+/* ======================== SECTION 88: PARADOX ========================= */
+(() => {
+  const root = document.querySelector("#en88Section");
+  if (!root || !window.gsap || root.dataset.en88Ready) return;
+  root.dataset.en88Ready = "true";
+
+  const stage = root.querySelector("#en88Stage");
+  const composition = root.querySelector("#en88Composition");
+  const topHalf = root.querySelector("#en88Top");
+  const bottomHalf = root.querySelector("#en88Bottom");
+  const topLetters = [...root.querySelectorAll(".en88-word-top span")];
+  const bottomLetters = [...root.querySelectorAll(".en88-word-bottom span")];
+  const status = root.querySelector("#en88Status");
+  const progressBar = root.querySelector("#en88Progress");
+  const percentLabel = root.querySelector("#en88Percent");
+  const resetButton = root.querySelector("#en88Reset");
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  let moveFrame = 0;
+  let pointerX = 0;
+  let pointerY = 0;
+  let destroyed = false;
+  let scrollTimeline = null;
+
+  const clamp = (value, min, max) =>
+    Math.max(min, Math.min(max, value));
+
+  function updateProgress(progress) {
+    const p = clamp(progress, 0, 1);
+
+    percentLabel.textContent =
+      String(Math.round(p * 100)).padStart(2, "0") + "%";
+
+    gsap.set(progressBar, { scaleX: p });
+
+    if (p < .12) {
+      status.textContent = "REALITY: STABLE";
+    } else if (p < .4) {
+      status.textContent = "REALITY: SPLITTING";
+    } else if (p < .8) {
+      status.textContent = "REALITY: CONTRADICTORY";
+    } else {
+      status.textContent = "REALITY: COLLAPSED";
+    }
+  }
+
+  function onPointerMove(event) {
+    if (reducedMotion || destroyed || moveFrame) return;
+
+    const rect = stage.getBoundingClientRect();
+
+    pointerX = ((event.clientX - rect.left) / rect.width - .5) * 2;
+    pointerY = ((event.clientY - rect.top) / rect.height - .5) * 2;
+
+    moveFrame = requestAnimationFrame(() => {
+      moveFrame = 0;
+
+      gsap.to(composition, {
+        rotationY: pointerX * 9,
+        rotationX: -pointerY * 7,
+        x: pointerX * 10,
+        duration: .45,
+        ease: "power3.out",
+        overwrite: "auto"
+      });
+
+      gsap.to(topHalf, {
+        rotationX: -pointerY * 14,
+        x: pointerX * 12,
+        duration: .4,
+        ease: "power3.out",
+        overwrite: "auto"
+      });
+
+      gsap.to(bottomHalf, {
+        rotationX: 180 + pointerY * 14,
+        x: -pointerX * 12,
+        duration: .4,
+        ease: "power3.out",
+        overwrite: "auto"
+      });
+
+      topLetters.forEach((letter, index) => {
+        const center = (index - (topLetters.length - 1) / 2);
+        const influence = pointerX * center * 1.5;
+
+        gsap.to(letter, {
+          y: pointerY * (index % 2 ? 8 : -8),
+          rotationY: influence,
+          duration: .35,
+          ease: "power3.out",
+          overwrite: "auto"
+        });
+      });
+
+
+
+
+
+
 /* =======================================================
      INIT
   ======================================================= */
