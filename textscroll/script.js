@@ -40253,7 +40253,189 @@ layers.forEach((layer, index) => {
       });
 
 
+ bottomLetters.forEach((letter, index) => {
+        const center = (index - (bottomLetters.length - 1) / 2);
 
+        gsap.to(letter, {
+          y: -pointerY * (index % 2 ? 8 : -8),
+          rotationY: -pointerX * center * 1.5,
+          duration: .35,
+          ease: "power3.out",
+          overwrite: "auto"
+        });
+      });
+    });
+  }
+
+  function onPointerLeave() {
+    if (reducedMotion) return;
+
+    gsap.to(composition, {
+      rotationX: 0,
+      rotationY: 0,
+      x: 0,
+      duration: .7,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+
+    gsap.to(topHalf, {
+      rotationX: 0,
+      x: 0,
+      duration: .7,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+
+    gsap.to(bottomHalf, {
+      rotationX: 0,
+      x: 0,
+      duration: .7,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+
+    gsap.to([...topLetters, ...bottomLetters], {
+      y: 0,
+      rotationY: 0,
+      duration: .7,
+      ease: "elastic.out(1, .6)",
+      overwrite: "auto"
+    });
+  }
+
+  function restoreReality() {
+    if (reducedMotion) {
+      gsap.set(
+        [composition, topHalf, bottomHalf, ...topLetters, ...bottomLetters],
+        { clearProps: "transform" }
+      );
+      updateProgress(0);
+      return;
+    }
+
+    onPointerLeave();
+
+    if (window.ScrollTrigger) {
+      const trigger = ScrollTrigger.getById("en88Scroll");
+      if (trigger) {
+        window.scrollTo({
+          top: root.getBoundingClientRect().top + window.scrollY,
+          behavior: "smooth"
+        });
+      }
+    }
+  }
+
+  gsap.set(bottomHalf, {
+    rotationX: 0,
+    transformOrigin: "center top"
+  });
+
+  if (!reducedMotion && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    scrollTimeline = gsap.timeline({
+      scrollTrigger: {
+        id: "en88Scroll",
+        trigger: root,
+        start: "top top",
+        end: "+=170%",
+        pin: true,
+        scrub: .8,
+        invalidateOnRefresh: true,
+        onUpdate: self => updateProgress(self.progress)
+      }
+    });
+
+    scrollTimeline
+      .to(topHalf, {
+        rotationX: 45,
+        y: -35,
+        duration: .3,
+        ease: "power2.inOut"
+      }, 0)
+      .to(bottomHalf, {
+        rotationX: 135,
+        y: 35,
+        duration: .3,
+        ease: "power2.inOut"
+      }, 0)
+      .to(topLetters, {
+        x: (index) => (index - 3) * -18,
+        rotationY: (index) => (index % 2 ? 65 : -65),
+        scaleX: .8,
+        duration: .3,
+        stagger: .02,
+        ease: "power2.inOut"
+      }, .2)
+      .to(bottomLetters, {
+        x: (index) => (index - 3) * 18,
+        rotationY: (index) => (index % 2 ? -65 : 65),
+        scaleX: .8,
+        duration: .3,
+        stagger: .02,
+        ease: "power2.inOut"
+      }, .2)
+      .to(composition, {
+        rotationY: 180,
+        scale: .75,
+        duration: .3,
+        ease: "power2.inOut"
+      }, .45)
+      .to(topHalf, {
+        rotationX: 0,
+        y: 0,
+        duration: .25,
+        ease: "power3.out"
+      }, .72)
+      .to(bottomHalf, {
+        rotationX: 0,
+        y: 0,
+        duration: .25,
+        ease: "power3.out"
+      }, .72)
+      .to([...topLetters, ...bottomLetters], {
+        x: 0,
+        rotationY: 0,
+        scaleX: 1,
+        duration: .25,
+        stagger: .015,
+        ease: "power3.out"
+      }, .74)
+      .to(composition, {
+        rotationY: 0,
+        scale: 1,
+        duration: .25,
+        ease: "power3.out"
+      }, .76);
+  }
+
+  if (!reducedMotion) {
+    gsap.from(
+      [
+        root.querySelector(".en88-header"),
+        root.querySelector(".en88-meta"),
+        root.querySelector(".en88-caption"),
+        root.querySelector(".en88-footer")
+      ],
+      {
+        opacity: 0,
+        y: 10,
+        duration: .8,
+        stagger: .1,
+        ease: "power2.out"
+      }
+    );
+
+    gsap.from([...topLetters], {
+      y: 30,
+      opacity: 0,
+      duration: .8,
+      stagger: .045,
+      ease: "power3.out",
+      delay: .15
+    });
 
 
 
