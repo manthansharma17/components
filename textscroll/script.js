@@ -40739,7 +40739,215 @@ gsap.from([...bottomLetters], {
 
 })();
 
+/* ======================SECTION 90 ======================== */
 
+(() => {
+  const root = document.querySelector("#en90Section");
+
+  if (!root || !window.gsap || root.dataset.en90Ready) return;
+  root.dataset.en90Ready = "true";
+
+  const stage = root.querySelector("#en90Stage");
+  const field = root.querySelector("#en90EchoField");
+  const echoes = [...root.querySelectorAll(".en90-echo")];
+  const status = root.querySelector("#en90Status");
+  const progressBar = root.querySelector("#en90Progress");
+  const percentLabel = root.querySelector("#en90Percent");
+  const resetButton = root.querySelector("#en90Reset");
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  let pointerX = 0;
+  let pointerY = 0;
+  let moveFrame = 0;
+  let scrollTimeline = null;
+  let destroyed = false;
+
+  const clamp = (value, min, max) =>
+    Math.max(min, Math.min(max, value));
+
+  function getDepth(element) {
+    const match = element.className.match(/en90-echo-(\d+)/);
+    return match ? Number(match[1]) : 0;
+  }
+
+  function layoutEchoes() {
+    const mobile = window.innerWidth < 700;
+
+    echoes.forEach((echo) => {
+      const depth = getDepth(echo);
+
+      gsap.set(echo, {
+        xPercent: -50,
+        yPercent: -50,
+        x: depth * (mobile ? -7 : -15),
+        y: depth * (mobile ? 4 : 8),
+        scale: 1 - depth * .045,
+        rotationZ: depth % 2 ? -.8 : .8,
+        opacity: depth === 0
+          ? 1
+          : Math.max(.045, .43 - depth * .045),
+        zIndex: echoes.length - depth
+      });
+    });
+  }
+
+  function updateProgress(progress) {
+    const value = clamp(progress, 0, 1);
+
+    percentLabel.textContent =
+      String(Math.round(value * 100)).padStart(2, "0") + "%";
+
+    gsap.set(progressBar, { scaleX: value });
+
+    if (value < .15) {
+      status.textContent = "SIGNAL: CLEAR";
+    } else if (value < .42) {
+      status.textContent = "SIGNAL: DELAYED";
+    } else if (value < .78) {
+      status.textContent = "SIGNAL: MULTIPLIED";
+    } else {
+      status.textContent = "SIGNAL: RESOLVING";
+    }
+  }
+
+  function onPointerMove(event) {
+    if (reducedMotion || destroyed || moveFrame) return;
+
+    const rect = stage.getBoundingClientRect();
+
+    pointerX = ((event.clientX - rect.left) / rect.width - .5) * 2;
+    pointerY = ((event.clientY - rect.top) / rect.height - .5) * 2;
+
+    moveFrame = requestAnimationFrame(() => {
+      moveFrame = 0;
+
+      gsap.to(field, {
+        x: pointerX * 12,
+        y: pointerY * 8,
+        rotationY: pointerX * 5,
+        rotationX: -pointerY * 4,
+        duration: .55,
+        ease: "power3.out",
+        overwrite: "auto"
+      });
+
+      echoes.forEach((echo) => {
+        const depth = getDepth(echo);
+
+        if (depth === 0) {
+          gsap.to(echo, {
+            x: pointerX * 5,
+            y: pointerY * 3,
+            duration: .4,
+            ease: "power3.out",
+            overwrite: "auto"
+          });
+          return;
+        }
+
+        gsap.to(echo, {
+          x: depth * (window.innerWidth < 700 ? -7 : -15)
+            + pointerX * depth * 3,
+          y: depth * (window.innerWidth < 700 ? 4 : 8)
+            + pointerY * depth * 2,
+          duration: .35 + depth * .035,
+          ease: "power3.out",
+          overwrite: "auto"
+        });
+      });
+    });
+  }
+
+  function resetSignal() {
+    gsap.killTweensOf([field, ...echoes]);
+    layoutEchoes();
+
+    gsap.to(field, {
+      x: 0,
+      y: 0,
+      rotationX: 0,
+      rotationY: 0,
+      duration: .7,
+      ease: "power3.out"
+    });
+
+    updateProgress(0);
+
+    if (window.ScrollTrigger) {
+      const trigger = ScrollTrigger.getById("en90Scroll");
+
+      if (trigger) {
+        window.scrollTo({
+          top: root.getBoundingClientRect().top + window.scrollY,
+          behavior: "smooth"
+        });
+      }
+    }
+  }
+
+  layoutEchoes();
+
+  if (!reducedMotion && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    scrollTimeline = gsap.timeline({
+      scrollTrigger: {
+        id: "en90Scroll",
+        trigger: root,
+        start: "top top",
+        end: "+=180%",
+        pin: true,
+        scrub: .8,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => updateProgress(self.progress)
+      }
+    });
+
+    scrollTimeline
+      .to(echoes, {
+        x: (index) => (index - 4) * 42,
+        y: (index) => (index - 4) * -13,
+        scale: (index) => .65 + index * .11,
+        rotationZ: (index) => (index - 4) * 1.4,
+        opacity: (index) => index === 0 ? 1 : .65,
+        duration: .38,
+        stagger: {
+          each: .018,
+          from: "end"
+        },
+        ease: "power2.inOut"
+      }, 0)
+      .to(field, {
+        scale: 1.12,
+        rotationY: -8,
+        rotationX: 5,
+        duration: .3,
+        ease: "power2.inOut"
+      }, .3)
+      .to(echoes, {
+        x: (index) => (index - 4) * 14,
+        y: (index) => (index - 4) * 5,
+        scale: (index) => 1 - Math.abs(index - 4) * .09,
+        rotationZ: 0,
+        opacity: (index) => index === 0 ? 1 : Math.max(.08, .55 - index * .045),
+        duration: .38,
+        stagger: {
+          each: .015,
+          from: "center"
+        },
+        ease: "power3.out"
+      }, .64)
+      .to(field, {
+        scale: 1,
+        rotationY: 0,
+        rotationX: 0,
+        duration: .24,
+        ease: "power2.out"
+      }, .8);
+  }
 
 
 
