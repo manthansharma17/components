@@ -40701,7 +40701,32 @@ gsap.from([...bottomLetters], {
       ease: "sine.inOut"
     });
   }
+ root.addEventListener("pointermove", onPointerMove);
+  root.addEventListener("pointerleave", onPointerLeave);
+  resetButton.addEventListener("click", resetPattern);
 
+  let resizeTimer;
+
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+
+    resizeTimer = setTimeout(() => {
+      layoutLayers();
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    }, 120);
+  });
+
+  window.addEventListener("pagehide", () => {
+    destroyed = true;
+    if (moveFrame) cancelAnimationFrame(moveFrame);
+    if (scrollTimeline) scrollTimeline.kill();
+
+    if (window.ScrollTrigger) {
+      const trigger = ScrollTrigger.getById("en89Scroll");
+      if (trigger) trigger.kill();
+    }
+  }, { once: true });
+})();
 
 
 /* =======================================================
