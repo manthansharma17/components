@@ -40466,6 +40466,110 @@ gsap.from([...bottomLetters], {
   }, { once: true });
 })();
 
+/* ======================== SECTION 89: FRACTION ========================= */
+
+(() => {
+  const root = document.querySelector("#en89Section");
+  if (!root || !window.gsap || root.dataset.en89Ready) return;
+  root.dataset.en89Ready = "true";
+
+  const stage = root.querySelector("#en89Stage");
+  const world = root.querySelector("#en89World");
+  const layers = [...root.querySelectorAll(".en89-layer")];
+  const status = root.querySelector("#en89Status");
+  const progressBar = root.querySelector("#en89Progress");
+  const percentLabel = root.querySelector("#en89Percent");
+  const resetButton = root.querySelector("#en89Reset");
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  let pointerX = 0;
+  let pointerY = 0;
+  let moveFrame = 0;
+  let destroyed = false;
+  let scrollTimeline = null;
+
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+  function layoutLayers() {
+    const isMobile = window.innerWidth < 700;
+
+    layers.forEach((layer, index) => {
+      const depth = Number(layer.className.match(/en89-layer-(\d+)/)?.[1] || 0);
+      const scale = Math.max(.12, 1 - depth * (isMobile ? .073 : .065));
+      const z = -depth * (isMobile ? 95 : 135);
+
+      gsap.set(layer, {
+        xPercent: -50,
+        yPercent: -50,
+        z,
+        scale,
+        rotationZ: depth % 2 ? 1.2 : -1.2,
+        opacity: depth === 0 ? 1 : Math.max(.07, .52 - depth * .037),
+        zIndex: layers.length - index
+      });
+    });
+  }
+
+  function updateProgress(value) {
+    const p = clamp(value, 0, 1);
+
+    percentLabel.textContent =
+      String(Math.round(p * 100)).padStart(2, "0") + "%";
+
+    gsap.set(progressBar, { scaleX: p });
+
+    if (p < .12) {
+      status.textContent = "PATTERN: ORIGINAL";
+    } else if (p < .4) {
+      status.textContent = "PATTERN: REPLICATING";
+    } else if (p < .78) {
+      status.textContent = "PATTERN: RECURSIVE";
+    } else {
+      status.textContent = "PATTERN: INFINITE";
+    }
+  }
+
+  function onPointerMove(event) {
+    if (reducedMotion || destroyed || moveFrame) return;
+
+    const rect = stage.getBoundingClientRect();
+    pointerX = ((event.clientX - rect.left) / rect.width - .5) * 2;
+    pointerY = ((event.clientY - rect.top) / rect.height - .5) * 2;
+
+    moveFrame = requestAnimationFrame(() => {
+      moveFrame = 0;
+
+      gsap.to(world, {
+        rotationY: pointerX * 7,
+        rotationX: -pointerY * 5,
+        x: pointerX * 10,
+        y: pointerY * 7,
+        duration: .55,
+        ease: "power3.out",
+        overwrite: "auto"
+      });
+
+      layers.forEach((layer, index) => {
+        const depth = Number(
+          layer.className.match(/en89-layer-(\d+)/)?.[1] || 0
+        );
+
+        gsap.to(layer, {
+          xPercent: -50 + pointerX * depth * .8,
+          yPercent: -50 + pointerY * depth * .45,
+          rotationZ: (depth % 2 ? 1 : -1) * 1.2 + pointerX * depth * .35,
+          duration: .5 + depth * .025,
+          ease: "power3.out",
+          overwrite: "auto"
+        });
+      });
+    });
+  }
+
+
 
 /* =======================================================
      INIT
