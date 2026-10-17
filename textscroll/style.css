@@ -21278,6 +21278,11 @@ JS animates every word toward these positions.
     }
   }
 
+   @media (prefers-reduced-motion: reduce) {
+    .en89-reset {
+      transition: none;
+    }
+  }
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
