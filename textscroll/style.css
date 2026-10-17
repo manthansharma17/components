@@ -21588,7 +21588,109 @@ JS animates every word toward these positions.
     height: 1px;
     background: #777770;
   }
-  
+
+.en90-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .en90-progress-track {
+    width: clamp(65px, 10vw, 130px);
+    height: 1px;
+    background: rgba(255,255,255,.2);
+  }
+
+  #en90Progress {
+    width: 100%;
+    height: 100%;
+    background: #f3f2ed;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .en90-reset {
+    padding: 10px 12px;
+    border: 1px solid rgba(255,255,255,.25);
+    background: transparent;
+    color: #f3f2ed;
+    cursor: pointer;
+    transition: background .25s ease, color .25s ease;
+  }
+
+  .en90-reset span {
+    margin-left: 8px;
+    font-size: 13px;
+  }
+
+  .en90-reset:hover {
+    background: #f3f2ed;
+    color: #050505;
+  }
+
+  @media (max-width: 700px) {
+    .section-ninety {
+      padding: 22px 18px;
+    }
+
+    .en90-brand,
+    .en90-index {
+      font-size: 7px;
+      letter-spacing: .08em;
+    }
+
+    .en90-header {
+      gap: 8px;
+    }
+
+    .en90-meta {
+      top: 17%;
+      font-size: 7px;
+      letter-spacing: .06em;
+    }
+
+    .en90-echo span {
+      font-size: clamp(3.2rem, 14vw, 6rem);
+      letter-spacing: -.09em;
+    }
+
+    .en90-caption {
+      gap: 8px;
+      font-size: 7px;
+      letter-spacing: .08em;
+    }
+
+    .en90-footer {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .en90-footer-info {
+      width: 100%;
+      gap: 8px;
+    }
+
+    .en90-progress {
+      margin-right: auto;
+    }
+
+    .en90-reset {
+      padding: 9px;
+      font-size: 7px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .en90-reset {
+      transition: none;
+    }
+  }
+
+
+
+
+
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
