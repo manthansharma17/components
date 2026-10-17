@@ -21032,6 +21032,177 @@ JS animates every word toward these positions.
     }
   }
 
+.section-eighty-nine {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    height: 100svh;
+    min-height: 540px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(20px, 3vw, 46px);
+    background: #050505;
+    color: #f2f1ec;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .section-eighty-nine *,
+  .section-eighty-nine *::before,
+  .section-eighty-nine *::after {
+    box-sizing: border-box;
+  }
+
+  .en89-grid,
+  .en89-grain,
+  .en89-vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .en89-grid {
+    z-index: -1;
+    opacity: .14;
+    background-image:
+      linear-gradient(rgba(255,255,255,.075) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.075) 1px, transparent 1px);
+    background-size: 9vw 9vw;
+    mask-image: radial-gradient(ellipse, black, transparent 80%);
+  }
+
+  .en89-grain {
+    z-index: 4;
+    opacity: .045;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  }
+
+  .en89-vignette {
+    z-index: 2;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 10%,
+      rgba(0,0,0,.25) 65%,
+      #050505 115%
+    );
+  }
+
+  .en89-header,
+  .en89-footer {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+  }
+
+  .en89-brand,
+  .en89-index,
+  .en89-meta,
+  .en89-coordinate,
+  .en89-caption,
+  .en89-footer,
+  .en89-reset {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: .15em;
+  }
+
+  .en89-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .en89-dot {
+    width: 5px;
+    height: 5px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: #f2f1ec;
+    box-shadow: 0 0 10px rgba(255,255,255,.45);
+  }
+
+  .en89-index,
+  .en89-meta,
+  .en89-coordinate,
+  .en89-caption,
+  .en89-footer {
+    color: #81817a;
+  }
+
+  .en89-index span {
+    margin: 0 7px;
+    color: #f2f1ec;
+  }
+
+  .en89-meta {
+    position: absolute;
+    z-index: 5;
+    top: 18%;
+    left: clamp(20px, 3vw, 46px);
+    right: clamp(20px, 3vw, 46px);
+    display: flex;
+    justify-content: space-between;
+    font-size: 8px;
+  }
+
+  #en89Status {
+    color: #f2f1ec;
+  }
+
+  .en89-stage {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    perspective: 1000px;
+    perspective-origin: center;
+  }
+
+  .en89-world {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  .en89-layer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    transform-style: preserve-3d;
+    transform-origin: center;
+    will-change: transform, opacity;
+    pointer-events: none;
+  }
+
+  .en89-layer span {
+    display: block;
+    white-space: nowrap;
+    font-size: clamp(3.2rem, 13vw, 14rem);
+    font-weight: 800;
+    line-height: .88;
+    letter-spacing: -.095em;
+  }
+
+  .en89-layer-0 span {
+    color: #f2f1ec;
+  }
+
+  .en89-layer:not(.en89-layer-0) span {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(242,241,236,.5);
+  }
+
 
 
 /* =========================================================
