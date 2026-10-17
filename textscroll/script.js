@@ -40568,6 +40568,139 @@ gsap.from([...bottomLetters], {
       });
     });
   }
+  function onPointerLeave() {
+    if (reducedMotion) return;
+
+    gsap.to(world, {
+      rotationX: 0,
+      rotationY: 0,
+      x: 0,
+      y: 0,
+      duration: .8,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+
+    layers.forEach((layer, index) => {
+      const depth = Number(
+        layer.className.match(/en89-layer-(\d+)/)?.[1] || 0
+      );
+
+      gsap.to(layer, {
+        xPercent: -50,
+        yPercent: -50,
+        rotationZ: depth % 2 ? 1.2 : -1.2,
+        duration: .8,
+        ease: "power3.out",
+        overwrite: "auto"
+      });
+    });
+  }
+
+  function resetPattern() {
+    onPointerLeave();
+
+    if (window.ScrollTrigger) {
+      const trigger = ScrollTrigger.getById("en89Scroll");
+      if (trigger) {
+        window.scrollTo({
+          top: root.getBoundingClientRect().top + window.scrollY,
+          behavior: "smooth"
+        });
+      }
+    }
+
+    layoutLayers();
+    updateProgress(0);
+  }
+
+  layoutLayers();
+
+  if (!reducedMotion && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    scrollTimeline = gsap.timeline({
+      scrollTrigger: {
+        id: "en89Scroll",
+        trigger: root,
+        start: "top top",
+        end: "+=180%",
+        pin: true,
+        scrub: .8,
+        invalidateOnRefresh: true,
+        onUpdate: self => updateProgress(self.progress)
+      }
+    });
+
+    scrollTimeline
+      .to(layers, {
+        z: (index) => 240 + index * 35,
+        scale: (index) => 1.35 + index * .09,
+        opacity: 1,
+        rotationZ: (index) => index % 2 ? 7 : -7,
+        duration: .4,
+        stagger: {
+          each: .015,
+          from: "start"
+        },
+        ease: "power2.in"
+      }, 0)
+      .to(world, {
+        rotationY: 12,
+        rotationX: -8,
+        scale: .9,
+        duration: .35,
+        ease: "power2.inOut"
+      }, .25)
+      .to(layers, {
+        z: (index) => -index * (window.innerWidth < 700 ? 95 : 135),
+        scale: (index) => Math.max(
+          .12,
+          1 - index * (window.innerWidth < 700 ? .073 : .065)
+        ),
+        rotationZ: (index) => index % 2 ? 1.2 : -1.2,
+        opacity: (index) => index === 0 ? 1 : Math.max(.07, .52 - index * .037),
+        duration: .4,
+        stagger: {
+          each: .012,
+          from: "end"
+        },
+        ease: "power3.out"
+      }, .62)
+      .to(world, {
+        rotationY: 0,
+        rotationX: 0,
+        scale: 1,
+        duration: .25,
+        ease: "power2.out"
+      }, .78);
+  }
+
+  if (!reducedMotion) {
+    gsap.from(
+      [
+        root.querySelector(".en89-header"),
+        root.querySelector(".en89-meta"),
+        root.querySelector(".en89-caption"),
+        root.querySelector(".en89-footer")
+      ],
+      {
+        opacity: 0,
+        y: 10,
+        duration: .8,
+        stagger: .1,
+        ease: "power2.out"
+      }
+    );
+
+    gsap.to(layers[1], {
+      opacity: .7,
+      duration: 2.4,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+  }
 
 
 
