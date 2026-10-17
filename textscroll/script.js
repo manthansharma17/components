@@ -40949,7 +40949,61 @@ gsap.from([...bottomLetters], {
       }, .8);
   }
 
+ if (!reducedMotion) {
+    gsap.from(
+      [
+        root.querySelector(".en90-header"),
+        root.querySelector(".en90-meta"),
+        root.querySelector(".en90-caption"),
+        root.querySelector(".en90-footer")
+      ],
+      {
+        opacity: 0,
+        y: 12,
+        duration: .8,
+        stagger: .1,
+        ease: "power2.out"
+      }
+    );
 
+    gsap.from(echoes[0], {
+      scale: .88,
+      opacity: 0,
+      duration: 1.1,
+      ease: "power3.out"
+    });
+  }
+
+  stage.addEventListener("pointermove", onPointerMove);
+  stage.addEventListener("pointerleave", resetSignal);
+  resetButton.addEventListener("click", resetSignal);
+
+  let resizeTimer;
+
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+
+    resizeTimer = setTimeout(() => {
+      layoutEchoes();
+
+      if (window.ScrollTrigger) {
+        ScrollTrigger.refresh();
+      }
+    }, 120);
+  });
+
+  window.addEventListener("pagehide", () => {
+    destroyed = true;
+
+    if (moveFrame) cancelAnimationFrame(moveFrame);
+    if (scrollTimeline) scrollTimeline.kill();
+
+    if (window.ScrollTrigger) {
+      const trigger = ScrollTrigger.getById("en90Scroll");
+      if (trigger) trigger.kill();
+    }
+  }, { once: true });
+})();
 
 /* =========================================================
    REFRESH
