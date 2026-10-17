@@ -21203,7 +21203,80 @@ JS animates every word toward these positions.
     -webkit-text-stroke: 1px rgba(242,241,236,.5);
   }
 
+ .en89-reset {
+    padding: 10px 12px;
+    border: 1px solid rgba(255,255,255,.25);
+    background: transparent;
+    color: #f2f1ec;
+    cursor: pointer;
+    transition: background .25s ease, color .25s ease;
+  }
 
+  .en89-reset span {
+    margin-left: 8px;
+    font-size: 13px;
+  }
+
+  .en89-reset:hover {
+    color: #050505;
+    background: #f2f1ec;
+  }
+
+  @media (max-width: 700px) {
+    .section-eighty-nine {
+      padding: 22px 18px;
+    }
+
+    .en89-brand,
+    .en89-index {
+      font-size: 7px;
+      letter-spacing: .08em;
+    }
+
+    .en89-header {
+      gap: 8px;
+    }
+
+    .en89-meta {
+      top: 17%;
+      font-size: 7px;
+      letter-spacing: .08em;
+    }
+
+    .en89-layer span {
+      font-size: clamp(2.9rem, 12.7vw, 6rem);
+      letter-spacing: -.085em;
+    }
+
+    .en89-caption {
+      font-size: 7px;
+      letter-spacing: .1em;
+      gap: 8px;
+    }
+
+    .en89-coordinate {
+      bottom: 5%;
+    }
+
+    .en89-footer {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .en89-footer-label {
+      width: 100%;
+      gap: 8px;
+    }
+
+    .en89-progress-wrap {
+      margin-right: auto;
+    }
+
+    .en89-reset {
+      padding: 9px;
+      font-size: 7px;
+    }
+  }
 
 /* =========================================================
    REDUCED MOTION
