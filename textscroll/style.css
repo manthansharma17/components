@@ -21372,6 +21372,88 @@ JS animates every word toward these positions.
     letter-spacing: .15em;
   }
 
+ .en90-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .en90-indicator {
+    width: 5px;
+    height: 5px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: #f3f2ed;
+    box-shadow: 0 0 12px rgba(255,255,255,.5);
+  }
+
+  .en90-index,
+  .en90-meta,
+  .en90-caption,
+  .en90-footer,
+  .en90-stage-note,
+  .en90-center-mark {
+    color: #85857e;
+  }
+
+  .en90-index span {
+    margin: 0 7px;
+    color: #f3f2ed;
+  }
+
+  .en90-meta {
+    position: absolute;
+    z-index: 5;
+    top: 18%;
+    left: clamp(20px, 3vw, 46px);
+    right: clamp(20px, 3vw, 46px);
+    display: flex;
+    justify-content: space-between;
+    font-size: 8px;
+  }
+
+  #en90Status {
+    color: #f3f2ed;
+  }
+
+  .en90-stage {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    perspective: 1000px;
+  }
+
+  .en90-echo-field {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  .en90-echo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    transform-origin: center;
+    will-change: transform, opacity;
+    pointer-events: none;
+  }
+
+  .en90-echo span {
+    display: block;
+    white-space: nowrap;
+    font-size: clamp(3.6rem, 15vw, 15rem);
+    font-weight: 800;
+    line-height: .86;
+    letter-spacing: -.105em;
+  }
 
   
 /* =========================================================
