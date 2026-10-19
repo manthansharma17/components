@@ -21687,7 +21687,116 @@ JS animates every word toward these positions.
     }
   }
 
+/*=========================================================
+   SECTION 91: COLLAPSE =====================*/
 
+   .section-ninety-one {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100svh;
+    min-height: 540px;
+    overflow: hidden;
+    padding: clamp(20px, 3vw, 46px);
+    background: #050505;
+    color: #f3f2ed;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .section-ninety-one *,
+  .section-ninety-one *::before,
+  .section-ninety-one *::after {
+    box-sizing: border-box;
+  }
+
+  .en91-grid,
+  .en91-grain,
+  .en91-vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .en91-grid {
+    z-index: -1;
+    opacity: .13;
+    background-image:
+      linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+    background-size: 8vw 8vw;
+    mask-image: radial-gradient(ellipse, black, transparent 85%);
+  }
+
+  .en91-grain {
+    z-index: 4;
+    opacity: .045;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  }
+
+  .en91-vignette {
+    z-index: 2;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 10%,
+      rgba(0,0,0,.2) 65%,
+      #050505 110%
+    );
+  }
+
+  .en91-header,
+  .en91-footer {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .en91-brand,
+  .en91-index,
+  .en91-meta,
+  .en91-caption,
+  .en91-footer,
+  .en91-side-label,
+  .en91-coordinate,
+  .en91-reset {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: .15em;
+  }
+
+  .en91-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .en91-dot {
+    width: 5px;
+    height: 5px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #f3f2ed;
+    box-shadow: 0 0 12px rgba(255,255,255,.45);
+  }
+
+  .en91-index,
+  .en91-meta,
+  .en91-caption,
+  .en91-footer,
+  .en91-side-label,
+  .en91-coordinate {
+    color: #85857e;
+  }
+
+  .en91-index span {
+    margin: 0 7px;
+    color: #f3f2ed;
+  }
 
 
 
