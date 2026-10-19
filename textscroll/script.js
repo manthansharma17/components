@@ -41079,7 +41079,80 @@ gsap.from([...bottomLetters], {
         overwrite: "auto"
       });
 
+letters.forEach((letter, index) => {
+        const spread = index - (letters.length - 1) / 2;
 
+        gsap.to(letter, {
+          x: pointerX * spread * 5,
+          y: pointerY * Math.abs(spread) * 2,
+          rotationZ: pointerX * spread * .65,
+          duration: .45 + Math.abs(spread) * .025,
+          ease: "power3.out",
+          overwrite: "auto"
+        });
+      });
+
+      gsap.to(gravityPoint, {
+        x: centerX,
+        y: centerY,
+        duration: .35,
+        ease: "power3.out",
+        overwrite: "auto"
+      });
+    });
+  }
+
+  function resetField() {
+    gsap.killTweensOf([word, gravityPoint, ...letters, ...rings]);
+
+    gsap.to(word, {
+      x: 0,
+      y: 0,
+      rotationX: 0,
+      rotationY: 0,
+      scaleX: 1,
+      scaleY: 1,
+      duration: .65,
+      ease: "power3.out"
+    });
+
+    gsap.to(letters, {
+      x: 0,
+      y: 0,
+      rotationZ: 0,
+      scaleX: 1,
+      scaleY: 1,
+      opacity: 1,
+      duration: .65,
+      stagger: .025,
+      ease: "power3.out"
+    });
+
+    gsap.to(gravityPoint, {
+      scale: 0,
+      duration: .4,
+      ease: "power2.out"
+    });
+
+    gsap.to(rings, {
+      scale: .6,
+      opacity: 0,
+      duration: .4
+    });
+
+    updateProgress(0);
+
+    if (window.ScrollTrigger) {
+      const trigger = ScrollTrigger.getById("en91Scroll");
+
+      if (trigger) {
+        window.scrollTo({
+          top: root.getBoundingClientRect().top + window.scrollY,
+          behavior: "smooth"
+        });
+      }
+    }
+  }
 
 
 
