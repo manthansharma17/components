@@ -41005,6 +41005,84 @@ gsap.from([...bottomLetters], {
   }, { once: true });
 })();
 
+/* ======================== SECTION 91: COLLAPSE ========================= */
+
+(() => {
+  const root = document.querySelector("#en91Section");
+
+  if (!root || !window.gsap || root.dataset.en91Ready) return;
+  root.dataset.en91Ready = "true";
+
+  const stage = root.querySelector("#en91Stage");
+  const word = root.querySelector("#en91Word");
+  const letters = [...root.querySelectorAll(".en91-letter")];
+  const gravityPoint = root.querySelector("#en91GravityPoint");
+  const rings = [...root.querySelectorAll(".en91-ring")];
+  const status = root.querySelector("#en91Status");
+  const progressBar = root.querySelector("#en91Progress");
+  const percentLabel = root.querySelector("#en91Percent");
+  const resetButton = root.querySelector("#en91Reset");
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  let pointerX = 0;
+  let pointerY = 0;
+  let moveFrame = 0;
+  let destroyed = false;
+  let scrollTimeline = null;
+
+  const clamp = (value, min, max) =>
+    Math.max(min, Math.min(max, value));
+
+  function updateProgress(progress) {
+    const value = clamp(progress, 0, 1);
+
+    percentLabel.textContent =
+      String(Math.round(value * 100)).padStart(2, "0") + "%";
+
+    gsap.set(progressBar, { scaleX: value });
+
+    if (value < .15) {
+      status.textContent = "STATE: STABLE";
+    } else if (value < .4) {
+      status.textContent = "STATE: DESTABILIZING";
+    } else if (value < .78) {
+      status.textContent = "STATE: COLLAPSING";
+    } else {
+      status.textContent = "STATE: REFORMING";
+    }
+  }
+
+  function onPointerMove(event) {
+    if (reducedMotion || destroyed || moveFrame) return;
+
+    const rect = stage.getBoundingClientRect();
+
+    pointerX = ((event.clientX - rect.left) / rect.width - .5) * 2;
+    pointerY = ((event.clientY - rect.top) / rect.height - .5) * 2;
+
+    moveFrame = requestAnimationFrame(() => {
+      moveFrame = 0;
+
+      const centerX = pointerX * 100;
+      const centerY = pointerY * 55;
+
+      gsap.to(word, {
+        x: centerX * .12,
+        y: centerY * .12,
+        rotationY: pointerX * 5,
+        rotationX: -pointerY * 3,
+        duration: .5,
+        ease: "power3.out",
+        overwrite: "auto"
+      });
+
+
+
+
+
 /* =========================================================
    REFRESH
 ========================================================= */
