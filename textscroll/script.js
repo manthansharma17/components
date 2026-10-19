@@ -41154,6 +41154,90 @@ letters.forEach((letter, index) => {
     }
   }
 
+gsap.set(letters, {
+    transformOrigin: "center center"
+  });
+
+  if (!reducedMotion && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    scrollTimeline = gsap.timeline({
+      scrollTrigger: {
+        id: "en91Scroll",
+        trigger: root,
+        start: "top top",
+        end: "+=190%",
+        pin: true,
+        scrub: .8,
+        invalidateOnRefresh: true,
+        onUpdate: self => updateProgress(self.progress)
+      }
+    });
+
+    scrollTimeline
+      .to(letters, {
+        x: (index) => (index - 3.5) * 55,
+        y: (index) => Math.sin(index * .9) * 25,
+        rotationZ: (index) => (index - 3.5) * 4,
+        scaleX: .65,
+        scaleY: 1.08,
+        duration: .28,
+        stagger: {
+          each: .018,
+          from: "edges"
+        },
+        ease: "power2.in"
+      }, 0)
+      .to(letters, {
+        x: (index) => (index - 3.5) * 8,
+        y: (index) => (index % 2 ? 5 : -5),
+        scaleX: .08,
+        scaleY: .12,
+        rotationZ: (index) => (index - 3.5) * -8,
+        opacity: .15,
+        duration: .3,
+        stagger: {
+          each: .012,
+          from: "edges"
+        },
+        ease: "power3.in"
+      }, .3)
+      .to(gravityPoint, {
+        scale: 1,
+        duration: .12,
+        ease: "power2.out"
+      }, .5)
+      .to(rings, {
+        scale: 1,
+        opacity: (index) => .35 - index * .08,
+        duration: .2,
+        stagger: .035,
+        ease: "power2.out"
+      }, .52)
+      .to(letters, {
+        x: (index) => (index - 3.5) * 15,
+        y: 0,
+        scaleX: 1,
+        scaleY: 1,
+        rotationZ: 0,
+        opacity: 1,
+        duration: .28,
+        stagger: {
+          each: .018,
+          from: "center"
+        },
+        ease: "power3.out"
+      }, .68)
+      .to(gravityPoint, {
+        scale: 0,
+        duration: .12
+      }, .82)
+      .to(rings, {
+        scale: 1.2,
+        opacity: 0,
+        duration: .18
+      }, .82);
+  }
 
 
 /* =========================================================
