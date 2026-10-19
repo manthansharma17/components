@@ -41239,6 +41239,58 @@ gsap.set(letters, {
       }, .82);
   }
 
+if (!reducedMotion) {
+    gsap.from(
+      [
+        root.querySelector(".en91-header"),
+        root.querySelector(".en91-meta"),
+        root.querySelector(".en91-caption"),
+        root.querySelector(".en91-footer")
+      ],
+      {
+        opacity: 0,
+        y: 12,
+        duration: .8,
+        stagger: .1,
+        ease: "power2.out"
+      }
+    );
+  }
+
+  stage.addEventListener("pointermove", onPointerMove);
+  stage.addEventListener("pointerleave", resetField);
+  resetButton.addEventListener("click", resetField);
+
+  let resizeTimer;
+
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+
+    resizeTimer = setTimeout(() => {
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    }, 120);
+  });
+
+  window.addEventListener("pagehide", () => {
+    destroyed = true;
+
+    if (moveFrame) cancelAnimationFrame(moveFrame);
+    if (scrollTimeline) scrollTimeline.kill();
+
+    if (window.ScrollTrigger) {
+      const trigger = ScrollTrigger.getById("en91Scroll");
+      if (trigger) trigger.kill();
+    }
+  }, { once: true });
+})();
+
+
+
+
+
+
+
+
 
 /* =========================================================
    REFRESH
