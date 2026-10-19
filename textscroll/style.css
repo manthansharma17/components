@@ -21989,7 +21989,94 @@ JS animates every word toward these positions.
     transform-origin: left;
   }
 
+ .en91-reset {
+    padding: 10px 12px;
+    border: 1px solid rgba(255,255,255,.25);
+    background: transparent;
+    color: #f3f2ed;
+    cursor: pointer;
+    transition: background .25s ease, color .25s ease;
+  }
 
+  .en91-reset span {
+    margin-left: 8px;
+    font-size: 13px;
+  }
+
+  .en91-reset:hover {
+    background: #f3f2ed;
+    color: #050505;
+  }
+
+  @media (max-width: 700px) {
+    .section-ninety-one {
+      padding: 22px 18px;
+    }
+
+    .en91-brand,
+    .en91-index {
+      font-size: 7px;
+      letter-spacing: .08em;
+    }
+
+    .en91-header {
+      gap: 8px;
+    }
+
+    .en91-meta {
+      top: 17%;
+      font-size: 7px;
+      letter-spacing: .05em;
+    }
+
+    .en91-letter {
+      font-size: clamp(2.55rem, 13vw, 6rem);
+      letter-spacing: -.09em;
+    }
+
+    .en91-ring {
+      width: 65vw;
+    }
+
+    .en91-ring-2 {
+      width: 85vw;
+    }
+
+    .en91-ring-3 {
+      width: 110vw;
+    }
+
+    .en91-caption {
+      gap: 8px;
+      font-size: 7px;
+      letter-spacing: .08em;
+    }
+
+    .en91-footer {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .en91-footer-info {
+      width: 100%;
+      gap: 8px;
+    }
+
+    .en91-progress {
+      margin-right: auto;
+    }
+
+    .en91-reset {
+      padding: 9px;
+      font-size: 7px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .en91-reset {
+      transition: none;
+    }
+  }
 
 
 
