@@ -41389,6 +41389,211 @@ if (!reducedMotion) {
       });
     });
   }
+ function onPointerMove(event) {
+    if (reducedMotion || destroyed || moveFrame) return;
+
+    const rect = stage.getBoundingClientRect();
+
+    pointerX = ((event.clientX - rect.left) / rect.width - .5) * 2;
+    pointerY = ((event.clientY - rect.top) / rect.height - .5) * 2;
+
+    moveFrame = requestAnimationFrame(() => {
+      moveFrame = 0;
+
+      letters.forEach((letter, index) => {
+        const rect = letter.getBoundingClientRect();
+        const letterX = rect.left + rect.width / 2;
+        const letterY = rect.top + rect.height / 2;
+        const dx = event.clientX - letterX;
+        const dy = event.clientY - letterY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const strength = clamp(1 - distance / 260, 0, 1);
+
+        gsap.to(letter, {
+          x: -dx * strength * .12,
+          y: -dy * strength * .12,
+          rotationZ: (index % 2 ? 1 : -1) * strength * 8,
+          duration: .35,
+          ease: "power3.out",
+          overwrite: "auto"
+        });
+      });
+
+      gsap.to(word, {
+        x: pointerX * 10,
+        y: pointerY * 7,
+        duration: .55,
+        ease: "power3.out",
+        overwrite: "auto"
+      });
+
+      gsap.to(origin, {
+        x: pointerX * 80,
+        y: pointerY * 45,
+        scale: .65,
+        duration: .35,
+        ease: "power3.out",
+        overwrite: "auto"
+      });
+    });
+  }
+
+  function resetScene() {
+    gsap.killTweensOf([word, ...letters, origin]);
+
+    gsap.to(word, {
+      x: 0,
+      y: 0,
+      scale: 1,
+      duration: .65,
+      ease: "power3.out"
+    });
+
+    gsap.to(letters, {
+      x: 0,
+      y: 0,
+      rotationZ: 0,
+      scaleX: 1,
+      scaleY: 1,
+      opacity: 1,
+      duration: .6,
+      stagger: .025,
+      ease: "power3.out"
+    });
+
+    gsap.to(origin, {
+      x: 0,
+      y: 0,
+      scale: 0,
+      duration: .4
+    });
+
+    restoreParticles();
+    updateProgress(0);
+
+    if (window.ScrollTrigger) {
+      const trigger = ScrollTrigger.getById("en92Scroll");
+
+      if (trigger) {
+        window.scrollTo({
+          top: root.getBoundingClientRect().top + window.scrollY,
+          behavior: "smooth"
+        });
+      }
+    }
+  }
+
+  if (!reducedMotion && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    scrollTimeline = gsap.timeline({
+      scrollTrigger: {
+        id: "en92Scroll",
+        trigger: root,
+        start: "top top",
+        end: "+=190%",
+        pin: true,
+        scrub: .8,
+        invalidateOnRefresh: true,
+        onUpdate: self => updateProgress(self.progress)
+      }
+    });
+
+    scrollTimeline
+      .to(letters, {
+        x: (index) => (index - (letters.length - 1) / 2) * 18,
+        y: (index) => Math.sin(index * 1.4) * 18,
+        rotationZ: (index) => (index % 2 ? 1 : -1) * random(10, 25),
+        scaleX: .8,
+        duration: .2,
+        stagger: {
+          each: .018,
+          from: "edges"
+        },
+        ease: "power2.in"
+      }, 0)
+      .to(letters, {
+        x: (index) => (index - 5.5) * 65,
+        y: (index) => Math.sin(index * 2) * 130,
+        rotationZ: (index) => (index - 5.5) * 18,
+        scaleX: .15,
+        scaleY: .3,
+        opacity: 0,
+        duration: .3,
+        stagger: {
+          each: .012,
+          from: "center"
+        },
+        ease: "power3.in"
+      }, .22)
+      .to(particles.map(p => p.element), {
+        x: () => random(-stage.clientWidth * .45, stage.clientWidth * .45),
+        y: () => random(-stage.clientHeight * .4, stage.clientHeight * .4),
+        rotation: () => random(-180, 180),
+        scale: () => random(.5, 1.5),
+        opacity: () => random(.2, .85),
+        duration: .25,
+        stagger: {
+          each: .002,
+          from: "random"
+        },
+        ease: "power2.out"
+      }, .38)
+      .to(origin, {
+        scale: 1,
+        duration: .12,
+        ease: "power2.out"
+      }, .48)
+      .to(particles.map(p => p.element), {
+        x: 0,
+        y: 0,
+        rotation: 0,
+        scale: .1,
+        opacity: 0,
+        duration: .28,
+        stagger: {
+          each: .002,
+          from: "random"
+        },
+        ease: "power3.in"
+      }, .58)
+      .to(origin, {
+        scale: 0,
+        duration: .1
+      }, .7)
+      .to(letters, {
+        x: (index) => (index - 5.5) * 3,
+        y: 0,
+        rotationZ: 0,
+        scaleX: 1,
+        scaleY: 1,
+        opacity: 1,
+        duration: .28,
+        stagger: {
+          each: .018,
+          from: "center"
+        },
+        ease: "power3.out"
+      }, .72);
+  }
+
+  if (!reducedMotion) {
+    gsap.from(
+      [
+        root.querySelector(".en92-header"),
+        root.querySelector(".en92-meta"),
+        root.querySelector(".en92-caption"),
+        root.querySelector(".en92-footer")
+      ],
+      {
+        opacity: 0,
+        y: 12,
+        duration: .8,
+        stagger: .1,
+        ease: "power2.out"
+      }
+    );
+  }
 
 
 
