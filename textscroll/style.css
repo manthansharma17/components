@@ -22078,6 +22078,222 @@ JS animates every word toward these positions.
     }
   }
 
+  /*============ SECTION 92: DISINTEGRATE  =====================*/
+
+.section-ninety-two {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100svh;
+    min-height: 540px;
+    overflow: hidden;
+    padding: clamp(20px, 3vw, 46px);
+    background: #050505;
+    color: #f3f2ed;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .section-ninety-two *,
+  .section-ninety-two *::before,
+  .section-ninety-two *::after {
+    box-sizing: border-box;
+  }
+
+  .en92-grid,
+  .en92-grain,
+  .en92-vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .en92-grid {
+    z-index: -1;
+    opacity: .12;
+    background-image:
+      linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+    background-size: 8vw 8vw;
+    mask-image: radial-gradient(ellipse, black, transparent 85%);
+  }
+
+  .en92-grain {
+    z-index: 4;
+    opacity: .045;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  }
+
+  .en92-vignette {
+    z-index: 2;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 12%,
+      rgba(0,0,0,.2) 65%,
+      #050505 110%
+    );
+  }
+
+  .en92-header,
+  .en92-footer {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .en92-brand,
+  .en92-index,
+  .en92-meta,
+  .en92-caption,
+  .en92-footer,
+  .en92-stage-label,
+  .en92-reset {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: .15em;
+  }
+
+  .en92-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .en92-dot {
+    width: 5px;
+    height: 5px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #f3f2ed;
+    box-shadow: 0 0 12px rgba(255,255,255,.45);
+  }
+
+  .en92-index,
+  .en92-meta,
+  .en92-caption,
+  .en92-footer,
+  .en92-stage-label {
+    color: #85857e;
+  }
+
+ .en92-index span {
+    margin: 0 7px;
+    color: #f3f2ed;
+  }
+
+  .en92-meta {
+    position: absolute;
+    z-index: 5;
+    top: 18%;
+    left: clamp(20px, 3vw, 46px);
+    right: clamp(20px, 3vw, 46px);
+    display: flex;
+    justify-content: space-between;
+    font-size: 8px;
+  }
+
+  #en92Status {
+    color: #f3f2ed;
+  }
+
+  .en92-stage {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    perspective: 1000px;
+  }
+
+  .en92-word {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    white-space: nowrap;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  .en92-letter {
+    display: inline-block;
+    flex: 0 1 auto;
+    font-size: clamp(2.1rem, 8.15vw, 9rem);
+    font-weight: 800;
+    line-height: .9;
+    letter-spacing: -.075em;
+    transform-origin: center;
+    will-change: transform, opacity;
+  }
+
+  .en92-letter:last-child {
+    margin-right: .075em;
+  }
+
+  .en92-particle-field {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .en92-particle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--size, 4px);
+    height: var(--size, 4px);
+    background: #f3f2ed;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
+  .en92-particle:nth-child(3n) {
+    width: calc(var(--size, 4px) * 1.8);
+    height: 1px;
+  }
+
+  .en92-particle:nth-child(4n) {
+    border: 1px solid rgba(243,242,237,.85);
+    background: transparent;
+  }
+
+  .en92-origin {
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    border: 1px solid rgba(255,255,255,.9);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    pointer-events: none;
+  }
+
+  .en92-origin span {
+    position: absolute;
+    inset: -8px;
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 50%;
+  }
+
+  .en92-stage-label {
+    position: absolute;
+    z-index: 3;
+    font-size: 7px;
+    letter-spacing: .12em;
+  }
+
 
 
 /* =========================================================
