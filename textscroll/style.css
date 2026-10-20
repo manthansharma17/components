@@ -22378,7 +22378,85 @@ JS animates every word toward these positions.
     transform-origin: left;
   }
 
+ .en92-reset {
+    padding: 10px 12px;
+    border: 1px solid rgba(255,255,255,.25);
+    background: transparent;
+    color: #f3f2ed;
+    cursor: pointer;
+    transition: background .25s ease, color .25s ease;
+  }
 
+  .en92-reset span {
+    margin-left: 8px;
+    font-size: 13px;
+  }
+
+  .en92-reset:hover {
+    background: #f3f2ed;
+    color: #050505;
+  }
+
+  @media (max-width: 700px) {
+    .section-ninety-two {
+      padding: 22px 18px;
+    }
+
+    .en92-brand,
+    .en92-index {
+      font-size: 7px;
+      letter-spacing: .08em;
+    }
+
+    .en92-header {
+      gap: 8px;
+    }
+
+    .en92-meta {
+      top: 17%;
+      font-size: 7px;
+      letter-spacing: .05em;
+    }
+
+    .en92-letter {
+      font-size: clamp(1.75rem, 7.8vw, 3.7rem);
+      letter-spacing: -.07em;
+    }
+
+    .en92-caption {
+      gap: 8px;
+      font-size: 7px;
+      letter-spacing: .08em;
+    }
+
+    .en92-footer {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .en92-footer-info {
+      width: 100%;
+      gap: 8px;
+    }
+
+    .en92-progress {
+      margin-right: auto;
+    }
+
+    .en92-reset {
+      padding: 9px;
+      font-size: 7px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .en92-reset {
+      transition: none;
+    }
+  }
+
+
+  
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
