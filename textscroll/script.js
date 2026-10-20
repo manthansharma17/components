@@ -41284,10 +41284,111 @@ if (!reducedMotion) {
   }, { once: true });
 })();
 
+/* =========================SECTION 92: DISINTEGRATE ========================= */
+(() => {
+  const root = document.querySelector("#en92Section");
 
+  if (!root || !window.gsap || root.dataset.en92Ready) return;
+  root.dataset.en92Ready = "true";
 
+  const stage = root.querySelector("#en92Stage");
+  const word = root.querySelector("#en92Word");
+  const letters = [...root.querySelectorAll(".en92-letter")];
+  const particleField = root.querySelector("#en92Particles");
+  const origin = root.querySelector("#en92Origin");
+  const status = root.querySelector("#en92Status");
+  const progressBar = root.querySelector("#en92Progress");
+  const percentLabel = root.querySelector("#en92Percent");
+  const resetButton = root.querySelector("#en92Reset");
 
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
 
+  let moveFrame = 0;
+  let pointerX = 0;
+  let pointerY = 0;
+  let scrollTimeline = null;
+  let destroyed = false;
+
+  const clamp = (value, min, max) =>
+    Math.max(min, Math.min(max, value));
+
+  const random = (min, max) =>
+    min + Math.random() * (max - min);
+
+  const particles = [];
+
+  // Build a lightweight particle field.
+  for (let i = 0; i < 90; i++) {
+    const particle = document.createElement("span");
+    particle.className = "en92-particle";
+    particle.style.setProperty("--size", `${random(1, 4)}px`);
+
+    particleField.appendChild(particle);
+
+    particles.push({
+      element: particle,
+      x: random(-stage.clientWidth * .48, stage.clientWidth * .48),
+      y: random(-stage.clientHeight * .42, stage.clientHeight * .42),
+      rotation: random(-180, 180),
+      scale: random(.6, 1.5),
+      delay: random(0, .3)
+    });
+  }
+
+  function updateProgress(progress) {
+    const value = clamp(progress, 0, 1);
+
+    percentLabel.textContent =
+      String(Math.round(value * 100)).padStart(2, "0") + "%";
+
+    gsap.set(progressBar, { scaleX: value });
+
+    if (value < .15) {
+      status.textContent = "MATTER: INTACT";
+    } else if (value < .4) {
+      status.textContent = "MATTER: FRACTURING";
+    } else if (value < .75) {
+      status.textContent = "MATTER: DISPERSED";
+    } else {
+      status.textContent = "MATTER: REFORMING";
+    }
+  }
+
+  function scatterParticles(direction = 1) {
+    particles.forEach((particle, index) => {
+      const distance = random(90, Math.max(200, stage.clientWidth * .55));
+      const angle = random(0, Math.PI * 2);
+
+      gsap.to(particle.element, {
+        x: Math.cos(angle) * distance * direction,
+        y: Math.sin(angle) * distance * direction,
+        rotation: particle.rotation + random(-180, 180),
+        scale: particle.scale,
+        opacity: random(.15, .9),
+        duration: random(.7, 1.5),
+        delay: particle.delay,
+        ease: direction > 0 ? "power2.out" : "power2.inOut",
+        overwrite: "auto"
+      });
+    });
+  }
+
+  function restoreParticles() {
+    particles.forEach((particle) => {
+      gsap.to(particle.element, {
+        x: 0,
+        y: 0,
+        rotation: 0,
+        scale: .1,
+        opacity: 0,
+        duration: .55,
+        ease: "power2.in",
+        overwrite: "auto"
+      });
+    });
+  }
 
 
 
