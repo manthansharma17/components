@@ -41594,7 +41594,37 @@ if (!reducedMotion) {
       }
     );
   }
+ stage.addEventListener("pointermove", onPointerMove);
+  stage.addEventListener("pointerleave", resetScene);
+  resetButton.addEventListener("click", resetScene);
 
+  let resizeTimer;
+
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+
+    resizeTimer = setTimeout(() => {
+      particles.forEach((particle) => {
+        particle.x = random(-stage.clientWidth * .48, stage.clientWidth * .48);
+        particle.y = random(-stage.clientHeight * .42, stage.clientHeight * .42);
+      });
+
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    }, 120);
+  });
+
+  window.addEventListener("pagehide", () => {
+    destroyed = true;
+
+    if (moveFrame) cancelAnimationFrame(moveFrame);
+    if (scrollTimeline) scrollTimeline.kill();
+
+    if (window.ScrollTrigger) {
+      const trigger = ScrollTrigger.getById("en92Scroll");
+      if (trigger) trigger.kill();
+    }
+  }, { once: true });
+})();
 
 
 
