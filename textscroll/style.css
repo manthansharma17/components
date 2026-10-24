@@ -22455,6 +22455,127 @@ JS animates every word toward these positions.
     }
   }
 
+/* =================================Section 93: AFTERSHOCK==================== */
+.section-ninety-three {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100svh;
+    min-height: 540px;
+    overflow: hidden;
+    padding: clamp(20px, 3vw, 46px);
+    background: #050505;
+    color: #f3f2ed;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .section-ninety-three *,
+  .section-ninety-three *::before,
+  .section-ninety-three *::after {
+    box-sizing: border-box;
+  }
+
+  .en93-grid,
+  .en93-grain,
+  .en93-vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .en93-grid {
+    z-index: -1;
+    opacity: .13;
+    background-image:
+      linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+    background-size: 8vw 8vw;
+    mask-image: radial-gradient(ellipse, black, transparent 85%);
+  }
+
+  .en93-grain {
+    z-index: 4;
+    opacity: .045;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  }
+
+  .en93-vignette {
+    z-index: 2;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 10%,
+      rgba(0,0,0,.22) 65%,
+      #050505 110%
+    );
+  }
+
+  .en93-header,
+  .en93-footer {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .en93-brand,
+  .en93-index,
+  .en93-meta,
+  .en93-caption,
+  .en93-footer,
+  .en93-stage-label,
+  .en93-reset {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: .15em;
+  }
+
+  .en93-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .en93-dot {
+    width: 5px;
+    height: 5px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #f3f2ed;
+    box-shadow: 0 0 12px rgba(255,255,255,.45);
+  }
+
+  .en93-index,
+  .en93-meta,
+  .en93-caption,
+  .en93-footer,
+  .en93-stage-label {
+    color: #85857e;
+  }
+
+  .en93-index span {
+    margin: 0 7px;
+    color: #f3f2ed;
+  }
+
+  .en93-meta {
+    position: absolute;
+    z-index: 5;
+    top: 18%;
+    left: clamp(20px, 3vw, 46px);
+    right: clamp(20px, 3vw, 46px);
+    display: flex;
+    justify-content: space-between;
+    font-size: 8px;
+  }
+
+  #en93Status {
+    color: #f3f2ed;
+  }
 
   
 /* =========================================================
