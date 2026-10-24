@@ -41719,7 +41719,70 @@ if (!reducedMotion) {
       });
     });
   }
+function resetField() {
+    gsap.killTweensOf([word, ...lines, ...waves, origin]);
 
+    gsap.to(word, {
+      x: 0,
+      y: 0,
+      rotationX: 0,
+      rotationY: 0,
+      scale: 1,
+      duration: .65,
+      ease: "power3.out"
+    });
+
+    lines.forEach((line, index) => {
+      gsap.to(line, {
+        x: 0,
+        y: 0,
+        rotationX: 0,
+        rotationY: 0,
+        scaleX: 1,
+        scaleY: 1,
+        opacity: index === 0 ? 1 : 0,
+        duration: .55,
+        ease: "power3.out"
+      });
+    });
+
+    gsap.to(waves, {
+      scale: .1,
+      opacity: 0,
+      duration: .45,
+      ease: "power2.out"
+    });
+
+    gsap.to(origin, {
+      scale: 0,
+      duration: .3
+    });
+
+    updateProgress(0);
+
+    if (window.ScrollTrigger) {
+      const trigger = ScrollTrigger.getById("en93Scroll");
+
+      if (trigger) {
+        window.scrollTo({
+          top: root.getBoundingClientRect().top + window.scrollY,
+          behavior: "smooth"
+        });
+      }
+    }
+  }
+
+  // Keep echo layers aligned on initial render.
+  lines.forEach((line, index) => {
+    gsap.set(line, {
+      x: 0,
+      y: 0,
+      opacity: index === 0 ? 1 : 0,
+      scaleX: 1,
+      scaleY: 1,
+      transformOrigin: "center center"
+    });
+  });
 
 /* =========================================================
    REFRESH
