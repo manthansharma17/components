@@ -22577,6 +22577,93 @@ JS animates every word toward these positions.
     color: #f3f2ed;
   }
 
+   .en93-stage {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    perspective: 1000px;
+  }
+
+  .en93-word {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 1.2em;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  .en93-line {
+    position: absolute;
+    display: block;
+    white-space: nowrap;
+    font-size: clamp(2.4rem, 9.5vw, 10rem);
+    font-weight: 800;
+    line-height: .9;
+    letter-spacing: -.085em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(243,242,237,.25);
+    will-change: transform, opacity, clip-path;
+    pointer-events: none;
+  }
+
+  .en93-line-0 {
+    position: relative;
+    color: #f3f2ed;
+    -webkit-text-stroke: 0;
+  }
+
+  .en93-line-1 {
+    -webkit-text-stroke-color: rgba(243,242,237,.6);
+  }
+
+  .en93-line-2 {
+    -webkit-text-stroke-color: rgba(243,242,237,.4);
+  }
+
+  .en93-line-3 {
+    -webkit-text-stroke-color: rgba(243,242,237,.3);
+  }
+
+  .en93-line-4 {
+    -webkit-text-stroke-color: rgba(243,242,237,.23);
+  }
+
+  .en93-line-5 {
+    -webkit-text-stroke-color: rgba(243,242,237,.16);
+  }
+
+  .en93-line-6 {
+    -webkit-text-stroke-color: rgba(243,242,237,.11);
+  }
+
+  .en93-line-7 {
+    -webkit-text-stroke-color: rgba(243,242,237,.07);
+  }
+
+  .en93-wave {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(20vw, 180px);
+    aspect-ratio: 1;
+    border: 1px solid rgba(243,242,237,.35);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(.1);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .en93-wave-2 {
+    width: min(40vw, 380px);
+    border-color: rgba(243,242,237,.22);
+  }
   
 /* =========================================================
    REDUCED MOTION
