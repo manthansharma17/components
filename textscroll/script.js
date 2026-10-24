@@ -41626,6 +41626,99 @@ if (!reducedMotion) {
   }, { once: true });
 })();
 
+/* ========================== SECTION 93: AFTERSHOCK ========================= */
+(() => {
+  const root = document.querySelector("#en93Section");
+
+  if (!root || !window.gsap || root.dataset.en93Ready) return;
+  root.dataset.en93Ready = "true";
+
+  const stage = root.querySelector("#en93Stage");
+  const word = root.querySelector("#en93Word");
+  const lines = [...root.querySelectorAll(".en93-line")];
+  const waves = [...root.querySelectorAll(".en93-wave")];
+  const origin = root.querySelector("#en93Origin");
+  const status = root.querySelector("#en93Status");
+  const progressBar = root.querySelector("#en93Progress");
+  const percentLabel = root.querySelector("#en93Percent");
+  const resetButton = root.querySelector("#en93Reset");
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  let moveFrame = 0;
+  let pointerX = 0;
+  let pointerY = 0;
+  let scrollTimeline = null;
+  let destroyed = false;
+
+  const clamp = (value, min, max) =>
+    Math.max(min, Math.min(max, value));
+
+  function updateProgress(progress) {
+    const value = clamp(progress, 0, 1);
+
+    percentLabel.textContent =
+      String(Math.round(value * 100)).padStart(2, "0") + "%";
+
+    gsap.set(progressBar, { scaleX: value });
+
+    if (value < .15) {
+      status.textContent = "SYSTEM: STABLE";
+    } else if (value < .4) {
+      status.textContent = "SYSTEM: IMPACT";
+    } else if (value < .75) {
+      status.textContent = "SYSTEM: OSCILLATING";
+    } else {
+      status.textContent = "SYSTEM: RECOVERING";
+    }
+  }
+
+  function onPointerMove(event) {
+    if (reducedMotion || destroyed || moveFrame) return;
+
+    const rect = stage.getBoundingClientRect();
+    pointerX = ((event.clientX - rect.left) / rect.width - .5) * 2;
+    pointerY = ((event.clientY - rect.top) / rect.height - .5) * 2;
+
+    moveFrame = requestAnimationFrame(() => {
+      moveFrame = 0;
+
+      gsap.to(word, {
+        x: pointerX * 8,
+        y: pointerY * 6,
+        rotationY: pointerX * 4,
+        rotationX: -pointerY * 3,
+        duration: .45,
+        ease: "power3.out",
+        overwrite: "auto"
+      });
+
+      lines.forEach((line, index) => {
+        if (index === 0) return;
+
+        const depth = index;
+
+        gsap.to(line, {
+          x: pointerX * depth * 7,
+          y: pointerY * depth * 4,
+          duration: .4 + depth * .025,
+          ease: "power3.out",
+          overwrite: "auto"
+        });
+      });
+
+      gsap.to(waves, {
+        scale: 1 + Math.abs(pointerX) * .4 + Math.abs(pointerY) * .3,
+        opacity: .12,
+        duration: .35,
+        stagger: .04,
+        ease: "power2.out",
+        overwrite: "auto"
+      });
+    });
+  }
 
 
 /* =========================================================
