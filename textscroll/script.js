@@ -41784,6 +41784,131 @@ function resetField() {
     });
   });
 
+ if (!reducedMotion && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    scrollTimeline = gsap.timeline({
+      scrollTrigger: {
+        id: "en93Scroll",
+        trigger: root,
+        start: "top top",
+        end: "+=190%",
+        pin: true,
+        scrub: .8,
+        invalidateOnRefresh: true,
+        onUpdate: self => updateProgress(self.progress)
+      }
+    });
+
+    scrollTimeline
+      .to(lines[0], {
+        x: -12,
+        scaleX: 1.04,
+        duration: .12,
+        ease: "power2.in"
+      }, 0)
+      .to(lines.slice(1), {
+        opacity: (index) => .7 - index * .07,
+        x: (index) => (index % 2 ? -1 : 1) * (35 + index * 15),
+        y: (index) => (index % 2 ? -1 : 1) * (index * 3),
+        duration: .22,
+        stagger: .025,
+        ease: "power2.out"
+      }, .08)
+      .to(lines, {
+        x: (index) => index % 2 ? 75 + index * 12 : -75 - index * 12,
+        y: (index) => (index - 3) * 12,
+        rotationY: (index) => index % 2 ? 20 : -20,
+        scaleX: .9,
+        duration: .3,
+        stagger: .012,
+        ease: "power3.inOut"
+      }, .3)
+      .to(waves, {
+        scale: 1.8,
+        opacity: (index) => .35 - index * .08,
+        duration: .25,
+        stagger: .05,
+        ease: "power2.out"
+      }, .36)
+      .to(lines, {
+        x: (index) => (index % 2 ? 1 : -1) * (30 - index * 2),
+        y: (index) => (index % 2 ? -1 : 1) * 8,
+        rotationY: 0,
+        scaleX: 1,
+        opacity: (index) => index === 0 ? 1 : .15 + index * .04,
+        duration: .24,
+        stagger: .012,
+        ease: "power2.out"
+      }, .62)
+      .to(lines, {
+        x: 0,
+        y: 0,
+        rotationX: 0,
+        rotationY: 0,
+        scaleX: 1,
+        scaleY: 1,
+        opacity: (index) => index === 0 ? 1 : 0,
+        duration: .24,
+        stagger: .015,
+        ease: "power3.out"
+      }, .78)
+      .to(waves, {
+        scale: 2.2,
+        opacity: 0,
+        duration: .18,
+        ease: "power2.out"
+      }, .78);
+  }
+
+  if (!reducedMotion) {
+    gsap.from(
+      [
+        root.querySelector(".en93-header"),
+        root.querySelector(".en93-meta"),
+        root.querySelector(".en93-caption"),
+        root.querySelector(".en93-footer")
+      ],
+      {
+        opacity: 0,
+        y: 12,
+        duration: .8,
+        stagger: .1,
+        ease: "power2.out"
+      }
+    );
+  }
+
+  stage.addEventListener("pointermove", onPointerMove);
+  stage.addEventListener("pointerleave", resetField);
+  resetButton.addEventListener("click", resetField);
+
+  let resizeTimer;
+
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+
+    resizeTimer = setTimeout(() => {
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    }, 120);
+  });
+
+  window.addEventListener("pagehide", () => {
+    destroyed = true;
+
+    if (moveFrame) cancelAnimationFrame(moveFrame);
+    if (scrollTimeline) scrollTimeline.kill();
+
+    if (window.ScrollTrigger) {
+      const trigger = ScrollTrigger.getById("en93Scroll");
+      if (trigger) trigger.kill();
+    }
+  }, { once: true });
+})();
+
+
+
+
 /* =========================================================
    REFRESH
 ========================================================= */
