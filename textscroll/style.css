@@ -22726,6 +22726,159 @@ JS animates every word toward these positions.
     pointer-events: none;
   }
 
+  .en93-caption {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 26px;
+    font-size: 8px;
+    letter-spacing: .2em;
+    text-align: center;
+  }
+
+  .en93-caption span {
+    width: clamp(20px, 5vw, 65px);
+    height: 1px;
+    flex-shrink: 0;
+    background: rgba(255,255,255,.25);
+  }
+
+  .en93-footer {
+    min-height: 45px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,.13);
+    font-size: 8px;
+  }
+
+  .en93-footer-info {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+  }
+
+  .en93-footer-info i {
+    width: 20px;
+    height: 1px;
+    background: #777770;
+  }
+
+  .en93-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .en93-progress-track {
+    width: clamp(65px, 10vw, 130px);
+    height: 1px;
+    background: rgba(255,255,255,.2);
+  }
+
+  #en93Progress {
+    width: 100%;
+    height: 100%;
+    background: #f3f2ed;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .en93-reset {
+    padding: 10px 12px;
+    border: 1px solid rgba(255,255,255,.25);
+    background: transparent;
+    color: #f3f2ed;
+    cursor: pointer;
+    transition: background .25s ease, color .25s ease;
+  }
+
+  .en93-reset span {
+    margin-left: 8px;
+    font-size: 13px;
+  }
+
+  .en93-reset:hover {
+    background: #f3f2ed;
+    color: #050505;
+  }
+
+  @media (max-width: 700px) {
+    .section-ninety-three {
+      padding: 22px 18px;
+    }
+
+    .en93-brand,
+    .en93-index {
+      font-size: 7px;
+      letter-spacing: .08em;
+    }
+
+    .en93-header {
+      gap: 8px;
+    }
+
+    .en93-meta {
+      top: 17%;
+      font-size: 7px;
+      letter-spacing: .05em;
+    }
+
+    .en93-line {
+      font-size: clamp(2rem, 9.2vw, 4.5rem);
+      letter-spacing: -.075em;
+    }
+
+    .en93-wave {
+      width: 35vw;
+    }
+
+    .en93-wave-2 {
+      width: 60vw;
+    }
+
+    .en93-wave-3 {
+      width: 85vw;
+    }
+
+    .en93-caption {
+      gap: 8px;
+      font-size: 7px;
+      letter-spacing: .08em;
+    }
+
+    .en93-footer {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .en93-footer-info {
+      width: 100%;
+      gap: 8px;
+    }
+
+    .en93-progress {
+      margin-right: auto;
+    }
+
+    .en93-reset {
+      padding: 9px;
+      font-size: 7px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .en93-reset {
+      transition: none;
+    }
+  }
+
+
+
+
+
   
 /* =========================================================
    REDUCED MOTION
