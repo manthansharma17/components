@@ -23199,6 +23199,39 @@ JS animates every word toward these positions.
       font-size: 12.8vw;
       letter-spacing: -0.075em;
     }
+
+ .en94-rings {
+      width: 82vw;
+    }
+
+    .en94-caption {
+      align-items: flex-start;
+      font-size: 8px;
+      line-height: 1.6;
+    }
+
+    .en94-caption-right {
+      max-width: 130px;
+    }
+
+    .en94-progress {
+      display: none;
+    }
+
+    .en94-crosshair {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .en94-status i {
+      animation: none;
+    }
+  }
+
+
+
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
