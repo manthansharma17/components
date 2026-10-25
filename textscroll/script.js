@@ -41906,7 +41906,212 @@ function resetField() {
   }, { once: true });
 })();
 
+/*========================== SECTION 94: ECHO ==========================*/
+(() => {
+  const section = document.querySelector("#en94-resonance");
+  if (!section || section.dataset.en94Ready) return;
+  section.dataset.en94Ready = "true";
 
+  const word = section.querySelector(".en94-word");
+  const wordInner = section.querySelector(".en94-word span");
+  const echoes = [...section.querySelectorAll(".en94-echoes span")];
+  const rings = [...section.querySelectorAll(".en94-rings span")];
+  const frequency = section.querySelector(".en94-frequency");
+  const progress = section.querySelector(".en94-progress i");
+  const stage = section.querySelector(".en94-stage");
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  if (typeof gsap === "undefined") {
+    word.style.opacity = "1";
+    return;
+  }
+
+  if (typeof ScrollTrigger !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+  }
+
+  gsap.set(word, { opacity: 0, scale: 0.86 });
+  gsap.set(wordInner, { letterSpacing: "-0.16em" });
+  gsap.set(echoes, {
+    scale: 0.75,
+    opacity: 0,
+    x: 0,
+    y: 0
+  });
+  gsap.set(rings, { scale: 0.15, opacity: 0 });
+  gsap.set(".en94-crosshair", { opacity: 0 });
+
+  if (reducedMotion) {
+    gsap.set(word, { opacity: 1, scale: 1 });
+    gsap.set(wordInner, { letterSpacing: "-0.085em" });
+    return;
+  }
+
+  const intro = gsap.timeline({
+    defaults: { ease: "power3.out" }
+  });
+
+  intro
+    .to(word, {
+      opacity: 1,
+      scale: 1,
+      duration: 1.1
+    })
+    .to(wordInner, {
+      letterSpacing: "-0.085em",
+      duration: 1.2
+    }, "<")
+    .to(".en94-crosshair", {
+      opacity: 1,
+      duration: 0.5,
+      stagger: 0.15
+    }, "-=0.5");
+
+  let scrollTimeline;
+
+  if (typeof ScrollTrigger !== "undefined") {
+    scrollTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: "top top",
+        end: "+=180%",
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true
+      }
+    });
+
+    scrollTimeline
+      .to(word, {
+        scale: 0.88,
+        duration: 0.6,
+        ease: "power2.inOut"
+      }, 0)
+      .to(wordInner, {
+        letterSpacing: "-0.045em",
+        duration: 0.6,
+        ease: "power2.inOut"
+      }, 0)
+      .to(echoes, {
+        opacity: (index) => 0.46 - index * 0.045,
+        scale: (index) => 1.12 + index * 0.16,
+        x: (index) => index % 2 ? 18 * index : -18 * index,
+        y: (index) => index % 2 ? -10 * index : 10 * index,
+        duration: 1,
+        stagger: 0.07,
+        ease: "power2.out"
+      }, 0.2)
+      .to(rings, {
+        opacity: (index) => 0.42 - index * 0.045,
+        scale: (index) => 1.15 + index * 0.12,
+        duration: 0.9,
+        stagger: 0.06,
+        ease: "power2.out"
+      }, 0.35)
+      .to(word, {
+        scale: 1,
+        duration: 0.55,
+        ease: "power3.out"
+      }, 1.15)
+      .to(wordInner, {
+        letterSpacing: "-0.085em",
+        duration: 0.55,
+        ease: "power3.out"
+      }, 1.15)
+      .to(echoes, {
+        opacity: 0,
+        scale: 0.8,
+        x: 0,
+        y: 0,
+        duration: 0.45,
+        stagger: 0.025,
+        ease: "power2.in"
+      }, 1.35)
+      .to(rings, {
+        opacity: 0,
+        scale: 0.5,
+        duration: 0.4,
+        stagger: 0.025,
+        ease: "power2.in"
+      }, 1.4)
+      .to(progress, {
+        scaleX: 1,
+        duration: 1.8,
+        ease: "none"
+      }, 0);
+
+    scrollTimeline.eventCallback("onUpdate", () => {
+      const p = scrollTimeline.progress();
+      frequency.textContent = `${(p * 98.6).toFixed(2)} HZ`;
+    });
+  } else {
+    gsap.to(echoes, {
+      opacity: 0.18,
+      scale: 1.3,
+      stagger: 0.1,
+      duration: 1.5,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+  }
+
+  // Pointer disturbance: quick, subtle movement without rebuilding timelines.
+  let pointerX = 0;
+  let pointerY = 0;
+  let targetX = 0;
+  let targetY = 0;
+  let frame = 0;
+
+  const renderPointer = () => {
+    pointerX += (targetX - pointerX) * 0.12;
+    pointerY += (targetY - pointerY) * 0.12;
+
+    gsap.set(word, {
+      x: pointerX * 7,
+      y: pointerY * 5,
+      rotationY: pointerX * 3,
+      rotationX: -pointerY * 3,
+      transformPerspective: 900
+    });
+
+    echoes.forEach((echo, index) => {
+      const direction = index % 2 ? 1 : -1;
+      gsap.set(echo, {
+        x: `+=${pointerX * direction * (index + 1) * 0.09}`,
+        y: `+=${pointerY * direction * (index + 1) * 0.06}`
+      });
+    });
+
+    frame = 0;
+  };
+
+  stage.addEventListener("pointermove", (event) => {
+    const rect = stage.getBoundingClientRect();
+
+    targetX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+    targetY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+
+    if (!frame) frame = requestAnimationFrame(renderPointer);
+  });
+
+  stage.addEventListener("pointerleave", () => {
+    targetX = 0;
+    targetY = 0;
+    gsap.to(word, {
+      x: 0,
+      y: 0,
+      rotationX: 0,
+      rotationY: 0,
+      duration: 0.6,
+      ease: "power3.out"
+    });
+  });
+})();
 
 
 /* =========================================================
