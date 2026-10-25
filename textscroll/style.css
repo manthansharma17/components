@@ -23095,7 +23095,110 @@ JS animates every word toward these positions.
     pointer-events: none;
   }
 
-  
+   .en94-crosshair::before,
+  .en94-crosshair::after {
+    content: "";
+    position: absolute;
+    background: rgba(245, 245, 242, 0.3);
+  }
+
+  .en94-crosshair::before {
+    width: 1px;
+    height: 34px;
+    left: 50%;
+    top: -7px;
+  }
+
+  .en94-crosshair::after {
+    height: 1px;
+    width: 34px;
+    top: 50%;
+    left: -7px;
+  }
+
+  .en94-crosshair--left {
+    left: 2%;
+  }
+
+  .en94-crosshair--right {
+    right: 2%;
+  }
+
+  .en94-caption {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-top: clamp(28px, 5vh, 60px);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+  }
+
+  .en94-caption-left {
+    color: var(--en94-muted);
+  }
+
+  .en94-caption-right {
+    text-align: right;
+  }
+
+  .en94-bottom {
+    margin-top: clamp(40px, 7vh, 90px);
+    color: var(--en94-muted);
+  }
+
+  .en94-bottom b {
+    color: var(--en94-white);
+    font-weight: 400;
+  }
+
+  .en94-progress {
+    position: relative;
+    width: min(20vw, 240px);
+    height: 1px;
+    background: #333;
+    overflow: hidden;
+  }
+
+  .en94-progress i {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--en94-white);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  @keyframes en94-pulse {
+    0%, 100% { opacity: 0.45; }
+    50% { opacity: 1; }
+  }
+
+  @media (max-width: 600px) {
+    .en94-section {
+      min-height: 90svh;
+      padding: 20px;
+    }
+
+    .en94-topbar,
+    .en94-bottom {
+      font-size: 8px;
+      letter-spacing: 0.1em;
+    }
+
+    .en94-top-label {
+      display: none;
+    }
+
+    .en94-stage {
+      min-height: 230px;
+    }
+
+    .en94-word,
+    .en94-echoes span {
+      font-size: 12.8vw;
+      letter-spacing: -0.075em;
+    }
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
