@@ -23230,6 +23230,115 @@ JS animates every word toward these positions.
     }
   }
 
+/*=========================
+   SECTION 95: SUPERNOVA =========================*/
+
+   .en95-section {
+    --en95-white: #f5f5f2;
+    --en95-muted: #777;
+    position: relative;
+    isolation: isolate;
+    min-height: 100svh;
+    overflow: hidden;
+    padding: clamp(20px, 3vw, 44px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #050505;
+    color: var(--en95-white);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .en95-section *,
+  .en95-section *::before,
+  .en95-section *::after {
+    box-sizing: border-box;
+  }
+
+  .en95-topbar,
+  .en95-bottom {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .en95-top-center {
+    color: var(--en95-muted);
+  }
+
+  .en95-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .en95-status i {
+    width: 6px;
+    height: 6px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--en95-white);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+    animation: en95-status-pulse 1.8s ease-in-out infinite;
+  }
+
+  .en95-grid {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.12;
+    background-image:
+      linear-gradient(to right, #777 1px, transparent 1px),
+      linear-gradient(to bottom, #777 1px, transparent 1px);
+    background-size: 10vw 10vw;
+    mask-image: radial-gradient(ellipse, black 5%, transparent 80%);
+  }
+
+  .en95-content {
+    width: 100%;
+    max-width: 1600px;
+    margin: auto;
+  }
+
+  .en95-index {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: clamp(25px, 4vh, 50px);
+    color: var(--en95-muted);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+  }
+
+  .en95-index > span:first-child {
+    color: var(--en95-white);
+  }
+
+  .en95-index-line {
+    width: 38px;
+    height: 1px;
+    background: #555;
+  }
+
+  .en95-stage {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: clamp(250px, 39vw, 570px);
+    isolation: isolate;
+    perspective: 1200px;
+  }
+
+
+
+
 
 
 /* =========================================================
