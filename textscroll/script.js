@@ -42113,6 +42113,195 @@ function resetField() {
   });
 })();
 
+/*=================== SECTION 95: SUPERNOVA ===================*/
+(() => {
+  const section = document.querySelector("#en95-supernova");
+
+  if (!section || section.dataset.en95Ready) return;
+  section.dataset.en95Ready = "true";
+
+  const stage = section.querySelector(".en95-stage");
+  const title = section.querySelector(".en95-title");
+  const letters = [...section.querySelectorAll(".en95-letter")];
+  const particlesContainer = section.querySelector(".en95-particles");
+  const core = section.querySelector(".en95-core");
+  const orbits = [...section.querySelectorAll(".en95-orbit")];
+  const energy = section.querySelector(".en95-energy");
+  const progressBar = section.querySelector(".en95-progress i");
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  if (typeof gsap === "undefined") return;
+
+  if (typeof ScrollTrigger !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+  }
+
+  const particleCount = window.innerWidth < 600 ? 55 : 110;
+  const particles = [];
+
+  // Deterministic particle field: avoids recreating nodes during scroll.
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement("span");
+    particle.className = "en95-particle";
+
+    const angle = (i / particleCount) * Math.PI * 2;
+    const distance = 100 + ((i * 47) % 230);
+    const size = i % 9 === 0 ? 3 : i % 3 === 0 ? 2 : 1;
+
+    particle.style.setProperty("--en95-size", `${size}px`);
+    particlesContainer.appendChild(particle);
+
+    particles.push({
+      element: particle,
+      angle,
+      distance,
+      drift: ((i * 17) % 100) / 100,
+      rotation: i % 2 === 0 ? 1 : -1
+    });
+  }
+
+  if (reducedMotion) {
+    gsap.set(letters, { opacity: 1, x: 0, y: 0, rotation: 0 });
+    gsap.set(orbits, { opacity: 0.5 });
+    gsap.set(core, { opacity: 0.25 });
+    return;
+  }
+
+  gsap.set(letters, {
+    opacity: 0,
+    y: 35,
+    rotationX: -60,
+    transformOrigin: "50% 50% -50px"
+  });
+
+  gsap.set(orbits, {
+    scale: 0.4,
+    opacity: 0,
+    rotation: 0
+  });
+
+  gsap.set(core, {
+    scale: 0.2,
+    opacity: 0
+  });
+
+  const intro = gsap.timeline({
+    defaults: { ease: "power3.out" }
+  });
+
+  intro
+    .to(letters, {
+      opacity: 1,
+      y: 0,
+      rotationX: 0,
+      duration: 0.8,
+      stagger: 0.065
+    })
+    .to(orbits, {
+      scale: 1,
+      opacity: (index) => 0.18 - index * 0.035,
+      duration: 1.1,
+      stagger: 0.12
+    }, "-=0.3");
+
+  let scrollTimeline;
+
+  if (typeof ScrollTrigger !== "undefined") {
+    scrollTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: "top top",
+        end: "+=200%",
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true
+      }
+    });
+
+    // Phase 1: the word reaches critical mass.
+    scrollTimeline
+      .to(letters, {
+        scale: 1.13,
+        duration: 0.3,
+        stagger: {
+          each: 0.025,
+          from: "center"
+        },
+        ease: "power2.in"
+      }, 0)
+      .to(core, {
+        opacity: 1,
+        scale: 1.5,
+        duration: 0.35,
+        ease: "power2.in"
+      }, 0.1)
+      .to(orbits, {
+        scale: 1.25,
+        rotation: (index) => index % 2 ? -80 : 80,
+        opacity: 0.4,
+        duration: 0.45,
+        ease: "power2.inOut"
+      }, 0.1);
+
+    // Phase 2: radial explosion.
+    scrollTimeline
+      .to(letters, {
+        x: (index) => {
+          const center = (letters.length - 1) / 2;
+          return (index - center) * 95;
+        },
+        y: (index) => (index % 2 ? -1 : 1) * (45 + index * 9),
+        rotation: (index) => (index % 2 ? 1 : -1) * (20 + index * 3),
+        scale: 0.45,
+        opacity: 0.2,
+        filter: "blur(2px)",
+        duration: 0.75,
+        stagger: 0.015,
+        ease: "power3.in"
+      }, 0.4)
+      .to(particles.map(p => p.element), {
+        opacity: (index) => index % 4 === 0 ? 0.95 : 0.65,
+        duration: 0.15,
+        stagger: {
+          each: 0.002,
+          from: "random"
+        }
+      }, 0.45)
+      .to(particles.map(p => p.element), {
+        x: (index) => {
+          const p = particles[index];
+          return Math.cos(p.angle) * p.distance * (1.5 + p.drift);
+        },
+        y: (index) => {
+          const p = particles[index];
+          return Math.sin(p.angle) * p.distance * (1.5 + p.drift);
+        },
+        rotation: (index) => particles[index].rotation * 240,
+        duration: 1,
+        ease: "power2.out"
+      }, 0.5)
+      .to(core, {
+        scale: 4,
+        opacity: 0,
+        duration: 0.55,
+        ease: "power2.out"
+      }, 0.45)
+      .to(orbits, {
+        scale: 1.8,
+        opacity: 0,
+        duration: 0.65,
+        stagger: 0.04,
+        ease: "power2.out"
+      }, 0.5);
+
+
+
+
+
 
 /* =========================================================
    REFRESH
