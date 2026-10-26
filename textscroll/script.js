@@ -42298,7 +42298,115 @@ function resetField() {
         ease: "power2.out"
       }, 0.5);
 
+ // Phase 3: reassembly into one clean word.
+    scrollTimeline
+      .to(letters, {
+        x: 0,
+        y: 0,
+        rotation: 0,
+        scale: 1,
+        opacity: 1,
+        filter: "blur(0px)",
+        duration: 0.8,
+        stagger: {
+          each: 0.035,
+          from: "edges"
+        },
+        ease: "power4.out"
+      }, 1.35)
+      .to(particles.map(p => p.element), {
+        x: 0,
+        y: 0,
+        opacity: 0,
+        scale: 0.2,
+        duration: 0.7,
+        stagger: {
+          each: 0.002,
+          from: "random"
+        },
+        ease: "power3.in"
+      }, 1.3)
+      .to(orbits, {
+        scale: 0.65,
+        rotation: 0,
+        opacity: 0.12,
+        duration: 0.65,
+        ease: "power3.out"
+      }, 1.65)
+      .to(core, {
+        scale: 0.6,
+        opacity: 0.2,
+        duration: 0.6
+      }, 1.7)
+      .to(progressBar, {
+        scaleX: 1,
+        duration: 2,
+        ease: "none"
+      }, 0);
 
+    scrollTimeline.eventCallback("onUpdate", () => {
+      const percent = Math.round(scrollTimeline.progress() * 100);
+      energy.textContent = `${percent}%`;
+    });
+  } else {
+    // Fallback animation if ScrollTrigger is unavailable.
+    gsap.to(orbits, {
+      rotation: 360,
+      duration: 25,
+      repeat: -1,
+      ease: "none"
+    });
+  }
+
+  // Pointer-driven gravity: animate only the main title.
+  let targetX = 0;
+  let targetY = 0;
+  let currentX = 0;
+  let currentY = 0;
+  let pointerFrame = 0;
+
+  function renderPointer() {
+    currentX += (targetX - currentX) * 0.12;
+    currentY += (targetY - currentY) * 0.12;
+
+    gsap.set(title, {
+      x: currentX * 10,
+      y: currentY * 7,
+      rotationY: currentX * 3,
+      rotationX: -currentY * 2,
+      transformPerspective: 1000
+    });
+
+    if (
+      Math.abs(targetX - currentX) > 0.002 ||
+      Math.abs(targetY - currentY) > 0.002
+    ) {
+      pointerFrame = requestAnimationFrame(renderPointer);
+    } else {
+      pointerFrame = 0;
+    }
+  }
+
+  stage.addEventListener("pointermove", (event) => {
+    const rect = stage.getBoundingClientRect();
+
+    targetX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+    targetY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+
+    if (!pointerFrame) {
+      pointerFrame = requestAnimationFrame(renderPointer);
+    }
+  });
+
+  stage.addEventListener("pointerleave", () => {
+    targetX = 0;
+    targetY = 0;
+
+    if (!pointerFrame) {
+      pointerFrame = requestAnimationFrame(renderPointer);
+    }
+  });
+})();
 
 
 
