@@ -23230,8 +23230,7 @@ JS animates every word toward these positions.
     }
   }
 
-/*=========================
-   SECTION 95: SUPERNOVA =========================*/
+/*=======================SECTION 95: SUPERNOVA =========================*/
 
    .en95-section {
     --en95-white: #f5f5f2;
@@ -23336,7 +23335,225 @@ JS animates every word toward these positions.
     perspective: 1200px;
   }
 
+ .en95-title {
+    position: relative;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0;
+    white-space: nowrap;
+    font-size: clamp(42px, 13.2vw, 205px);
+    line-height: 0.85;
+    font-weight: 900;
+    letter-spacing: -0.09em;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
 
+  .en95-letter {
+    position: relative;
+    display: inline-block;
+    color: var(--en95-white);
+    will-change: transform, opacity, filter;
+  }
+
+  .en95-letter:nth-child(2n) {
+    color: #dededb;
+  }
+
+  .en95-core {
+    position: absolute;
+    z-index: 1;
+    width: clamp(50px, 9vw, 140px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    opacity: 0;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(255, 255, 255, 0.22) 12%,
+      rgba(255, 255, 255, 0.07) 35%,
+      transparent 72%
+    );
+    filter: blur(2px);
+    pointer-events: none;
+  }
+
+  .en95-orbit {
+    position: absolute;
+    z-index: 0;
+    width: min(65vw, 760px);
+    aspect-ratio: 1;
+    border: 1px solid rgba(245, 245, 242, 0.12);
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+
+  .en95-orbit--two {
+    width: min(48vw, 560px);
+    border-style: dashed;
+    border-color: rgba(245, 245, 242, 0.13);
+  }
+
+  .en95-orbit--three {
+    width: min(32vw, 370px);
+    border-color: rgba(245, 245, 242, 0.2);
+  }
+
+  .en95-particles {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .en95-particle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: var(--en95-size, 3px);
+    height: var(--en95-size, 3px);
+    background: var(--en95-white);
+    border-radius: 50%;
+    opacity: 0;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+    transform: translate(-50%, -50%);
+    will-change: transform, opacity;
+  }
+
+  .en95-coordinate {
+    position: absolute;
+    z-index: 5;
+    bottom: 4%;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    color: var(--en95-muted);
+    font-size: 8px;
+    letter-spacing: 0.12em;
+  }
+
+  .en95-coordinate span:last-child {
+    color: var(--en95-white);
+  }
+
+  .en95-coordinate--left {
+    left: 0;
+  }
+
+  .en95-coordinate--right {
+    right: 0;
+    text-align: right;
+  }
+
+  .en95-caption {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-top: clamp(25px, 4vh, 50px);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+  }
+
+  .en95-caption-right {
+    text-align: right;
+  }
+
+  .en95-bottom {
+    margin-top: clamp(35px, 6vh, 80px);
+    color: var(--en95-muted);
+  }
+
+  .en95-bottom b {
+    color: var(--en95-white);
+    font-weight: 400;
+  }
+
+  .en95-progress {
+    width: min(20vw, 240px);
+    height: 1px;
+    overflow: hidden;
+    background: #333;
+  }
+
+  .en95-progress i {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--en95-white);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  @keyframes en95-status-pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  @media (max-width: 600px) {
+    .en95-section {
+      min-height: 90svh;
+      padding: 20px;
+    }
+
+    .en95-topbar,
+    .en95-bottom {
+      font-size: 8px;
+      letter-spacing: 0.09em;
+    }
+
+    .en95-top-center {
+      display: none;
+    }
+
+    .en95-stage {
+      min-height: 250px;
+    }
+
+    .en95-title {
+      font-size: 12.6vw;
+      letter-spacing: -0.075em;
+    }
+
+    .en95-orbit {
+      width: 84vw;
+    }
+
+    .en95-orbit--two {
+      width: 65vw;
+    }
+
+    .en95-orbit--three {
+      width: 45vw;
+    }
+
+    .en95-caption {
+      align-items: flex-start;
+      font-size: 8px;
+      line-height: 1.6;
+    }
+
+    .en95-caption-right {
+      max-width: 130px;
+    }
+
+    .en95-progress {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .en95-status i {
+      animation: none;
+    }
+  }
 
 
 
