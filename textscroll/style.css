@@ -23795,6 +23795,77 @@ JS animates every word toward these positions.
     font-weight: 400;
   }
 
+   .en96-progress {
+    width: min(20vw, 240px);
+    height: 1px;
+    overflow: hidden;
+    background: #333;
+  }
+
+  .en96-progress i {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--en96-white);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  @keyframes en96-pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  @media (max-width: 600px) {
+    .en96-section {
+      min-height: 90svh;
+      padding: 20px;
+    }
+
+    .en96-topbar,
+    .en96-bottom {
+      font-size: 8px;
+      letter-spacing: 0.09em;
+    }
+
+    .en96-top-center {
+      display: none;
+    }
+
+    .en96-stage {
+      min-height: 240px;
+    }
+
+    .en96-title,
+    .en96-echoes span {
+      font-size: 12.5vw;
+      letter-spacing: -0.075em;
+    }
+
+    .en96-aura {
+      width: 85vw;
+    }
+
+    .en96-caption {
+      align-items: flex-start;
+      font-size: 8px;
+      line-height: 1.6;
+    }
+
+    .en96-caption-right {
+      max-width: 130px;
+    }
+
+    .en96-progress {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .en96-status i {
+      animation: none;
+    }
+  }
 
 /* =========================================================
    REDUCED MOTION
