@@ -42545,7 +42545,140 @@ function resetField() {
         duration: 0.7
       }, 0.9);
 
+  // Everything converges into one sharp word.
+    scrollTimeline
+      .to(echoes, {
+        opacity: 0,
+        scale: 0.8,
+        x: 0,
+        y: 0,
+        duration: 0.55,
+        stagger: 0.025,
+        ease: "power2.in"
+      }, 1.65)
+      .to(letters, {
+        x: 0,
+        y: 0,
+        rotation: 0,
+        opacity: 1,
+        filter: "blur(0px)",
+        duration: 0.75,
+        stagger: {
+          each: 0.035,
+          from: "edges"
+        },
+        ease: "power4.out"
+      }, 1.65)
+      .to(aura, {
+        scale: 0.75,
+        opacity: 0.12,
+        duration: 0.65
+      }, 1.8)
+      .to(progress, {
+        scaleX: 1,
+        duration: 2.2,
+        ease: "none"
+      }, 0);
 
+    scrollTimeline.eventCallback("onUpdate", () => {
+      const remaining = Math.round(
+        (1 - scrollTimeline.progress()) * 100
+      );
+      decay.textContent = `${remaining}%`;
+    });
+  }
+
+  // Mouse movement leaves temporary, fading letter traces.
+  let lastTrailTime = 0;
+  let trailIndex = 0;
+  let targetX = 0;
+  let targetY = 0;
+  let currentX = 0;
+  let currentY = 0;
+  let pointerFrame = 0;
+
+  const trailCharacters = "AFTERGLOW";
+  const activeTrailTweens = new Set();
+
+  function createTrailLetter(x, y) {
+    const span = document.createElement("span");
+    span.className = "en96-trail-letter";
+    span.textContent = trailCharacters[trailIndex % trailCharacters.length];
+    trailIndex++;
+
+    span.style.left = `${x}px`;
+    span.style.top = `${y}px`;
+
+    trail.appendChild(span);
+
+    const tween = gsap.to(span, {
+      opacity: 0,
+      scale: 0.55,
+      y: -35 - Math.random() * 25,
+      x: (Math.random() - 0.5) * 35,
+      filter: "blur(5px)",
+      duration: 0.8 + Math.random() * 0.45,
+      ease: "power2.out",
+      onComplete: () => {
+        activeTrailTweens.delete(tween);
+        span.remove();
+      }
+    });
+
+    activeTrailTweens.add(tween);
+  }
+
+  function renderPointer() {
+    currentX += (targetX - currentX) * 0.12;
+    currentY += (targetY - currentY) * 0.12;
+
+    gsap.set(title, {
+      x: currentX * 8,
+      y: currentY * 5,
+      rotationY: currentX * 2.5,
+      rotationX: -currentY * 2
+    });
+
+    if (
+      Math.abs(targetX - currentX) > 0.002 ||
+      Math.abs(targetY - currentY) > 0.002
+    ) {
+      pointerFrame = requestAnimationFrame(renderPointer);
+    } else {
+      pointerFrame = 0;
+    }
+  }
+
+  stage.addEventListener("pointermove", (event) => {
+    const rect = stage.getBoundingClientRect();
+
+    targetX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+    targetY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+
+    if (!pointerFrame) {
+      pointerFrame = requestAnimationFrame(renderPointer);
+    }
+
+    const now = performance.now();
+
+    if (now - lastTrailTime > 45) {
+      createTrailLetter(
+        event.clientX - rect.left,
+        event.clientY - rect.top
+      );
+      lastTrailTime = now;
+    }
+  });
+
+  stage.addEventListener("pointerleave", () => {
+    targetX = 0;
+    targetY = 0;
+
+    if (!pointerFrame) {
+      pointerFrame = requestAnimationFrame(renderPointer);
+    }
+  });
+})();
 
 /* =========================================================
    REFRESH
