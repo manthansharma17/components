@@ -42408,6 +42408,142 @@ function resetField() {
   });
 })();
 
+/* ============ SECTION 96: AFTERGLOW ============ */
+
+(() => {
+  const section = document.querySelector("#en96-afterglow");
+
+  if (!section || section.dataset.en96Ready) return;
+  section.dataset.en96Ready = "true";
+
+  const stage = section.querySelector(".en96-stage");
+  const title = section.querySelector(".en96-title");
+  const letters = [...section.querySelectorAll(".en96-letter")];
+  const echoes = [...section.querySelectorAll(".en96-echoes span")];
+  const aura = section.querySelector(".en96-aura");
+  const trail = section.querySelector(".en96-trail");
+  const decay = section.querySelector(".en96-decay");
+  const progress = section.querySelector(".en96-progress i");
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  if (typeof gsap === "undefined") return;
+
+  if (typeof ScrollTrigger !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+  }
+
+  gsap.set(letters, {
+    opacity: 0,
+    y: 24,
+    filter: "blur(8px)"
+  });
+
+  gsap.set(echoes, {
+    opacity: 0,
+    scale: 0.85,
+    x: 0,
+    y: 0
+  });
+
+  gsap.set(aura, {
+    opacity: 0,
+    scale: 0.4
+  });
+
+  if (reducedMotion) {
+    gsap.set(letters, {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)"
+    });
+    return;
+  }
+
+  // Initial word reveal.
+  gsap.timeline({ defaults: { ease: "power3.out" } })
+    .to(letters, {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      duration: 1,
+      stagger: 0.07
+    })
+    .to(aura, {
+      opacity: 0.55,
+      scale: 1,
+      duration: 1.2
+    }, "-=0.5");
+
+  let scrollTimeline;
+
+  if (typeof ScrollTrigger !== "undefined") {
+    scrollTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: "top top",
+        end: "+=190%",
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true
+      }
+    });
+
+    // Echoes spread into the surrounding space.
+    scrollTimeline
+      .to(echoes, {
+        opacity: (index) => 0.42 - index * 0.045,
+        scale: (index) => 1.05 + index * 0.15,
+        x: (index) => index % 2 ? 28 * index : -28 * index,
+        y: (index) => index % 2 ? -12 * index : 12 * index,
+        duration: 0.8,
+        stagger: 0.06,
+        ease: "power2.out"
+      }, 0)
+      .to(letters, {
+        x: (index) => (index - 4) * 18,
+        y: (index) => index % 2 ? -24 : 24,
+        opacity: 0.45,
+        filter: "blur(2px)",
+        duration: 0.8,
+        stagger: 0.025,
+        ease: "power2.inOut"
+      }, 0.1)
+      .to(aura, {
+        scale: 1.5,
+        opacity: 0.9,
+        duration: 0.8
+      }, 0.1);
+
+    // The word dissolves into overlapping afterimages.
+    scrollTimeline
+      .to(echoes, {
+        opacity: (index) => 0.36 - index * 0.04,
+        scale: (index) => 1.45 + index * 0.2,
+        x: (index) => index % 2 ? 70 * index : -70 * index,
+        y: (index) => index % 2 ? -24 * index : 24 * index,
+        duration: 0.8,
+        stagger: 0.04,
+        ease: "power2.out"
+      }, 0.85)
+      .to(letters, {
+        x: (index) => (index - 4) * 90,
+        y: (index) => (index % 2 ? -1 : 1) * (45 + index * 8),
+        rotation: (index) => (index % 2 ? 1 : -1) * (12 + index * 3),
+        opacity: 0.08,
+        filter: "blur(5px)",
+        duration: 0.8,
+        stagger: 0.02,
+        ease: "power3.in"
+      }, 0.9)
+      .to(aura, {
+        scale: 2,
+        opacity: 0.45,
+        duration: 0.7
+      }, 0.9);
 
 
 
