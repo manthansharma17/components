@@ -24049,7 +24049,194 @@ SECTION 97: GRAVITY
     border-color: rgba(245, 245, 242, 0.22);
   }
 
+.en97-gravity-core {
+    position: absolute;
+    z-index: 2;
 
+    width: clamp(30px, 7vw, 100px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+
+    opacity: 0;
+    pointer-events: none;
+
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(255, 255, 255, 0.24) 12%,
+      rgba(255, 255, 255, 0.06) 38%,
+      transparent 72%
+    );
+
+    filter: blur(3px);
+    will-change: transform, opacity;
+  }
+
+  .en97-particles {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .en97-particle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: var(--en97-size, 2px);
+    height: var(--en97-size, 2px);
+
+    border-radius: 50%;
+    background: var(--en97-white);
+
+    opacity: 0;
+    transform: translate(-50%, -50%);
+
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.35);
+    will-change: transform, opacity;
+  }
+
+  .en97-coord {
+    position: absolute;
+    z-index: 5;
+    bottom: 3%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    color: var(--en97-muted);
+    font-size: 8px;
+    letter-spacing: 0.12em;
+  }
+
+  .en97-coord span:last-child {
+    color: var(--en97-white);
+  }
+
+  .en97-coord b {
+    font-weight: 400;
+  }
+
+  .en97-coord--left {
+    left: 0;
+  }
+
+  .en97-coord--right {
+    right: 0;
+    text-align: right;
+  }
+
+  .en97-caption {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+    margin-top: clamp(25px, 4vh, 50px);
+
+    font-size: 9px;
+    letter-spacing: 0.15em;
+  }
+
+  .en97-caption > span:first-child {
+    color: var(--en97-muted);
+  }
+
+  .en97-caption-right {
+    text-align: right;
+  }
+
+  .en97-bottom {
+    margin-top: clamp(35px, 6vh, 80px);
+    color: var(--en97-muted);
+  }
+
+  .en97-bottom b {
+    color: var(--en97-white);
+    font-weight: 400;
+  }
+
+  .en97-progress {
+    width: min(20vw, 240px);
+    height: 1px;
+    overflow: hidden;
+    background: #333;
+  }
+
+  .en97-progress i {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--en97-white);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  @keyframes en97-status-pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  @media (max-width: 600px) {
+    .en97-section {
+      min-height: 90svh;
+      padding: 20px;
+    }
+
+    .en97-topbar,
+    .en97-bottom {
+      font-size: 8px;
+      letter-spacing: 0.09em;
+    }
+
+    .en97-top-center {
+      display: none;
+    }
+
+    .en97-stage {
+      min-height: 250px;
+    }
+
+    .en97-title {
+      font-size: 13vw;
+      letter-spacing: -0.075em;
+    }
+
+    .en97-orbit {
+      width: 84vw;
+    }
+
+    .en97-orbit--two {
+      width: 63vw;
+    }
+
+    .en97-orbit--three {
+      width: 43vw;
+    }
+
+    .en97-caption {
+      align-items: flex-start;
+      font-size: 8px;
+      line-height: 1.6;
+    }
+
+    .en97-caption-right {
+      max-width: 130px;
+    }
+
+    .en97-progress {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .en97-status i {
+      animation: none;
+    }
+  }
 
 
 
