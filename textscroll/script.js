@@ -42853,7 +42853,113 @@ function resetField() {
         duration: 0.7,
         ease: "power2.in"
       }, 0.45);
+// 3. The gravitational force releases.
+    scrollTimeline
+      .to(letters, {
+        x: 0,
+        y: 0,
+        rotation: 0,
+        scale: 1,
+        opacity: 1,
+        duration: 0.8,
+        stagger: {
+          each: 0.035,
+          from: "center"
+        },
+        ease: "power4.out"
+      }, 1.2)
+      .to(particles.map(p => p.element), {
+        x: 0,
+        y: 0,
+        opacity: 0,
+        duration: 0.65,
+        stagger: {
+          each: 0.002,
+          from: "random"
+        },
+        ease: "power3.out"
+      }, 1.15)
+      .to(orbits, {
+        scale: 1,
+        rotation: 0,
+        opacity: 0.12,
+        duration: 0.7,
+        ease: "power3.out"
+      }, 1.35)
+      .to(core, {
+        scale: 0.5,
+        opacity: 0.12,
+        duration: 0.7
+      }, 1.35)
+      .to(progressBar, {
+        scaleX: 1,
+        duration: 2,
+        ease: "none"
+      }, 0);
 
+    scrollTimeline.eventCallback("onUpdate", () => {
+      const progress = scrollTimeline.progress();
+      vectorLabel.textContent = (progress * 9.81).toFixed(2);
+
+      pullLabel.textContent =
+        progress < 0.3 ? "INCREASING" :
+        progress < 0.7 ? "CRITICAL" :
+        "RELEASING";
+    });
+  }
+
+  // Pointer attraction: letters respond to the cursor.
+  let pointerX = 0;
+  let pointerY = 0;
+  let targetX = 0;
+  let targetY = 0;
+  let pointerFrame = 0;
+
+  function renderPointer() {
+    pointerX += (targetX - pointerX) * 0.12;
+    pointerY += (targetY - pointerY) * 0.12;
+
+    letters.forEach((letter, index) => {
+      const centerOffset = index - (letters.length - 1) / 2;
+
+      gsap.set(letter, {
+        x: pointerX * (8 + Math.abs(centerOffset) * 1.5),
+        y: pointerY * (5 + Math.abs(centerOffset)),
+        rotationY: pointerX * -2,
+        rotationX: pointerY * 1.5
+      });
+    });
+
+    if (
+      Math.abs(targetX - pointerX) > 0.002 ||
+      Math.abs(targetY - pointerY) > 0.002
+    ) {
+      pointerFrame = requestAnimationFrame(renderPointer);
+    } else {
+      pointerFrame = 0;
+    }
+  }
+
+  stage.addEventListener("pointermove", (event) => {
+    const rect = stage.getBoundingClientRect();
+
+    targetX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+    targetY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+
+    if (!pointerFrame) {
+      pointerFrame = requestAnimationFrame(renderPointer);
+    }
+  });
+
+  stage.addEventListener("pointerleave", () => {
+    targetX = 0;
+    targetY = 0;
+
+    if (!pointerFrame) {
+      pointerFrame = requestAnimationFrame(renderPointer);
+    }
+  });
+})();
 
 
 
