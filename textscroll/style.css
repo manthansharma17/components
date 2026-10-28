@@ -23956,6 +23956,98 @@ SECTION 97: GRAVITY
     margin: auto;
   }
 
+  .en97-index {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: clamp(25px, 4vh, 50px);
+
+    color: var(--en97-muted);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+  }
+
+  .en97-index > span:first-child {
+    color: var(--en97-white);
+  }
+
+  .en97-index-line {
+    width: 38px;
+    height: 1px;
+    background: #555;
+  }
+
+  .en97-stage {
+    position: relative;
+    isolation: isolate;
+
+    display: grid;
+    place-items: center;
+
+    min-height: clamp(260px, 40vw, 580px);
+    perspective: 1000px;
+  }
+
+  .en97-title {
+    position: relative;
+    z-index: 4;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    margin: 0;
+
+    white-space: nowrap;
+    font-size: clamp(50px, 14vw, 215px);
+    line-height: 0.85;
+    font-weight: 900;
+    letter-spacing: -0.085em;
+
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  .en97-letter {
+    position: relative;
+    display: inline-block;
+
+    color: var(--en97-white);
+
+    will-change: transform, opacity, filter;
+    transform-origin: center;
+  }
+
+  .en97-letter:nth-child(2n) {
+    color: #dcdcd9;
+  }
+
+  .en97-orbit {
+    position: absolute;
+    z-index: 1;
+
+    width: min(65vw, 760px);
+    aspect-ratio: 1;
+
+    border: 1px solid rgba(245, 245, 242, 0.13);
+    border-radius: 50%;
+
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+
+  .en97-orbit--two {
+    width: min(48vw, 560px);
+    border-style: dashed;
+    border-color: rgba(245, 245, 242, 0.16);
+  }
+
+  .en97-orbit--three {
+    width: min(31vw, 360px);
+    border-color: rgba(245, 245, 242, 0.22);
+  }
 
 
 
