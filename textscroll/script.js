@@ -42680,6 +42680,184 @@ function resetField() {
   });
 })();
 
+
+/* ======================= SECTION 97: GRAVITY ======================= */
+
+(() => {
+  const section = document.querySelector("#en97-gravity");
+
+  if (!section || section.dataset.en97Ready) return;
+  section.dataset.en97Ready = "true";
+
+  const stage = section.querySelector(".en97-stage");
+  const title = section.querySelector(".en97-title");
+  const letters = [...section.querySelectorAll(".en97-letter")];
+  const orbits = [...section.querySelectorAll(".en97-orbit")];
+  const core = section.querySelector(".en97-gravity-core");
+  const particlesContainer = section.querySelector(".en97-particles");
+  const vectorLabel = section.querySelector(".en97-vector");
+  const pullLabel = section.querySelector(".en97-pull");
+  const progressBar = section.querySelector(".en97-progress i");
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  if (typeof gsap === "undefined") return;
+
+  if (typeof ScrollTrigger !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+  }
+
+  // Build a lightweight, deterministic particle field.
+  const particleCount = window.innerWidth < 600 ? 35 : 75;
+  const particles = [];
+
+  for (let i = 0; i < particleCount; i++) {
+    const element = document.createElement("span");
+    element.className = "en97-particle";
+
+    const angle = (i / particleCount) * Math.PI * 2;
+    const radius = 100 + ((i * 37) % 220);
+
+    element.style.setProperty(
+      "--en97-size",
+      i % 7 === 0 ? "3px" : "2px"
+    );
+
+    particlesContainer.appendChild(element);
+
+    particles.push({
+      element,
+      angle,
+      radius,
+      direction: i % 2 === 0 ? 1 : -1
+    });
+  }
+
+  if (reducedMotion) {
+    gsap.set(letters, { opacity: 1, x: 0, y: 0 });
+    gsap.set(orbits, { opacity: 0.35 });
+    return;
+  }
+
+  gsap.set(letters, {
+    opacity: 0,
+    y: 30,
+    rotationX: -45
+  });
+
+  gsap.set(orbits, {
+    scale: 0.5,
+    opacity: 0
+  });
+
+  gsap.set(core, {
+    scale: 0.3,
+    opacity: 0
+  });
+
+  // Intro: the letters enter the gravitational field.
+  gsap.timeline({ defaults: { ease: "power3.out" } })
+    .to(letters, {
+      opacity: 1,
+      y: 0,
+      rotationX: 0,
+      duration: 0.9,
+      stagger: 0.075
+    })
+    .to(orbits, {
+      scale: 1,
+      opacity: (index) => 0.18 - index * 0.035,
+      duration: 1,
+      stagger: 0.12
+    }, "-=0.35");
+
+  let scrollTimeline;
+
+  if (typeof ScrollTrigger !== "undefined") {
+    scrollTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: "top top",
+        end: "+=190%",
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true
+      }
+    });
+
+    // 1. The field strengthens.
+    scrollTimeline
+      .to(orbits, {
+        scale: 0.72,
+        rotation: (index) => index % 2 ? -35 : 35,
+        opacity: 0.45,
+        duration: 0.45,
+        ease: "power2.inOut"
+      }, 0)
+      .to(core, {
+        opacity: 0.85,
+        scale: 1.4,
+        duration: 0.4,
+        ease: "power2.in"
+      }, 0)
+      .to(letters, {
+        scale: 0.88,
+        duration: 0.45,
+        stagger: {
+          each: 0.025,
+          from: "center"
+        },
+        ease: "power2.in"
+      }, 0);
+
+    // 2. The characters collapse toward the center.
+    scrollTimeline
+      .to(letters, {
+        x: (index) => (index - 3) * -55,
+        y: (index) => index % 2 ? -40 : 40,
+        rotation: (index) => (index - 3) * 8,
+        scale: 0.65,
+        opacity: 0.6,
+        duration: 0.7,
+        stagger: 0.025,
+        ease: "power3.in"
+      }, 0.4)
+      .to(particles.map(p => p.element), {
+        opacity: 0.65,
+        duration: 0.2,
+        stagger: {
+          each: 0.003,
+          from: "random"
+        }
+      }, 0.4)
+      .to(particles.map(p => p.element), {
+        x: (index) => Math.cos(particles[index].angle) *
+          particles[index].radius * 0.2,
+        y: (index) => Math.sin(particles[index].angle) *
+          particles[index].radius * 0.2,
+        duration: 0.7,
+        ease: "power2.in"
+      }, 0.45)
+      .to(core, {
+        scale: 3.5,
+        opacity: 0.35,
+        duration: 0.7
+      }, 0.45)
+      .to(orbits, {
+        scale: 0.28,
+        rotation: (index) => index % 2 ? -90 : 90,
+        opacity: 0.7,
+        duration: 0.7,
+        ease: "power2.in"
+      }, 0.45);
+
+
+
+
+
 /* =========================================================
    REFRESH
 ========================================================= */
