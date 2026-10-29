@@ -42959,7 +42959,7 @@ function resetField() {
       pointerFrame = requestAnimationFrame(renderPointer);
     }
   });
-})();
+})(); 
 
 
 
