@@ -42962,6 +42962,82 @@ function resetField() {
 })(); 
 
 
+/* =================================================
+   SECTION 98: VOID
+   ================================================ */
+
+   (() => {
+  const root = document.querySelector("#en98-void");
+  if (!root || !window.gsap) return;
+
+  const gsap = window.gsap;
+  const ScrollTrigger = window.ScrollTrigger;
+
+  if (ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+  }
+
+  const intro = root.querySelector(".en98-intro");
+  const titleLines = root.querySelectorAll(".en98-line");
+  const kicker = root.querySelector(".en98-kicker");
+  const caption = root.querySelector(".en98-caption");
+  const orbits = root.querySelectorAll(".en98-orbit");
+  const particlesContainer = root.querySelector(".en98-particles");
+  const collapse = root.querySelector(".en98-collapse");
+  const letters = root.querySelectorAll(".en98-word");
+  const core = root.querySelector(".en98-core");
+  const flash = root.querySelector(".en98-flash");
+  const outro = root.querySelector(".en98-outro");
+  const outroLine = root.querySelector(".en98-outro-line");
+  const progress = root.querySelector(".en98-progress span");
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  const random = gsap.utils.random;
+
+  // Create small particles around the center.
+  const particleCount = window.innerWidth < 600 ? 38 : 70;
+  const particles = [];
+
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement("span");
+    particle.className = "en98-particle";
+
+    const angle = Math.random() * Math.PI * 2;
+    const radius = random(90, Math.min(window.innerWidth * 0.48, 420));
+    const size = random(1, 2.6);
+
+    particle.style.setProperty("--size", `${size}px`);
+    particle.style.setProperty("--opacity", random(0.15, 0.75));
+    particlesContainer.appendChild(particle);
+
+    const x = Math.cos(angle) * radius;
+    const y = Math.sin(angle) * radius;
+
+    gsap.set(particle, {
+      x,
+      y,
+      scale: random(0.6, 1.4)
+    });
+
+    particles.push({
+      element: particle,
+      x,
+      y,
+      angle,
+      radius
+    });
+  }
+
+  // Entrance animation.
+  gsap.set(titleLines, {
+    yPercent: 120,
+    rotateX: -25,
+    opacity: 0
+  });
+
 
 
 /* =========================================================
