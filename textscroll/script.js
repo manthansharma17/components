@@ -43038,6 +43038,71 @@ function resetField() {
     opacity: 0
   });
 
+   gsap.set([kicker, caption], {
+    y: 16,
+    opacity: 0
+  });
+
+  gsap.set(orbits, {
+    scale: 1.15,
+    opacity: 0
+  });
+
+  const entrance = gsap.timeline({
+    defaults: { ease: "power3.out" }
+  });
+
+  entrance
+    .to(orbits, {
+      scale: 1,
+      opacity: 1,
+      duration: 1.5,
+      stagger: 0.12
+    }, 0)
+    .to(kicker, {
+      y: 0,
+      opacity: 1,
+      duration: 0.7
+    }, 0.15)
+    .to(titleLines, {
+      yPercent: 0,
+      rotateX: 0,
+      opacity: 1,
+      duration: 1.1,
+      stagger: 0.16
+    }, 0.25)
+    .to(caption, {
+      y: 0,
+      opacity: 1,
+      duration: 0.7
+    }, 0.85);
+
+  // Slow orbit movement.
+  if (!reduceMotion) {
+    orbits.forEach((orbit, index) => {
+      gsap.to(orbit, {
+        rotation: index % 2 === 0 ? 360 : -360,
+        duration: 45 + index * 15,
+        repeat: -1,
+        ease: "none"
+      });
+    });
+
+    particles.forEach((particle, index) => {
+      gsap.to(particle.element, {
+        x: particle.x * random(0.88, 1.12),
+        y: particle.y * random(0.88, 1.12),
+        opacity: random(0.15, 0.8),
+        duration: random(2, 5),
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: index * 0.015
+      });
+    });
+  }
+
+  
 
 
 /* =========================================================
