@@ -43102,6 +43102,208 @@ function resetField() {
     });
   }
 
+   // Pointer interaction: nearby particles drift away from the cursor.
+  let pointerX = 0;
+  let pointerY = 0;
+  let pointerActive = false;
+  let pointerFrame = null;
+
+  root.addEventListener("pointermove", (event) => {
+    const rect = root.getBoundingClientRect();
+
+    pointerX = event.clientX - rect.left - rect.width / 2;
+    pointerY = event.clientY - rect.top - rect.height / 2;
+    pointerActive = true;
+
+    if (pointerFrame) return;
+
+    pointerFrame = requestAnimationFrame(() => {
+      pointerFrame = null;
+
+      particles.forEach((particle) => {
+        const dx = particle.x - pointerX;
+        const dy = particle.y - pointerY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const influence = Math.max(0, 1 - distance / 190);
+
+        const pushX = distance ? (dx / distance) * influence * 28 : 0;
+        const pushY = distance ? (dy / distance) * influence * 28 : 0;
+
+        gsap.to(particle.element, {
+          x: particle.x + pushX,
+          y: particle.y + pushY,
+          duration: 0.45,
+          overwrite: "auto",
+          ease: "power2.out"
+        });
+      });
+    });
+  });
+
+  root.addEventListener("pointerleave", () => {
+    pointerActive = false;
+
+    particles.forEach((particle) => {
+      gsap.to(particle.element, {
+        x: particle.x,
+        y: particle.y,
+        duration: 0.8,
+        overwrite: "auto",
+        ease: "power3.out"
+      });
+    });
+  });
+
+  // Scroll-driven disappearance.
+  if (ScrollTrigger && !reduceMotion) {
+    const timeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: root,
+        start: "top top",
+        end: "+=2200",
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true
+      }
+    });
+
+    timeline
+      // The headline begins to drift toward the void.
+      .to(intro, {
+        scale: 0.8,
+        y: -30,
+        opacity: 0.45,
+        filter: "blur(2px)",
+        duration: 1
+      }, 0)
+
+      .to(orbits, {
+        scale: 0.65,
+        opacity: 0.45,
+        duration: 1.2,
+        stagger: 0.05
+      }, 0)
+
+      .to(caption, {
+        opacity: 0,
+        y: 20,
+        duration: 0.3
+      }, 0)
+
+      // Reveal the letters that will collapse into the center.
+      .set(collapse, {
+        opacity: 1
+      }, 0.85)
+
+      .to(letters, {
+        x: (index) => (index - 3) * -28,
+        y: (index) => random(-30, 30),
+        rotation: (index) => random(-15, 15),
+        duration: 0.8,
+        stagger: 0.035,
+        ease: "power2.inOut"
+      }, 0.95)
+
+      // The main headline vanishes.
+      .to(intro, {
+        scale: 0.35,
+        opacity: 0,
+        filter: "blur(12px)",
+        duration: 0.8
+      }, 1.15)
+
+      // All individual letters converge into one point.
+      .to(letters, {
+        x: 0,
+        y: 0,
+        scale: 0.015,
+        rotation: (index) => (index - 3) * 35,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.035,
+        ease: "power3.in"
+      }, 1.55)
+
+      .to(orbits, {
+        scale: 0.03,
+        opacity: 0,
+        duration: 0.9,
+        stagger: 0.04,
+        ease: "power3.in"
+      }, 1.6)
+
+      .to(particles, {
+        // The particle elements themselves are animated below.
+      }, 1.6)
+
+      .to(particles.map((p) => p.element), {
+        x: 0,
+        y: 0,
+        opacity: 0,
+        scale: 0,
+        duration: 1,
+        stagger: {
+          each: 0.006,
+          from: "random"
+        },
+        ease: "power3.in"
+      }, 1.6)
+
+      .to(core, {
+        opacity: 1,
+        scale: 1,
+        duration: 0.25,
+        ease: "power2.out"
+      }, 2.2)
+
+      // A white flash creates the vanishing-point transition.
+      .to(flash, {
+        opacity: 0.9,
+        scaleX: 1,
+        duration: 0.35,
+        ease: "power2.inOut"
+      }, 2.45)
+
+      .to(flash, {
+        opacity: 0,
+        scaleX: 0,
+        duration: 0.55,
+        ease: "power3.out"
+      }, 2.8)
+
+      .to(core, {
+        scale: 0,
+        opacity: 0,
+        duration: 0.35
+      }, 2.85)
+
+      // The final statement emerges from the darkness.
+      .to(outro, {
+        opacity: 1,
+        y: "-50%",
+        duration: 0.9,
+        ease: "power3.out"
+      }, 3.05)
+
+      .to(outroLine, {
+        width: "min(180px, 35vw)",
+        duration: 0.8,
+        ease: "power2.inOut"
+      }, 3.45)
+
+      .to(progress, {
+        scaleX: 1,
+        duration: 3.9,
+        ease: "none"
+      }, 0);
+  } else {
+    // Without ScrollTrigger, keep the section readable.
+    gsap.set([collapse, core, flash], { opacity: 0 });
+    gsap.set(outro, { opacity: 1, y: "-50%" });
+    gsap.set(outroLine, { width: "min(180px, 35vw)" });
+  }
+})();
   
 
 
