@@ -24631,7 +24631,109 @@ SECTION 97: GRAVITY
     }
   }
 
+/* =========================================================
+    SECTION 99: AFTER THE END
+========================================================= */
 
+ #en99-after {
+    --en99-bg: #050505;
+    --en99-white: #f2f2ef;
+    --en99-muted: #777;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: clip;
+    isolation: isolate;
+    background: var(--en99-bg);
+    color: var(--en99-white);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  #en99-after *,
+  #en99-after *::before,
+  #en99-after *::after {
+    box-sizing: border-box;
+  }
+
+  #en99-after .en99-header,
+  #en99-after .en99-footer {
+    position: absolute;
+    z-index: 30;
+    left: 0;
+    width: 100%;
+    padding-inline: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    color: #898989;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+  }
+
+  #en99-after .en99-header {
+    top: 0;
+    height: 74px;
+    border-bottom: 1px solid #ffffff15;
+  }
+
+  #en99-after .en99-header-mid {
+    color: #c5c5c5;
+  }
+
+  #en99-after .en99-footer {
+    bottom: 0;
+    height: 66px;
+    border-top: 1px solid #ffffff15;
+  }
+
+  #en99-after .en99-footer-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  #en99-after .en99-footer-status i {
+    display: block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #f2f2ef;
+    box-shadow: 0 0 12px #fff;
+    animation: en99-status-pulse 1.2s infinite alternate;
+  }
+
+  #en99-after .en99-stage {
+    position: relative;
+    height: 100vh;
+    min-height: 680px;
+    max-height: 1100px;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    perspective: 1000px;
+  }
+
+  #en99-after .en99-noise {
+    position: absolute;
+    z-index: 22;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.12;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  }
+
+  #en99-after .en99-grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.12;
+    pointer-events: none;
+    background-image:
+      linear-gradient(#ffffff0b 1px, transparent 1px),
+      linear-gradient(90deg, #ffffff0b 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse, black, transparent 75%);
+  }
   
 
 /* =========================================================
