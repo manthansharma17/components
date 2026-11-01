@@ -43413,6 +43413,309 @@ SECTION 99: AFTER THE END
       duration: 0.7
     }, 0.75);
 
+ // Mouse-responsive distortion.
+  let pointerFrame = null;
+  let mouseX = 0;
+  let mouseY = 0;
+
+  root.addEventListener("pointermove", (event) => {
+    const rect = root.getBoundingClientRect();
+
+    mouseX = (event.clientX - rect.left) / rect.width - 0.5;
+    mouseY = (event.clientY - rect.top) / rect.height - 0.5;
+
+    if (pointerFrame) return;
+
+    pointerFrame = requestAnimationFrame(() => {
+      pointerFrame = null;
+
+      if (reduceMotion) return;
+
+      gsap.to(intro, {
+        x: mouseX * -15,
+        y: mouseY * -10,
+        duration: 0.6,
+        ease: "power3.out",
+        overwrite: "auto"
+      });
+
+      gsap.to(glitches[0], {
+        x: mouseX * 18,
+        y: mouseY * 3,
+        duration: 0.25,
+        overwrite: "auto"
+      });
+
+      gsap.to(glitches[1], {
+        x: mouseX * -12,
+        y: mouseY * -4,
+        duration: 0.35,
+        overwrite: "auto"
+      });
+
+      gsap.to(crosshairs, {
+        x: mouseX * 12,
+        y: mouseY * 12,
+        duration: 0.7,
+        overwrite: "auto"
+      });
+    });
+  });
+
+  root.addEventListener("pointerleave", () => {
+    gsap.to([intro, ...glitches, ...crosshairs], {
+      x: 0,
+      y: 0,
+      duration: 0.7,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+  });
+
+  // Occasional small glitch pulses.
+  if (!reduceMotion) {
+    const glitchPulse = gsap.timeline({
+      repeat: -1,
+      repeatDelay: 2.7
+    });
+
+    glitchPulse
+      .to(glitches, {
+        opacity: 0.35,
+        duration: 0.05
+      })
+      .to(glitches[0], {
+        x: 8,
+        duration: 0.06
+      }, 0)
+      .to(glitches[1], {
+        x: -6,
+        duration: 0.06
+      }, 0)
+      .to(glitches, {
+        opacity: 0,
+        x: 0,
+        duration: 0.12
+      });
+  }
+
+  // Scroll sequence.
+  if (ScrollTrigger && !reduceMotion) {
+    const timeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: root,
+        start: "top top",
+        end: "+=2600",
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true
+      }
+    });
+
+    timeline
+      // 1. Original timeline loses stability.
+      .to(intro, {
+        scale: 0.78,
+        opacity: 0.18,
+        filter: "blur(3px)",
+        duration: 0.8
+      }, 0)
+
+      .to(eyebrow, {
+        opacity: 0,
+        duration: 0.2
+      }, 0)
+
+      .to(introBottom, {
+        opacity: 0,
+        y: 20,
+        duration: 0.3
+      }, 0)
+
+      .to(glitches, {
+        opacity: 0.4,
+        duration: 0.25,
+        stagger: 0.05
+      }, 0.35)
+
+      .to(glitches[0], {
+        x: 28,
+        duration: 0.6
+      }, 0.4)
+
+      .to(glitches[1], {
+        x: -24,
+        duration: 0.6
+      }, 0.4)
+
+      // 2. Multiple timelines appear.
+      .to(timelineContainer, {
+        opacity: 1,
+        duration: 0.4
+      }, 0.75)
+
+      .to(timelines, {
+        opacity: (index) => index === 0 ? 1 : 0.65,
+        duration: 0.5,
+        stagger: 0.08
+      }, 0.8)
+
+      .to(timelines[0], {
+        xPercent: -15,
+        duration: 1.8,
+        ease: "none"
+      }, 0.8)
+
+      .to(timelines[1], {
+        xPercent: 12,
+        duration: 1.8,
+        ease: "none"
+      }, 0.8)
+
+      .to(timelines[2], {
+        xPercent: -10,
+        duration: 1.8,
+        ease: "none"
+      }, 0.8)
+
+      .to(timelines[3], {
+        xPercent: 18,
+        duration: 1.8,
+        ease: "none"
+      }, 0.8)
+
+      .to(timelines[4], {
+        xPercent: -20,
+        duration: 1.8,
+        ease: "none"
+      }, 0.8)
+
+      // 3. Timeline collision.
+      .to(timelines, {
+        xPercent: 0,
+        scale: 0.8,
+        opacity: 0.2,
+        duration: 0.8,
+        stagger: 0.04,
+        ease: "power3.in"
+      }, 2.1)
+
+      .to(timelineContainer, {
+        scale: 0.7,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power3.in"
+      }, 2.5)
+
+      // 4. Fragments drift through space.
+      .to(fragments, {
+        opacity: 1,
+        duration: 0.35,
+        stagger: 0.08
+      }, 2.35)
+
+      .to(fragments, {
+        x: (index) => (index % 2 === 0 ? -1 : 1) * (100 + index * 20),
+        y: (index) => (index % 2 === 0 ? 1 : -1) * (80 + index * 12),
+        rotation: (index) => (index % 2 === 0 ? -25 : 25),
+        scale: 0.35,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.04,
+        ease: "power3.in"
+      }, 2.65)
+
+      // 5. "AFTER THE END" contracts to nothing.
+      .set(collapse, {
+        opacity: 1
+      }, 3.05)
+
+      .from(collapseWords, {
+        y: (index) => index % 2 === 0 ? -60 : 60,
+        opacity: 0,
+        duration: 0.5,
+        stagger: 0.08,
+        ease: "power3.out"
+      }, 3.05)
+
+      .to(collapseWords, {
+        x: 0,
+        scaleX: 0.001,
+        scaleY: 0.1,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.04,
+        ease: "power4.in"
+      }, 3.65)
+
+      .to(singularity, {
+        opacity: 1,
+        scale: 1,
+        duration: 0.25,
+        ease: "power2.out"
+      }, 4.15)
+
+      // 6. Final line expands and fades.
+      .to(singularity, {
+        scaleX: 100,
+        scaleY: 0.5,
+        opacity: 0.9,
+        duration: 0.35,
+        ease: "power2.inOut"
+      }, 4.35)
+
+      .to(singularity, {
+        scaleX: 0,
+        opacity: 0,
+        duration: 0.5,
+        ease: "power3.out"
+      }, 4.7)
+
+      // 7. The final question appears.
+      .to(finalScene, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out"
+      }, 4.9)
+
+      .to(finalRule, {
+        width: "min(180px, 35vw)",
+        duration: 0.7,
+        ease: "power2.inOut"
+      }, 5.3)
+
+      .to(progress, {
+        scaleX: 1,
+        duration: 5.8,
+        ease: "none"
+      }, 0);
+  } else {
+    // Accessible fallback when ScrollTrigger is unavailable
+    // or reduced motion is requested.
+    gsap.set([intro, eyebrow, introBottom], {
+      clearProps: "transform,filter"
+    });
+
+    gsap.set([timelineContainer, collapse, singularity], {
+      opacity: 0
+    });
+
+    gsap.set(finalScene, {
+      opacity: 1,
+      y: 0
+    });
+
+    gsap.set(finalRule, {
+      width: "min(180px, 35vw)"
+    });
+  }
+})();
+
+
+
+
 
 /* =========================================================
    REFRESH
