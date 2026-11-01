@@ -24940,6 +24940,124 @@ SECTION 97: GRAVITY
     font-size: clamp(24px, 5vw, 68px);
   }
 
+ #en99-after .en99-timeline-4 {
+    color: #d0d0d0;
+    font-size: clamp(29px, 6vw, 80px);
+  }
+
+  #en99-after .en99-timeline-5 {
+    color: transparent;
+    -webkit-text-stroke: 1px #555;
+  }
+
+  #en99-after .en99-fragments {
+    position: absolute;
+    inset: 0;
+    z-index: 9;
+    pointer-events: none;
+  }
+
+  #en99-after .en99-fragment {
+    position: absolute;
+    display: block;
+    font-size: clamp(18px, 3.5vw, 42px);
+    font-weight: 900;
+    letter-spacing: -0.06em;
+    color: #eee;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
+  #en99-after .en99-fragment:nth-child(1) {
+    top: 27%;
+    left: 14%;
+  }
+
+  #en99-after .en99-fragment:nth-child(2) {
+    top: 34%;
+    right: 12%;
+  }
+
+  #en99-after .en99-fragment:nth-child(3) {
+    bottom: 30%;
+    left: 19%;
+  }
+
+  #en99-after .en99-fragment:nth-child(4) {
+    top: 23%;
+    right: 22%;
+  }
+
+  #en99-after .en99-fragment:nth-child(5) {
+    bottom: 27%;
+    right: 15%;
+  }
+
+  #en99-after .en99-fragment:nth-child(6) {
+    bottom: 20%;
+    left: 48%;
+  }
+
+  #en99-after .en99-collapse {
+    position: absolute;
+    z-index: 10;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15em;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #en99-after .en99-collapse-word {
+    display: inline-block;
+    font-size: clamp(48px, 12vw, 160px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.09em;
+    white-space: nowrap;
+    will-change: transform, opacity;
+  }
+
+  #en99-after .en99-singularity {
+    position: absolute;
+    z-index: 12;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: white;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+    box-shadow:
+      0 0 12px 4px #ffffff90,
+      0 0 50px 10px #ffffff35;
+    will-change: transform, opacity;
+  }
+
+  #en99-after .en99-final {
+    position: absolute;
+    z-index: 15;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    padding-inline: 5%;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(calc(-50% + 30px));
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+
+  #en99-after .en99-final-kicker {
+    display: block;
+    margin-bottom: 32px;
+    font-size: 9px;
+    letter-spacing: 0.26em;
+    color: #888;
+  }
 
 
 
