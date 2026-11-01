@@ -24734,7 +24734,114 @@ SECTION 97: GRAVITY
     background-size: 80px 80px;
     mask-image: radial-gradient(ellipse, black, transparent 75%);
   }
-  
+  #en99-after .en99-coordinate {
+    position: absolute;
+    z-index: 4;
+    top: 16%;
+    color: #686868;
+    font-size: 8px;
+    letter-spacing: 0.15em;
+  }
+
+  #en99-after .en99-coordinate-left {
+    left: 5%;
+  }
+
+  #en99-after .en99-coordinate-right {
+    right: 5%;
+  }
+
+  #en99-after .en99-crosshair {
+    position: absolute;
+    z-index: 2;
+    width: 15px;
+    height: 15px;
+    opacity: 0.45;
+  }
+
+  #en99-after .en99-crosshair::before,
+  #en99-after .en99-crosshair::after {
+    content: "";
+    position: absolute;
+    background: #aaa;
+  }
+
+  #en99-after .en99-crosshair::before {
+    top: 7px;
+    left: 0;
+    width: 15px;
+    height: 1px;
+  }
+
+  #en99-after .en99-crosshair::after {
+    top: 0;
+    left: 7px;
+    width: 1px;
+    height: 15px;
+  }
+
+  #en99-after .en99-crosshair-a {
+    left: 5%;
+    bottom: 20%;
+  }
+
+  #en99-after .en99-crosshair-b {
+    right: 5%;
+    bottom: 20%;
+  }
+
+  #en99-after .en99-intro {
+    position: relative;
+    z-index: 6;
+    width: 100%;
+    padding-inline: 4%;
+    text-align: center;
+    will-change: transform, opacity, filter;
+  }
+
+  #en99-after .en99-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 35px;
+    color: #929292;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+  }
+
+  #en99-after .en99-live {
+    width: 5px;
+    height: 5px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #fff;
+  }
+
+  #en99-after .en99-headline-wrap {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+  }
+
+  #en99-after .en99-headline {
+    position: relative;
+    z-index: 3;
+    margin: 0;
+    font-size: clamp(55px, 12.2vw, 178px);
+    font-weight: 900;
+    line-height: 0.8;
+    letter-spacing: -0.095em;
+    text-transform: uppercase;
+  }
+
+  #en99-after .en99-headline-line {
+    display: block;
+    white-space: nowrap;
+    padding-right: 0.08em;
+    will-change: transform, opacity;
+  }
+
 
 /* =========================================================
    REDUCED MOTION
