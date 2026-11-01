@@ -24842,6 +24842,107 @@ SECTION 97: GRAVITY
     will-change: transform, opacity;
   }
 
+ #en99-after .en99-headline-line + .en99-headline-line {
+    margin-top: 0.12em;
+  }
+
+  #en99-after .en99-headline-outline {
+    color: transparent;
+    -webkit-text-stroke: 1px #f2f2ef;
+  }
+
+  #en99-after .en99-period {
+    color: #f2f2ef;
+    -webkit-text-stroke: 0;
+  }
+
+  #en99-after .en99-glitch {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    font-size: clamp(55px, 12.2vw, 178px);
+    font-weight: 900;
+    line-height: 0.8;
+    letter-spacing: -0.095em;
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    clip-path: inset(0 0 50% 0);
+    will-change: transform, opacity;
+  }
+
+  #en99-after .en99-glitch-one {
+    color: #fff;
+  }
+
+  #en99-after .en99-glitch-two {
+    color: #777;
+    clip-path: inset(50% 0 0 0);
+  }
+
+  #en99-after .en99-intro-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin: 60px 3% 0;
+    color: #727272;
+    font-size: 8px;
+    letter-spacing: 0.17em;
+  }
+
+  #en99-after .en99-scroll-cue {
+    color: #bcbcbc;
+  }
+
+  #en99-after .en99-timelines {
+    position: absolute;
+    z-index: 7;
+    inset: 20% -30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(30px, 6vh, 75px);
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+
+  #en99-after .en99-timeline {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    width: max-content;
+    white-space: nowrap;
+    font-size: clamp(34px, 7vw, 94px);
+    line-height: 0.9;
+    font-weight: 900;
+    letter-spacing: -0.07em;
+    will-change: transform, opacity;
+  }
+
+  #en99-after .en99-timeline span {
+    display: inline-block;
+  }
+
+  #en99-after .en99-timeline-1 {
+    color: #f2f2ef;
+  }
+
+  #en99-after .en99-timeline-2 {
+    color: transparent;
+    -webkit-text-stroke: 1px #858585;
+    transform: translateX(-15%);
+  }
+
+  #en99-after .en99-timeline-3 {
+    color: #777;
+    font-size: clamp(24px, 5vw, 68px);
+  }
+
+
+
+
 
 /* =========================================================
    REDUCED MOTION
