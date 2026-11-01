@@ -43305,6 +43305,113 @@ function resetField() {
   }
 })();
   
+/* =========================================================
+SECTION 99: AFTER THE END
+========================================================= */
+
+(() => {
+  const root = document.querySelector("#en99-after");
+  if (!root || !window.gsap) return;
+
+  const gsap = window.gsap;
+  const ScrollTrigger = window.ScrollTrigger;
+
+  if (ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+
+  const $ = (selector) => root.querySelector(selector);
+  const $$ = (selector) => root.querySelectorAll(selector);
+
+  const intro = $(".en99-intro");
+  const headline = $$(".en99-headline-line");
+  const eyebrow = $(".en99-eyebrow");
+  const introBottom = $(".en99-intro-bottom");
+  const glitches = $$(".en99-glitch");
+  const timelines = $$(".en99-timeline");
+  const timelineContainer = $(".en99-timelines");
+  const fragments = $$(".en99-fragment");
+  const collapse = $(".en99-collapse");
+  const collapseWords = $$(".en99-collapse-word");
+  const singularity = $(".en99-singularity");
+  const finalScene = $(".en99-final");
+  const finalRule = $(".en99-final-rule");
+  const progress = $(".en99-progress span");
+  const crosshairs = $$(".en99-crosshair");
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  // Initial states.
+  gsap.set(headline, {
+    yPercent: 115,
+    opacity: 0,
+    rotateX: -20,
+    transformOrigin: "center bottom"
+  });
+
+  gsap.set(eyebrow, {
+    y: 15,
+    opacity: 0
+  });
+
+  gsap.set(introBottom, {
+    y: 15,
+    opacity: 0
+  });
+
+  gsap.set(glitches, {
+    opacity: 0
+  });
+
+  gsap.set(timelineContainer, {
+    opacity: 0
+  });
+
+  gsap.set(timelines, {
+    opacity: 0
+  });
+
+  gsap.set(fragments, {
+    opacity: 0
+  });
+
+  gsap.set(collapse, {
+    opacity: 0
+  });
+
+  gsap.set(collapseWords, {
+    scale: 1,
+    opacity: 1
+  });
+
+  gsap.set(finalScene, {
+    opacity: 0,
+    y: 30
+  });
+
+  // Entrance.
+  const entrance = gsap.timeline({
+    defaults: { ease: "power3.out" }
+  });
+
+  entrance
+    .to(eyebrow, {
+      y: 0,
+      opacity: 1,
+      duration: 0.7
+    })
+    .to(headline, {
+      yPercent: 0,
+      rotateX: 0,
+      opacity: 1,
+      duration: 1.15,
+      stagger: 0.16
+    }, 0.15)
+    .to(introBottom, {
+      y: 0,
+      opacity: 1,
+      duration: 0.7
+    }, 0.75);
 
 
 /* =========================================================
