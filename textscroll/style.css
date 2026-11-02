@@ -25457,7 +25457,89 @@ SECTION 97: GRAVITY
     letter-spacing: 0.18em;
   }
 
+ #en100-eclipse .en100-scroll-arrow {
+    font-size: 17px;
+    color: white;
+    animation: en100-arrow 1.2s infinite alternate;
+  }
 
+  #en100-eclipse .en100-solar-system {
+    position: absolute;
+    z-index: 6;
+    left: 50%;
+    top: 50%;
+    width: min(36vw, 390px);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  #en100-eclipse .en100-sun,
+  #en100-eclipse .en100-sun-corona,
+  #en100-eclipse .en100-shadow,
+  #en100-eclipse .en100-eclipse-core,
+  #en100-eclipse .en100-eclipse-glow {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  #en100-eclipse .en100-sun {
+    width: 66%;
+    background: radial-gradient(
+      circle at 38% 35%,
+      #ffffff 0%,
+      #dedede 22%,
+      #888 48%,
+      #252525 72%,
+      #050505 100%
+    );
+    box-shadow:
+      0 0 35px #ffffff20,
+      0 0 100px #ffffff10;
+  }
+
+  #en100-eclipse .en100-sun-corona {
+    width: 85%;
+    background: radial-gradient(
+      circle,
+      transparent 43%,
+      #ffffff15 48%,
+      #ffffff08 54%,
+      transparent 70%
+    );
+    filter: blur(8px);
+  }
+
+  #en100-eclipse .en100-sun-ring {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 112%;
+    height: 30%;
+    border: 1px solid #ffffff60;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) rotate(-25deg);
+    box-shadow: 0 0 15px #ffffff12;
+  }
+
+  #en100-eclipse .en100-shadow {
+    width: 70%;
+    left: 68%;
+    background: #030303;
+    box-shadow: -16px 0 45px #000000c0;
+  }
+
+  #en100-eclipse .en100-eclipse-core {
+    width: 68%;
+    background: #020202;
+    box-shadow: 0 0 20px #000;
+  }
 
 /* =========================================================
    REDUCED MOTION
