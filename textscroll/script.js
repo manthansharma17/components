@@ -44034,7 +44034,18 @@ SECTION 99: AFTER THE END
     });
   });
 
+ root.addEventListener("pointerleave", () => {
+    targetMouseX = 0;
+    targetMouseY = 0;
 
+    gsap.to([solarSystem, intro, ...orbits], {
+      x: 0,
+      y: 0,
+      duration: 0.9,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+  });
 
 /* =========================================================
    REFRESH
