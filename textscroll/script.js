@@ -44501,7 +44501,164 @@ SECTION 99: AFTER THE END
 
     drawCanvas();
 
+  const particleCenterX = width / 2;
+    const particleCenterY = height / 2;
 
+    particles.forEach((particle) => {
+      particle.angle += reduceMotion ? 0 : particle.speed;
+
+      const angle = particle.angle;
+      const radius = particle.radius;
+
+      const x = particleCenterX + Math.cos(angle) * radius;
+      const y = particleCenterY + Math.sin(angle) * radius * 0.38;
+
+      gsap.set(particle.element, {
+        x: x - particleCenterX,
+        y: y - particleCenterY,
+        scale: particle.size,
+        opacity: clamp(
+          0.12,
+          0.8,
+          (radius / 160) * 0.8
+        )
+      });
+    });
+
+    animationFrame = requestAnimationFrame(animate);
+  }
+
+  if (!reduceMotion) {
+    animate();
+  }
+
+  // Initial reveal.
+  gsap.set(titleLines, {
+    yPercent: 115,
+    opacity: 0,
+    rotateX: -18,
+    transformOrigin: "center bottom"
+  });
+
+  gsap.set([eyebrow, description, scrollCue], {
+    y: 16,
+    opacity: 0
+  });
+
+  gsap.set(orbits, {
+    scale: 1.12,
+    opacity: 0
+  });
+
+  gsap.set(hole, {
+    scale: 0.6,
+    opacity: 0
+  });
+
+  gsap.set(labels, {
+    opacity: 0
+  });
+
+  gsap.set(finalScene, {
+    opacity: 0,
+    y: "-45%"
+  });
+
+  gsap.set(collapseText, {
+    opacity: 0
+  });
+
+  gsap.set(singularity, {
+    opacity: 0,
+    scale: 0
+  });
+
+  const introTimeline = gsap.timeline({
+    defaults: { ease: "power3.out" }
+  });
+
+  introTimeline
+    .to(orbits, {
+      scale: 1,
+      opacity: 1,
+      duration: 1.4,
+      stagger: 0.12
+    }, 0)
+    .to(hole, {
+      scale: 1,
+      opacity: 1,
+      duration: 1.5,
+      ease: "power2.out"
+    }, 0.1)
+    .to(eyebrow, {
+      y: 0,
+      opacity: 1,
+      duration: 0.7
+    }, 0.15)
+    .to(titleLines, {
+      yPercent: 0,
+      rotateX: 0,
+      opacity: 1,
+      duration: 1.1,
+      stagger: 0.15
+    }, 0.2)
+    .to(description, {
+      y: 0,
+      opacity: 1,
+      duration: 0.7
+    }, 0.75)
+    .to(scrollCue, {
+      y: 0,
+      opacity: 1,
+      duration: 0.7
+    }, 0.9);
+
+  // Continuous rotation.
+  if (!reduceMotion) {
+    gsap.to(diskMain, {
+      rotation: "+=360",
+      duration: 50,
+      repeat: -1,
+      ease: "none"
+    });
+
+    gsap.to(diskBack, {
+      rotation: "-=360",
+      duration: 65,
+      repeat: -1,
+      ease: "none"
+    });
+
+    gsap.to(orbits[0], {
+      rotation: 360,
+      duration: 90,
+      repeat: -1,
+      ease: "none"
+    });
+
+    gsap.to(orbits[1], {
+      rotation: -360,
+      duration: 65,
+      repeat: -1,
+      ease: "none"
+    });
+
+    gsap.to(orbits[2], {
+      rotation: 360,
+      duration: 42,
+      repeat: -1,
+      ease: "none"
+    });
+
+    gsap.to(lensing, {
+      scale: 1.08,
+      opacity: 0.65,
+      duration: 4,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+  }
 
 /* =========================================================
    REFRESH
