@@ -26322,7 +26322,122 @@ SECTION 97: GRAVITY
     font-size: 8px;
     letter-spacing: 0.14em;
   }
+ #en101-blackhole .en101-gravity-value {
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+  }
 
+  #en101-blackhole .en101-progress {
+    position: absolute;
+    z-index: 35;
+    bottom: 65px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #ffffff12;
+  }
+
+  #en101-blackhole .en101-progress span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  @keyframes en101-blink {
+    from { opacity: 0.25; }
+    to { opacity: 1; }
+  }
+
+  @keyframes en101-arrow {
+    from { transform: translateY(-3px); }
+    to { transform: translateY(4px); }
+  }
+
+  @media (max-width: 600px) {
+    #en101-blackhole .en101-header,
+    #en101-blackhole .en101-footer {
+      font-size: 7px;
+      letter-spacing: 0.06em;
+    }
+
+    #en101-blackhole .en101-header-center,
+    #en101-blackhole .en101-status {
+      display: none;
+    }
+
+    #en101-blackhole .en101-stage {
+      height: 100svh;
+      min-height: 650px;
+    }
+
+    #en101-blackhole .en101-coordinate {
+      font-size: 6px;
+    }
+
+    #en101-blackhole .en101-title {
+      font-size: 12.3vw;
+    }
+
+    #en101-blackhole .en101-eyebrow {
+      font-size: 7px;
+      letter-spacing: 0.12em;
+    }
+
+    #en101-blackhole .en101-description {
+      font-size: 7px;
+    }
+
+    #en101-blackhole .en101-hole {
+      width: 70vw;
+    }
+
+    #en101-blackhole .en101-orbit-one {
+      width: 100vw;
+    }
+
+    #en101-blackhole .en101-orbit-two {
+      width: 80vw;
+    }
+
+    #en101-blackhole .en101-orbit-three {
+      width: 57vw;
+    }
+
+    #en101-blackhole .en101-label {
+      font-size: 6px;
+      gap: 5px;
+    }
+
+    #en101-blackhole .en101-final h2 {
+      font-size: 8.3vw;
+    }
+
+    #en101-blackhole .en101-final-kicker {
+      font-size: 7px;
+      letter-spacing: 0.1em;
+    }
+
+    #en101-blackhole .en101-final p {
+      font-size: 7px;
+      letter-spacing: 0.1em;
+    }
+
+    #en101-blackhole .en101-readout {
+      bottom: 11%;
+      font-size: 6px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #en101-blackhole .en101-status i,
+    #en101-blackhole .en101-scroll-icon {
+      animation: none;
+    }
+  }
 
 
 /* =========================================================
