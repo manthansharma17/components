@@ -43770,6 +43770,105 @@ SECTION 99: AFTER THE END
   let scrollProgress = 0;
 
   const random = gsap.utils.random;
+// Generate background stars.
+  const starCount = window.innerWidth < 600 ? 45 : 90;
+
+  for (let i = 0; i < starCount; i++) {
+    const star = document.createElement("span");
+    star.className = "en100-star";
+
+    star.style.setProperty("--x", `${Math.random() * 100}%`);
+    star.style.setProperty("--y", `${Math.random() * 100}%`);
+    star.style.setProperty("--size", `${random(1, 2.2)}px`);
+    star.style.setProperty("--opacity", random(0.15, 0.7));
+
+    starsContainer.appendChild(star);
+
+    if (!reduceMotion) {
+      gsap.to(star, {
+        opacity: random(0.1, 0.85),
+        duration: random(1.5, 4),
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: random(0, 3)
+      });
+    }
+  }
+
+  function resizeCanvas() {
+    const rect = stage.getBoundingClientRect();
+
+    width = rect.width;
+    height = rect.height;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    raysCanvas.width = Math.round(width * dpr);
+    raysCanvas.height = Math.round(height * dpr);
+
+    raysCanvas.style.width = `${width}px`;
+    raysCanvas.style.height = `${height}px`;
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    drawRays();
+  }
+
+  function drawRays() {
+    if (!ctx || !width || !height) return;
+
+    ctx.clearRect(0, 0, width, height);
+
+    const centerX = width / 2 + mouseX * 24;
+    const centerY = height / 2 + mouseY * 24;
+    const rayCount = 44;
+    const innerRadius = Math.min(width, height) * 0.15;
+    const outerRadius = Math.max(width, height) * 0.8;
+
+    ctx.save();
+    ctx.translate(centerX, centerY);
+    ctx.rotate(rayRotation);
+
+    for (let i = 0; i < rayCount; i++) {
+      const angle = (i / rayCount) * Math.PI * 2;
+      const spread = (Math.PI * 2 / rayCount) * 0.35;
+
+      const gradient = ctx.createLinearGradient(
+        Math.cos(angle) * innerRadius,
+        Math.sin(angle) * innerRadius,
+        Math.cos(angle) * outerRadius,
+        Math.sin(angle) * outerRadius
+      );
+
+      gradient.addColorStop(0, "rgba(255,255,255,0.10)");
+      gradient.addColorStop(0.35, "rgba(255,255,255,0.025)");
+      gradient.addColorStop(1, "rgba(255,255,255,0)");
+
+      ctx.beginPath();
+      ctx.moveTo(
+        Math.cos(angle - spread) * innerRadius,
+        Math.sin(angle - spread) * innerRadius
+      );
+
+      ctx.lineTo(
+        Math.cos(angle) * outerRadius,
+        Math.sin(angle) * outerRadius
+      );
+
+      ctx.lineTo(
+        Math.cos(angle + spread) * innerRadius,
+        Math.sin(angle + spread) * innerRadius
+      );
+
+      ctx.closePath();
+      ctx.fillStyle = gradient;
+      ctx.fill();
+    }
+
+    ctx.restore();
+  }
+
+  resizeCanvas();
 
 
 
