@@ -25718,7 +25718,87 @@ SECTION 97: GRAVITY
     to { transform: translateY(4px); }
   }
 
+ @media (max-width: 600px) {
+    #en100-eclipse .en100-header,
+    #en100-eclipse .en100-footer {
+      font-size: 7px;
+      letter-spacing: 0.07em;
+    }
 
+    #en100-eclipse .en100-header-center,
+    #en100-eclipse .en100-footer-status {
+      display: none;
+    }
+
+    #en100-eclipse .en100-stage {
+      height: 100svh;
+      min-height: 650px;
+    }
+
+    #en100-eclipse .en100-coordinate {
+      font-size: 6px;
+    }
+
+    #en100-eclipse .en100-headline {
+      font-size: 12.5vw;
+    }
+
+    #en100-eclipse .en100-eyebrow {
+      font-size: 7px;
+      letter-spacing: 0.13em;
+    }
+
+    #en100-eclipse .en100-subtitle {
+      font-size: 7px;
+    }
+
+    #en100-eclipse .en100-solar-system {
+      width: 65vw;
+    }
+
+    #en100-eclipse .en100-orbit-outer {
+      width: 95vw;
+    }
+
+    #en100-eclipse .en100-orbit-middle {
+      width: 75vw;
+    }
+
+    #en100-eclipse .en100-orbit-inner {
+      width: 52vw;
+    }
+
+    #en100-eclipse .en100-side-label {
+      font-size: 6px;
+      gap: 5px;
+    }
+
+    #en100-eclipse .en100-final h2 {
+      font-size: 8.4vw;
+    }
+
+    #en100-eclipse .en100-final-kicker {
+      font-size: 7px;
+      letter-spacing: 0.12em;
+    }
+
+    #en100-eclipse .en100-final p {
+      font-size: 7px;
+      letter-spacing: 0.1em;
+    }
+
+    #en100-eclipse .en100-readout {
+      bottom: 12%;
+      font-size: 6px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #en100-eclipse .en100-footer-status i,
+    #en100-eclipse .en100-scroll-arrow {
+      animation: none;
+    }
+  }
 
 
 /* =========================================================
