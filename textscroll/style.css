@@ -25541,6 +25541,112 @@ SECTION 97: GRAVITY
     box-shadow: 0 0 20px #000;
   }
 
+#en100-eclipse .en100-eclipse-ring {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 73%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+    box-shadow:
+      0 0 10px #ffffff90,
+      0 0 35px #ffffff40,
+      inset 0 0 15px #ffffff20;
+    will-change: transform, opacity;
+  }
+
+  #en100-eclipse .en100-eclipse-glow {
+    width: 86%;
+    opacity: 0;
+    background: radial-gradient(
+      circle,
+      transparent 40%,
+      #ffffff15 47%,
+      #ffffff08 55%,
+      transparent 68%
+    );
+    filter: blur(8px);
+  }
+
+  #en100-eclipse .en100-side-label {
+    position: absolute;
+    z-index: 5;
+    top: 50%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #858585;
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    opacity: 0;
+  }
+
+  #en100-eclipse .en100-side-label-left {
+    left: 5%;
+  }
+
+  #en100-eclipse .en100-side-label-right {
+    right: 5%;
+  }
+
+  #en100-eclipse .en100-side-label span:first-child {
+    color: white;
+  }
+
+  #en100-eclipse .en100-beam {
+    position: absolute;
+    z-index: 11;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background: white;
+    opacity: 0;
+    transform: translate(-50%, -50%) scaleX(0);
+    box-shadow:
+      0 0 15px 2px #ffffffa0,
+      0 0 45px 5px #ffffff30;
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+
+  #en100-eclipse .en100-final {
+    position: absolute;
+    z-index: 14;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    padding-inline: 5%;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(calc(-50% + 35px));
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+
+  #en100-eclipse .en100-final-kicker {
+    display: block;
+    margin-bottom: 30px;
+    color: #888;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+  }
+
+  #en100-eclipse .en100-final h2 {
+    margin: 0;
+    font-size: clamp(34px, 6.8vw, 96px);
+    line-height: 0.96;
+    font-weight: 900;
+    letter-spacing: -0.075em;
+  }
+
+
+
+
+
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
