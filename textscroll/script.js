@@ -44048,12 +44048,146 @@ SECTION 99: AFTER THE END
   });
 
 
+// Scroll-controlled eclipse.
+  if (ScrollTrigger && !reduceMotion) {
+    const timeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: root,
+        start: "top top",
+        end: "+=2600",
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          scrollProgress = self.progress;
+
+          percentage.textContent =
+            `${Math.round(self.progress * 100)
+              .toString()
+              .padStart(2, "0")}%`;
+        }
+      }
+    });
+
+    timeline
+      // 1. Typography retreats as the celestial body grows.
+      .to(intro, {
+        scale: 0.75,
+        opacity: 0.3,
+        filter: "blur(3px)",
+        duration: 1
+      }, 0)
+
+      .to(orbits, {
+        scale: 0.82,
+        duration: 1.1,
+        stagger: 0.05
+      }, 0)
+
+      .to(solarSystem, {
+        scale: 1.3,
+        duration: 1.5,
+        ease: "power2.inOut"
+      }, 0)
+
+      .to(sun, {
+        scale: 1.15,
+        duration: 1.3
+      }, 0.2)
+
+      .to(sunCorona, {
+        opacity: 0.15,
+        duration: 1
+      }, 0.3)
+
+      // 2. The black shadow covers the sun.
+      .to(shadow, {
+        x: "-35%",
+        duration: 1.3,
+        ease: "power2.inOut"
+      }, 1.05)
+
+      .to(eclipseCore, {
+        x: "-8%",
+        scale: 1.1,
+        duration: 1.3,
+        ease: "power2.inOut"
+      }, 1.05)
+
+      .to(eclipseRing, {
+        opacity: 1,
+        scale: 1,
+        duration: 1.1,
+        ease: "power2.out"
+      }, 1.55)
+
+      .to(eclipseGlow, {
+        opacity: 1,
+        duration: 0.9
+      }, 1.65)
+
+      .to(sideLabels, {
+        opacity: 1,
+        duration: 0.5,
+        stagger: 0.1
+      }, 1.5)
+
+      // 3. Totality: the environment disappears.
+      .to(intro, {
+        opacity: 0,
+        scale: 0.5,
+        filter: "blur(10px)",
+        duration: 0.7
+      }, 1.85)
+
+      .to(sun, {
+        opacity: 0,
+        scale: 0.7,
+        duration: 0.7
+      }, 2)
+
+      .to(sunCorona, {
+        opacity: 0,
+        duration: 0.6
+      }, 2)
+
+      .to(shadow, {
+        opacity: 0,
+        duration: 0.6
+      }, 2.1)
+
+      .to(orbits, {
+        opacity: 0,
+        scale: 0.6,
+        duration: 0.8,
+        stagger: 0.04
+      }, 2.1)
+
+      .to(starsContainer, {
+        opacity: 0,
+        duration: 0.5
+      }, 2.1)
+
+      .to(eclipseCore, {
+        scale: 1.25,
+        duration: 0.6
+      }, 2.1)
+
+      .to(eclipseRing, {
+        scale: 1.18,
+        duration: 0.7
+      }, 2.15)
+
+      .to(eclipseGlow, {
+        opacity: 0.3,
+        duration: 0.5
+      }, 2.2)
 
 
 
 
 
-  
 /* =========================================================
    REFRESH
 ========================================================= */
