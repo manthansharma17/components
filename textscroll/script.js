@@ -44660,6 +44660,295 @@ SECTION 99: AFTER THE END
     });
   }
 
+// Cursor-driven gravitational distortion.
+  root.addEventListener("pointermove", (event) => {
+    const rect = stage.getBoundingClientRect();
+
+    targetX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+    targetY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+
+    gsap.to(hole, {
+      x: targetX * 16,
+      y: targetY * 12,
+      duration: 0.7,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+
+    gsap.to(copy, {
+      x: targetX * -9,
+      y: targetY * -5,
+      duration: 0.8,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+
+    gsap.to(orbits, {
+      x: targetX * 9,
+      y: targetY * 9,
+      duration: 0.9,
+      stagger: 0.03,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+
+    gsap.to(lensing, {
+      x: targetX * -8,
+      y: targetY * -8,
+      duration: 0.6,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+  });
+
+  root.addEventListener("pointerleave", () => {
+    targetX = 0;
+    targetY = 0;
+
+    gsap.to([hole, copy, ...orbits, lensing], {
+      x: 0,
+      y: 0,
+      duration: 0.8,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+  });
+
+  // Scroll sequence.
+  if (ScrollTrigger && !reduceMotion) {
+    const timeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: root,
+        start: "top top",
+        end: "+=3000",
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          gravityValue.textContent =
+            `${(1 + self.progress * 99).toFixed(1)}×`;
+        }
+      }
+    });
+
+    timeline
+      // 1. The typography retreats into the gravitational field.
+      .to(copy, {
+        scale: 0.72,
+        opacity: 0.28,
+        filter: "blur(4px)",
+        duration: 1
+      }, 0)
+
+      .to(hole, {
+        scale: 1.28,
+        duration: 1.4,
+        ease: "power2.inOut"
+      }, 0)
+
+      .to(orbits, {
+        scale: 0.85,
+        duration: 1.2,
+        stagger: 0.06
+      }, 0)
+
+      .to(diskMain, {
+        scaleY: 0.75,
+        duration: 1
+      }, 0.2)
+
+      // 2. The black core expands.
+      .to(blackCore, {
+        scale: 1.5,
+        duration: 1.2,
+        ease: "power2.inOut"
+      }, 1)
+
+      .to(photonRing, {
+        scale: 1.2,
+        duration: 1.1
+      }, 1)
+
+      .to(innerRing, {
+        scale: 1.35,
+        opacity: 0.5,
+        duration: 1
+      }, 1)
+
+      .to(labels, {
+        opacity: 1,
+        duration: 0.5,
+        stagger: 0.1
+      }, 1.1)
+
+      // 3. Everything begins collapsing.
+      .to(copy, {
+        scale: 0.35,
+        opacity: 0,
+        filter: "blur(12px)",
+        duration: 0.7
+      }, 1.8)
+
+      .to(hole, {
+        scale: 1.8,
+        duration: 1,
+        ease: "power2.in"
+      }, 1.7)
+
+      .to(diskMain, {
+        scaleY: 0.15,
+        opacity: 0.4,
+        duration: 0.8
+      }, 1.85)
+
+      .to(diskBack, {
+        scaleY: 0.1,
+        opacity: 0.2,
+        duration: 0.8
+      }, 1.85)
+
+      .to(orbits, {
+        scale: 0.45,
+        opacity: 0,
+        duration: 0.9,
+        stagger: 0.04
+      }, 1.9)
+
+      .to(labels, {
+        opacity: 0,
+        duration: 0.35
+      }, 2)
+
+      // 4. The accretion disk compresses into a point.
+      .to(hole, {
+        scale: 0.08,
+        opacity: 0,
+        duration: 0.85,
+        ease: "power3.in"
+      }, 2.75)
+
+      .to(collapseText, {
+        opacity: 1,
+        duration: 0.2
+      }, 2.8)
+
+      .to(collapseLines[0], {
+        scaleX: 0.03,
+        scaleY: 1.8,
+        opacity: 0.8,
+        duration: 0.55,
+        ease: "power3.in"
+      }, 2.95)
+
+      .to(collapseLines[1], {
+        scaleX: 0.03,
+        scaleY: 1.8,
+        opacity: 0.8,
+        duration: 0.55,
+        ease: "power3.in"
+      }, 3.05)
+
+      .to(collapseText, {
+        scale: 0.01,
+        opacity: 0,
+        duration: 0.45,
+        ease: "power4.in"
+      }, 3.55)
+
+      .to(singularity, {
+        scale: 1,
+        opacity: 1,
+        duration: 0.15
+      }, 3.85)
+
+      // 5. Even the point of light disappears.
+      .to(singularity, {
+        scale: 0,
+        opacity: 0,
+        duration: 0.25,
+        ease: "power4.in"
+      }, 4.2)
+
+      .to(stage, {
+        backgroundColor: "#000000",
+        duration: 0.25
+      }, 4.2)
+
+      // 6. A final statement emerges from the darkness.
+      .to(finalScene, {
+        opacity: 1,
+        y: "-50%",
+        duration: 0.9,
+        ease: "power3.out"
+      }, 4.55)
+
+      .to(finalRule, {
+        width: "min(180px, 35vw)",
+        duration: 0.7,
+        ease: "power2.inOut"
+      }, 5)
+
+      .to(progressBar, {
+        scaleX: 1,
+        duration: 5.5,
+        ease: "none"
+      }, 0);
+
+  } else {
+    // Graceful fallback when ScrollTrigger is unavailable.
+    gsap.set(copy, { clearProps: "transform,filter,opacity" });
+    gsap.set(titleLines, { clearProps: "transform,opacity" });
+    gsap.set([eyebrow, description, scrollCue], {
+      clearProps: "transform,opacity"
+    });
+    gsap.set(hole, { clearProps: "transform,opacity" });
+    gsap.set(orbits, { clearProps: "transform,opacity" });
+
+    gsap.set(finalScene, {
+      opacity: 1,
+      y: "-50%"
+    });
+
+    gsap.set(finalRule, {
+      width: "min(180px, 35vw)"
+    });
+
+    gravityValue.textContent = "100×";
+  }
+
+  // Keep the canvas crisp after resizing.
+  let resizeTimer;
+
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+
+    resizeTimer = setTimeout(() => {
+      resizeCanvas();
+
+      if (ScrollTrigger) {
+        ScrollTrigger.refresh();
+      }
+    }, 150);
+  });
+
+  // Pause the canvas loop while the page is hidden.
+  document.addEventListener("visibilitychange", () => {
+    isVisible = !document.hidden;
+
+    if (!isVisible && animationFrame) {
+      cancelAnimationFrame(animationFrame);
+      animationFrame = null;
+    } else if (isVisible && !reduceMotion && !animationFrame) {
+      animate();
+    }
+  });
+})();
+
+
+
+
+
 /* =========================================================
    REFRESH
 ========================================================= */
