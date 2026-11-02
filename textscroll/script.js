@@ -44183,7 +44183,136 @@ SECTION 99: AFTER THE END
         opacity: 0.3,
         duration: 0.5
       }, 2.2)
+// 4. The ring becomes the only remaining light.
+      .to(eclipseRing, {
+        scale: 0.65,
+        duration: 0.8,
+        ease: "power2.inOut"
+      }, 2.75)
 
+      .to(eclipseCore, {
+        scale: 0.65,
+        duration: 0.8
+      }, 2.75)
+
+      .to(eclipseGlow, {
+        opacity: 0.1,
+        duration: 0.8
+      }, 2.75)
+
+      .to(sideLabels, {
+        opacity: 0,
+        duration: 0.35
+      }, 2.8)
+
+      // 5. The ring expands into a horizontal beam.
+      .to(eclipseRing, {
+        scaleX: 3.2,
+        scaleY: 0.015,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power3.in"
+      }, 3.55)
+
+      .to(beam, {
+        opacity: 1,
+        scaleX: 1,
+        duration: 0.45,
+        ease: "power2.inOut"
+      }, 3.7)
+
+      .to(beam, {
+        opacity: 0,
+        scaleX: 0,
+        duration: 0.65,
+        ease: "power3.out"
+      }, 4.05)
+
+      .to(eclipseCore, {
+        opacity: 0,
+        scale: 0,
+        duration: 0.4
+      }, 4.05)
+
+      // 6. The final statement emerges.
+      .to(finalScene, {
+        opacity: 1,
+        y: "-50%",
+        duration: 0.9,
+        ease: "power3.out"
+      }, 4.25)
+
+      .to(finalRule, {
+        width: "min(180px, 35vw)",
+        duration: 0.7,
+        ease: "power2.inOut"
+      }, 4.7)
+
+      .to(progress, {
+        scaleX: 1,
+        duration: 5,
+        ease: "none"
+      }, 0);
+
+  } else {
+    gsap.set(intro, {
+      clearProps: "transform,filter",
+      opacity: 1
+    });
+
+    gsap.set(headline, {
+      clearProps: "transform,opacity"
+    });
+
+    gsap.set([eyebrow, subtitle, scrollCue], {
+      clearProps: "transform,opacity"
+    });
+
+    gsap.set(solarSystem, {
+      clearProps: "transform,opacity"
+    });
+
+    gsap.set(orbits, {
+      clearProps: "transform,opacity"
+    });
+
+    gsap.set(finalScene, {
+      opacity: 1,
+      y: "-50%"
+    });
+
+    gsap.set(finalRule, {
+      width: "min(180px, 35vw)"
+    });
+
+    percentage.textContent = "100%";
+  }
+
+  // Keep the canvas crisp after viewport changes.
+  let resizeTimer;
+
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+
+    resizeTimer = setTimeout(() => {
+      resizeCanvas();
+
+      if (ScrollTrigger) {
+        ScrollTrigger.refresh();
+      }
+    }, 150);
+  });
+
+  // Stop the animation loop when the page is hidden.
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden && animationFrame) {
+      cancelAnimationFrame(animationFrame);
+      animationFrame = null;
+    } else if (!document.hidden && !reduceMotion && !animationFrame) {
+      animateRays();
+    }
+  });
+})();
 
 
 
