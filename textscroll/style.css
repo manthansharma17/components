@@ -25994,7 +25994,148 @@ SECTION 97: GRAVITY
     box-shadow: 0 0 10px #fff;
   }
 
+ #en101-blackhole .en101-title {
+    margin: 0;
+    font-size: clamp(48px, 10.6vw, 154px);
+    font-weight: 900;
+    line-height: 0.84;
+    letter-spacing: -0.085em;
+    text-transform: uppercase;
+  }
 
+  #en101-blackhole .en101-title > span {
+    display: block;
+    white-space: nowrap;
+    will-change: transform, opacity;
+  }
+
+  #en101-blackhole .en101-title > span + span {
+    margin-top: 0.12em;
+  }
+
+  #en101-blackhole .en101-title-outline {
+    color: transparent;
+    -webkit-text-stroke: 1px #f3f3ef;
+  }
+
+  #en101-blackhole .en101-description {
+    margin: 35px 0 0;
+    color: #858585;
+    font-size: 9px;
+    line-height: 1.9;
+    letter-spacing: 0.18em;
+  }
+
+  #en101-blackhole .en101-scroll {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 13px;
+    margin-top: 38px;
+    color: #8c8c8c;
+    font-size: 8px;
+    letter-spacing: 0.17em;
+  }
+
+  #en101-blackhole .en101-scroll-icon {
+    color: white;
+    font-size: 17px;
+    animation: en101-arrow 1.2s infinite alternate;
+  }
+
+  /* Black hole centerpiece */
+
+  #en101-blackhole .en101-hole {
+    position: absolute;
+    z-index: 7;
+    left: 50%;
+    top: 50%;
+    width: min(39vw, 430px);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  #en101-blackhole .en101-lensing {
+    position: absolute;
+    inset: -20%;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      transparent 29%,
+      #ffffff08 35%,
+      #ffffff15 38%,
+      transparent 43%,
+      #ffffff07 49%,
+      transparent 57%
+    );
+    filter: blur(4px);
+  }
+
+  #en101-blackhole .en101-disk {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 145%;
+    height: 39%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) rotate(-25deg);
+  }
+
+  #en101-blackhole .en101-disk-back {
+    height: 50%;
+    background: radial-gradient(
+      ellipse,
+      transparent 29%,
+      #ffffff08 38%,
+      #777 42%,
+      #f3f3ef 44%,
+      #555 47%,
+      transparent 58%
+    );
+    filter: blur(4px);
+    opacity: 0.7;
+  }
+
+  #en101-blackhole .en101-disk-main {
+    background: radial-gradient(
+      ellipse,
+      transparent 31%,
+      #080808 35%,
+      #252525 38%,
+      #b5b5b5 40%,
+      #f5f5f0 42%,
+      #777 44%,
+      #222 47%,
+      transparent 57%
+    );
+    filter: drop-shadow(0 0 12px #ffffff15);
+  }
+
+  #en101-blackhole .en101-disk-detail {
+    position: absolute;
+    inset: 12% 0;
+    border-top: 1px solid #ffffff75;
+    border-bottom: 1px solid #ffffff25;
+    border-radius: 50%;
+    filter: blur(1px);
+  }
+
+  #en101-blackhole .en101-photon-ring {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 67%;
+    aspect-ratio: 1;
+    border: 1px solid #f3f3ef;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow:
+      0 0 7px #fff,
+      0 0 24px #ffffff70,
+      0 0 60px #ffffff20;
+  }
 
 
 
