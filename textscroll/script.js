@@ -44048,6 +44048,271 @@ SECTION 99: AFTER THE END
   });
 
 
+// Scroll-controlled eclipse.
+  if (ScrollTrigger && !reduceMotion) {
+    const timeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: root,
+        start: "top top",
+        end: "+=2600",
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          scrollProgress = self.progress;
+
+          percentage.textContent =
+            `${Math.round(self.progress * 100)
+              .toString()
+              .padStart(2, "0")}%`;
+        }
+      }
+    });
+
+    timeline
+      // 1. Typography retreats as the celestial body grows.
+      .to(intro, {
+        scale: 0.75,
+        opacity: 0.3,
+        filter: "blur(3px)",
+        duration: 1
+      }, 0)
+
+      .to(orbits, {
+        scale: 0.82,
+        duration: 1.1,
+        stagger: 0.05
+      }, 0)
+
+      .to(solarSystem, {
+        scale: 1.3,
+        duration: 1.5,
+        ease: "power2.inOut"
+      }, 0)
+
+      .to(sun, {
+        scale: 1.15,
+        duration: 1.3
+      }, 0.2)
+
+      .to(sunCorona, {
+        opacity: 0.15,
+        duration: 1
+      }, 0.3)
+
+      // 2. The black shadow covers the sun.
+      .to(shadow, {
+        x: "-35%",
+        duration: 1.3,
+        ease: "power2.inOut"
+      }, 1.05)
+
+      .to(eclipseCore, {
+        x: "-8%",
+        scale: 1.1,
+        duration: 1.3,
+        ease: "power2.inOut"
+      }, 1.05)
+
+      .to(eclipseRing, {
+        opacity: 1,
+        scale: 1,
+        duration: 1.1,
+        ease: "power2.out"
+      }, 1.55)
+
+      .to(eclipseGlow, {
+        opacity: 1,
+        duration: 0.9
+      }, 1.65)
+
+      .to(sideLabels, {
+        opacity: 1,
+        duration: 0.5,
+        stagger: 0.1
+      }, 1.5)
+
+      // 3. Totality: the environment disappears.
+      .to(intro, {
+        opacity: 0,
+        scale: 0.5,
+        filter: "blur(10px)",
+        duration: 0.7
+      }, 1.85)
+
+      .to(sun, {
+        opacity: 0,
+        scale: 0.7,
+        duration: 0.7
+      }, 2)
+
+      .to(sunCorona, {
+        opacity: 0,
+        duration: 0.6
+      }, 2)
+
+      .to(shadow, {
+        opacity: 0,
+        duration: 0.6
+      }, 2.1)
+
+      .to(orbits, {
+        opacity: 0,
+        scale: 0.6,
+        duration: 0.8,
+        stagger: 0.04
+      }, 2.1)
+
+      .to(starsContainer, {
+        opacity: 0,
+        duration: 0.5
+      }, 2.1)
+
+      .to(eclipseCore, {
+        scale: 1.25,
+        duration: 0.6
+      }, 2.1)
+
+      .to(eclipseRing, {
+        scale: 1.18,
+        duration: 0.7
+      }, 2.15)
+
+      .to(eclipseGlow, {
+        opacity: 0.3,
+        duration: 0.5
+      }, 2.2)
+// 4. The ring becomes the only remaining light.
+      .to(eclipseRing, {
+        scale: 0.65,
+        duration: 0.8,
+        ease: "power2.inOut"
+      }, 2.75)
+
+      .to(eclipseCore, {
+        scale: 0.65,
+        duration: 0.8
+      }, 2.75)
+
+      .to(eclipseGlow, {
+        opacity: 0.1,
+        duration: 0.8
+      }, 2.75)
+
+      .to(sideLabels, {
+        opacity: 0,
+        duration: 0.35
+      }, 2.8)
+
+      // 5. The ring expands into a horizontal beam.
+      .to(eclipseRing, {
+        scaleX: 3.2,
+        scaleY: 0.015,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power3.in"
+      }, 3.55)
+
+      .to(beam, {
+        opacity: 1,
+        scaleX: 1,
+        duration: 0.45,
+        ease: "power2.inOut"
+      }, 3.7)
+
+      .to(beam, {
+        opacity: 0,
+        scaleX: 0,
+        duration: 0.65,
+        ease: "power3.out"
+      }, 4.05)
+
+      .to(eclipseCore, {
+        opacity: 0,
+        scale: 0,
+        duration: 0.4
+      }, 4.05)
+
+      // 6. The final statement emerges.
+      .to(finalScene, {
+        opacity: 1,
+        y: "-50%",
+        duration: 0.9,
+        ease: "power3.out"
+      }, 4.25)
+
+      .to(finalRule, {
+        width: "min(180px, 35vw)",
+        duration: 0.7,
+        ease: "power2.inOut"
+      }, 4.7)
+
+      .to(progress, {
+        scaleX: 1,
+        duration: 5,
+        ease: "none"
+      }, 0);
+
+  } else {
+    gsap.set(intro, {
+      clearProps: "transform,filter",
+      opacity: 1
+    });
+
+    gsap.set(headline, {
+      clearProps: "transform,opacity"
+    });
+
+    gsap.set([eyebrow, subtitle, scrollCue], {
+      clearProps: "transform,opacity"
+    });
+
+    gsap.set(solarSystem, {
+      clearProps: "transform,opacity"
+    });
+
+    gsap.set(orbits, {
+      clearProps: "transform,opacity"
+    });
+
+    gsap.set(finalScene, {
+      opacity: 1,
+      y: "-50%"
+    });
+
+    gsap.set(finalRule, {
+      width: "min(180px, 35vw)"
+    });
+
+    percentage.textContent = "100%";
+  }
+
+  // Keep the canvas crisp after viewport changes.
+  let resizeTimer;
+
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+
+    resizeTimer = setTimeout(() => {
+      resizeCanvas();
+
+      if (ScrollTrigger) {
+        ScrollTrigger.refresh();
+      }
+    }, 150);
+  });
+
+  // Stop the animation loop when the page is hidden.
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden && animationFrame) {
+      cancelAnimationFrame(animationFrame);
+      animationFrame = null;
+    } else if (!document.hidden && !reduceMotion && !animationFrame) {
+      animateRays();
+    }
+  });
+})();
 
 
 
