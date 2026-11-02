@@ -44314,6 +44314,192 @@ SECTION 99: AFTER THE END
   });
 })();
 
+/* ========================================================
+   SECTION 101: BLACK HOLE
+    ======================================================== */
+
+    (() => {
+  const root = document.querySelector("#en101-blackhole");
+  if (!root || !window.gsap) return;
+
+  const gsap = window.gsap;
+  const ScrollTrigger = window.ScrollTrigger;
+
+  if (ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+  }
+
+  const $ = (selector) => root.querySelector(selector);
+  const $$ = (selector) => [...root.querySelectorAll(selector)];
+
+  const stage = $(".en101-stage");
+  const canvas = $(".en101-canvas");
+  const ctx = canvas.getContext("2d");
+
+  const copy = $(".en101-copy");
+  const titleLines = $$(".en101-title > span");
+  const eyebrow = $(".en101-eyebrow");
+  const description = $(".en101-description");
+  const scrollCue = $(".en101-scroll");
+
+  const hole = $(".en101-hole");
+  const lensing = $(".en101-lensing");
+  const diskBack = $(".en101-disk-back");
+  const diskMain = $(".en101-disk-main");
+  const photonRing = $(".en101-photon-ring");
+  const blackCore = $(".en101-black-core");
+  const innerRing = $(".en101-inner-ring");
+
+  const orbits = $$(".en101-orbit");
+  const labels = $$(".en101-label");
+  const particlesContainer = $(".en101-particles");
+  const collapseText = $(".en101-collapse-text");
+  const collapseLines = $$(".en101-collapse-line");
+  const singularity = $(".en101-singularity");
+
+  const finalScene = $(".en101-final");
+  const finalRule = $(".en101-final-rule");
+  const gravityValue = $(".en101-gravity-value");
+  const progressBar = $(".en101-progress span");
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+  let mouseX = 0;
+  let mouseY = 0;
+  let targetX = 0;
+  let targetY = 0;
+  let rotation = 0;
+  let animationFrame = null;
+  let isVisible = true;
+
+  const clamp = gsap.utils.clamp;
+
+  // Create orbiting particles.
+  const particles = [];
+
+  for (let i = 0; i < 54; i++) {
+    const particle = document.createElement("span");
+    particle.className = "en101-particle";
+
+    const angle = Math.random() * Math.PI * 2;
+    const radius = gsap.utils.random(48, 160);
+
+    particle.style.setProperty(
+      "--size",
+      `${gsap.utils.random(1, 2.4)}px`
+    );
+
+    particlesContainer.appendChild(particle);
+
+    particles.push({
+      element: particle,
+      angle,
+      radius,
+      speed: gsap.utils.random(0.001, 0.006),
+      size: gsap.utils.random(0.5, 1.3)
+    });
+  }
+
+  // Canvas star field.
+  const stars = Array.from(
+    { length: window.innerWidth < 600 ? 75 : 150 },
+    () => ({
+      x: Math.random(),
+      y: Math.random(),
+      radius: Math.random() * 1.1 + 0.2,
+      alpha: Math.random() * 0.55 + 0.1,
+      phase: Math.random() * Math.PI * 2
+    })
+  );
+
+  function resizeCanvas() {
+    const rect = stage.getBoundingClientRect();
+
+    width = rect.width;
+    height = rect.height;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    drawCanvas();
+  }
+
+  function drawCanvas() {
+    if (!ctx || !width || !height) return;
+
+    ctx.clearRect(0, 0, width, height);
+
+    const cx = width / 2 + mouseX * 25;
+    const cy = height / 2 + mouseY * 25;
+
+    // Star field.
+    for (const star of stars) {
+      const dx = star.x * width - cx;
+      const dy = star.y * height - cy;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      // Slight visual displacement near the black hole.
+      const lensStrength = Math.min(
+        1,
+        22000 / Math.max(distance * distance, 1000)
+      );
+
+      const x = star.x * width + dx * lensStrength * 0.018;
+      const y = star.y * height + dy * lensStrength * 0.018;
+
+      ctx.beginPath();
+      ctx.arc(x, y, star.radius, 0, Math.PI * 2);
+
+      ctx.fillStyle = `rgba(255,255,255,${
+        star.alpha * (0.85 + Math.sin(rotation * 2 + star.phase) * 0.15)
+      })`;
+
+      ctx.fill();
+    }
+
+    // Faint radial gravitational field.
+    const fieldRadius = Math.min(width, height) * 0.48;
+    const gradient = ctx.createRadialGradient(
+      cx, cy, fieldRadius * 0.12,
+      cx, cy, fieldRadius
+    );
+
+    gradient.addColorStop(0, "rgba(255,255,255,0)");
+    gradient.addColorStop(0.48, "rgba(255,255,255,0.025)");
+    gradient.addColorStop(0.72, "rgba(255,255,255,0.012)");
+    gradient.addColorStop(1, "rgba(255,255,255,0)");
+
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, width, height);
+  }
+
+  resizeCanvas();
+
+  function animate() {
+    if (!isVisible) {
+      animationFrame = null;
+      return;
+    }
+
+    mouseX += (targetX - mouseX) * 0.055;
+    mouseY += (targetY - mouseY) * 0.055;
+
+    if (!reduceMotion) {
+      rotation += 0.002;
+    }
+
+    drawCanvas();
 
 
 
