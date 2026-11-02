@@ -43713,7 +43713,63 @@ SECTION 99: AFTER THE END
   }
 })();
 
+/* ========================================================
+   SECTION 100: ECLIPSE
+   ======================================================== */
 
+   (() => {
+  const root = document.querySelector("#en100-eclipse");
+  if (!root || !window.gsap) return;
+
+  const gsap = window.gsap;
+  const ScrollTrigger = window.ScrollTrigger;
+
+  if (ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+
+  const $ = (selector) => root.querySelector(selector);
+  const $$ = (selector) => root.querySelectorAll(selector);
+
+  const stage = $(".en100-stage");
+  const intro = $(".en100-intro");
+  const headline = $$(".en100-headline > span");
+  const eyebrow = $(".en100-eyebrow");
+  const subtitle = $(".en100-subtitle");
+  const scrollCue = $(".en100-scroll");
+  const orbits = $$(".en100-orbit");
+  const solarSystem = $(".en100-solar-system");
+  const sun = $(".en100-sun");
+  const sunCorona = $(".en100-sun-corona");
+  const sunRing = $(".en100-sun-ring");
+  const shadow = $(".en100-shadow");
+  const eclipseCore = $(".en100-eclipse-core");
+  const eclipseRing = $(".en100-eclipse-ring");
+  const eclipseGlow = $(".en100-eclipse-glow");
+  const beam = $(".en100-beam");
+  const finalScene = $(".en100-final");
+  const finalRule = $(".en100-final-rule");
+  const percentage = $(".en100-percentage");
+  const progress = $(".en100-progress span");
+  const sideLabels = $$(".en100-side-label");
+  const raysCanvas = $(".en100-rays");
+  const ctx = raysCanvas.getContext("2d");
+  const starsContainer = $(".en100-stars");
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+  let mouseX = 0;
+  let mouseY = 0;
+  let targetMouseX = 0;
+  let targetMouseY = 0;
+  let animationFrame = null;
+  let rayRotation = 0;
+  let scrollProgress = 0;
+
+  const random = gsap.utils.random;
 
 
 
