@@ -43870,6 +43870,170 @@ SECTION 99: AFTER THE END
 
   resizeCanvas();
 
+  // Draw the light rays efficiently.
+  function animateRays() {
+    mouseX += (targetMouseX - mouseX) * 0.06;
+    mouseY += (targetMouseY - mouseY) * 0.06;
+
+    if (!reduceMotion) {
+      rayRotation += 0.0006;
+    }
+
+    drawRays();
+    animationFrame = requestAnimationFrame(animateRays);
+  }
+
+  if (!reduceMotion) {
+    animateRays();
+  }
+
+  // Intro animation.
+  gsap.set(headline, {
+    yPercent: 110,
+    opacity: 0,
+    rotateX: -20,
+    transformOrigin: "center bottom"
+  });
+
+  gsap.set([eyebrow, subtitle, scrollCue], {
+    y: 15,
+    opacity: 0
+  });
+
+  gsap.set(orbits, {
+    scale: 1.12,
+    opacity: 0
+  });
+
+  gsap.set(solarSystem, {
+    scale: 0.6,
+    opacity: 0
+  });
+
+  gsap.set(sideLabels, {
+    opacity: 0
+  });
+
+  gsap.set(eclipseRing, {
+    opacity: 0,
+    scale: 0.8
+  });
+
+  gsap.set(eclipseGlow, {
+    opacity: 0
+  });
+
+  gsap.set([beam, finalScene], {
+    opacity: 0
+  });
+
+  const introTimeline = gsap.timeline({
+    defaults: { ease: "power3.out" }
+  });
+
+  introTimeline
+    .to(orbits, {
+      scale: 1,
+      opacity: 1,
+      duration: 1.5,
+      stagger: 0.1
+    }, 0)
+    .to(solarSystem, {
+      scale: 1,
+      opacity: 0.9,
+      duration: 1.5,
+      ease: "power2.out"
+    }, 0.1)
+    .to(eyebrow, {
+      y: 0,
+      opacity: 1,
+      duration: 0.7
+    }, 0.15)
+    .to(headline, {
+      yPercent: 0,
+      rotateX: 0,
+      opacity: 1,
+      duration: 1.1,
+      stagger: 0.15
+    }, 0.2)
+    .to(subtitle, {
+      y: 0,
+      opacity: 1,
+      duration: 0.7
+    }, 0.75)
+    .to(scrollCue, {
+      y: 0,
+      opacity: 1,
+      duration: 0.7
+    }, 0.9);
+
+  // Slow orbital motion.
+  if (!reduceMotion) {
+    gsap.to(orbits[0], {
+      rotation: 360,
+      duration: 80,
+      repeat: -1,
+      ease: "none"
+    });
+
+    gsap.to(orbits[1], {
+      rotation: -360,
+      duration: 55,
+      repeat: -1,
+      ease: "none"
+    });
+
+    gsap.to(orbits[2], {
+      rotation: 360,
+      duration: 35,
+      repeat: -1,
+      ease: "none"
+    });
+
+    gsap.to(sunRing, {
+      rotation: "+=360",
+      duration: 65,
+      repeat: -1,
+      ease: "none"
+    });
+  }
+
+  // Mouse interaction.
+  root.addEventListener("pointermove", (event) => {
+    const rect = stage.getBoundingClientRect();
+
+    targetMouseX =
+      ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+
+    targetMouseY =
+      ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+
+    gsap.to(solarSystem, {
+      x: targetMouseX * 18,
+      y: targetMouseY * 18,
+      duration: 0.7,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+
+    gsap.to(intro, {
+      x: targetMouseX * -9,
+      y: targetMouseY * -5,
+      duration: 0.8,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+
+    gsap.to(orbits, {
+      x: targetMouseX * 10,
+      y: targetMouseY * 10,
+      duration: 1,
+      stagger: 0.03,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+  });
+
 
 
 /* =========================================================
