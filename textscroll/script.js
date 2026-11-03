@@ -45235,6 +45235,365 @@ SECTION 99: AFTER THE END
     });
   }
 
+ // Cursor creates delayed echoes.
+  root.addEventListener("pointermove", (event) => {
+    const rect = stage.getBoundingClientRect();
+
+    targetX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+    targetY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+
+    gsap.to(intro, {
+      x: targetX * -10,
+      y: targetY * -6,
+      duration: 0.8,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+
+    gsap.to(clock, {
+      x: targetX * 16,
+      y: targetY * 16,
+      duration: 0.8,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+
+    gsap.to(orbits, {
+      x: targetX * 8,
+      y: targetY * 8,
+      duration: 1,
+      stagger: 0.04,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+
+    // Small time echo around the cursor.
+    if (!reduceMotion && Math.random() > 0.92) {
+      const echo = document.createElement("span");
+
+      echo.textContent = "11:11";
+      echo.style.cssText = `
+        position:absolute;
+        z-index:18;
+        left:${event.clientX - rect.left}px;
+        top:${event.clientY - rect.top}px;
+        color:#fff;
+        font-size:10px;
+        letter-spacing:3px;
+        pointer-events:none;
+        opacity:.6;
+      `;
+
+      stage.appendChild(echo);
+
+      gsap.to(echo, {
+        y: -35,
+        opacity: 0,
+        duration: 1,
+        ease: "power2.out",
+        onComplete: () => echo.remove()
+      });
+    }
+  });
+
+  root.addEventListener("pointerleave", () => {
+    targetX = 0;
+    targetY = 0;
+
+    gsap.to([intro, clock, ...orbits], {
+      x: 0,
+      y: 0,
+      duration: 0.8,
+      ease: "power3.out",
+      overwrite: "auto"
+    });
+  });
+
+  // Scroll timeline.
+  if (ScrollTrigger && !reduceMotion) {
+    const timeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: root,
+        start: "top top",
+        end: "+=3200",
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          const progress = self.progress;
+
+          speedDisplay.textContent =
+            `${Math.max(0.01, 1 - progress * 0.99).toFixed(2)}×`;
+
+          $(".en102-coordinate-left").textContent =
+            `T+ ${String(Math.floor(progress * 99)).padStart(2, "0")}:00:00`;
+        }
+      }
+    });
+
+    timeline
+      // 1. Time starts slowing down.
+      .to(intro, {
+        scale: 0.78,
+        opacity: 0.35,
+        filter: "blur(3px)",
+        duration: 1
+      }, 0)
+
+      .to(clock, {
+        scale: 1.2,
+        duration: 1.3
+      }, 0)
+
+      .to(orbits, {
+        scale: 0.85,
+        duration: 1.2
+      }, 0)
+
+      .to(hourHand, {
+        rotation: "+=180",
+        duration: 1.2
+      }, 0)
+
+      .to(minuteHand, {
+        rotation: "-=270",
+        duration: 1.2
+      }, 0)
+
+      // 2. Time echoes multiply.
+      .to(echoContainer, {
+        opacity: 1,
+        duration: 0.35
+      }, 1)
+
+      .fromTo(echoes[0], {
+        scale: 0.85,
+        opacity: 0
+      }, {
+        scale: 1,
+        opacity: 1,
+        duration: 0.6
+      }, 1)
+
+      .fromTo(echoes[1], {
+        scale: 0.8,
+        x: "-50%"
+      }, {
+        scale: 1.25,
+        x: "-50%",
+        opacity: 0.65,
+        duration: 1
+      }, 1.15)
+
+      .fromTo(echoes[2], {
+        scale: 0.7,
+        x: "-50%"
+      }, {
+        scale: 1.55,
+        x: "-50%",
+        opacity: 0.35,
+        duration: 1.1
+      }, 1.25)
+
+      .fromTo(echoes[3], {
+        scale: 0.6,
+        x: "-50%"
+      }, {
+        scale: 1.9,
+        x: "-50%",
+        opacity: 0.15,
+        duration: 1.2
+      }, 1.35)
+
+      .to(intro, {
+        opacity: 0,
+        scale: 0.6,
+        filter: "blur(8px)",
+        duration: 0.7
+      }, 1.6)
+
+      .to(clock, {
+        opacity: 0.2,
+        scale: 1.5,
+        duration: 0.7
+      }, 1.6)
+
+      // 3. One second becomes forever.
+      .to(echoContainer, {
+        opacity: 0,
+        scale: 1.8,
+        duration: 0.5
+      }, 2)
+
+      .to(secondScene, {
+        opacity: 1,
+        duration: 0.7
+      }, 2.1)
+
+      .fromTo(secondScene.querySelector("h2"), {
+        scaleX: 1.8,
+        scaleY: 0.65,
+        filter: "blur(8px)"
+      }, {
+        scaleX: 1,
+        scaleY: 1,
+        filter: "blur(0px)",
+        duration: 1.2,
+        ease: "power3.out"
+      }, 2.2)
+
+      .to(clock, {
+        scale: 0.5,
+        opacity: 0,
+        duration: 0.7
+      }, 2.1)
+
+      .to(secondScene, {
+        opacity: 0,
+        scale: 0.85,
+        duration: 0.6
+      }, 3.1)
+
+      // 4. Past, present and future separate.
+      .to(splitScene, {
+        opacity: 1,
+        duration: 0.4
+      }, 3.3)
+
+      .to(dividers, {
+        height: "45%",
+        duration: 0.8,
+        stagger: 0.15
+      }, 3.35)
+
+      .to(timeColumns, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.18,
+        ease: "power3.out"
+      }, 3.5)
+
+      .to(timeColumns[0], {
+        x: -15,
+        opacity: 0.5,
+        duration: 0.7
+      }, 4.3)
+
+      .to(timeColumns[2], {
+        x: 15,
+        opacity: 0.5,
+        duration: 0.7
+      }, 4.3)
+
+      // 5. Everything freezes at 11:11:11.
+      .to(splitScene, {
+        scale: 0.8,
+        opacity: 0,
+        duration: 0.6
+      }, 4.75)
+
+      .to(freezeScene, {
+        opacity: 1,
+        duration: 0.6
+      }, 5)
+
+      .fromTo(".en102-freeze-clock", {
+        scale: 1.5,
+        letterSpacing: "0.05em",
+        filter: "blur(10px)"
+      }, {
+        scale: 1,
+        letterSpacing: "-0.08em",
+        filter: "blur(0px)",
+        duration: 0.9,
+        ease: "power3.out"
+      }, 5.1)
+
+      .to(stage, {
+        backgroundColor: "#000000",
+        duration: 0.4
+      }, 5.3)
+
+      // 6. Final statement.
+      .to(freezeScene, {
+        scale: 0.7,
+        opacity: 0,
+        duration: 0.6
+      }, 5.85)
+
+      .to(finalScene, {
+        opacity: 1,
+        y: "-50%",
+        duration: 0.9,
+        ease: "power3.out"
+      }, 6.1)
+
+      .to(finalRule, {
+        width: "min(180px, 35vw)",
+        duration: 0.7
+      }, 6.6)
+
+      .to(progressBar, {
+        scaleX: 1,
+        duration: 7,
+        ease: "none"
+      }, 0);
+
+  } else {
+    // Reduced-motion / no ScrollTrigger fallback.
+    gsap.set(intro, { clearProps: "transform,filter,opacity" });
+    gsap.set(titleLines, { clearProps: "transform,opacity" });
+    gsap.set([eyebrow, description, scrollCue], {
+      clearProps: "transform,opacity"
+    });
+    gsap.set(clock, { clearProps: "transform,opacity" });
+    gsap.set(orbits, { clearProps: "transform,opacity" });
+
+    gsap.set(finalScene, {
+      opacity: 1,
+      y: "-50%"
+    });
+
+    gsap.set(finalRule, {
+      width: "min(180px, 35vw)"
+    });
+
+    speedDisplay.textContent = "1.0×";
+  }
+
+  // Responsive canvas.
+  let resizeTimer;
+
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+
+    resizeTimer = setTimeout(() => {
+      resizeCanvas();
+
+      if (ScrollTrigger) {
+        ScrollTrigger.refresh();
+      }
+    }, 150);
+  });
+
+  // Pause background rendering when tab is hidden.
+  document.addEventListener("visibilitychange", () => {
+    visible = !document.hidden;
+
+    if (!visible && animationFrame) {
+      cancelAnimationFrame(animationFrame);
+      animationFrame = null;
+    } else if (visible && !reduceMotion && !animationFrame) {
+      animate();
+    }
+  });
+})();
+
+
+
+
 /* =========================================================
    REFRESH
 ========================================================= */
