@@ -27032,7 +27032,101 @@ SECTION 97: GRAVITY
     to { transform: translateY(4px); }
   }
 
+ @media (max-width: 600px) {
+    #en102-time .en102-header,
+    #en102-time .en102-footer {
+      font-size: 7px;
+      letter-spacing: 0.06em;
+    }
 
+    #en102-time .en102-header-center,
+    #en102-time .en102-footer-status {
+      display: none;
+    }
+
+    #en102-time .en102-stage {
+      height: 100svh;
+      min-height: 650px;
+    }
+
+    #en102-time .en102-coordinate {
+      font-size: 6px;
+    }
+
+    #en102-time .en102-title {
+      font-size: 12.5vw;
+    }
+
+    #en102-time .en102-eyebrow {
+      font-size: 7px;
+      letter-spacing: 0.1em;
+    }
+
+    #en102-time .en102-description {
+      font-size: 7px;
+    }
+
+    #en102-time .en102-clock {
+      width: 65vw;
+    }
+
+    #en102-time .en102-orbit-outer {
+      width: 105vw;
+    }
+
+    #en102-time .en102-orbit-inner {
+      width: 75vw;
+    }
+
+    #en102-time .en102-second h2 {
+      font-size: 12vw;
+    }
+
+    #en102-time .en102-time-split {
+      padding-inline: 2%;
+    }
+
+    #en102-time .en102-time-column {
+      padding: 5px;
+    }
+
+    #en102-time .en102-time-column h3 {
+      font-size: 7vw;
+    }
+
+    #en102-time .en102-time-column > span {
+      font-size: 6px;
+    }
+
+    #en102-time .en102-time-column small {
+      font-size: 5px;
+      line-height: 1.5;
+    }
+
+    #en102-time .en102-final h2 {
+      font-size: 9vw;
+    }
+
+    #en102-time .en102-final-kicker {
+      font-size: 7px;
+    }
+
+    #en102-time .en102-final p {
+      font-size: 7px;
+    }
+
+    #en102-time .en102-readout {
+      bottom: 11%;
+      font-size: 6px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #en102-time .en102-footer-status i,
+    #en102-time .en102-scroll-arrow {
+      animation: none;
+    }
+  }
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
