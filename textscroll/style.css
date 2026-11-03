@@ -26942,9 +26942,97 @@ SECTION 97: GRAVITY
     pointer-events: none;
   }
 
-  
+  #en102-time .en102-final-kicker {
+    display: block;
+    margin-bottom: 28px;
+    color: #888;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+  }
 
-  
+  #en102-time .en102-final h2 {
+    margin: 0;
+    font-size: clamp(45px, 8vw, 115px);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.085em;
+  }
+
+  #en102-time .en102-final h2 span {
+    color: transparent;
+    -webkit-text-stroke: 1px #f4f4f0;
+  }
+
+  #en102-time .en102-final-rule {
+    width: 0;
+    height: 1px;
+    margin: 35px auto 20px;
+    background: white;
+  }
+
+  #en102-time .en102-final p {
+    color: #888;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+  }
+
+  #en102-time .en102-final-index {
+    display: block;
+    margin-top: 42px;
+    color: #555;
+    font-size: 8px;
+    letter-spacing: 0.16em;
+  }
+
+  #en102-time .en102-readout {
+    position: absolute;
+    z-index: 14;
+    right: 5%;
+    bottom: 14%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #777;
+    font-size: 8px;
+    letter-spacing: 0.14em;
+  }
+
+  #en102-time .en102-speed {
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  #en102-time .en102-progress {
+    position: absolute;
+    z-index: 35;
+    bottom: 65px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #ffffff12;
+  }
+
+  #en102-time .en102-progress span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: white;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  @keyframes en102-blink {
+    from { opacity: 0.25; }
+    to { opacity: 1; }
+  }
+
+  @keyframes en102-arrow {
+    from { transform: translateY(-3px); }
+    to { transform: translateY(4px); }
+  }
+
+
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
