@@ -45124,7 +45124,116 @@ SECTION 99: AFTER THE END
     opacity: 0
   });
 
+ gsap.set(clock, {
+    scale: 0.8,
+    opacity: 0
+  });
 
+  gsap.set(echoContainer, {
+    opacity: 0
+  });
+
+  gsap.set(echoes, {
+    xPercent: -50,
+    yPercent: -50
+  });
+
+  gsap.set(secondScene, {
+    opacity: 0
+  });
+
+  gsap.set(splitScene, {
+    opacity: 0
+  });
+
+  gsap.set(timeColumns, {
+    opacity: 0,
+    y: 40
+  });
+
+  gsap.set(dividers, {
+    height: 0
+  });
+
+  gsap.set(freezeScene, {
+    opacity: 0
+  });
+
+  gsap.set(finalScene, {
+    opacity: 0,
+    y: "-45%"
+  });
+
+  // Intro timeline.
+  const introTimeline = gsap.timeline({
+    defaults: { ease: "power3.out" }
+  });
+
+  introTimeline
+    .to(orbits, {
+      scale: 1,
+      opacity: 1,
+      duration: 1.4,
+      stagger: 0.1
+    }, 0)
+    .to(clock, {
+      scale: 1,
+      opacity: 0.75,
+      duration: 1.3
+    }, 0.1)
+    .to(eyebrow, {
+      y: 0,
+      opacity: 1,
+      duration: 0.7
+    }, 0.15)
+    .to(titleLines, {
+      yPercent: 0,
+      rotateX: 0,
+      opacity: 1,
+      duration: 1.1,
+      stagger: 0.15
+    }, 0.2)
+    .to(description, {
+      y: 0,
+      opacity: 1,
+      duration: 0.7
+    }, 0.8)
+    .to(scrollCue, {
+      y: 0,
+      opacity: 1,
+      duration: 0.7
+    }, 0.95);
+
+  // Clock hands and orbit animations.
+  if (!reduceMotion) {
+    gsap.to(hourHand, {
+      rotation: 360,
+      duration: 30,
+      repeat: -1,
+      ease: "none"
+    });
+
+    gsap.to(minuteHand, {
+      rotation: -360,
+      duration: 12,
+      repeat: -1,
+      ease: "none"
+    });
+
+    gsap.to(orbits[0], {
+      rotation: 360,
+      duration: 80,
+      repeat: -1,
+      ease: "none"
+    });
+
+    gsap.to(orbits[1], {
+      rotation: -360,
+      duration: 45,
+      repeat: -1,
+      ease: "none"
+    });
+  }
 
 /* =========================================================
    REFRESH
