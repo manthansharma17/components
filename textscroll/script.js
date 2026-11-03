@@ -44945,7 +44945,184 @@ SECTION 99: AFTER THE END
   });
 })();
 
+/* =========================================================
+    SECTION 102: TIME DILATION
+========================================================= */
 
+(() => {
+  const root = document.querySelector("#en102-time");
+  if (!root || !window.gsap) return;
+
+  const gsap = window.gsap;
+  const ScrollTrigger = window.ScrollTrigger;
+
+  if (ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+
+  const $ = (selector) => root.querySelector(selector);
+  const $$ = (selector) => [...root.querySelectorAll(selector)];
+
+  const stage = $(".en102-stage");
+  const canvas = $(".en102-canvas");
+  const ctx = canvas.getContext("2d");
+
+  const intro = $(".en102-intro");
+  const titleLines = $$(".en102-title > span");
+  const eyebrow = $(".en102-eyebrow");
+  const description = $(".en102-description");
+  const scrollCue = $(".en102-scroll");
+
+  const clock = $(".en102-clock");
+  const hourHand = $(".en102-hour-hand");
+  const minuteHand = $(".en102-minute-hand");
+  const clockDigits = $$(".en102-clock-digit");
+  const orbits = $$(".en102-clock-orbit");
+
+  const echoContainer = $(".en102-echo-container");
+  const echoes = $$(".en102-echo");
+
+  const secondScene = $(".en102-second");
+  const splitScene = $(".en102-time-split");
+  const timeColumns = $$(".en102-time-column");
+  const dividers = $$(".en102-time-divider");
+  const freezeScene = $(".en102-freeze");
+
+  const finalScene = $(".en102-final");
+  const finalRule = $(".en102-final-rule");
+
+  const speedDisplay = $(".en102-speed");
+  const progressBar = $(".en102-progress span");
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  let width = 0;
+  let height = 0;
+  let mouseX = 0;
+  let mouseY = 0;
+  let targetX = 0;
+  let targetY = 0;
+  let clockRotation = 0;
+  let animationFrame = null;
+  let visible = !document.hidden;
+
+  const stars = Array.from(
+    { length: window.innerWidth < 600 ? 65 : 130 },
+    () => ({
+      x: Math.random(),
+      y: Math.random(),
+      radius: Math.random() * 1.2 + 0.2,
+      opacity: Math.random() * 0.55 + 0.1,
+      phase: Math.random() * Math.PI * 2
+    })
+  );
+
+  // Canvas setup.
+  function resizeCanvas() {
+    const rect = stage.getBoundingClientRect();
+
+    width = rect.width;
+    height = rect.height;
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    drawCanvas();
+  }
+
+  function drawCanvas() {
+    if (!ctx || !width || !height) return;
+
+    ctx.clearRect(0, 0, width, height);
+
+    const centerX = width / 2 + mouseX * 20;
+    const centerY = height / 2 + mouseY * 20;
+
+    stars.forEach((star) => {
+      const dx = star.x * width - centerX;
+      const dy = star.y * height - centerY;
+
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      const distortion = Math.min(
+        1,
+        18000 / Math.max(distance * distance, 1000)
+      );
+
+      const x = star.x * width + dx * distortion * 0.015;
+      const y = star.y * height + dy * distortion * 0.015;
+
+      ctx.beginPath();
+      ctx.arc(x, y, star.radius, 0, Math.PI * 2);
+
+      ctx.fillStyle = `rgba(255,255,255,${
+        star.opacity *
+        (0.8 + Math.sin(clockRotation + star.phase) * 0.2)
+      })`;
+
+      ctx.fill();
+    });
+
+    // Subtle circular time field.
+    const gradient = ctx.createRadialGradient(
+      centerX, centerY, 20,
+      centerX, centerY, Math.min(width, height) * 0.48
+    );
+
+    gradient.addColorStop(0, "rgba(255,255,255,0.025)");
+    gradient.addColorStop(0.5, "rgba(255,255,255,0.012)");
+    gradient.addColorStop(1, "rgba(255,255,255,0)");
+
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, width, height);
+  }
+
+  resizeCanvas();
+
+  // Animate background and clock.
+  function animate() {
+    if (!visible) {
+      animationFrame = null;
+      return;
+    }
+
+    mouseX += (targetX - mouseX) * 0.06;
+    mouseY += (targetY - mouseY) * 0.06;
+
+    if (!reduceMotion) {
+      clockRotation += 0.003;
+    }
+
+    drawCanvas();
+
+    animationFrame = requestAnimationFrame(animate);
+  }
+
+  if (!reduceMotion) animate();
+
+  // Create intro states.
+  gsap.set(titleLines, {
+    yPercent: 115,
+    opacity: 0,
+    rotateX: -18,
+    transformOrigin: "center bottom"
+  });
+
+  gsap.set([eyebrow, description, scrollCue], {
+    y: 18,
+    opacity: 0
+  });
+
+  gsap.set(orbits, {
+    scale: 1.15,
+    opacity: 0
+  });
 
 
 
