@@ -26666,7 +26666,285 @@ SECTION 97: GRAVITY
     box-shadow: 0 0 12px white;
   }
 
+/* Opening typography */
 
+  #en102-time .en102-intro {
+    position: relative;
+    z-index: 9;
+    width: 100%;
+    padding-inline: 3%;
+    text-align: center;
+    will-change: transform, opacity, filter;
+  }
+
+  #en102-time .en102-eyebrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 35px;
+    color: #999;
+    font-size: 9px;
+    letter-spacing: 0.23em;
+  }
+
+  #en102-time .en102-eyebrow span {
+    width: 5px;
+    height: 5px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px white;
+  }
+
+  #en102-time .en102-title {
+    margin: 0;
+    font-size: clamp(55px, 11.5vw, 165px);
+    font-weight: 900;
+    line-height: 0.84;
+    letter-spacing: -0.09em;
+    text-transform: uppercase;
+  }
+
+  #en102-time .en102-title > span {
+    display: block;
+    white-space: nowrap;
+    will-change: transform, opacity;
+  }
+
+  #en102-time .en102-title > span + span {
+    margin-top: 0.1em;
+  }
+
+  #en102-time .en102-outline {
+    color: transparent;
+    -webkit-text-stroke: 1px #f4f4f0;
+  }
+
+  #en102-time .en102-digital-clock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 35px;
+    color: white;
+    font-size: clamp(22px, 4vw, 46px);
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  #en102-time .en102-digital-clock i {
+    color: #555;
+    font-style: normal;
+  }
+
+  #en102-time .en102-description {
+    margin: 25px 0 0;
+    color: #888;
+    font-size: 9px;
+    line-height: 1.9;
+    letter-spacing: 0.18em;
+  }
+
+  #en102-time .en102-scroll {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 13px;
+    margin-top: 35px;
+    color: #888;
+    font-size: 8px;
+    letter-spacing: 0.17em;
+  }
+
+  #en102-time .en102-scroll-arrow {
+    color: white;
+    font-size: 17px;
+    animation: en102-arrow 1.2s infinite alternate;
+  }
+
+  /* Time echoes */
+
+  #en102-time .en102-echo-container {
+    position: absolute;
+    z-index: 8;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #en102-time .en102-echo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    font-size: clamp(48px, 11vw, 150px);
+    font-weight: 900;
+    letter-spacing: -0.08em;
+    white-space: nowrap;
+    transform: translate(-50%, -50%);
+  }
+
+  #en102-time .en102-echo:nth-child(1) {
+    color: #fff;
+  }
+
+  #en102-time .en102-echo:nth-child(2) {
+    color: transparent;
+    -webkit-text-stroke: 1px #ffffff95;
+  }
+
+  #en102-time .en102-echo:nth-child(3) {
+    color: transparent;
+    -webkit-text-stroke: 1px #ffffff50;
+  }
+
+  #en102-time .en102-echo:nth-child(4) {
+    color: transparent;
+    -webkit-text-stroke: 1px #ffffff20;
+  }
+
+  /* One second */
+
+  #en102-time .en102-second {
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  #en102-time .en102-second-small {
+    display: block;
+    margin-bottom: 28px;
+    color: #888;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+  }
+
+  #en102-time .en102-second h2 {
+    margin: 0;
+    font-size: clamp(60px, 12vw, 165px);
+    font-weight: 900;
+    line-height: 0.83;
+    letter-spacing: -0.09em;
+  }
+
+  #en102-time .en102-second h2 span {
+    color: transparent;
+    -webkit-text-stroke: 1px white;
+  }
+
+  #en102-time .en102-second-counter {
+    margin-top: 38px;
+    color: #888;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+  }
+
+  /* Past, present and future */
+
+  #en102-time .en102-time-split {
+    position: absolute;
+    z-index: 12;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    align-items: center;
+    padding-inline: 5%;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #en102-time .en102-time-column {
+    padding: 15px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  #en102-time .en102-time-column > span {
+    color: #888;
+    font-size: 8px;
+    letter-spacing: 0.17em;
+  }
+
+  #en102-time .en102-time-column h3 {
+    margin: 25px 0;
+    font-size: clamp(30px, 5vw, 70px);
+    font-weight: 900;
+    line-height: 0.88;
+    letter-spacing: -0.07em;
+  }
+
+  #en102-time .en102-time-column small {
+    color: #777;
+    font-size: 7px;
+    letter-spacing: 0.12em;
+  }
+
+  #en102-time .en102-time-divider {
+    width: 1px;
+    height: 0;
+    background: #ffffff45;
+  }
+
+  /* Frozen time */
+
+  #en102-time .en102-freeze {
+    position: absolute;
+    z-index: 13;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  #en102-time .en102-freeze-label,
+  #en102-time .en102-freeze-status {
+    display: block;
+    color: #888;
+    font-size: 8px;
+    letter-spacing: 0.23em;
+  }
+
+  #en102-time .en102-freeze-clock {
+    margin: 28px 0;
+    font-size: clamp(65px, 14vw, 190px);
+    font-weight: 900;
+    letter-spacing: -0.08em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Final reveal */
+
+  #en102-time .en102-final {
+    position: absolute;
+    z-index: 16;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    padding-inline: 4%;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(calc(-50% + 35px));
+    pointer-events: none;
+  }
+
+  
+
+  
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
