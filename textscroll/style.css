@@ -26439,6 +26439,139 @@ SECTION 97: GRAVITY
     }
   }
 
+#en102-time {
+    --en102-white: #f4f4f0;
+    --en102-muted: #777;
+
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: clip;
+    isolation: isolate;
+    background: #030303;
+    color: var(--en102-white);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  #en102-time *,
+  #en102-time *::before,
+  #en102-time *::after {
+    box-sizing: border-box;
+  }
+
+  #en102-time .en102-header,
+  #en102-time .en102-footer {
+    position: absolute;
+    z-index: 30;
+    left: 0;
+    width: 100%;
+    padding-inline: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    color: #777;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+  }
+
+  #en102-time .en102-header {
+    top: 0;
+    height: 72px;
+    border-bottom: 1px solid #ffffff15;
+  }
+
+  #en102-time .en102-header-center {
+    color: #aaa;
+  }
+
+  #en102-time .en102-footer {
+    bottom: 0;
+    height: 65px;
+    border-top: 1px solid #ffffff15;
+  }
+
+  #en102-time .en102-footer-status {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+
+  #en102-time .en102-footer-status i {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 0 10px white;
+    animation: en102-blink 1.5s infinite alternate;
+  }
+
+  #en102-time .en102-stage {
+    position: relative;
+    height: 100vh;
+    min-height: 700px;
+    max-height: 1100px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background:
+      radial-gradient(
+        ellipse at center,
+        #111 0%,
+        #070707 38%,
+        #030303 80%
+      );
+  }
+
+  #en102-time .en102-canvas {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  #en102-time .en102-noise {
+    position: absolute;
+    z-index: 22;
+    inset: 0;
+    opacity: 0.09;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E");
+  }
+
+  #en102-time .en102-vignette {
+    position: absolute;
+    z-index: 21;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse,
+      transparent 15%,
+      #000 100%
+    );
+  }
+
+  #en102-time .en102-coordinate {
+    position: absolute;
+    z-index: 5;
+    top: 15%;
+    color: #666;
+    font-size: 8px;
+    letter-spacing: 0.15em;
+  }
+
+  #en102-time .en102-coordinate-left {
+    left: 5%;
+  }
+
+  #en102-time .en102-coordinate-right {
+    right: 5%;
+  }
+
+
+
 
 /* =========================================================
    REDUCED MOTION
