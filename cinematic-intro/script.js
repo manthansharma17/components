@@ -238,3 +238,105 @@ function startScrollAnimations() {
   });
 
   heroScrollTL
+  // Main heading expands and fades.
+    .to(".hero-title", {
+      scale: 1.6,
+      yPercent: -35,
+      autoAlpha: 0,
+      ease: "none"
+    }, 0)
+
+    // Chrome object zooms toward the viewer.
+    .to(".orb-scene", {
+      scale: 2.8,
+      rotation: 25,
+      autoAlpha: 0,
+      ease: "none"
+    }, 0)
+
+    // Navigation moves upward.
+    .to(".navbar", {
+      y: -80,
+      autoAlpha: 0,
+      ease: "none"
+    }, 0)
+
+    // Metadata disappears.
+    .to(".hero-meta", {
+      y: -40,
+      autoAlpha: 0,
+      ease: "none"
+    }, 0)
+
+    // Description moves downward.
+    .to(".hero-description", {
+      y: 70,
+      autoAlpha: 0,
+      ease: "none"
+    }, 0)
+
+    // Footer disappears.
+    .to(".hero-bottom", {
+      y: 40,
+      autoAlpha: 0,
+      ease: "none"
+    }, 0)
+
+    // Background gets brighter.
+    .to(".hero-bg", {
+      scale: 1.3,
+      opacity: 0.4,
+      ease: "none"
+    }, 0);
+
+
+/* =========================================
+   07. SECOND SECTION REVEAL
+========================================= */
+
+  const nextSectionTL = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".next-section",
+      start: "top 75%",
+      end: "center 45%",
+      scrub: 1
+    }
+  });
+
+  nextSectionTL
+
+    .to(".next-label", {
+      autoAlpha: 1,
+      y: 0,
+      duration: 1
+    })
+
+    .to(".next-line", {
+      yPercent: 0,
+      stagger: 0.15,
+      duration: 1.5,
+      ease: "power3.out"
+    }, "-=0.5")
+
+    .to(".next-content p", {
+      autoAlpha: 1,
+      y: 0,
+      duration: 1
+    }, "-=0.5")
+
+    .to(".discover-link", {
+      autoAlpha: 1,
+      y: 0,
+      duration: 1
+    }, "-=0.6");
+
+}
+
+
+/* =========================================
+   08. RESIZE REFRESH
+========================================= */
+
+window.addEventListener("resize", () => {
+  ScrollTrigger.refresh();
+});
