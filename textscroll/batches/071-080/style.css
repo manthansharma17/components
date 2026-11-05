@@ -1,0 +1,3388 @@
+/* Animations 071-080. Global styles live in ../../shared/base.css */
+
+/* =========================================================
+   SECTION 71 — EROSION
+========================================================= */
+
+.section-seventy-one {
+  position: relative;
+
+  width: 100%;
+  height: 100dvh;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      #111 0%,
+      #070707 42%,
+      #000 100%
+    );
+
+  color: #fff;
+}
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.ero71-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  cursor: crosshair;
+}
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.ero71-grid {
+  position: absolute;
+
+  inset: -10%;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.028) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.028) 1px,
+      transparent 1px
+    );
+
+  background-size: 85px 85px;
+
+  opacity: .55;
+
+  mask-image:
+    radial-gradient(
+      circle at center,
+      black 0%,
+      rgba(0,0,0,.7) 45%,
+      transparent 82%
+    );
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.ero71-header {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 9px;
+
+  letter-spacing: .28em;
+
+  opacity: .38;
+
+  z-index: 20;
+}
+
+/* =========================================================
+   SCENE
+========================================================= */
+
+.ero71-scene {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================================================
+   CANVAS
+========================================================= */
+
+.ero71-canvas {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 5;
+
+  pointer-events: none;
+}
+/* =========================================================
+   GHOST TYPOGRAPHY
+========================================================= */
+
+.ero71-ghost {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size:
+    clamp(
+      5rem,
+      19vw,
+      21rem
+    );
+
+  font-weight: 900;
+
+  line-height: .75;
+
+  letter-spacing: -.1em;
+
+  white-space: nowrap;
+
+  color: #fff;
+
+  opacity: .035;
+
+  user-select: none;
+
+  pointer-events: none;
+
+  z-index: 2;
+}
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.ero71-cursor {
+  position: fixed;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 50;
+
+  mix-blend-mode: difference;
+}
+
+.ero71-ring {
+  position: fixed;
+
+  width: 55px;
+  height: 55px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.4);
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 49;
+
+  mix-blend-mode: difference;
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.ero71-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform:
+    translateX(-50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .32em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 20;
+}
+/* =========================================================
+   COUNTER
+========================================================= */
+
+.ero71-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .16em;
+
+  opacity: .22;
+
+  z-index: 20;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .ero71-header {
+    top: 22px;
+
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .ero71-grid {
+    background-size: 50px 50px;
+  }
+
+  .ero71-ghost {
+    font-size:
+      clamp(
+        3.2rem,
+        18vw,
+        8rem
+      );
+  }
+
+  .ero71-cursor,
+  .ero71-ring {
+    display: none;
+  }
+
+  .ero71-status {
+    bottom: 22px;
+  }
+
+  .ero71-counter {
+    right: 20px;
+    bottom: 22px;
+
+    font-size: 7px;
+  }
+}
+/* =========================================================
+   SECTION 72 — VAPORIZE
+========================================================= */
+
+.section-seventy-two {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 48%,
+      #171717 0%,
+      #080808 45%,
+      #000 100%
+    );
+
+  color: #fff;
+}
+
+.vap72-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  cursor: crosshair;
+}
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.vap72-grid {
+  position: absolute;
+  inset: -10%;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    );
+
+  background-size: 85px 85px;
+
+  opacity: .5;
+
+  mask-image:
+    radial-gradient(
+      circle at center,
+      #000 0%,
+      rgba(0,0,0,.7) 42%,
+      transparent 82%
+    );
+
+  pointer-events: none;
+
+  will-change: transform;
+}
+/* =========================================================
+   HEADER
+========================================================= */
+
+.vap72-header {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 9px;
+
+  letter-spacing: .28em;
+
+  opacity: .35;
+
+  z-index: 20;
+}
+
+/* =========================================================
+   SCENE
+========================================================= */
+
+.vap72-scene {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================================================
+   CANVAS
+========================================================= */
+
+.vap72-canvas {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 5;
+
+  pointer-events: none;
+}
+/* =========================================================
+   GHOST TYPE
+========================================================= */
+
+.vap72-ghost {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size:
+    clamp(
+      4.5rem,
+      18vw,
+      20rem
+    );
+
+  font-weight: 900;
+
+  line-height: .75;
+
+  letter-spacing: -.105em;
+
+  white-space: nowrap;
+
+  color: #fff;
+
+  opacity: .035;
+
+  pointer-events: none;
+  user-select: none;
+
+  z-index: 2;
+}
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.vap72-cursor {
+  position: fixed;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 50;
+
+  mix-blend-mode: difference;
+}
+
+.vap72-ring {
+  position: fixed;
+
+  width: 60px;
+  height: 60px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.4);
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 49;
+
+  mix-blend-mode: difference;
+}
+/* =========================================================
+   STATUS
+========================================================= */
+
+.vap72-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform:
+    translateX(-50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .32em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 20;
+}
+
+/* =========================================================
+   COUNTER
+========================================================= */
+
+.vap72-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .16em;
+
+  opacity: .22;
+
+  z-index: 20;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .vap72-header {
+    top: 22px;
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .vap72-grid {
+    background-size: 50px 50px;
+  }
+
+  .vap72-ghost {
+    font-size:
+      clamp(
+        3.2rem,
+        18vw,
+        8rem
+      );
+  }
+
+  .vap72-cursor,
+  .vap72-ring {
+    display: none;
+  }
+
+  .vap72-status {
+    bottom: 22px;
+  }
+
+  .vap72-counter {
+    right: 20px;
+    bottom: 22px;
+  }
+}
+/* =========================================================
+   SECTION 73 — LIQUEFY
+========================================================= */
+
+.section-seventy-three {
+  position: relative;
+
+  width: 100%;
+  height: 100dvh;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      #151515 0%,
+      #080808 45%,
+      #000 100%
+    );
+
+  color: #fff;
+}
+
+.liq73-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  cursor: crosshair;
+}
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.liq73-grid {
+  position: absolute;
+
+  inset: -12%;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    );
+
+  background-size: 80px 80px;
+
+  opacity: .5;
+
+  mask-image:
+    radial-gradient(
+      circle at center,
+      #000 0%,
+      rgba(0,0,0,.7) 42%,
+      transparent 82%
+    );
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.liq73-header {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 9px;
+
+  letter-spacing: .28em;
+
+  opacity: .35;
+
+  z-index: 20;
+}
+
+/* =========================================================
+   SCENE
+========================================================= */
+
+.liq73-scene {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================================================
+   CANVAS
+========================================================= */
+
+.liq73-canvas {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 5;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   GHOST TYPE
+========================================================= */
+
+.liq73-ghost {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size:
+    clamp(
+      4.5rem,
+      18vw,
+      20rem
+    );
+
+  font-weight: 900;
+
+  line-height: .75;
+
+  letter-spacing: -.105em;
+
+  white-space: nowrap;
+
+  color: #fff;
+
+  opacity: .035;
+
+  pointer-events: none;
+  user-select: none;
+
+  z-index: 2;
+}
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.liq73-cursor {
+  position: fixed;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 50;
+
+  mix-blend-mode: difference;
+}
+
+.liq73-ring {
+  position: fixed;
+
+  width: 64px;
+  height: 64px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.4);
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 49;
+
+  mix-blend-mode: difference;
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.liq73-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform:
+    translateX(-50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .32em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 20;
+}
+
+/* =========================================================
+   COUNTER
+========================================================= */
+
+.liq73-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .16em;
+
+  opacity: .22;
+
+  z-index: 20;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .liq73-header {
+    top: 22px;
+
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .liq73-grid {
+    background-size: 50px 50px;
+  }
+
+  .liq73-ghost {
+    font-size:
+      clamp(
+        3.2rem,
+        18vw,
+        8rem
+      );
+  }
+
+  .liq73-cursor,
+  .liq73-ring {
+    display: none;
+  }
+
+  .liq73-status {
+    bottom: 22px;
+  }
+
+  .liq73-counter {
+    right: 20px;
+    bottom: 22px;
+  }
+}
+/* =========================================================
+   SECTION 74 — LIQUID MIRROR
+========================================================= */
+
+.section-seventy-four {
+  position: relative;
+
+  width: 100%;
+  height: 100dvh;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 38%,
+      #171717 0%,
+      #090909 48%,
+      #000 100%
+    );
+
+  color: #fff;
+}
+
+.mir74-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  cursor: crosshair;
+}
+/* =========================================================
+   GRID
+========================================================= */
+
+.mir74-grid {
+  position: absolute;
+
+  inset: -12%;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.024) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.024) 1px,
+      transparent 1px
+    );
+
+  background-size: 85px 85px;
+
+  opacity: .5;
+
+  mask-image:
+    radial-gradient(
+      circle at center,
+      #000 0%,
+      rgba(0,0,0,.7) 42%,
+      transparent 82%
+    );
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.mir74-header {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 9px;
+
+  letter-spacing: .28em;
+
+  opacity: .35;
+
+  z-index: 30;
+}
+
+/* =========================================================
+   SCENE
+========================================================= */
+
+.mir74-scene {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  perspective: 1000px;
+}
+
+/* =========================================================
+   CANVAS
+========================================================= */
+
+.mir74-canvas {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 10;
+
+  pointer-events: none;
+}
+/* =========================================================
+   REFLECTION
+========================================================= */
+
+.mir74-reflection {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 80%;
+  height: 25%;
+
+  transform:
+    translate(-50%, 50%)
+    scaleY(-1);
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255,255,255,.09),
+      rgba(255,255,255,.025),
+      transparent
+    );
+
+  opacity: .12;
+
+  filter:
+    blur(12px);
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      #000,
+      transparent
+    );
+
+  pointer-events: none;
+
+  z-index: 4;
+}
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.mir74-cursor {
+  position: fixed;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 60;
+
+  mix-blend-mode: difference;
+}
+
+.mir74-ring {
+  position: fixed;
+
+  width: 58px;
+  height: 58px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.4);
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 59;
+
+  mix-blend-mode: difference;
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.mir74-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform:
+    translateX(-50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .32em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 30;
+}
+/* =========================================================
+   COUNTER
+========================================================= */
+
+.mir74-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .16em;
+
+  opacity: .22;
+
+  z-index: 30;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .mir74-header {
+    top: 22px;
+
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .mir74-grid {
+    background-size: 50px 50px;
+  }
+
+  .mir74-cursor,
+  .mir74-ring {
+    display: none;
+  }
+
+  .mir74-status {
+    bottom: 22px;
+  }
+
+  .mir74-counter {
+    right: 20px;
+    bottom: 22px;
+  }
+}
+/* =========================================================
+   SECTION 75 — OSCILLATE
+========================================================= */
+
+.section-seventy-five {
+  position: relative;
+
+  width: 100%;
+  height: 100dvh;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      #151515 0%,
+      #080808 45%,
+      #000 100%
+    );
+
+  color: #fff;
+}
+
+.osc75-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  cursor: crosshair;
+}
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.osc75-grid {
+  position: absolute;
+
+  inset: -12%;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    );
+
+  background-size: 85px 85px;
+
+  opacity: .5;
+
+  mask-image:
+    radial-gradient(
+      circle at center,
+      #000 0%,
+      rgba(0,0,0,.7) 42%,
+      transparent 82%
+    );
+
+  pointer-events: none;
+
+  will-change: transform;
+}
+/* =========================================================
+   HEADER
+========================================================= */
+
+.osc75-header {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 9px;
+
+  letter-spacing: .28em;
+
+  opacity: .35;
+
+  z-index: 30;
+}
+
+/* =========================================================
+   SCENE
+========================================================= */
+
+.osc75-scene {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================================================
+   CANVAS
+========================================================= */
+
+.osc75-canvas {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 8;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   GHOST TYPE
+========================================================= */
+
+.osc75-ghost {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size:
+    clamp(
+      4.5rem,
+      17vw,
+      20rem
+    );
+
+  font-weight: 900;
+
+  line-height: .75;
+
+  letter-spacing: -.105em;
+
+  white-space: nowrap;
+
+  color: #fff;
+
+  opacity: .035;
+
+  pointer-events: none;
+  user-select: none;
+
+  z-index: 2;
+}
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.osc75-cursor {
+  position: fixed;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 60;
+
+  mix-blend-mode: difference;
+}
+
+.osc75-ring {
+  position: fixed;
+
+  width: 58px;
+  height: 58px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.4);
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 59;
+
+  mix-blend-mode: difference;
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.osc75-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform:
+    translateX(-50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .32em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 30;
+}
+
+/* =========================================================
+   COUNTER
+========================================================= */
+
+.osc75-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .16em;
+
+  opacity: .22;
+
+  z-index: 30;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .osc75-header {
+    top: 22px;
+
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .osc75-grid {
+    background-size: 50px 50px;
+  }
+
+  .osc75-ghost {
+    font-size:
+      clamp(
+        3.2rem,
+        18vw,
+        8rem
+      );
+  }
+
+  .osc75-cursor,
+  .osc75-ring {
+    display: none;
+  }
+
+  .osc75-status {
+    bottom: 22px;
+  }
+
+  .osc75-counter {
+    right: 20px;
+    bottom: 22px;
+  }
+}
+/* =========================================================
+   SECTION 76 — RESONANCE
+========================================================= */
+
+.section-seventy-six {
+  position: relative;
+
+  width: 100%;
+  height: 100dvh;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 48%,
+      #161616 0%,
+      #080808 45%,
+      #000 100%
+    );
+
+  color: #fff;
+}
+
+.res76-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  cursor: crosshair;
+}
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.res76-grid {
+  position: absolute;
+
+  inset: -12%;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.024) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.024) 1px,
+      transparent 1px
+    );
+
+  background-size: 85px 85px;
+
+  opacity: .5;
+
+  mask-image:
+    radial-gradient(
+      circle at center,
+      #000 0%,
+      rgba(0,0,0,.7) 42%,
+      transparent 82%
+    );
+
+  pointer-events: none;
+
+  will-change: transform;
+}
+/* =========================================================
+   HEADER
+========================================================= */
+
+.res76-header {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 9px;
+
+  letter-spacing: .28em;
+
+  opacity: .35;
+
+  z-index: 30;
+}
+
+/* =========================================================
+   SCENE
+========================================================= */
+
+.res76-scene {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================================================
+   CANVAS
+========================================================= */
+
+.res76-canvas {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 8;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   GHOST TYPE
+========================================================= */
+
+.res76-ghost {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size:
+    clamp(
+      4.2rem,
+      17vw,
+      20rem
+    );
+
+  font-weight: 900;
+
+  line-height: .75;
+
+  letter-spacing: -.105em;
+
+  white-space: nowrap;
+
+  color: #fff;
+
+  opacity: .035;
+
+  pointer-events: none;
+  user-select: none;
+
+  z-index: 2;
+}
+
+/* =========================================================
+   ENERGY RINGS
+========================================================= */
+
+.res76-rings {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 20px;
+  height: 20px;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 3;
+}
+
+.res76-rings span {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 100%;
+  height: 100%;
+
+  border:
+    1px solid
+    rgba(255,255,255,.18);
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%, -50%)
+    scale(1);
+
+  opacity: 0;
+}
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.res76-cursor {
+  position: fixed;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 60;
+
+  mix-blend-mode: difference;
+}
+
+.res76-ring {
+  position: fixed;
+
+  width: 58px;
+  height: 58px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.4);
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 59;
+
+  mix-blend-mode: difference;
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.res76-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform:
+    translateX(-50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .32em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 30;
+}
+
+/* =========================================================
+   COUNTER
+========================================================= */
+
+.res76-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .16em;
+
+  opacity: .22;
+
+  z-index: 30;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .res76-header {
+    top: 22px;
+
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .res76-grid {
+    background-size: 50px 50px;
+  }
+
+  .res76-ghost {
+    font-size:
+      clamp(
+        3rem,
+        18vw,
+        8rem
+      );
+  }
+
+  .res76-cursor,
+  .res76-ring {
+    display: none;
+  }
+
+  .res76-status {
+    bottom: 22px;
+  }
+
+  .res76-counter {
+    right: 20px;
+    bottom: 22px;
+  }
+
+  .res76-rings {
+    display: none;
+  }
+}
+
+/* =========================================================
+   SECTION 77 — PHASE SHIFT
+========================================================= */
+
+.section-seventy-seven {
+  position: relative;
+
+  width: 100%;
+  height: 100dvh;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 48%,
+      #151515 0%,
+      #080808 46%,
+      #000 100%
+    );
+
+  color: #fff;
+}
+
+.pha77-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  cursor: crosshair;
+}
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.pha77-grid {
+  position: absolute;
+
+  inset: -12%;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.024) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.024) 1px,
+      transparent 1px
+    );
+
+  background-size: 85px 85px;
+
+  opacity: .5;
+
+  mask-image:
+    radial-gradient(
+      circle at center,
+      #000 0%,
+      rgba(0,0,0,.7) 42%,
+      transparent 82%
+    );
+
+  pointer-events: none;
+
+  will-change: transform;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.pha77-header {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 9px;
+
+  letter-spacing: .28em;
+
+  opacity: .35;
+
+  z-index: 30;
+}
+
+/* =========================================================
+   SCENE
+========================================================= */
+
+.pha77-scene {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================================================
+   CANVAS
+========================================================= */
+
+.pha77-canvas {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 8;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   GHOST TYPE
+========================================================= */
+
+.pha77-ghost {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size:
+    clamp(
+      4rem,
+      16vw,
+      19rem
+    );
+
+  font-weight: 900;
+
+  line-height: .75;
+
+  letter-spacing: -.105em;
+
+  white-space: nowrap;
+
+  color: #fff;
+
+  opacity: .035;
+
+  pointer-events: none;
+  user-select: none;
+
+  z-index: 2;
+}
+
+/* =========================================================
+   PHASE LINES
+========================================================= */
+
+.pha77-phase-lines {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 50vw;
+  max-width: 800px;
+
+  height: 1px;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 4;
+}
+
+.pha77-phase-lines span {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 100%;
+  height: 1px;
+
+  transform:
+    translate(-50%, -50%)
+    scaleX(0);
+
+  transform-origin: center;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.16),
+      transparent
+    );
+
+  opacity: 0;
+}
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.pha77-cursor {
+  position: fixed;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 60;
+
+  mix-blend-mode: difference;
+}
+
+.pha77-ring {
+  position: fixed;
+
+  width: 60px;
+  height: 60px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.4);
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 59;
+
+  mix-blend-mode: difference;
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.pha77-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform:
+    translateX(-50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .32em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 30;
+}
+
+/* =========================================================
+   COUNTER
+========================================================= */
+
+.pha77-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .16em;
+
+  opacity: .22;
+
+  z-index: 30;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .pha77-header {
+    top: 22px;
+
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .pha77-grid {
+    background-size: 50px 50px;
+  }
+
+  .pha77-ghost {
+    font-size:
+      clamp(
+        2.8rem,
+        17vw,
+        8rem
+      );
+  }
+
+  .pha77-cursor,
+  .pha77-ring {
+    display: none;
+  }
+
+  .pha77-status {
+    bottom: 22px;
+  }
+
+  .pha77-counter {
+    right: 20px;
+    bottom: 22px;
+  }
+
+  .pha77-phase-lines {
+    width: 75vw;
+  }
+}
+
+/* =========================================================
+   SECTION 78
+========================================================= */
+
+.section-seventy-eight {
+  position: relative;
+
+  width: 100%;
+  height: 100dvh;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      #161616 0%,
+      #080808 48%,
+      #000 100%
+    );
+
+  color: #fff;
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.chd78-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  cursor: crosshair;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.chd78-grid {
+  position: absolute;
+
+  inset: -15%;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    );
+
+  background-size: 80px 80px;
+
+  opacity: .45;
+
+  mask-image:
+    radial-gradient(
+      circle at center,
+      #000 0%,
+      rgba(0,0,0,.7) 42%,
+      transparent 82%
+    );
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.chd78-header {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 9px;
+
+  letter-spacing: .28em;
+
+  opacity: .35;
+
+  z-index: 20;
+}
+
+
+/* =========================================================
+   SCENE
+========================================================= */
+
+.chd78-scene {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================================================
+   CANVAS
+========================================================= */
+
+.chd78-canvas {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 8;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   GHOST TYPOGRAPHY
+========================================================= */
+
+.chd78-ghost {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size:
+    clamp(
+      3rem,
+      14vw,
+      18rem
+    );
+
+  font-weight: 900;
+
+  line-height: .78;
+
+  letter-spacing: -.11em;
+
+  white-space: nowrap;
+
+  color: #fff;
+
+  opacity: .025;
+
+  pointer-events: none;
+  user-select: none;
+
+  z-index: 2;
+}
+
+
+/* =========================================================
+   AXIS
+========================================================= */
+
+.chd78-axis {
+  position: absolute;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.08),
+      transparent
+    );
+
+  pointer-events: none;
+
+  opacity: .35;
+
+  z-index: 3;
+}
+
+.chd78-axis-x {
+  width: 65vw;
+  height: 1px;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+}
+
+.chd78-axis-y {
+  width: 1px;
+  height: 55vh;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  background:
+    linear-gradient(
+      180deg,
+      transparent,
+      rgba(255,255,255,.08),
+      transparent
+    );
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.chd78-cursor {
+  position: fixed;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 60;
+
+  mix-blend-mode: difference;
+}
+
+
+/* =========================================================
+   CURSOR RING
+========================================================= */
+
+.chd78-ring {
+  position: fixed;
+
+  width: 62px;
+  height: 62px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.35);
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 59;
+
+  mix-blend-mode: difference;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.chd78-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform:
+    translateX(-50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .32em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 20;
+}
+
+/* =========================================================
+   COUNTER
+========================================================= */
+
+.chd78-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .16em;
+
+  opacity: .22;
+
+  z-index: 20;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .chd78-header {
+    top: 22px;
+
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .chd78-grid {
+    background-size: 50px 50px;
+  }
+
+  .chd78-ghost {
+    font-size:
+      clamp(
+        2.3rem,
+        15vw,
+        8rem
+      );
+  }
+
+  .chd78-cursor,
+  .chd78-ring {
+    display: none;
+  }
+
+  .chd78-status {
+    bottom: 22px;
+  }
+
+  .chd78-counter {
+    right: 20px;
+    bottom: 22px;
+  }
+
+}
+
+/* =========================================================
+   SECTION 79 — PARALLAX DEPTH
+========================================================= */
+
+.section-seventy-nine {
+  position: relative;
+
+  width: 100%;
+  height: 100dvh;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 48%,
+      #171717 0%,
+      #080808 48%,
+      #000 100%
+    );
+
+  color: #fff;
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.prd79-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  perspective: 1200px;
+
+  cursor: crosshair;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.prd79-grid {
+  position: absolute;
+
+  inset: -15%;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    );
+
+  background-size: 85px 85px;
+
+  opacity: .4;
+
+  transform:
+    perspective(900px)
+    rotateX(2deg);
+
+  mask-image:
+    radial-gradient(
+      circle at center,
+      #000 0%,
+      rgba(0,0,0,.65) 48%,
+      transparent 84%
+    );
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.prd79-header {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 9px;
+
+  letter-spacing: .28em;
+
+  opacity: .35;
+
+  z-index: 30;
+}
+
+
+/* =========================================================
+   SCENE
+========================================================= */
+
+.prd79-scene {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transform-style: preserve-3d;
+
+  z-index: 5;
+}
+
+
+/* =========================================================
+   CANVAS
+========================================================= */
+
+.prd79-canvas {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 8;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   GHOST TYPOGRAPHY
+========================================================= */
+
+.prd79-ghost {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size:
+    clamp(
+      3rem,
+      14vw,
+      18rem
+    );
+
+  font-weight: 900;
+
+  line-height: .78;
+
+  letter-spacing: -.11em;
+
+  white-space: nowrap;
+
+  color: #fff;
+
+  opacity: .025;
+
+  pointer-events: none;
+  user-select: none;
+
+  z-index: 2;
+}
+
+
+/* =========================================================
+   DEPTH LINE
+========================================================= */
+
+.prd79-depth-line {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 60vw;
+  max-width: 900px;
+
+  height: 1px;
+
+  transform:
+    translate(-50%, -50%);
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.1),
+      transparent
+    );
+
+  opacity: .35;
+
+  z-index: 3;
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.prd79-cursor {
+  position: fixed;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 60;
+
+  mix-blend-mode: difference;
+}
+
+/* =========================================================
+   RING
+========================================================= */
+
+.prd79-ring {
+  position: fixed;
+
+  width: 64px;
+  height: 64px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.35);
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 59;
+
+  mix-blend-mode: difference;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.prd79-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform:
+    translateX(-50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .32em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 30;
+}
+
+
+/* =========================================================
+   COUNTER
+========================================================= */
+
+.prd79-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .16em;
+
+  opacity: .22;
+
+  z-index: 30;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .prd79-header {
+    top: 22px;
+
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .prd79-grid {
+    background-size: 50px 50px;
+  }
+
+  .prd79-ghost {
+    font-size:
+      clamp(
+        2.2rem,
+        15vw,
+        8rem
+      );
+  }
+
+  .prd79-cursor,
+  .prd79-ring {
+    display: none;
+  }
+
+  .prd79-status {
+    bottom: 22px;
+  }
+
+  .prd79-counter {
+    right: 20px;
+    bottom: 22px;
+  }
+
+}
+/* =========================================================
+   SECTION 80 — TIME ECHO
+========================================================= */
+
+.section-eighty {
+  position: relative;
+
+  width: 100%;
+  height: 100dvh;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 48%,
+      #151515 0%,
+      #080808 48%,
+      #000 100%
+    );
+
+  color: #fff;
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.te80-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  cursor: crosshair;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.te80-grid {
+  position: absolute;
+
+  inset: -15%;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    );
+
+  background-size: 80px 80px;
+
+  opacity: .42;
+
+  mask-image:
+    radial-gradient(
+      circle at center,
+      #000 0%,
+      rgba(0,0,0,.65) 48%,
+      transparent 84%
+    );
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.te80-header {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 9px;
+
+  letter-spacing: .28em;
+
+  opacity: .35;
+
+  z-index: 30;
+}
+
+
+/* =========================================================
+   SCENE
+========================================================= */
+
+.te80-scene {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================================================
+   CANVAS
+========================================================= */
+
+.te80-canvas {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 8;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   GHOST WORD
+========================================================= */
+
+.te80-ghost {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size:
+    clamp(
+      4rem,
+      16vw,
+      19rem
+    );
+
+  font-weight: 900;
+
+  line-height: .75;
+
+  letter-spacing: -.11em;
+
+  white-space: nowrap;
+
+  color: #fff;
+
+  opacity: .025;
+
+  pointer-events: none;
+  user-select: none;
+
+  z-index: 2;
+}
+
+
+/* =========================================================
+   SCANLINE
+========================================================= */
+
+.te80-scanline {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 70vw;
+  max-width: 1000px;
+
+  height: 1px;
+
+  transform:
+    translate(-50%, -50%);
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.1),
+      transparent
+    );
+
+  opacity: .35;
+
+  z-index: 3;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.te80-cursor {
+  position: fixed;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 60;
+
+  mix-blend-mode: difference;
+}
+
+/* =========================================================
+   RING
+========================================================= */
+
+.te80-ring {
+  position: fixed;
+
+  width: 62px;
+  height: 62px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.35);
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 59;
+
+  mix-blend-mode: difference;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.te80-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform:
+    translateX(-50%);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .32em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 30;
+}
+
+
+/* =========================================================
+   COUNTER
+========================================================= */
+
+.te80-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .16em;
+
+  opacity: .22;
+
+  z-index: 30;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .te80-header {
+    top: 22px;
+
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .te80-grid {
+    background-size: 50px 50px;
+  }
+
+  .te80-ghost {
+    font-size:
+      clamp(
+        3rem,
+        17vw,
+        8rem
+      );
+  }
+
+  .te80-cursor,
+  .te80-ring {
+    display: none;
+  }
+
+  .te80-status {
+    bottom: 22px;
+  }
+
+  .te80-counter {
+    right: 20px;
+    bottom: 22px;
+  }
+
+}

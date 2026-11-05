@@ -1,0 +1,373 @@
+/* Animations 001-010. Global styles live in ../../shared/base.css */
+
+/* =========================================================
+   SECTION 1
+========================================================= */
+
+.section-one .line-wrapper {
+    overflow: hidden;
+    padding-block: 0.08em;
+}
+
+
+.section-one .line {
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 1;
+}
+
+
+.section-one .word {
+    display: inline-block;
+
+    opacity: 0;
+
+    transform:
+        translateY(120%)
+        scale(0.6)
+        rotate(6deg);
+
+    transform-origin: center bottom;
+
+    will-change: transform, opacity;
+}
+
+
+/* =========================================================
+   SECTION 2
+========================================================= */
+
+.section-two .reveal {
+    overflow: hidden;
+    padding-block: 0.05em;
+}
+
+
+.section-two .reveal-text {
+    font-size: var(--text-xl);
+    line-height: 0.95;
+
+    transform: translateY(120%);
+
+    will-change: transform;
+}
+
+
+/* =========================================================
+   SECTION 3
+========================================================= */
+
+.section-three .chars {
+    max-width: 1200px;
+
+    font-size: clamp(3rem, 6vw, 6rem);
+    line-height: 1.1;
+}
+
+
+.section-three .char {
+    display: inline-block;
+
+    opacity: 0;
+
+    filter: blur(10px);
+
+    transform: translateY(80px);
+
+    will-change: transform, opacity, filter;
+}
+
+
+/* =========================================================
+   SECTION 4
+========================================================= */
+
+.section-four {
+    perspective: 1200px;
+}
+
+
+.section-four .flip-text {
+    max-width: 1200px;
+
+    font-size: var(--text-lg);
+    line-height: 1.05;
+}
+
+
+.section-four .flip-word {
+    display: inline-block;
+
+    opacity: 0;
+
+    transform:
+        rotateX(-90deg)
+        translateY(60px);
+
+    transform-origin: center bottom;
+
+    backface-visibility: hidden;
+
+    will-change: transform, opacity;
+}
+
+
+/* =========================================================
+   SECTION 5
+========================================================= */
+
+.section-five {
+    align-items: center;
+    overflow: hidden;
+}
+
+
+.section-five .scatter-text {
+    width: min(100%, 1200px);
+
+    font-size: var(--text-lg);
+    line-height: 1.05;
+
+    text-align: center;
+}
+
+
+.section-five .scatter-word {
+    display: inline-block;
+
+    transform-origin: center;
+
+    will-change: transform, opacity;
+}
+
+
+/* =========================================================
+   SECTION 6
+========================================================= */
+
+.section-six {
+    min-height: 150dvh;
+
+    align-items: center;
+}
+
+
+.section-six .fill-text {
+    width: min(100%, 1200px);
+
+    font-size: var(--text-lg);
+    line-height: 1.05;
+
+    text-align: center;
+}
+
+
+.section-six .fill-word {
+    display: inline-block;
+
+    color: var(--text-muted);
+
+    will-change: color;
+}
+
+
+/* =========================================================
+   SECTION 7
+========================================================= */
+
+.section-seven {
+    position: relative;
+
+    width: 100%;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: var(--bg-light);
+    color: var(--text-dark);
+}
+
+
+.section-seven .scale-text {
+    font-size: var(--text-display);
+    font-weight: 900;
+
+    line-height: 0.8;
+
+    white-space: nowrap;
+
+    transform-origin: center;
+
+    will-change: transform, opacity;
+}
+
+
+/* =========================================================
+   SECTION 8
+========================================================= */
+
+.section-eight {
+    position: relative;
+
+    width: 100%;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+
+    background: var(--bg-dark);
+}
+
+
+.section-eight .horizontal-track {
+    width: max-content;
+
+    will-change: transform;
+}
+
+
+.section-eight .horizontal-text {
+    padding-left: 100vw;
+    padding-right: 10vw;
+
+    font-size: var(--text-display);
+    font-weight: 700;
+
+    line-height: 0.9;
+
+    white-space: nowrap;
+
+    color: var(--text-light);
+}
+
+
+/* =========================================================
+   SECTION 9
+========================================================= */
+
+.section-nine {
+    position: relative;
+
+    width: 100%;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: var(--bg-darker);
+}
+
+
+.section-nine .scramble-wrapper {
+    width: min(90%, 1400px);
+
+    text-align: center;
+}
+
+
+.scramble-label {
+    margin-bottom: 2rem;
+
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+
+    opacity: 0.4;
+}
+
+
+.scramble-text {
+    font-size: clamp(3rem, 9vw, 10rem);
+    font-weight: 700;
+
+    line-height: 0.9;
+
+    letter-spacing: -0.05em;
+
+    text-transform: uppercase;
+
+    overflow-wrap: anywhere;
+
+    will-change: transform, letter-spacing;
+}
+
+
+/* =========================================================
+   SECTION 10
+========================================================= */
+
+.section-ten {
+    position: relative;
+
+    width: 100%;
+    height: 100dvh;
+
+    overflow: hidden;
+
+    background: var(--bg-light);
+    color: var(--text-dark);
+}
+
+
+.finale-stage {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+    place-items: center;
+}
+
+
+.finale-word {
+    position: absolute;
+
+    font-size: var(--text-display);
+    font-weight: 900;
+
+    line-height: 0.8;
+    letter-spacing: -0.08em;
+
+    white-space: nowrap;
+
+    transform-origin: center;
+
+    will-change: transform, opacity;
+}
+
+
+/* =========================================================
+   RESPONSIVE (sections 1, 3, 9)
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .section-one .line {
+        font-size: clamp(2.5rem, 12vw, 5rem);
+    }
+
+
+    .section-three .chars {
+        font-size: clamp(2.5rem, 10vw, 4.5rem);
+    }
+
+
+    .section-nine .scramble-wrapper {
+        width: calc(100% - 2.5rem);
+    }
+
+
+    .scramble-text {
+        font-size: clamp(2.5rem, 12vw, 6rem);
+        line-height: 0.95;
+    }
+
+}

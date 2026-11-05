@@ -1,0 +1,622 @@
+gsap.registerPlugin(ScrollTrigger);
+
+/* =========================================================
+   SECTION 1
+   WORD BOUNCE
+========================================================= */
+
+document.querySelectorAll(".section-one .line").forEach((line) => {
+  const words = line.textContent.trim().split(" ");
+
+  line.innerHTML = words
+    .map((word) => `<span class="word">${word}</span>`)
+    .join(" ");
+});
+
+const tl1 = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".section-one",
+    start: "top 80%",
+    end: "bottom 40%",
+    scrub: 1,
+  },
+});
+
+document.querySelectorAll(".section-one .line").forEach((line) => {
+  tl1.to(line.querySelectorAll(".word"), {
+    y: 0,
+    scale: 1,
+    rotation: 0,
+    opacity: 1,
+
+    duration: 1,
+
+    stagger: 0.15,
+
+    ease: "back.out(2)",
+  });
+});
+
+/* =========================================================
+   SECTION 2
+   MASK REVEAL
+========================================================= */
+
+const tl2 = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".section-two",
+    start: "top 80%",
+    end: "bottom 40%",
+    scrub: 1,
+  },
+});
+
+tl2.to(".section-two .reveal-text", {
+  y: 0,
+
+  stagger: 0.3,
+
+  duration: 1,
+
+  ease: "power4.out",
+});
+
+/* =========================================================
+   SECTION 3
+   CHARACTER BLUR
+========================================================= */
+
+const heading = document.querySelector(".section-three .chars");
+
+const headingText = heading.textContent.trim();
+
+heading.innerHTML = "";
+
+headingText.split("").forEach((letter) => {
+  if (letter === " ") {
+    heading.appendChild(document.createTextNode(" "));
+
+    return;
+  }
+
+  const span = document.createElement("span");
+
+  span.className = "char";
+  span.textContent = letter;
+
+  heading.appendChild(span);
+});
+
+const tl3 = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".section-three",
+    start: "top 80%",
+    end: "bottom 40%",
+    scrub: 1,
+  },
+});
+
+tl3.to(".section-three .char", {
+  y: 0,
+
+  opacity: 1,
+
+  filter: "blur(0px)",
+
+  stagger: 0.05,
+
+  duration: 1,
+
+  ease: "power3.out",
+});
+
+/* =========================================================
+   SECTION 4
+   WORD FLIP
+========================================================= */
+
+const flip = document.querySelector(".section-four .flip-text");
+
+const flipWords = flip.textContent.trim().split(" ");
+
+flip.innerHTML = flipWords
+  .map((word) => `<span class="flip-word">${word}</span>`)
+  .join(" ");
+
+const tl4 = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".section-four",
+    start: "top 80%",
+    end: "bottom 40%",
+    scrub: 1,
+  },
+});
+
+tl4.to(".section-four .flip-word", {
+  rotationX: 0,
+
+  y: 0,
+
+  opacity: 1,
+
+  stagger: 0.15,
+
+  duration: 1,
+
+  ease: "power4.out",
+});
+
+/* =========================================================
+   SECTION 5
+   SCATTER
+========================================================= */
+
+const scatterText = document.querySelector(".section-five .scatter-text");
+
+const scatterWords = scatterText.textContent.trim().split(" ");
+
+scatterText.innerHTML = scatterWords
+  .map((word) => `<span class="scatter-word">${word}</span>`)
+  .join(" ");
+
+const words5 = scatterText.querySelectorAll(".scatter-word");
+
+gsap.set(words5, {
+  x: () => gsap.utils.random(-300, 300),
+
+  y: () => gsap.utils.random(-200, 200),
+
+  rotation: () => gsap.utils.random(-90, 90),
+
+  scale: () => gsap.utils.random(0.3, 1.8),
+
+  opacity: 0,
+});
+
+const tl5 = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".section-five",
+    start: "top 80%",
+    end: "bottom 40%",
+    scrub: 1,
+  },
+});
+
+tl5.to(words5, {
+  x: 0,
+  y: 0,
+
+  rotation: 0,
+
+  scale: 1,
+
+  opacity: 1,
+
+  stagger: {
+    each: 0.12,
+    from: "random",
+  },
+
+  duration: 1,
+
+  ease: "expo.out",
+});
+
+/* =========================================================
+   SECTION 6
+   COLOR FILL
+========================================================= */
+
+const fillText = document.querySelector(".section-six .fill-text");
+
+const fillWords = fillText.textContent.trim().split(" ");
+
+fillText.innerHTML = fillWords
+  .map((word) => `<span class="fill-word">${word}</span>`)
+  .join(" ");
+
+const words6 = fillText.querySelectorAll(".fill-word");
+
+const tl6 = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".section-six",
+    start: "top 70%",
+    end: "bottom 40%",
+    scrub: 1,
+  },
+});
+
+tl6.to(words6, {
+  color: "#fff",
+
+  stagger: 0.15,
+
+  duration: 1,
+
+  ease: "none",
+});
+
+/* =========================================================
+   SECTION 7
+   SCALE
+========================================================= */
+
+const tl7 = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".section-seven",
+    start: "top top",
+    end: "+=1800",
+
+    scrub: 1,
+
+    pin: true,
+
+    anticipatePin: 1,
+  },
+});
+
+tl7.to(".scale-text", {
+  scale: 4,
+
+  letterSpacing: "0.15em",
+
+  duration: 1,
+
+  ease: "none",
+});
+
+tl7.to(".scale-text", {
+  scale: 12,
+
+  opacity: 0,
+
+  duration: 1,
+
+  ease: "none",
+});
+
+/* =========================================================
+   SECTION 8
+   HORIZONTAL
+========================================================= */
+
+const section8 = document.querySelector(".section-eight");
+
+const track8 = document.querySelector(".horizontal-track");
+
+const getHorizontalDistance = () => {
+  return Math.max(0, track8.scrollWidth - window.innerWidth);
+};
+
+const tl8 = gsap.timeline({
+  scrollTrigger: {
+    trigger: section8,
+
+    start: "top top",
+
+    end: () => `+=${Math.max(getHorizontalDistance(), window.innerHeight)}`,
+
+    scrub: 1,
+
+    pin: true,
+
+    anticipatePin: 1,
+
+    invalidateOnRefresh: true,
+  },
+});
+
+tl8.to(track8, {
+  x: () => -getHorizontalDistance(),
+
+  duration: 1,
+
+  ease: "none",
+});
+
+/* =========================================================
+   SECTION 9
+   SCRAMBLE
+========================================================= */
+
+const section9 = document.querySelector(".section-nine");
+
+const scrambleText = document.querySelector(".scramble-text");
+
+const finalText = scrambleText.dataset.text;
+
+const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&?";
+
+function updateScramble(progress) {
+  let output = "";
+
+  for (let i = 0; i < finalText.length; i++) {
+    const originalCharacter = finalText[i];
+
+    if (originalCharacter === " ") {
+      output += " ";
+
+      continue;
+    }
+
+    const revealPoint = i / finalText.length;
+
+    if (progress >= revealPoint) {
+      output += originalCharacter;
+    } else {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+
+      output += characters[randomIndex];
+    }
+  }
+
+  scrambleText.textContent = output;
+}
+
+const scrambleProgress = {
+  value: 0,
+};
+
+const tl9 = gsap.timeline({
+  scrollTrigger: {
+    trigger: section9,
+
+    start: "top top",
+
+    end: "+=1600",
+
+    scrub: 0.5,
+
+    pin: true,
+
+    anticipatePin: 1,
+  },
+});
+
+tl9.to(scrambleProgress, {
+  value: 1,
+
+  duration: 3,
+
+  ease: "none",
+
+  onUpdate() {
+    updateScramble(scrambleProgress.value);
+  },
+});
+
+tl9.to(scrambleText, {
+  letterSpacing: "0.08em",
+
+  scale: 1.05,
+
+  duration: 1,
+
+  ease: "none",
+});
+
+tl9.to(
+  ".scramble-label",
+  {
+    opacity: 0,
+
+    y: -20,
+
+    duration: 0.5,
+
+    ease: "none",
+  },
+  "<",
+);
+
+updateScramble(0);
+
+/* =========================================================
+   SECTION 10
+========================================================= */
+
+gsap.set(".word-create", {
+  xPercent: -150,
+
+  rotation: -10,
+
+  opacity: 0,
+});
+
+gsap.set(".word-move", {
+  yPercent: 150,
+
+  scale: 0.4,
+
+  opacity: 0,
+});
+
+gsap.set(".word-inspire", {
+  xPercent: 150,
+
+  rotation: 10,
+
+  opacity: 0,
+});
+
+const tl10 = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".section-ten",
+
+    start: "top top",
+
+    end: "+=3000",
+
+    scrub: 0.6,
+
+    pin: true,
+
+    anticipatePin: 1,
+  },
+});
+
+tl10.to(".word-create", {
+  xPercent: 0,
+
+  rotation: 0,
+
+  opacity: 1,
+
+  duration: 1,
+
+  ease: "none",
+});
+
+tl10.to(".word-move", {
+  yPercent: 0,
+
+  scale: 1,
+
+  opacity: 1,
+
+  duration: 1,
+
+  ease: "none",
+});
+
+tl10.to(
+  ".word-create",
+  {
+    yPercent: -110,
+
+    scale: 0.7,
+
+    duration: 1,
+
+    ease: "none",
+  },
+  "<",
+);
+
+tl10.to(".word-inspire", {
+  xPercent: 0,
+
+  rotation: 0,
+
+  opacity: 1,
+
+  duration: 1,
+
+  ease: "none",
+});
+
+tl10.to(
+  ".word-move",
+  {
+    yPercent: -110,
+
+    scale: 0.7,
+
+    duration: 1,
+
+    ease: "none",
+  },
+  "<",
+);
+
+tl10.to(
+  ".word-create",
+  {
+    yPercent: -220,
+
+    scale: 0.45,
+
+    opacity: 0.5,
+
+    duration: 1,
+
+    ease: "none",
+  },
+  "<",
+);
+
+tl10.to(".finale-word", {
+  xPercent: 0,
+
+  yPercent: 0,
+
+  scale: 1,
+
+  rotation: 0,
+
+  opacity: 1,
+
+  duration: 1.2,
+
+  ease: "none",
+});
+
+tl10.to(
+  {},
+  {
+    duration: 0.5,
+  },
+);
+
+tl10.to(".word-create", {
+  xPercent: -170,
+
+  yPercent: -120,
+
+  rotation: -25,
+
+  scale: 2,
+
+  opacity: 0,
+
+  duration: 1.5,
+
+  ease: "none",
+});
+
+tl10.to(
+  ".word-move",
+  {
+    yPercent: 180,
+
+    rotation: 20,
+
+    scale: 3,
+
+    opacity: 0,
+
+    duration: 1.5,
+
+    ease: "none",
+  },
+  "<",
+);
+
+tl10.to(
+  ".word-inspire",
+  {
+    xPercent: 170,
+
+    yPercent: -80,
+
+    rotation: 25,
+
+    scale: 2,
+
+    opacity: 0,
+
+    duration: 1.5,
+
+    ease: "none",
+  },
+  "<",
+);
+
+
+/* =========================================================
+   REFRESH
+========================================================= */
+
+window.addEventListener("load", () => {
+  ScrollTrigger.refresh();
+});

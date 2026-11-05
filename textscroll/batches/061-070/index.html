@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Text Scroll Animations 061-070</title>
+
+    <link rel="stylesheet" href="../../shared/base.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- GSAP bundled locally (works offline / without CDN) -->
+    <script src="../../vendor/gsap.min.js"></script>
+    <script src="../../vendor/ScrollTrigger.min.js"></script>
+</head>
+
+<body>
+
+<nav class="ts-nav" aria-label="Batch navigation">
+    <a href="../../index.html">All batches</a>
+    <a href="../051-060/index.html">&larr; 051-060</a>
+    <a href="../071-080/index.html">071-080 &rarr;</a>
+</nav>
+
+<!-- BATCH INTRO -->
+<section class="hero ts-hero">
+    <div class="ts-hero-inner">
+        <p class="ts-kicker">Batch 7 / 11</p>
+        <h1>Animations 061&ndash;070</h1>
+        <ol class="ts-list">
+      <li><span>061</span>Typography Pulse</li>
+      <li><span>062</span>Typography Magnet</li>
+      <li><span>063</span>Typography Echo</li>
+      <li><span>064</span>Typography Freeze</li>
+      <li><span>065</span>Typography Void</li>
+      <li><span>066</span>Typography Ripple</li>
+      <li><span>067</span>Typography Afterimage</li>
+      <li><span>068</span>Typography Prism</li>
+      <li><span>069</span>Typography Fracture</li>
+      <li><span>070</span>Typography Disintegrate</li>
+        </ol>
+        <p class="ts-scroll">Scroll down &darr;</p>
+    </div>
+</section>
+
+
+<!-- =====================================================
+     SECTION 61 — TYPOGRAPHY PULSE
+===================================================== -->
+
+<section class="section-sixty-one">
+
+    <div
+        class="pulse61-stage"
+        id="pulse61Stage"
+    >
+
+        <!-- AMBIENT GLOW -->
+        <div
+            class="pulse61-glow"
+            id="pulse61Glow"
+        ></div>
+
+        <!-- RADIAL WAVES -->
+        <div
+            class="pulse61-waves"
+            id="pulse61Waves"
+        ></div>
+
+        <!-- TOP LABEL -->
+        <p class="pulse61-label">
+            EVERYTHING HAS A RHYTHM
+        </p>
+
+        <!-- MAIN SCENE -->
+        <div
+            class="pulse61-scene"
+            id="pulse61Scene"
+        >
+
+            <!-- GHOST WORDS -->
+            <div
+                class="pulse61-ghost pulse61-ghost-1"
+                id="pulse61Ghost1"
+            >
+                PULSE
+            </div>
+
+            <div
+                class="pulse61-ghost pulse61-ghost-2"
+                id="pulse61Ghost2"
+            >
+                PULSE
+            </div>
+
+            <!-- MAIN WORD -->
+            <div
+                class="pulse61-word"
+                id="pulse61Word"
+            >
+                PULSE
+            </div>
+
+        </div>
+
+        <!-- BEAT INDICATOR -->
+        <div
+            class="pulse61-beat"
+            id="pulse61Beat"
+        ></div>
+
+        <!-- CURSOR -->
+        <div
+            class="pulse61-cursor"
+            id="pulse61Cursor"
+        ></div>
+
+        <!-- CURSOR RING -->
+        <div
+            class="pulse61-ring"
+            id="pulse61Ring"
+        ></div>
+
+        <!-- CLICK IMPACT -->
+        <div
+            class="pulse61-impact"
+            id="pulse61Impact"
+        ></div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     SECTION 62 — TYPOGRAPHY MAGNET
+===================================================== -->
+
+<section class="section-sixty-two">
+
+    <div
+        class="magnet62-stage"
+        id="magnet62Stage"
+    >
+
+        <!-- AMBIENT FIELD -->
+        <div
+            class="magnet62-field"
+            id="magnet62Field"
+        ></div>
+
+        <!-- MAGNETIC LINES -->
+        <div
+            class="magnet62-lines"
+            id="magnet62Lines"
+        ></div>
+
+        <!-- LABEL -->
+        <p class="magnet62-label">
+            EVERYTHING IS ATTRACTED TO SOMETHING
+        </p>
+
+        <!-- WORD -->
+        <div
+            class="magnet62-word"
+            id="magnet62Word"
+        >
+
+            <span class="magnet62-letter">M</span>
+            <span class="magnet62-letter">A</span>
+            <span class="magnet62-letter">G</span>
+            <span class="magnet62-letter">N</span>
+            <span class="magnet62-letter">E</span>
+            <span class="magnet62-letter">T</span>
+
+        </div>
+
+        <!-- CURSOR -->
+        <div
+            class="magnet62-cursor"
+            id="magnet62Cursor"
+        ></div>
+
+        <!-- CURSOR RING -->
+        <div
+            class="magnet62-ring"
+            id="magnet62Ring"
+        ></div>
+
+        <!-- VORTEX -->
+        <div
+            class="magnet62-vortex"
+            id="magnet62Vortex"
+        ></div>
+
+        <!-- IMPACT -->
+        <div
+            class="magnet62-impact"
+            id="magnet62Impact"
+        ></div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     SECTION 63 — TYPOGRAPHY ECHO
+===================================================== -->
+<section class="section-sixty-three">
+  <div class="echo63-stage" id="echo63Stage">
+
+    <div class="echo63-grid" id="echo63Grid"></div>
+
+    <p class="echo63-label">EVERY MOMENT LEAVES A TRACE</p>
+
+    <div class="echo63-scene" id="echo63Scene">
+      <div class="echo63-echoes" id="echo63Echoes"></div>
+      <div class="echo63-word" id="echo63Word">ECHO</div>
+    </div>
+
+    <div class="echo63-cursor" id="echo63Cursor"></div>
+    <div class="echo63-ring" id="echo63Ring"></div>
+
+    <div class="echo63-impact" id="echo63Impact"></div>
+
+    <div class="echo63-hint">
+      MOVE <span>•</span> CLICK
+    </div>
+
+  </div>
+</section>
+
+<!-- =====================================================
+     SECTION 64 — TYPOGRAPHY FREEZE
+===================================================== -->
+<section class="section-sixty-four">
+  <div class="freeze64-stage" id="freeze64Stage">
+
+    <div class="freeze64-grid"></div>
+
+    <div class="freeze64-top">
+      <span>64 / TEMPORAL TYPOGRAPHY</span>
+      <span>TIME DISTORTION</span>
+    </div>
+
+    <div class="freeze64-scene" id="freeze64Scene">
+
+      <div class="freeze64-slices" id="freeze64Slices"></div>
+
+      <div class="freeze64-word" id="freeze64Word">
+        TIME
+      </div>
+
+    </div>
+
+    <div class="freeze64-cursor" id="freeze64Cursor"></div>
+    <div class="freeze64-ring" id="freeze64Ring"></div>
+
+    <div class="freeze64-status" id="freeze64Status">
+      MOVE TO DISTORT
+    </div>
+
+  </div>
+</section>
+
+<!-- =====================================================
+     SECTION 65 — TYPOGRAPHY VOID
+===================================================== -->
+<section class="section-sixty-five">
+  <div class="void65-stage" id="void65Stage">
+
+    <div class="void65-grid"></div>
+
+    <div class="void65-noise"></div>
+
+    <div class="void65-header">
+      <span>65 / SPATIAL TYPOGRAPHY</span>
+      <span>GRAVITY / 01</span>
+    </div>
+
+    <div class="void65-scene" id="void65Scene">
+
+      <div class="void65-orbits" id="void65Orbits"></div>
+
+      <div class="void65-word" id="void65Word">
+        VOID
+      </div>
+
+      <div class="void65-distortion" id="void65Distortion">
+        VOID
+      </div>
+
+    </div>
+
+    <div class="void65-cursor" id="void65Cursor"></div>
+    <div class="void65-cursor-ring" id="void65CursorRing"></div>
+
+    <div class="void65-status" id="void65Status">
+      ENTER THE VOID
+    </div>
+
+    <div class="void65-coordinates" id="void65Coordinates">
+      X 000 / Y 000
+    </div>
+
+  </div>
+</section>
+
+<!--typography ripple -->
+<section class="section-sixty-six">
+  <div class="ripple66-stage" id="ripple66Stage">
+
+    <div class="ripple66-grid"></div>
+
+    <div class="ripple66-header">
+      <span>66 / FLUID TYPOGRAPHY</span>
+      <span>RIPPLE / 01</span>
+    </div>
+
+    <div class="ripple66-scene" id="ripple66Scene">
+
+      <div class="ripple66-rings" id="ripple66Rings"></div>
+
+      <div class="ripple66-word" id="ripple66Word">
+        <span>R</span>
+        <span>I</span>
+        <span>P</span>
+        <span>P</span>
+        <span>L</span>
+        <span>E</span>
+      </div>
+
+    </div>
+
+    <div class="ripple66-cursor" id="ripple66Cursor"></div>
+
+    <div class="ripple66-status" id="ripple66Status">
+      MOVE TO CREATE WAVES
+    </div>
+
+    <div class="ripple66-coordinates" id="ripple66Coordinates">
+      000 / 000
+    </div>
+
+  </div>
+</section>
+
+<!---- ==========Typography: AFTERIMAGE============= -->
+<section class="section-sixty-seven">
+  <div class="after67-stage" id="after67Stage">
+
+    <div class="after67-grid"></div>
+
+    <div class="after67-header">
+      <span>67 / TEMPORAL TYPOGRAPHY</span>
+      <span>AFTERIMAGE / 01</span>
+    </div>
+
+    <div class="after67-scene">
+
+      <div class="after67-trail" id="after67Trail"></div>
+
+      <div class="after67-word" id="after67Word">
+        AFTERIMAGE
+      </div>
+
+      <div class="after67-flash" id="after67Flash"></div>
+
+    </div>
+
+    <div class="after67-cursor" id="after67Cursor"></div>
+    <div class="after67-ring" id="after67Ring"></div>
+
+    <div class="after67-status" id="after67Status">
+      MOVE TO EXPOSE
+    </div>
+
+    <div class="after67-counter" id="after67Counter">
+      000 EXPOSURES
+    </div>
+
+  </div>
+</section>
+<!-- Section 68 Spectral Typography-->
+
+<section class="section-sixty-eight">
+  <div class="prism68-stage" id="prism68Stage">
+
+    <div class="prism68-grid"></div>
+
+    <div class="prism68-header">
+      <span>68 / SPECTRAL TYPOGRAPHY</span>
+      <span>PRISM / 01</span>
+    </div>
+
+    <div class="prism68-scene" id="prism68Scene">
+
+      <div class="prism68-prisms" id="prism68Prisms"></div>
+
+      <div class="prism68-word prism68-red" id="prism68Red">
+        PRISM
+      </div>
+
+      <div class="prism68-word prism68-green" id="prism68Green">
+        PRISM
+      </div>
+
+      <div class="prism68-word prism68-blue" id="prism68Blue">
+        PRISM
+      </div>
+
+      <div class="prism68-word prism68-main" id="prism68Main">
+        PRISM
+      </div>
+
+    </div>
+
+    <div class="prism68-flare" id="prism68Flare"></div>
+
+    <div class="prism68-cursor" id="prism68Cursor"></div>
+    <div class="prism68-ring" id="prism68Ring"></div>
+
+    <div class="prism68-status" id="prism68Status">
+      MOVE TO REFRACT
+    </div>
+
+    <div class="prism68-coordinates" id="prism68Coordinates">
+      R 000 / G 000 / B 000
+    </div>
+
+  </div>
+</section>
+
+
+<!-- Section 69 Fracture Typography-->
+<section class="section-sixty-nine">
+  <div class="fracture69-stage" id="fracture69Stage">
+
+    <div class="fracture69-grid"></div>
+
+    <div class="fracture69-header">
+      <span>69 / DECONSTRUCTED TYPOGRAPHY</span>
+      <span>FRACTURE / 01</span>
+    </div>
+
+    <div class="fracture69-scene" id="fracture69Scene">
+
+      <div class="fracture69-shards" id="fracture69Shards"></div>
+
+      <div class="fracture69-word" id="fracture69Word">
+        FRACTURE
+      </div>
+
+    </div>
+
+    <div class="fracture69-cursor" id="fracture69Cursor"></div>
+    <div class="fracture69-ring" id="fracture69Ring"></div>
+
+    <div class="fracture69-status" id="fracture69Status">
+      MOVE TO FRACTURE
+    </div>
+
+    <div class="fracture69-counter" id="fracture69Counter">
+      000 / 000
+    </div>
+
+  </div>
+</section>
+
+<!-- Section 70 Typography Dis-integration-->
+ <section class="section-seventy">
+  <div class="dis70-stage" id="dis70Stage">
+
+    <div class="dis70-grid"></div>
+
+    <div class="dis70-header">
+      <span>70 / PARTICLE TYPOGRAPHY</span>
+      <span>DISINTEGRATE / 01</span>
+    </div>
+
+    <div class="dis70-scene" id="dis70Scene">
+
+      <canvas
+        class="dis70-canvas"
+        id="dis70Canvas"
+      ></canvas>
+
+      <div class="dis70-word" id="dis70Word">
+        DISINTEGRATE
+      </div>
+
+    </div>
+
+    <div class="dis70-cursor" id="dis70Cursor"></div>
+    <div class="dis70-ring" id="dis70Ring"></div>
+
+    <div class="dis70-status" id="dis70Status">
+      MOVE TO DISINTEGRATE
+    </div>
+
+    <div class="dis70-counter" id="dis70Counter">
+      00000 PARTICLES
+    </div>
+
+  </div>
+</section>
+
+<footer class="ts-footer">
+    <p>End of animations 061&ndash;070</p>
+    <div class="ts-footer-links">
+        <a href="../../index.html">All batches</a>
+        <a href="../051-060/index.html">&larr; 051-060</a>
+        <a href="../071-080/index.html">071-080 &rarr;</a>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>

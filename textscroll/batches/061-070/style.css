@@ -1,0 +1,3713 @@
+/* Animations 061-070. Global styles live in ../../shared/base.css */
+
+/* =========================================================
+   SECTION 61 — TYPOGRAPHY PULSE
+========================================================= */
+
+.section-sixty-one {
+
+    width: 100%;
+    height: 100dvh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #030303;
+
+    color: #fff;
+
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.pulse61-stage {
+
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    cursor: none;
+
+    perspective: 1400px;
+
+}
+
+
+/* =========================================================
+   AMBIENT GLOW
+========================================================= */
+
+.pulse61-glow {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 500px;
+    height: 500px;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.8);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.08),
+            rgba(255,255,255,.025) 35%,
+            transparent 70%
+        );
+
+    filter: blur(30px);
+
+    opacity: .3;
+
+    pointer-events: none;
+
+    z-index: 1;
+
+    will-change:
+        transform,
+        opacity;
+
+}
+
+
+/* =========================================================
+   WAVES
+========================================================= */
+
+.pulse61-waves {
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 2;
+
+}
+
+
+/* =========================================================
+   RADIAL WAVE
+========================================================= */
+
+.pulse61-wave {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 80px;
+    height: 80px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.16);
+
+    transform:
+        translate(-50%, -50%)
+        scale(.2);
+
+    opacity: 0;
+
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.pulse61-label {
+
+    position: absolute;
+
+    top: 11%;
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    margin: 0;
+
+    font-size: .6rem;
+
+    letter-spacing: .4em;
+
+    white-space: nowrap;
+
+    color:
+        rgba(255,255,255,.3);
+
+    z-index: 30;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   SCENE
+========================================================= */
+
+.pulse61-scene {
+
+    position: relative;
+
+    width: 100vw;
+    height: 380px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    transform-style: preserve-3d;
+
+    z-index: 10;
+
+}
+
+
+/* =========================================================
+   WORD
+========================================================= */
+
+.pulse61-word,
+.pulse61-ghost {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    font-size:
+        clamp(
+            6rem,
+            21vw,
+            24rem
+        );
+
+    font-weight: 900;
+
+    line-height: .68;
+
+    letter-spacing: -.12em;
+
+    white-space: nowrap;
+
+    user-select: none;
+
+    pointer-events: none;
+
+    will-change:
+        transform,
+        opacity,
+        filter;
+
+}
+
+/* =========================================================
+   MAIN WORD
+========================================================= */
+
+.pulse61-word {
+
+    color: #fff;
+
+    z-index: 7;
+
+    text-shadow:
+        0 0 30px
+        rgba(255,255,255,.08);
+
+}
+
+
+/* =========================================================
+   GHOSTS
+========================================================= */
+
+.pulse61-ghost {
+
+    color:
+        rgba(255,255,255,.04);
+
+    filter:
+        blur(8px);
+
+    z-index: 4;
+
+}
+
+
+.pulse61-ghost-2 {
+
+    filter:
+        blur(18px);
+
+    opacity: .5;
+
+}
+
+
+/* =========================================================
+   BEAT INDICATOR
+========================================================= */
+
+.pulse61-beat {
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 13%;
+
+    width: 5px;
+    height: 5px;
+
+    transform:
+        translateX(-50%)
+        scale(1);
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    opacity: .35;
+
+    box-shadow:
+        0 0 15px
+        rgba(255,255,255,.7);
+
+    z-index: 30;
+
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.pulse61-cursor {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    z-index: 50;
+
+    pointer-events: none;
+
+    box-shadow:
+
+        0 0 15px
+        rgba(255,255,255,.9),
+
+        0 0 40px
+        rgba(255,255,255,.35);
+
+}
+
+
+/* =========================================================
+   CURSOR RING
+========================================================= */
+
+.pulse61-ring {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 100px;
+    height: 100px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.2);
+
+    transform:
+        translate(-50%, -50%)
+        scale(.7);
+
+    opacity: 0;
+
+    z-index: 45;
+
+    pointer-events: none;
+
+}
+/* =========================================================
+   IMPACT
+========================================================= */
+
+.pulse61-impact {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.8);
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    z-index: 40;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .pulse61-stage {
+
+        cursor: default;
+
+    }
+
+    .pulse61-cursor,
+    .pulse61-ring {
+
+        display: none;
+
+    }
+
+    .pulse61-word,
+    .pulse61-ghost {
+
+        font-size:
+            clamp(
+                3.4rem,
+                21vw,
+                9rem
+            );
+
+    }
+
+    .pulse61-glow {
+
+        width: 300px;
+        height: 300px;
+
+    }
+
+}
+/* =========================================================
+   SECTION 62 — TYPOGRAPHY MAGNET
+========================================================= */
+
+.section-sixty-two {
+
+    width: 100%;
+    height: 100dvh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #030303;
+
+    color: #fff;
+
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.magnet62-stage {
+
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    cursor: none;
+
+    perspective: 1400px;
+
+}
+
+
+/* =========================================================
+   MAGNETIC FIELD
+========================================================= */
+
+.magnet62-field {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 500px;
+    height: 500px;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.8);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.07),
+            transparent 68%
+        );
+
+    filter: blur(25px);
+
+    opacity: .35;
+
+    pointer-events: none;
+
+    z-index: 1;
+
+}
+
+
+/* =========================================================
+   MAGNETIC LINES
+========================================================= */
+
+.magnet62-lines {
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 2;
+
+}
+
+
+/* =========================================================
+   FIELD LINE
+========================================================= */
+
+.magnet62-line {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 220px;
+    height: 1px;
+
+    transform-origin: left center;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.12),
+            transparent
+        );
+
+    opacity: 0;
+
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.magnet62-label {
+
+    position: absolute;
+
+    top: 11%;
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    margin: 0;
+
+    font-size: .6rem;
+
+    letter-spacing: .4em;
+
+    white-space: nowrap;
+
+    color:
+        rgba(255,255,255,.3);
+
+    z-index: 30;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   WORD
+========================================================= */
+
+.magnet62-word {
+
+    position: relative;
+
+    z-index: 10;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap:
+        clamp(
+            .05rem,
+            .5vw,
+            .5rem
+        );
+
+    transform-style: preserve-3d;
+
+    user-select: none;
+
+}
+
+/* =========================================================
+   LETTER
+========================================================= */
+
+.magnet62-letter {
+
+    display: inline-block;
+
+    font-size:
+        clamp(
+            5rem,
+            18vw,
+            21rem
+        );
+
+    font-weight: 900;
+
+    line-height: .7;
+
+    letter-spacing: -.09em;
+
+    color: #fff;
+
+    transform:
+        translate3d(0,0,0);
+
+    will-change:
+        transform,
+        filter,
+        opacity;
+
+    text-shadow:
+        0 0 30px
+        rgba(255,255,255,.08);
+
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.magnet62-cursor {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    z-index: 60;
+
+    pointer-events: none;
+
+    box-shadow:
+        0 0 15px
+        rgba(255,255,255,.9),
+
+        0 0 45px
+        rgba(255,255,255,.4);
+
+}
+
+
+/* =========================================================
+   CURSOR RING
+========================================================= */
+
+.magnet62-ring {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 100px;
+    height: 100px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.2);
+
+    border-radius: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.7);
+
+    opacity: 0;
+
+    z-index: 50;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   VORTEX
+========================================================= */
+
+.magnet62-vortex {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.5);
+
+    transform:
+        translate(-50%, -50%)
+        scale(0)
+        rotate(0deg);
+
+    opacity: 0;
+
+    z-index: 40;
+
+    pointer-events: none;
+
+    box-shadow:
+        0 0 30px
+        rgba(255,255,255,.15);
+
+}
+
+/* =========================================================
+   IMPACT
+========================================================= */
+
+.magnet62-impact {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.8);
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    z-index: 45;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .magnet62-stage {
+
+        cursor: default;
+
+    }
+
+    .magnet62-cursor,
+    .magnet62-ring {
+
+        display: none;
+
+    }
+
+    .magnet62-word {
+
+        gap: 0;
+
+    }
+
+    .magnet62-letter {
+
+        font-size:
+            clamp(
+                3rem,
+                16vw,
+                8rem
+            );
+
+    }
+
+    .magnet62-field {
+
+        width: 300px;
+        height: 300px;
+
+    }
+
+}
+
+/* =========================================================
+   SECTION 63 — TYPOGRAPHY ECHO
+========================================================= */
+
+.section-sixty-three {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  background: #030303;
+  overflow: hidden;
+  color: #fff;
+}
+
+.echo63-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  cursor: crosshair;
+}
+
+/* ---------------------------------------------------------
+   GRID
+--------------------------------------------------------- */
+
+.echo63-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.13;
+  background-image:
+    linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px);
+  background-size: 80px 80px;
+
+  mask-image: radial-gradient(
+    circle at center,
+    black 0%,
+    rgba(0,0,0,.8) 35%,
+    transparent 80%
+  );
+
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------
+   LABEL
+--------------------------------------------------------- */
+
+.echo63-label {
+  position: absolute;
+  top: 32px;
+  left: 40px;
+  margin: 0;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .28em;
+
+  opacity: .45;
+  z-index: 10;
+}
+
+/* ---------------------------------------------------------
+   SCENE
+--------------------------------------------------------- */
+
+.echo63-scene {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+/* ---------------------------------------------------------
+   MAIN WORD
+--------------------------------------------------------- */
+
+.echo63-word {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(6rem, 21vw, 24rem);
+  font-weight: 900;
+  line-height: .78;
+  letter-spacing: -.075em;
+
+  white-space: nowrap;
+
+  transform:
+    translate3d(-50%, -50%, 0);
+
+  z-index: 5;
+
+  user-select: none;
+
+  color: #f5f5f5;
+
+  text-shadow:
+    0 0 30px rgba(255,255,255,.08),
+    0 0 100px rgba(255,255,255,.03);
+}
+
+/* ---------------------------------------------------------
+   ECHO CONTAINER
+--------------------------------------------------------- */
+
+.echo63-echoes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.echo63-ghost {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(6rem, 21vw, 24rem);
+  font-weight: 900;
+  line-height: .78;
+  letter-spacing: -.075em;
+
+  white-space: nowrap;
+
+  transform:
+    translate3d(-50%, -50%, 0);
+
+  color: rgba(255,255,255,.35);
+
+  user-select: none;
+
+  will-change:
+    transform,
+    opacity,
+    filter;
+}
+
+/* ---------------------------------------------------------
+   CURSOR
+--------------------------------------------------------- */
+
+.echo63-cursor {
+  position: fixed;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 30;
+
+  mix-blend-mode: difference;
+}
+
+.echo63-ring {
+  position: fixed;
+
+  width: 34px;
+  height: 34px;
+
+  border: 1px solid rgba(255,255,255,.5);
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 29;
+
+  mix-blend-mode: difference;
+}
+
+/* ---------------------------------------------------------
+   CLICK IMPACT
+--------------------------------------------------------- */
+
+.echo63-impact {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 10px;
+  height: 10px;
+
+  border: 1px solid rgba(255,255,255,.8);
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%) scale(0);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  z-index: 20;
+}
+
+.echo63-wave {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 20px;
+  height: 20px;
+
+  border: 1px solid rgba(255,255,255,.5);
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%) scale(0);
+
+  pointer-events: none;
+}
+/* ---------------------------------------------------------
+   HINT
+--------------------------------------------------------- */
+
+.echo63-hint {
+  position: absolute;
+
+  bottom: 32px;
+  right: 40px;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9px;
+  letter-spacing: .25em;
+
+  opacity: .35;
+
+  z-index: 10;
+}
+
+.echo63-hint span {
+  margin: 0 8px;
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+--------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+  .echo63-grid {
+    background-size: 45px 45px;
+  }
+
+  .echo63-label {
+    top: 24px;
+    left: 22px;
+    font-size: 8px;
+  }
+
+  .echo63-word,
+  .echo63-ghost {
+    font-size: clamp(5rem, 26vw, 10rem);
+  }
+
+  .echo63-hint {
+    bottom: 24px;
+    right: 22px;
+  }
+
+  .echo63-cursor,
+  .echo63-ring {
+    display: none;
+  }
+}
+/* =========================================================
+   SECTION 64 — TYPOGRAPHY TIME FREEZE
+========================================================= */
+
+.section-sixty-four {
+  width: 100%;
+  height: 100dvh;
+  background: #020202;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------
+   STAGE
+--------------------------------------------------------- */
+
+.freeze64-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  cursor: crosshair;
+}
+
+/* ---------------------------------------------------------
+   GRID
+--------------------------------------------------------- */
+
+.freeze64-grid {
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.045) 1px,
+      transparent 1px
+    );
+
+  background-size: 100px 100px;
+
+  opacity: .45;
+
+  mask-image: radial-gradient(
+    circle at center,
+    black,
+    transparent 75%
+  );
+
+  pointer-events: none;
+}
+/* ---------------------------------------------------------
+   TOP INFORMATION
+--------------------------------------------------------- */
+
+.freeze64-top {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9px;
+  letter-spacing: .25em;
+
+  opacity: .4;
+
+  z-index: 20;
+}
+
+/* ---------------------------------------------------------
+   SCENE
+--------------------------------------------------------- */
+
+.freeze64-scene {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  perspective: 1200px;
+}
+
+/* ---------------------------------------------------------
+   MAIN WORD
+--------------------------------------------------------- */
+
+.freeze64-word {
+  position: absolute;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: clamp(
+    8rem,
+    25vw,
+    30rem
+  );
+
+  font-weight: 900;
+
+  line-height: .72;
+
+  letter-spacing: -.085em;
+
+  white-space: nowrap;
+
+  z-index: 10;
+
+  user-select: none;
+
+  will-change: transform;
+
+  color: #f4f4f4;
+
+  text-shadow:
+    0 0 40px rgba(255,255,255,.04);
+}
+
+/* ---------------------------------------------------------
+   TEMPORAL SLICES
+--------------------------------------------------------- */
+
+.freeze64-slices {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+}
+
+.freeze64-slice {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: clamp(
+    8rem,
+    25vw,
+    30rem
+  );
+
+  font-weight: 900;
+
+  line-height: .72;
+
+  letter-spacing: -.085em;
+
+  white-space: nowrap;
+
+  color: transparent;
+
+  -webkit-text-stroke: 1px rgba(255,255,255,.18);
+
+  transform:
+    translate(-50%, -50%);
+
+  user-select: none;
+
+  will-change:
+    transform,
+    opacity,
+    filter;
+}
+
+/* ---------------------------------------------------------
+   CURSOR
+--------------------------------------------------------- */
+
+.freeze64-cursor {
+  position: fixed;
+
+  width: 6px;
+  height: 6px;
+
+  background: #fff;
+
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 50;
+
+  mix-blend-mode: difference;
+}
+
+.freeze64-ring {
+  position: fixed;
+
+  width: 38px;
+  height: 38px;
+
+  border: 1px solid rgba(255,255,255,.5);
+
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 49;
+
+  mix-blend-mode: difference;
+}
+/* ---------------------------------------------------------
+   STATUS
+--------------------------------------------------------- */
+
+.freeze64-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform: translateX(-50%);
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .3em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 20;
+}
+
+/* ---------------------------------------------------------
+   FREEZE FLASH
+--------------------------------------------------------- */
+
+.freeze64-flash {
+  position: absolute;
+
+  inset: 0;
+
+  background: #fff;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  z-index: 100;
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+--------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+  .freeze64-top {
+    top: 22px;
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .freeze64-word,
+  .freeze64-slice {
+    font-size: clamp(
+      5rem,
+      28vw,
+      12rem
+    );
+  }
+
+  .freeze64-grid {
+    background-size: 50px 50px;
+  }
+
+  .freeze64-cursor,
+  .freeze64-ring {
+    display: none;
+  }
+
+  .freeze64-status {
+    bottom: 22px;
+    font-size: 7px;
+  }
+}
+/* =========================================================
+   SECTION 65 — TYPOGRAPHY VOID
+========================================================= */
+
+.section-sixty-five {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------
+   STAGE
+--------------------------------------------------------- */
+
+.void65-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  cursor: crosshair;
+}
+
+/* ---------------------------------------------------------
+   GRID
+--------------------------------------------------------- */
+
+.void65-grid {
+  position: absolute;
+  inset: -10%;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 90px 90px;
+
+  opacity: .7;
+
+  mask-image:
+    radial-gradient(
+      circle at center,
+      black 0%,
+      rgba(0,0,0,.7) 35%,
+      transparent 75%
+    );
+
+  pointer-events: none;
+
+  will-change: transform;
+}
+/* ---------------------------------------------------------
+   NOISE
+--------------------------------------------------------- */
+
+.void65-noise {
+  position: absolute;
+  inset: -50%;
+
+  opacity: .035;
+
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+
+  pointer-events: none;
+
+  z-index: 2;
+
+  animation: void65Noise .18s steps(2) infinite;
+}
+
+@keyframes void65Noise {
+
+  0% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(-2%, 1%);
+  }
+
+  50% {
+    transform: translate(1%, -2%);
+  }
+
+  75% {
+    transform: translate(2%, 2%);
+  }
+
+  100% {
+    transform: translate(-1%, -1%);
+  }
+}
+/* ---------------------------------------------------------
+   HEADER
+--------------------------------------------------------- */
+
+.void65-header {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9px;
+  letter-spacing: .25em;
+
+  opacity: .38;
+
+  z-index: 20;
+}
+
+/* ---------------------------------------------------------
+   SCENE
+--------------------------------------------------------- */
+
+.void65-scene {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  perspective: 1400px;
+
+  transform-style: preserve-3d;
+}
+
+/* ---------------------------------------------------------
+   ORBITS
+--------------------------------------------------------- */
+
+.void65-orbits {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: min(65vw, 800px);
+  height: min(65vw, 800px);
+
+  transform:
+    translate(-50%, -50%)
+    rotateX(65deg);
+
+  transform-style: preserve-3d;
+
+  pointer-events: none;
+}
+
+.void65-orbit {
+  position: absolute;
+
+  inset: 0;
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  border-radius: 50%;
+
+  transform-style: preserve-3d;
+
+  will-change:
+    transform,
+    opacity;
+}
+/* ---------------------------------------------------------
+   MAIN WORD
+--------------------------------------------------------- */
+
+.void65-word {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%)
+    scale(.05);
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: clamp(
+    6rem,
+    23vw,
+    27rem
+  );
+
+  font-weight: 900;
+
+  line-height: .72;
+
+  letter-spacing: -.095em;
+
+  white-space: nowrap;
+
+  color: #f4f4f4;
+
+  z-index: 10;
+
+  user-select: none;
+
+  will-change:
+    transform,
+    filter;
+
+  text-shadow:
+    0 0 50px rgba(255,255,255,.08);
+}
+
+/* ---------------------------------------------------------
+   DISTORTION COPY
+--------------------------------------------------------- */
+
+.void65-distortion {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: clamp(
+    6rem,
+    23vw,
+    27rem
+  );
+
+  font-weight: 900;
+
+  line-height: .72;
+
+  letter-spacing: -.095em;
+
+  white-space: nowrap;
+
+  color: transparent;
+
+  -webkit-text-stroke:
+    1px rgba(255,255,255,.12);
+
+  z-index: 8;
+
+  pointer-events: none;
+
+  user-select: none;
+
+  will-change:
+    transform,
+    opacity,
+    filter;
+}
+
+/* ---------------------------------------------------------
+   CURSOR
+--------------------------------------------------------- */
+
+.void65-cursor {
+  position: fixed;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 50;
+
+  mix-blend-mode: difference;
+}
+
+.void65-cursor-ring {
+  position: fixed;
+
+  width: 42px;
+  height: 42px;
+
+  border:
+    1px solid rgba(255,255,255,.45);
+
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 49;
+
+  mix-blend-mode: difference;
+}
+
+/* ---------------------------------------------------------
+   STATUS
+--------------------------------------------------------- */
+
+.void65-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform: translateX(-50%);
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .32em;
+
+  opacity: .35;
+
+  z-index: 20;
+
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------
+   COORDINATES
+--------------------------------------------------------- */
+
+.void65-coordinates {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .15em;
+
+  opacity: .22;
+
+  z-index: 20;
+}
+
+/* ---------------------------------------------------------
+   COLLAPSE FLASH
+--------------------------------------------------------- */
+
+.void65-flash {
+  position: absolute;
+
+  inset: 0;
+
+  background: #fff;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  z-index: 100;
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+--------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+  .void65-header {
+    top: 22px;
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .void65-grid {
+    background-size: 50px 50px;
+  }
+
+  .void65-word,
+  .void65-distortion {
+    font-size: clamp(
+      5rem,
+      28vw,
+      12rem
+    );
+  }
+
+  .void65-orbits {
+    width: 100vw;
+    height: 100vw;
+  }
+
+  .void65-cursor,
+  .void65-cursor-ring {
+    display: none;
+  }
+
+  .void65-coordinates {
+    right: 20px;
+    bottom: 22px;
+  }
+
+  .void65-status {
+    bottom: 22px;
+  }
+}
+/* =========================================================
+   SECTION 66 — TYPOGRAPHY RIPPLE
+========================================================= */
+
+.section-sixty-six {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #101010 0%,
+      #050505 45%,
+      #000 100%
+    );
+
+  color: #fff;
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------
+   STAGE
+--------------------------------------------------------- */
+
+.ripple66-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  cursor: crosshair;
+}
+
+/* ---------------------------------------------------------
+   GRID
+--------------------------------------------------------- */
+
+.ripple66-grid {
+  position: absolute;
+  inset: -10%;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 90px 90px;
+
+  opacity: .6;
+
+  mask-image:
+    radial-gradient(
+      circle at center,
+      black 0%,
+      rgba(0,0,0,.7) 45%,
+      transparent 80%
+    );
+
+  pointer-events: none;
+
+  will-change: transform;
+}
+
+/* ---------------------------------------------------------
+   HEADER
+--------------------------------------------------------- */
+
+.ripple66-header {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 9px;
+  letter-spacing: .25em;
+
+  opacity: .38;
+
+  z-index: 20;
+}
+
+/* ---------------------------------------------------------
+   SCENE
+--------------------------------------------------------- */
+
+.ripple66-scene {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  perspective: 1200px;
+}
+
+/* ---------------------------------------------------------
+   WORD
+--------------------------------------------------------- */
+
+.ripple66-word {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transform:
+    translate(-50%, -50%);
+
+  z-index: 10;
+
+  user-select: none;
+
+  will-change: transform;
+}
+
+/* ---------------------------------------------------------
+   LETTERS
+--------------------------------------------------------- */
+
+.ripple66-word span {
+  display: block;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: clamp(
+    6rem,
+    19vw,
+    23rem
+  );
+
+  font-weight: 900;
+
+  line-height: .75;
+
+  letter-spacing: -.075em;
+
+  color: #f5f5f5;
+
+  will-change:
+    transform,
+    filter;
+
+  transform-origin: center center;
+
+  text-shadow:
+    0 0 45px rgba(255,255,255,.035);
+}
+
+/* ---------------------------------------------------------
+   RIPPLE RINGS
+--------------------------------------------------------- */
+
+.ripple66-rings {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+}
+
+.ripple66-ring {
+  position: absolute;
+
+  width: 30px;
+  height: 30px;
+
+  border:
+    1px solid rgba(255,255,255,.18);
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%, -50%)
+    scale(0);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  will-change:
+    transform,
+    opacity;
+}
+
+/* ---------------------------------------------------------
+   CURSOR
+--------------------------------------------------------- */
+
+.ripple66-cursor {
+  position: fixed;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 50;
+
+  mix-blend-mode: difference;
+}
+/* ---------------------------------------------------------
+   STATUS
+--------------------------------------------------------- */
+
+.ripple66-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform:
+    translateX(-50%);
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .3em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 20;
+}
+
+/* ---------------------------------------------------------
+   COORDINATES
+--------------------------------------------------------- */
+
+.ripple66-coordinates {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .12em;
+
+  opacity: .2;
+
+  z-index: 20;
+}
+
+/* ---------------------------------------------------------
+   WAVE FLASH
+--------------------------------------------------------- */
+
+.ripple66-flash {
+  position: absolute;
+
+  inset: 0;
+
+  background: #fff;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  z-index: 100;
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+--------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+  .ripple66-header {
+    top: 22px;
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .ripple66-grid {
+    background-size: 50px 50px;
+  }
+
+  .ripple66-word span {
+    font-size: clamp(
+      4.5rem,
+      20vw,
+      9rem
+    );
+  }
+
+  .ripple66-cursor {
+    display: none;
+  }
+
+  .ripple66-status {
+    bottom: 22px;
+  }
+
+  .ripple66-coordinates {
+    right: 20px;
+    bottom: 22px;
+  }
+}
+/* =========================================================
+   SECTION 67 — TYPOGRAPHY AFTERIMAGE
+========================================================= */
+
+.section-sixty-seven {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #101010 0%,
+      #050505 48%,
+      #000 100%
+    );
+
+  color: #fff;
+
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------
+   STAGE
+--------------------------------------------------------- */
+
+.after67-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  cursor: crosshair;
+}
+
+/* ---------------------------------------------------------
+   GRID
+--------------------------------------------------------- */
+
+.after67-grid {
+  position: absolute;
+
+  inset: -10%;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 90px 90px;
+
+  opacity: .55;
+
+  mask-image:
+    radial-gradient(
+      circle at center,
+      black 0%,
+      rgba(0,0,0,.75) 42%,
+      transparent 80%
+    );
+
+  pointer-events: none;
+
+  will-change: transform;
+}
+/* ---------------------------------------------------------
+   HEADER
+--------------------------------------------------------- */
+
+.after67-header {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 9px;
+  letter-spacing: .25em;
+
+  opacity: .38;
+
+  z-index: 30;
+}
+
+/* ---------------------------------------------------------
+   SCENE
+--------------------------------------------------------- */
+
+.after67-scene {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  perspective: 1400px;
+}
+
+/* ---------------------------------------------------------
+   TRAIL
+--------------------------------------------------------- */
+
+.after67-trail {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------
+   AFTERIMAGE COPY
+--------------------------------------------------------- */
+
+.after67-copy {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: clamp(
+    4rem,
+    15vw,
+    18rem
+  );
+
+  font-weight: 900;
+
+  line-height: .75;
+
+  letter-spacing: -.085em;
+
+  white-space: nowrap;
+
+  color: transparent;
+
+  -webkit-text-stroke:
+    1px rgba(255,255,255,.18);
+
+  transform:
+    translate(-50%, -50%);
+
+  user-select: none;
+
+  pointer-events: none;
+
+  will-change:
+    transform,
+    opacity,
+    filter;
+}
+
+/* ---------------------------------------------------------
+   MAIN WORD
+--------------------------------------------------------- */
+
+.after67-word {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: clamp(
+    4rem,
+    15vw,
+    18rem
+  );
+
+  font-weight: 900;
+
+  line-height: .75;
+
+  letter-spacing: -.085em;
+
+  white-space: nowrap;
+
+  color: #f5f5f5;
+
+  transform:
+    translate(-50%, -50%);
+
+  z-index: 15;
+
+  user-select: none;
+
+  will-change:
+    transform,
+    filter;
+
+  text-shadow:
+    0 0 45px rgba(255,255,255,.05);
+}
+
+/* ---------------------------------------------------------
+   FLASH
+--------------------------------------------------------- */
+
+.after67-flash {
+  position: absolute;
+
+  inset: 0;
+
+  background: #fff;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  z-index: 100;
+}
+
+/* ---------------------------------------------------------
+   CURSOR
+--------------------------------------------------------- */
+
+.after67-cursor {
+  position: fixed;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 50;
+
+  mix-blend-mode: difference;
+}
+
+.after67-ring {
+  position: fixed;
+
+  width: 38px;
+  height: 38px;
+
+  border:
+    1px solid rgba(255,255,255,.45);
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 49;
+
+  mix-blend-mode: difference;
+}
+
+/* ---------------------------------------------------------
+   STATUS
+--------------------------------------------------------- */
+
+.after67-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform:
+    translateX(-50%);
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .3em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 30;
+}
+
+/* ---------------------------------------------------------
+   COUNTER
+--------------------------------------------------------- */
+
+.after67-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .15em;
+
+  opacity: .22;
+
+  z-index: 30;
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+--------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+  .after67-header {
+    top: 22px;
+
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .after67-grid {
+    background-size: 50px 50px;
+  }
+
+  .after67-word,
+  .after67-copy {
+    font-size: clamp(
+      3.5rem,
+      16vw,
+      8rem
+    );
+  }
+
+  .after67-cursor,
+  .after67-ring {
+    display: none;
+  }
+
+  .after67-status {
+    bottom: 22px;
+  }
+
+  .after67-counter {
+    right: 20px;
+    bottom: 22px;
+  }
+}
+
+
+/* =========================================================
+   SECTION 68 — TYPOGRAPHY PRISM
+========================================================= */
+
+.section-sixty-eight {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #0c0c0c 0%,
+      #030303 48%,
+      #000 100%
+    );
+
+  color: #fff;
+
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------
+   STAGE
+--------------------------------------------------------- */
+
+.prism68-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  cursor: crosshair;
+}
+/* ---------------------------------------------------------
+   GRID
+--------------------------------------------------------- */
+
+.prism68-grid {
+  position: absolute;
+
+  inset: -10%;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.03) 1px,
+      transparent 1px
+    );
+
+  background-size: 90px 90px;
+
+  opacity: .55;
+
+  mask-image:
+    radial-gradient(
+      circle at center,
+      black 0%,
+      rgba(0,0,0,.75) 42%,
+      transparent 80%
+    );
+
+  pointer-events: none;
+
+  will-change: transform;
+}
+
+/* ---------------------------------------------------------
+   HEADER
+--------------------------------------------------------- */
+
+.prism68-header {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 9px;
+
+  letter-spacing: .25em;
+
+  opacity: .38;
+
+  z-index: 30;
+}
+
+/* ---------------------------------------------------------
+   SCENE
+--------------------------------------------------------- */
+
+.prism68-scene {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  perspective: 1400px;
+}
+
+/* ---------------------------------------------------------
+   MAIN WORD
+--------------------------------------------------------- */
+
+.prism68-word {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: clamp(
+    6rem,
+    20vw,
+    24rem
+  );
+
+  font-weight: 900;
+
+  line-height: .75;
+
+  letter-spacing: -.085em;
+
+  white-space: nowrap;
+
+  transform:
+    translate(-50%, -50%);
+
+  user-select: none;
+
+  pointer-events: none;
+
+  will-change:
+    transform,
+    opacity,
+    filter;
+}
+
+/* ---------------------------------------------------------
+   SPECTRAL LAYERS
+--------------------------------------------------------- */
+
+.prism68-main {
+  z-index: 12;
+
+  color: #f5f5f5;
+
+  text-shadow:
+    0 0 50px rgba(255,255,255,.04);
+}
+
+.prism68-red {
+  z-index: 8;
+
+  color: rgba(255, 30, 60, .72);
+
+  mix-blend-mode: screen;
+
+  filter:
+    blur(.3px);
+}
+
+.prism68-green {
+  z-index: 7;
+
+  color: rgba(50, 255, 160, .65);
+
+  mix-blend-mode: screen;
+
+  filter:
+    blur(.3px);
+}
+
+.prism68-blue {
+  z-index: 6;
+
+  color: rgba(50, 130, 255, .72);
+
+  mix-blend-mode: screen;
+
+  filter:
+    blur(.3px);
+}
+
+/* ---------------------------------------------------------
+   PRISM RINGS
+--------------------------------------------------------- */
+
+.prism68-prisms {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+}
+
+.prism68-prism {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 100px;
+  height: 100px;
+
+  border:
+    1px solid rgba(255,255,255,.1);
+
+  transform:
+    translate(-50%, -50%)
+    rotate(45deg);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  will-change:
+    transform,
+    opacity,
+    border-color;
+}
+
+/* ---------------------------------------------------------
+   FLARE
+--------------------------------------------------------- */
+
+.prism68-flare {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 4px;
+  height: 4px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform:
+    translate(-50%, -50%)
+    scale(0);
+
+  opacity: 0;
+
+  box-shadow:
+    0 0 20px 5px rgba(255,255,255,.5);
+
+  pointer-events: none;
+
+  z-index: 20;
+}
+
+/* ---------------------------------------------------------
+   CURSOR
+--------------------------------------------------------- */
+
+.prism68-cursor {
+  position: fixed;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 50;
+
+  mix-blend-mode: difference;
+}
+
+.prism68-ring {
+  position: fixed;
+
+  width: 40px;
+  height: 40px;
+
+  border:
+    1px solid rgba(255,255,255,.45);
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 49;
+
+  mix-blend-mode: difference;
+}
+/* ---------------------------------------------------------
+   STATUS
+--------------------------------------------------------- */
+
+.prism68-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform:
+    translateX(-50%);
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .3em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 30;
+}
+
+/* ---------------------------------------------------------
+   COORDINATES
+--------------------------------------------------------- */
+
+.prism68-coordinates {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .12em;
+
+  opacity: .22;
+
+  z-index: 30;
+}
+
+/* ---------------------------------------------------------
+   FLASH
+--------------------------------------------------------- */
+
+.prism68-flash {
+  position: absolute;
+
+  inset: 0;
+
+  background: #fff;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  z-index: 100;
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+--------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+  .prism68-header {
+    top: 22px;
+
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .prism68-grid {
+    background-size: 50px 50px;
+  }
+
+  .prism68-word {
+    font-size: clamp(
+      4.5rem,
+      22vw,
+      10rem
+    );
+  }
+
+  .prism68-cursor,
+  .prism68-ring {
+    display: none;
+  }
+
+  .prism68-status {
+    bottom: 22px;
+  }
+
+  .prism68-coordinates {
+    right: 20px;
+    bottom: 22px;
+
+    font-size: 7px;
+  }
+}
+
+/* =========================================================
+   SECTION 69 — TYPOGRAPHY FRACTURE
+========================================================= */
+
+.section-sixty-nine {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #101010 0%,
+      #050505 45%,
+      #000 100%
+    );
+
+  color: #fff;
+
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------
+   STAGE
+--------------------------------------------------------- */
+
+.fracture69-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  cursor: crosshair;
+}
+/* ---------------------------------------------------------
+   GRID
+--------------------------------------------------------- */
+
+.fracture69-grid {
+  position: absolute;
+
+  inset: -10%;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 90px 90px;
+
+  opacity: .55;
+
+  mask-image:
+    radial-gradient(
+      circle at center,
+      black 0%,
+      rgba(0,0,0,.7) 45%,
+      transparent 80%
+    );
+
+  pointer-events: none;
+
+  will-change: transform;
+}
+
+/* ---------------------------------------------------------
+   HEADER
+--------------------------------------------------------- */
+
+.fracture69-header {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 9px;
+  letter-spacing: .25em;
+
+  opacity: .38;
+
+  z-index: 30;
+}
+
+/* ---------------------------------------------------------
+   SCENE
+--------------------------------------------------------- */
+
+.fracture69-scene {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+/* ---------------------------------------------------------
+   MAIN WORD
+--------------------------------------------------------- */
+
+.fracture69-word {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: clamp(
+    4rem,
+    14vw,
+    17rem
+  );
+
+  font-weight: 900;
+
+  line-height: .75;
+
+  letter-spacing: -.085em;
+
+  white-space: nowrap;
+
+  color: #f4f4f4;
+
+  transform:
+    translate(-50%, -50%);
+
+  z-index: 10;
+
+  user-select: none;
+
+  pointer-events: none;
+
+  will-change:
+    transform,
+    opacity,
+    filter;
+
+  text-shadow:
+    0 0 50px rgba(255,255,255,.05);
+}
+/* ---------------------------------------------------------
+   SHARD CONTAINER
+--------------------------------------------------------- */
+
+.fracture69-shards {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  transform-style: preserve-3d;
+}
+
+/* ---------------------------------------------------------
+   INDIVIDUAL SHARD
+--------------------------------------------------------- */
+
+.fracture69-shard {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: clamp(
+    4rem,
+    14vw,
+    17rem
+  );
+
+  font-weight: 900;
+
+  line-height: .75;
+
+  letter-spacing: -.085em;
+
+  white-space: nowrap;
+
+  color: #fff;
+
+  transform:
+    translate(-50%, -50%);
+
+  user-select: none;
+
+  will-change:
+    transform,
+    opacity,
+    filter;
+
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    0 100%
+  );
+}
+
+/* ---------------------------------------------------------
+   CRACK LINES
+--------------------------------------------------------- */
+
+.fracture69-cracks {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: 18;
+}
+
+.fracture69-crack {
+  position: absolute;
+
+  height: 1px;
+
+  background: rgba(255,255,255,.3);
+
+  transform-origin: left center;
+
+  opacity: 0;
+
+  filter:
+    drop-shadow(
+      0 0 5px
+      rgba(255,255,255,.2)
+    );
+}
+
+/* ---------------------------------------------------------
+   CURSOR
+--------------------------------------------------------- */
+
+.fracture69-cursor {
+  position: fixed;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 50;
+
+  mix-blend-mode: difference;
+}
+
+.fracture69-ring {
+  position: fixed;
+
+  width: 38px;
+  height: 38px;
+
+  border:
+    1px solid rgba(255,255,255,.45);
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 49;
+
+  mix-blend-mode: difference;
+}
+
+/* ---------------------------------------------------------
+   STATUS
+--------------------------------------------------------- */
+
+.fracture69-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform:
+    translateX(-50%);
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .3em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 30;
+}
+
+/* ---------------------------------------------------------
+   COUNTER
+--------------------------------------------------------- */
+
+.fracture69-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .15em;
+
+  opacity: .22;
+
+  z-index: 30;
+}
+
+/* ---------------------------------------------------------
+   FLASH
+--------------------------------------------------------- */
+
+.fracture69-flash {
+  position: absolute;
+  inset: 0;
+
+  background: #fff;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  z-index: 100;
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+--------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+  .fracture69-header {
+    top: 22px;
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .fracture69-grid {
+    background-size: 50px 50px;
+  }
+
+  .fracture69-word,
+  .fracture69-shard {
+    font-size: clamp(
+      3.5rem,
+      15vw,
+      8rem
+    );
+  }
+
+  .fracture69-cursor,
+  .fracture69-ring {
+    display: none;
+  }
+
+  .fracture69-status {
+    bottom: 22px;
+  }
+
+  .fracture69-counter {
+    right: 20px;
+    bottom: 22px;
+  }
+}
+/* =========================================================
+   SECTION 70 — TYPOGRAPHY DISINTEGRATE
+========================================================= */
+
+.section-seventy {
+  position: relative;
+
+  width: 100%;
+  height: 100dvh;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #0d0d0d 0%,
+      #040404 48%,
+      #000 100%
+    );
+
+  color: #fff;
+
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------
+   STAGE
+--------------------------------------------------------- */
+
+.dis70-stage {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  cursor: crosshair;
+}
+
+/* ---------------------------------------------------------
+   GRID
+--------------------------------------------------------- */
+
+.dis70-grid {
+  position: absolute;
+
+  inset: -10%;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.03) 1px,
+      transparent 1px
+    );
+
+  background-size: 90px 90px;
+
+  opacity: .5;
+
+  mask-image:
+    radial-gradient(
+      circle at center,
+      black 0%,
+      rgba(0,0,0,.7) 42%,
+      transparent 80%
+    );
+
+  pointer-events: none;
+
+  will-change: transform;
+}
+
+/* ---------------------------------------------------------
+   HEADER
+--------------------------------------------------------- */
+
+.dis70-header {
+  position: absolute;
+
+  top: 30px;
+  left: 35px;
+  right: 35px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 9px;
+
+  letter-spacing: .25em;
+
+  opacity: .38;
+
+  z-index: 30;
+}
+
+/* ---------------------------------------------------------
+   SCENE
+--------------------------------------------------------- */
+
+.dis70-scene {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  perspective: 1200px;
+}
+/* ---------------------------------------------------------
+   CANVAS
+--------------------------------------------------------- */
+
+.dis70-canvas {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 8;
+
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------
+   WORD
+--------------------------------------------------------- */
+
+.dis70-word {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: clamp(
+    3.5rem,
+    12.5vw,
+    15rem
+  );
+
+  font-weight: 900;
+
+  line-height: .75;
+
+  letter-spacing: -.085em;
+
+  white-space: nowrap;
+
+  color: #f5f5f5;
+
+  z-index: 10;
+
+  user-select: none;
+
+  pointer-events: none;
+
+  will-change:
+    transform,
+    opacity,
+    filter;
+
+  text-shadow:
+    0 0 45px rgba(255,255,255,.04);
+}
+
+/* ---------------------------------------------------------
+   CURSOR
+--------------------------------------------------------- */
+
+.dis70-cursor {
+  position: fixed;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 50;
+
+  mix-blend-mode: difference;
+}
+
+.dis70-ring {
+  position: fixed;
+
+  width: 40px;
+  height: 40px;
+
+  border:
+    1px solid rgba(255,255,255,.45);
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 49;
+
+  mix-blend-mode: difference;
+}
+/* ---------------------------------------------------------
+   STATUS
+--------------------------------------------------------- */
+
+.dis70-status {
+  position: absolute;
+
+  left: 50%;
+  bottom: 30px;
+
+  transform:
+    translateX(-50%);
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 8px;
+
+  letter-spacing: .3em;
+
+  opacity: .35;
+
+  white-space: nowrap;
+
+  z-index: 30;
+}
+
+/* ---------------------------------------------------------
+   COUNTER
+--------------------------------------------------------- */
+
+.dis70-counter {
+  position: absolute;
+
+  right: 35px;
+  bottom: 30px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .14em;
+
+  opacity: .22;
+
+  z-index: 30;
+}
+
+/* ---------------------------------------------------------
+   FLASH
+--------------------------------------------------------- */
+
+.dis70-flash {
+  position: absolute;
+
+  inset: 0;
+
+  background: #fff;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  z-index: 100;
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+--------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+  .dis70-header {
+    top: 22px;
+
+    left: 20px;
+    right: 20px;
+
+    font-size: 7px;
+  }
+
+  .dis70-grid {
+    background-size: 50px 50px;
+  }
+
+  .dis70-word {
+    font-size: clamp(
+      3rem,
+      13.5vw,
+      7rem
+    );
+  }
+
+  .dis70-cursor,
+  .dis70-ring {
+    display: none;
+  }
+
+  .dis70-status {
+    bottom: 22px;
+  }
+
+  .dis70-counter {
+    right: 20px;
+    bottom: 22px;
+
+    font-size: 7px;
+  }
+}

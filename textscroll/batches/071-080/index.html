@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Text Scroll Animations 071-080</title>
+
+    <link rel="stylesheet" href="../../shared/base.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- GSAP bundled locally (works offline / without CDN) -->
+    <script src="../../vendor/gsap.min.js"></script>
+    <script src="../../vendor/ScrollTrigger.min.js"></script>
+</head>
+
+<body>
+
+<nav class="ts-nav" aria-label="Batch navigation">
+    <a href="../../index.html">All batches</a>
+    <a href="../061-070/index.html">&larr; 061-070</a>
+    <a href="../081-090/index.html">081-090 &rarr;</a>
+</nav>
+
+<!-- BATCH INTRO -->
+<section class="hero ts-hero">
+    <div class="ts-hero-inner">
+        <p class="ts-kicker">Batch 8 / 11</p>
+        <h1>Animations 071&ndash;080</h1>
+        <ol class="ts-list">
+      <li><span>071</span>Erosion</li>
+      <li><span>072</span>Vaporize</li>
+      <li><span>073</span>Liquefy</li>
+      <li><span>074</span>Liquid Mirror</li>
+      <li><span>075</span>Oscillate</li>
+      <li><span>076</span>Resonance</li>
+      <li><span>077</span>Phase Shift</li>
+      <li><span>078</span>Chromatic Drift</li>
+      <li><span>079</span>Parallax Depth</li>
+      <li><span>080</span>Time Echo</li>
+        </ol>
+        <p class="ts-scroll">Scroll down &darr;</p>
+    </div>
+</section>
+
+<!-- =========================================================
+     SECTION 71 — TYPOGRAPHY: EROSION
+========================================================= -->
+
+<section class="section-seventy-one">
+  <div class="ero71-stage" id="ero71Stage">
+
+    <div class="ero71-grid"></div>
+
+    <div class="ero71-header">
+      <span>71 / MATERIAL TYPOGRAPHY</span>
+      <span>EROSION / 01</span>
+    </div>
+
+    <div class="ero71-scene">
+      <canvas
+        class="ero71-canvas"
+        id="ero71Canvas"
+      ></canvas>
+
+      <div class="ero71-ghost">
+        EROSION
+      </div>
+    </div>
+
+    <div class="ero71-cursor" id="ero71Cursor"></div>
+    <div class="ero71-ring" id="ero71Ring"></div>
+
+    <div class="ero71-status" id="ero71Status">
+      MOVE ACROSS THE TYPE
+    </div>
+
+    <div class="ero71-counter" id="ero71Counter">
+      00000 / 00000
+    </div>
+
+  </div>
+</section>
+<!-- =========================================================
+     SECTION 72 — TYPOGRAPHY: VAPORIZE
+========================================================= -->
+
+<section class="section-seventy-two">
+  <div class="vap72-stage" id="vap72Stage">
+
+    <div class="vap72-grid"></div>
+
+    <div class="vap72-header">
+      <span>72 / ATMOSPHERIC TYPOGRAPHY</span>
+      <span>VAPORIZE / 01</span>
+    </div>
+
+    <div class="vap72-scene">
+      <canvas
+        class="vap72-canvas"
+        id="vap72Canvas"
+      ></canvas>
+
+      <div class="vap72-ghost">
+        VAPORIZE
+      </div>
+    </div>
+
+    <div class="vap72-cursor" id="vap72Cursor"></div>
+    <div class="vap72-ring" id="vap72Ring"></div>
+
+    <div class="vap72-status" id="vap72Status">
+      MOVE THROUGH THE HEAT
+    </div>
+
+    <div class="vap72-counter" id="vap72Counter">
+      00000 / 00000
+    </div>
+
+  </div>
+</section>
+<!-- =========================================================
+     SECTION 73 — TYPOGRAPHY: LIQUEFY
+========================================================= -->
+
+<section class="section-seventy-three">
+  <div class="liq73-stage" id="liq73Stage">
+
+    <div class="liq73-grid"></div>
+
+    <div class="liq73-header">
+      <span>73 / FLUID TYPOGRAPHY</span>
+      <span>LIQUEFY / 01</span>
+    </div>
+
+    <div class="liq73-scene">
+      <canvas
+        class="liq73-canvas"
+        id="liq73Canvas"
+      ></canvas>
+
+      <div class="liq73-ghost">
+        LIQUEFY
+      </div>
+    </div>
+
+    <div class="liq73-cursor" id="liq73Cursor"></div>
+    <div class="liq73-ring" id="liq73Ring"></div>
+
+    <div class="liq73-status" id="liq73Status">
+      MOVE THROUGH THE LIQUID
+    </div>
+
+    <div class="liq73-counter" id="liq73Counter">
+      00000 / 00000
+    </div>
+
+  </div>
+</section>
+<!-- =========================================================
+     SECTION 74 — TYPOGRAPHY: LIQUID MIRROR
+========================================================= -->
+
+<section class="section-seventy-four">
+  <div class="mir74-stage" id="mir74Stage">
+
+    <div class="mir74-grid"></div>
+
+    <div class="mir74-header">
+      <span>74 / REFLECTIVE TYPOGRAPHY</span>
+      <span>LIQUID MIRROR / 01</span>
+    </div>
+
+    <div class="mir74-scene">
+
+      <canvas
+        class="mir74-canvas"
+        id="mir74Canvas"
+      ></canvas>
+
+      <div class="mir74-reflection"></div>
+
+    </div>
+
+    <div class="mir74-cursor" id="mir74Cursor"></div>
+    <div class="mir74-ring" id="mir74Ring"></div>
+
+    <div class="mir74-status" id="mir74Status">
+      MOVE ACROSS THE SURFACE
+    </div>
+
+    <div class="mir74-counter" id="mir74Counter">
+      00000 / 00000
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================================
+     SECTION 75 — TYPOGRAPHY: OSCILLATE
+========================================================= -->
+
+<section class="section-seventy-five">
+  <div class="osc75-stage" id="osc75Stage">
+
+    <div class="osc75-grid"></div>
+
+    <div class="osc75-header">
+      <span>75 / KINETIC TYPOGRAPHY</span>
+      <span>OSCILLATE / 01</span>
+    </div>
+
+    <div class="osc75-scene">
+      <canvas
+        class="osc75-canvas"
+        id="osc75Canvas"
+      ></canvas>
+
+      <div class="osc75-ghost">
+        OSCILLATE
+      </div>
+    </div>
+
+    <div class="osc75-cursor" id="osc75Cursor"></div>
+    <div class="osc75-ring" id="osc75Ring"></div>
+
+    <div class="osc75-status" id="osc75Status">
+      MOVE TO OSCILLATE
+    </div>
+
+    <div class="osc75-counter" id="osc75Counter">
+      00000 / 00000
+    </div>
+
+  </div>
+</section>
+<!-- =========================================================
+     SECTION 76 — TYPOGRAPHY: RESONANCE
+========================================================= -->
+
+<section class="section-seventy-six">
+  <div class="res76-stage" id="res76Stage">
+
+    <div class="res76-grid"></div>
+
+    <div class="res76-header">
+      <span>76 / VIBRATIONAL TYPOGRAPHY</span>
+      <span>RESONANCE / 01</span>
+    </div>
+
+    <div class="res76-scene">
+      <canvas
+        class="res76-canvas"
+        id="res76Canvas"
+      ></canvas>
+
+      <div class="res76-ghost">
+        RESONANCE
+      </div>
+
+      <div class="res76-rings" id="res76Rings">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <div class="res76-cursor" id="res76Cursor"></div>
+    <div class="res76-ring" id="res76Ring"></div>
+
+    <div class="res76-status" id="res76Status">
+      MOVE TO RESONATE
+    </div>
+
+    <div class="res76-counter" id="res76Counter">
+      00000 / 00000
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================================
+     SECTION 77 — TYPOGRAPHY: PHASE SHIFT
+========================================================= -->
+
+<section class="section-seventy-seven">
+  <div class="pha77-stage" id="pha77Stage">
+
+    <div class="pha77-grid"></div>
+
+    <div class="pha77-header">
+      <span>77 / SPECTRAL TYPOGRAPHY</span>
+      <span>PHASE SHIFT / 01</span>
+    </div>
+
+    <div class="pha77-scene">
+      <canvas
+        class="pha77-canvas"
+        id="pha77Canvas"
+      ></canvas>
+
+      <div class="pha77-ghost">
+        PHASE SHIFT
+      </div>
+
+      <div class="pha77-phase-lines">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <div class="pha77-cursor" id="pha77Cursor"></div>
+    <div class="pha77-ring" id="pha77Ring"></div>
+
+    <div class="pha77-status" id="pha77Status">
+      MOVE THROUGH THE PHASE
+    </div>
+
+    <div class="pha77-counter" id="pha77Counter">
+      00000 / 00000
+    </div>
+
+  </div>
+</section>
+<!-- =========================================================
+     SECTION 78 — TYPOGRAPHY: CHROMATIC DRIFT
+========================================================= -->
+
+<section class="section-seventy-eight">
+  <div class="chd78-stage" id="chd78Stage">
+
+    <div class="chd78-grid"></div>
+
+    <div class="chd78-header">
+      <span>78 / SPECTRAL TYPOGRAPHY</span>
+      <span>CHROMATIC DRIFT / 01</span>
+    </div>
+
+    <div class="chd78-scene">
+
+      <canvas
+        class="chd78-canvas"
+        id="chd78Canvas"
+      ></canvas>
+
+      <div class="chd78-ghost">
+        CHROMATIC DRIFT
+      </div>
+
+      <div class="chd78-axis chd78-axis-x"></div>
+      <div class="chd78-axis chd78-axis-y"></div>
+
+    </div>
+
+    <div
+      class="chd78-cursor"
+      id="chd78Cursor"
+    ></div>
+
+    <div
+      class="chd78-ring"
+      id="chd78Ring"
+    ></div>
+
+    <div
+      class="chd78-status"
+      id="chd78Status"
+    >
+      MOVE TO DRIFT THE CHANNELS
+    </div>
+
+    <div
+      class="chd78-counter"
+      id="chd78Counter"
+    >
+      00000 / 00000
+    </div>
+
+  </div>
+</section>
+<!-- =========================================================
+     SECTION 79 — TYPOGRAPHY: PARALLAX DEPTH
+========================================================= -->
+
+<section class="section-seventy-nine">
+  <div class="prd79-stage" id="prd79Stage">
+
+    <div class="prd79-grid"></div>
+
+    <div class="prd79-header">
+      <span>79 / SPATIAL TYPOGRAPHY</span>
+      <span>PARALLAX DEPTH / 01</span>
+    </div>
+
+    <div class="prd79-scene">
+
+      <canvas
+        class="prd79-canvas"
+        id="prd79Canvas"
+      ></canvas>
+
+      <div class="prd79-ghost">
+        PARALLAX DEPTH
+      </div>
+
+      <div class="prd79-depth-line"></div>
+
+    </div>
+
+    <div
+      class="prd79-cursor"
+      id="prd79Cursor"
+    ></div>
+
+    <div
+      class="prd79-ring"
+      id="prd79Ring"
+    ></div>
+
+    <div
+      class="prd79-status"
+      id="prd79Status"
+    >
+      MOVE TO CONTROL DEPTH
+    </div>
+
+    <div
+      class="prd79-counter"
+      id="prd79Counter"
+    >
+      Z 000 / 000
+    </div>
+
+  </div>
+</section>
+<!-- =========================================================
+     SECTION 80 — TYPOGRAPHY: TIME ECHO
+========================================================= -->
+
+<section class="section-eighty">
+  <div class="te80-stage" id="te80Stage">
+
+    <div class="te80-grid"></div>
+
+    <div class="te80-header">
+      <span>80 / TEMPORAL TYPOGRAPHY</span>
+      <span>TIME ECHO / 01</span>
+    </div>
+
+    <div class="te80-scene">
+
+      <canvas
+        class="te80-canvas"
+        id="te80Canvas"
+      ></canvas>
+
+      <div class="te80-ghost">
+        TIME ECHO
+      </div>
+
+      <div class="te80-scanline"></div>
+
+    </div>
+
+    <div
+      class="te80-cursor"
+      id="te80Cursor"
+    ></div>
+
+    <div
+      class="te80-ring"
+      id="te80Ring"
+    ></div>
+
+    <div
+      class="te80-status"
+      id="te80Status"
+    >
+      MOVE TO CREATE TIME
+    </div>
+
+    <div
+      class="te80-counter"
+      id="te80Counter"
+    >
+      ECHO 00 / 00
+    </div>
+
+  </div>
+</section>
+
+<footer class="ts-footer">
+    <p>End of animations 071&ndash;080</p>
+    <div class="ts-footer-links">
+        <a href="../../index.html">All batches</a>
+        <a href="../061-070/index.html">&larr; 061-070</a>
+        <a href="../081-090/index.html">081-090 &rarr;</a>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>

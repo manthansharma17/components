@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Text Scroll Animations 081-090</title>
+
+    <link rel="stylesheet" href="../../shared/base.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- GSAP bundled locally (works offline / without CDN) -->
+    <script src="../../vendor/gsap.min.js"></script>
+    <script src="../../vendor/ScrollTrigger.min.js"></script>
+</head>
+
+<body>
+
+<nav class="ts-nav" aria-label="Batch navigation">
+    <a href="../../index.html">All batches</a>
+    <a href="../071-080/index.html">&larr; 071-080</a>
+    <a href="../091-100/index.html">091-100 &rarr;</a>
+</nav>
+
+<!-- BATCH INTRO -->
+<section class="hero ts-hero">
+    <div class="ts-hero-inner">
+        <p class="ts-kicker">Batch 9 / 11</p>
+        <h1>Animations 081&ndash;090</h1>
+        <ol class="ts-list">
+      <li><span>081</span>Time Fracture</li>
+      <li><span>082</span>Causality</li>
+      <li><span>083</span>Disorder</li>
+      <li><span>084</span>Oblivion</li>
+      <li><span>085</span>Echo Study</li>
+      <li><span>086</span>Singularity</li>
+      <li><span>087</span>Infinity</li>
+      <li><span>088</span>Paradox</li>
+      <li><span>089</span>Recursion</li>
+      <li><span>090</span>Reverse</li>
+        </ol>
+        <p class="ts-scroll">Scroll down &darr;</p>
+    </div>
+</section>
+
+
+<!-- =========================================================
+     SECTION 81 — TYPOGRAPHY: TIME FRACTURE
+========================================================= -->
+
+<section class="section-eighty-one">
+  <div class="tf81-stage" id="tf81Stage">
+
+    <div class="tf81-grid"></div>
+
+    <div class="tf81-header">
+      <span>81 / TEMPORAL TYPOGRAPHY</span>
+      <span>TIME FRACTURE / 01</span>
+    </div>
+
+    <div class="tf81-scene">
+
+      <canvas
+        class="tf81-canvas"
+        id="tf81Canvas"
+      ></canvas>
+
+      <div class="tf81-ghost">
+        TIME FRACTURE
+      </div>
+
+      <div class="tf81-scan"></div>
+
+    </div>
+
+    <div
+      class="tf81-cursor"
+      id="tf81Cursor"
+    ></div>
+
+    <div
+      class="tf81-ring"
+      id="tf81Ring"
+    ></div>
+
+    <div
+      class="tf81-status"
+      id="tf81Status"
+    >
+      MOVE THROUGH TIME
+    </div>
+
+    <div
+      class="tf81-counter"
+      id="tf81Counter"
+    >
+      SYNC 100%
+    </div>
+
+  </div>
+</section>
+<!-- =========================================================
+     SECTION 82 — TYPOGRAPHY: CAUSALITY
+========================================================= -->
+
+<section class="section-eighty-two">
+  <div class="ca82-stage" id="ca82Stage">
+
+    <div class="ca82-grid"></div>
+
+    <header class="ca82-header">
+      <span>82 / CAUSAL TYPOGRAPHY</span>
+      <span>CAUSE → EFFECT / 01</span>
+    </header>
+
+    <main class="ca82-scene">
+      <div class="ca82-orbit ca82-orbit-one"></div>
+      <div class="ca82-orbit ca82-orbit-two"></div>
+
+      <div class="ca82-word" id="ca82Word" aria-label="CAUSALITY">
+        <span>C</span><span>A</span><span>U</span>
+        <span>S</span><span>A</span><span>L</span>
+        <span>I</span><span>T</span><span>Y</span>
+      </div>
+
+      <div class="ca82-wave" id="ca82Wave"></div>
+      <div class="ca82-center-mark"></div>
+    </main>
+
+    <div class="ca82-cursor" id="ca82Cursor"></div>
+    <div class="ca82-ring" id="ca82Ring"></div>
+
+    <div class="ca82-bottom">
+      <span id="ca82Status">HOVER TO TRIGGER A REACTION</span>
+      <span id="ca82Counter">SYSTEM / READY</span>
+    </div>
+
+  </div>
+</section>
+
+<!--SECTION 83 Experimental Typography-->
+
+<section class="section-eighty-three" id="en83Section">
+  <div class="en83-grid"></div>
+  <div class="en83-glow"></div>
+
+  <header class="en83-header">
+    <div class="en83-brand">
+      <span class="en83-dot"></span>
+      EXPERIMENTAL TYPOGRAPHY
+    </div>
+    <div class="en83-index">SECTION 83 <span>/</span> DISORDER</div>
+  </header>
+
+  <div class="en83-coordinate en83-coordinate-top">
+    SYSTEM STATUS <span id="en83Status">STABLE</span>
+  </div>
+
+  <main class="en83-stage" id="en83Stage">
+    <div class="en83-orbit en83-orbit-one"></div>
+    <div class="en83-orbit en83-orbit-two"></div>
+
+    <div class="en83-word" id="en83Word" aria-label="Entropy">
+      <span class="en83-letter">E</span>
+      <span class="en83-letter">N</span>
+      <span class="en83-letter">T</span>
+      <span class="en83-letter">R</span>
+      <span class="en83-letter">O</span>
+      <span class="en83-letter">P</span>
+      <span class="en83-letter">Y</span>
+    </div>
+
+    <div class="en83-word-line"></div>
+    <div class="en83-word-caption">ORDER IS ONLY TEMPORARY</div>
+
+    <div class="en83-center-mark"></div>
+  </main>
+
+  <div class="en83-instruction">
+    <span class="en83-instruction-dot"></span>
+    MOVE TO INTRODUCE DISORDER
+  </div>
+
+  <footer class="en83-footer">
+    <div class="en83-footer-left">
+      <span>FIG. 083</span>
+      <span class="en83-footer-divider"></span>
+      <span>LETTER INSTABILITY STUDY</span>
+    </div>
+
+    <button class="en83-reset" id="en83Reset" type="button">
+      <span>↻</span> RECONSTRUCT
+    </button>
+
+    <div class="en83-counter">
+      <span id="en83Count">000</span>
+      <span class="en83-counter-label">DISTURBANCES</span>
+    </div>
+  </footer>
+
+  <div class="en83-cursor" id="en83Cursor">
+    <span></span>
+  </div>
+</section>
+
+<!--SECTION 84 Oblivion-->
+
+<section class="section-eighty-four" id="en84Section">
+  <canvas class="en84-canvas" id="en84Canvas"></canvas>
+
+  <div class="en84-grain"></div>
+  <div class="en84-vignette"></div>
+
+  <header class="en84-header">
+    <div class="en84-brand">
+      <span class="en84-live-dot"></span>
+      EXPERIMENTAL TYPOGRAPHY
+    </div>
+    <div class="en84-index">SECTION 084 <span>/</span> OBLIVION</div>
+  </header>
+
+  <div class="en84-side-label en84-side-left">EVERYTHING FADES</div>
+  <div class="en84-side-label en84-side-right">NOTHING REMAINS</div>
+
+  <div class="en84-content">
+    <div class="en84-overline">
+      <span>MEMORY STUDY</span>
+      <span>084.01</span>
+    </div>
+
+    <div class="en84-word-wrap">
+      <h2 class="en84-word" id="en84Word" aria-label="Oblivion">
+        OBLIVION
+      </h2>
+      <div class="en84-word-ghost" aria-hidden="true">OBLIVION</div>
+    </div>
+
+    <div class="en84-subtitle">
+      <span class="en84-subtitle-line"></span>
+      THE ART OF DISAPPEARING
+      <span class="en84-subtitle-line"></span>
+    </div>
+
+    <div class="en84-progress">
+      <span class="en84-progress-track">
+        <span class="en84-progress-fill" id="en84ProgressFill"></span>
+      </span>
+      <span id="en84ProgressText">00%</span>
+    </div>
+  </div>
+
+  <div class="en84-bottom">
+    <div class="en84-bottom-note">
+      <span class="en84-bottom-number">01</span>
+      <span>FORM IS TEMPORARY</span>
+    </div>
+
+    <div class="en84-scroll-indicator" id="en84ScrollIndicator">
+      <span>SCROLL TO FORGET</span>
+      <span class="en84-scroll-arrow">↓</span>
+    </div>
+
+    <button class="en84-recall" id="en84Recall" type="button">
+      RECALL MEMORY <span>↗</span>
+    </button>
+  </div>
+</section>
+
+<!--SECTION 85 ECHO STUDY-->
+
+<section class="section-eighty-five" id="en85Section">
+  <div class="en85-grid"></div>
+  <div class="en85-noise"></div>
+
+  <header class="en85-header">
+    <div class="en85-brand">
+      <span class="en85-dot"></span>
+      EXPERIMENTAL TYPOGRAPHY
+    </div>
+    <div class="en85-index">SECTION 085 <span>/</span> MEMORY IN MOTION</div>
+  </header>
+
+  <div class="en85-top-meta">
+    <span>VISUAL STUDY — 085.01</span>
+    <span id="en85State">ONE MOMENT</span>
+  </div>
+
+  <main class="en85-stage" id="en85Stage">
+    <div class="en85-cross en85-cross-a"></div>
+    <div class="en85-cross en85-cross-b"></div>
+
+    <div class="en85-echo-field" id="en85EchoField" aria-hidden="true">
+      <div class="en85-echo" data-depth="5">AFTERIMAGE</div>
+      <div class="en85-echo" data-depth="4">AFTERIMAGE</div>
+      <div class="en85-echo" data-depth="3">AFTERIMAGE</div>
+      <div class="en85-echo" data-depth="2">AFTERIMAGE</div>
+      <div class="en85-echo" data-depth="1">AFTERIMAGE</div>
+    </div>
+
+    <h2 class="en85-word" id="en85Word">AFTERIMAGE</h2>
+
+    <div class="en85-word-caption">
+      THE PRESENT LEAVES A TRACE
+    </div>
+
+    <div class="en85-coordinate en85-coordinate-left">T+00.001</div>
+    <div class="en85-coordinate en85-coordinate-right">FRAME / 085</div>
+  </main>
+
+  <div class="en85-trail-hint">
+    <span class="en85-hint-dot"></span>
+    MOVE YOUR CURSOR TO DISTORT TIME
+  </div>
+
+  <footer class="en85-footer">
+    <div class="en85-footer-label">
+      <span>FIG. 085</span>
+      <span class="en85-separator"></span>
+      <span>RESIDUAL MOTION</span>
+    </div>
+
+    <div class="en85-progress-wrap">
+      <span class="en85-progress-line">
+        <span id="en85Progress"></span>
+      </span>
+      <span id="en85Percent">00%</span>
+    </div>
+
+    <button class="en85-replay" id="en85Replay" type="button">
+      RESET ECHO <span>↺</span>
+    </button>
+  </footer>
+</section>
+
+
+<!------- Section 86: SINGULARITY -->
+
+<section class="section-eighty-six" id="en86Section">
+  <canvas class="en86-canvas" id="en86Canvas"></canvas>
+  <div class="en86-grid"></div>
+  <div class="en86-vignette"></div>
+
+  <header class="en86-header">
+    <div class="en86-brand">
+      <span class="en86-live-dot"></span>
+      EXPERIMENTAL TYPOGRAPHY
+    </div>
+    <div class="en86-index">SECTION 086 <span>/</span> GRAVITY</div>
+  </header>
+
+  <div class="en86-top-meta">
+    <span>GRAVITATIONAL STUDY / 086.01</span>
+    <span id="en86Status">FIELD STABLE</span>
+  </div>
+
+  <main class="en86-stage" id="en86Stage">
+    <div class="en86-ring en86-ring-one"></div>
+    <div class="en86-ring en86-ring-two"></div>
+    <div class="en86-ring en86-ring-three"></div>
+
+    <div class="en86-word" id="en86Word" aria-label="Singularity">
+      <span class="en86-letter">S</span>
+      <span class="en86-letter">I</span>
+      <span class="en86-letter">N</span>
+      <span class="en86-letter">G</span>
+      <span class="en86-letter">U</span>
+      <span class="en86-letter">L</span>
+      <span class="en86-letter">A</span>
+      <span class="en86-letter">R</span>
+      <span class="en86-letter">I</span>
+      <span class="en86-letter">T</span>
+      <span class="en86-letter">Y</span>
+    </div>
+
+    <div class="en86-core" id="en86Core"></div>
+    <div class="en86-flash" id="en86Flash"></div>
+
+    <div class="en86-caption">
+      EVERYTHING CONVERGES
+    </div>
+
+    <div class="en86-coord en86-coord-left">X / 000.00</div>
+    <div class="en86-coord en86-coord-right">Y / 000.00</div>
+  </main>
+
+  <div class="en86-hint">
+    <span class="en86-hint-dot"></span>
+    MOVE TO ALTER GRAVITY
+  </div>
+
+  <footer class="en86-footer">
+    <div class="en86-footer-label">
+      <span>FIG. 086</span>
+      <span class="en86-divider"></span>
+      <span>SPACE COLLAPSE</span>
+    </div>
+
+    <div class="en86-progress-wrap">
+      <div class="en86-progress-track">
+        <div id="en86Progress"></div>
+      </div>
+      <span id="en86Percent">00%</span>
+    </div>
+
+    <button class="en86-reset" id="en86Reset" type="button">
+      RESTART <span>↻</span>
+    </button>
+  </footer>
+</section>
+
+<!--- SECTION 87: INFINITY-->
+
+<section class="section-eighty-seven" id="en87Section">
+  <div class="en87-grid"></div>
+  <div class="en87-grain"></div>
+  <div class="en87-vignette"></div>
+
+  <header class="en87-header">
+    <div class="en87-brand">
+      <span class="en87-dot"></span>
+      EXPERIMENTAL TYPOGRAPHY
+    </div>
+    <div class="en87-index">SECTION 087 <span>/</span> INFINITY</div>
+  </header>
+
+  <div class="en87-meta">
+    <span>RECURSIVE SPACE / 087.01</span>
+    <span id="en87Status">DEPTH: 000</span>
+  </div>
+
+  <main class="en87-stage" id="en87Stage">
+    <div class="en87-world" id="en87World">
+      <div class="en87-tunnel" id="en87Tunnel">
+        <div class="en87-layer" data-depth="0">INFINITE</div>
+        <div class="en87-layer" data-depth="1">INFINITE</div>
+        <div class="en87-layer" data-depth="2">INFINITE</div>
+        <div class="en87-layer" data-depth="3">INFINITE</div>
+        <div class="en87-layer" data-depth="4">INFINITE</div>
+        <div class="en87-layer" data-depth="5">INFINITE</div>
+        <div class="en87-layer" data-depth="6">INFINITE</div>
+        <div class="en87-layer" data-depth="7">INFINITE</div>
+        <div class="en87-layer" data-depth="8">INFINITE</div>
+        <div class="en87-layer" data-depth="9">INFINITE</div>
+        <div class="en87-layer" data-depth="10">INFINITE</div>
+        <div class="en87-layer" data-depth="11">INFINITE</div>
+      </div>
+
+      <div class="en87-center-point"></div>
+    </div>
+
+    <div class="en87-crosshair en87-crosshair-h"></div>
+    <div class="en87-crosshair en87-crosshair-v"></div>
+
+    <div class="en87-coordinate en87-coordinate-left">X / 000.00</div>
+    <div class="en87-coordinate en87-coordinate-right">Z / ∞</div>
+  </main>
+
+  <div class="en87-caption">
+    <span class="en87-caption-line"></span>
+    THERE IS NO FINAL FRAME
+    <span class="en87-caption-line"></span>
+  </div>
+
+  <footer class="en87-footer">
+    <div class="en87-footer-label">
+      <span>FIG. 087</span>
+      <span class="en87-divider"></span>
+      <span>RECURSIVE TYPOGRAPHY</span>
+    </div>
+
+    <div class="en87-progress-wrap">
+      <div class="en87-progress-track">
+        <div id="en87Progress"></div>
+      </div>
+      <span id="en87Percent">00%</span>
+    </div>
+
+    <button class="en87-reset" id="en87Reset" type="button">
+      RETURN TO ORIGIN <span>↗</span>
+    </button>
+  </footer>
+</section>
+
+<!--- Section 88 PARADOX--->
+
+<section class="section-eighty-eight" id="en88Section">
+  <div class="en88-grid"></div>
+  <div class="en88-grain"></div>
+  <div class="en88-vignette"></div>
+
+  <header class="en88-header">
+    <div class="en88-brand">
+      <span class="en88-dot"></span>
+      EXPERIMENTAL TYPOGRAPHY
+    </div>
+    <div class="en88-index">SECTION 088 <span>/</span> CONTRADICTION</div>
+  </header>
+
+  <div class="en88-meta">
+    <span>DUALITY EXPERIMENT / 088.01</span>
+    <span id="en88Status">REALITY: STABLE</span>
+  </div>
+
+  <main class="en88-stage" id="en88Stage">
+    <div class="en88-axis en88-axis-horizontal"></div>
+    <div class="en88-axis en88-axis-vertical"></div>
+
+    <div class="en88-composition" id="en88Composition">
+      <div class="en88-half en88-half-top" id="en88Top">
+        <div class="en88-word en88-word-top" aria-hidden="true">
+          <span>P</span><span>A</span><span>R</span><span>A</span>
+          <span>D</span><span>O</span><span>X</span>
+        </div>
+      </div>
+
+      <div class="en88-half en88-half-bottom" id="en88Bottom">
+        <div class="en88-word en88-word-bottom" aria-hidden="true">
+          <span>P</span><span>A</span><span>R</span><span>A</span>
+          <span>D</span><span>O</span><span>X</span>
+        </div>
+      </div>
+
+      <h2 class="en88-accessible-title">PARADOX</h2>
+      <div class="en88-center-mark"></div>
+    </div>
+
+    <div class="en88-coord en88-coord-left">REALITY / 001</div>
+    <div class="en88-coord en88-coord-right">REFLECTION / 002</div>
+  </main>
+
+  <div class="en88-caption">
+    <span class="en88-caption-line"></span>
+    TWO TRUTHS. ONE REALITY.
+    <span class="en88-caption-line"></span>
+  </div>
+
+  <footer class="en88-footer">
+    <div class="en88-footer-label">
+      <span>FIG. 088</span>
+      <span class="en88-divider"></span>
+      <span>IMPOSSIBLE TYPOGRAPHY</span>
+    </div>
+
+    <div class="en88-progress-wrap">
+      <div class="en88-progress-track">
+        <div id="en88Progress"></div>
+      </div>
+      <span id="en88Percent">00%</span>
+    </div>
+
+    <button class="en88-reset" id="en88Reset" type="button">
+      RESTORE REALITY <span>↺</span>
+    </button>
+  </footer>
+</section>
+
+<!--- Section 89 FERACTION--->
+
+<section class="section-eighty-nine" id="en89Section">
+  <div class="en89-grid"></div>
+  <div class="en89-grain"></div>
+  <div class="en89-vignette"></div>
+
+  <header class="en89-header">
+    <div class="en89-brand">
+      <span class="en89-dot"></span>
+      EXPERIMENTAL TYPOGRAPHY
+    </div>
+    <div class="en89-index">SECTION 089 <span>/</span> RECURSION</div>
+  </header>
+
+  <div class="en89-meta">
+    <span>RECURSIVE STUDY / 089.01</span>
+    <span id="en89Status">PATTERN: ORIGINAL</span>
+  </div>
+
+  <main class="en89-stage" id="en89Stage">
+    <div class="en89-world" id="en89World">
+      <div class="en89-layer en89-layer-0">
+        <span>FRACTAL</span>
+      </div>
+      <div class="en89-layer en89-layer-1">
+        <span>FRACTAL</span>
+      </div>
+      <div class="en89-layer en89-layer-2">
+        <span>FRACTAL</span>
+      </div>
+      <div class="en89-layer en89-layer-3">
+        <span>FRACTAL</span>
+      </div>
+      <div class="en89-layer en89-layer-4">
+        <span>FRACTAL</span>
+      </div>
+      <div class="en89-layer en89-layer-5">
+        <span>FRACTAL</span>
+      </div>
+      <div class="en89-layer en89-layer-6">
+        <span>FRACTAL</span>
+      </div>
+      <div class="en89-layer en89-layer-7">
+        <span>FRACTAL</span>
+      </div>
+      <div class="en89-layer en89-layer-8">
+        <span>FRACTAL</span>
+      </div>
+      <div class="en89-layer en89-layer-9">
+        <span>FRACTAL</span>
+      </div>
+      <div class="en89-layer en89-layer-10">
+        <span>FRACTAL</span>
+      </div>
+      <div class="en89-layer en89-layer-11">
+        <span>FRACTAL</span>
+      </div>
+    </div>
+
+    <div class="en89-focus"></div>
+    <div class="en89-coordinate en89-coordinate-left">ITERATION / 001</div>
+    <div class="en89-coordinate en89-coordinate-right">SCALE / ∞</div>
+  </main>
+
+  <div class="en89-caption">
+    <span></span>
+    EVERY END CONTAINS A BEGINNING
+    <span></span>
+  </div>
+
+  <footer class="en89-footer">
+    <div class="en89-footer-label">
+      <span>FIG. 089</span>
+      <i></i>
+      <span>INFINITE REPETITION</span>
+    </div>
+
+    <div class="en89-progress-wrap">
+      <div class="en89-progress-track">
+        <div id="en89Progress"></div>
+      </div>
+      <span id="en89Percent">00%</span>
+    </div>
+
+    <button class="en89-reset" id="en89Reset" type="button">
+      RESET PATTERN <span>↺</span>
+    </button>
+  </footer>
+</section>
+
+<!--- SECTION 90 -->
+
+<section class="section-ninety" id="en90Section">
+  <div class="en90-grid"></div>
+  <div class="en90-noise"></div>
+  <div class="en90-vignette"></div>
+
+  <header class="en90-header">
+    <div class="en90-brand">
+      <span class="en90-indicator"></span>
+      EXPERIMENTAL TYPOGRAPHY
+    </div>
+    <div class="en90-index">SECTION 090 <span>/</span> ECHO STUDY</div>
+  </header>
+
+  <div class="en90-meta">
+    <span>ACOUSTIC MEMORY / VISUAL FORM</span>
+    <span id="en90Status">SIGNAL: CLEAR</span>
+  </div>
+
+  <main class="en90-stage" id="en90Stage">
+    <div class="en90-echo-field" id="en90EchoField">
+      <div class="en90-echo en90-echo-8"><span>REVERB</span></div>
+      <div class="en90-echo en90-echo-7"><span>REVERB</span></div>
+      <div class="en90-echo en90-echo-6"><span>REVERB</span></div>
+      <div class="en90-echo en90-echo-5"><span>REVERB</span></div>
+      <div class="en90-echo en90-echo-4"><span>REVERB</span></div>
+      <div class="en90-echo en90-echo-3"><span>REVERB</span></div>
+      <div class="en90-echo en90-echo-2"><span>REVERB</span></div>
+      <div class="en90-echo en90-echo-1"><span>REVERB</span></div>
+      <div class="en90-echo en90-echo-0"><span>REVERB</span></div>
+    </div>
+
+    <div class="en90-crosshair en90-crosshair-x"></div>
+    <div class="en90-crosshair en90-crosshair-y"></div>
+
+    <div class="en90-stage-note en90-note-left">INPUT / MOVEMENT</div>
+    <div class="en90-stage-note en90-note-right">OUTPUT / MEMORY</div>
+
+    <div class="en90-center-mark">R<span>—</span>090</div>
+  </main>
+
+  <div class="en90-caption">
+    <span></span>
+    NOTHING DISAPPEARS IMMEDIATELY
+    <span></span>
+  </div>
+
+  <footer class="en90-footer">
+    <div class="en90-footer-info">
+      <span>FIG. 090</span>
+      <i></i>
+      <span>DELAYED REPETITION</span>
+    </div>
+
+    <div class="en90-progress">
+      <div class="en90-progress-track">
+        <div id="en90Progress"></div>
+      </div>
+      <span id="en90Percent">00%</span>
+    </div>
+
+    <button type="button" class="en90-reset" id="en90Reset">
+      RESET SIGNAL <span>↺</span>
+    </button>
+  </footer>
+</section>
+
+<footer class="ts-footer">
+    <p>End of animations 081&ndash;090</p>
+    <div class="ts-footer-links">
+        <a href="../../index.html">All batches</a>
+        <a href="../071-080/index.html">&larr; 071-080</a>
+        <a href="../091-100/index.html">091-100 &rarr;</a>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>

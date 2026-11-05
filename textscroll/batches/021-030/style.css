@@ -1,0 +1,916 @@
+/* Animations 021-030. Global styles live in ../../shared/base.css */
+
+/* =========================================================
+   SECTION 21
+========================================================= */
+
+.section-twentyone{
+
+    width:100%;
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    overflow:hidden;
+
+    background:#070707;
+}
+
+.tide-text{
+
+    font-size:clamp(4rem,10vw,9rem);
+
+    font-weight:900;
+
+    letter-spacing:-0.06em;
+
+    color:white;
+
+    white-space:nowrap;
+}
+
+.tide-char{
+
+    display:inline-block;
+
+    transform-origin:center;
+
+    will-change:transform;
+}
+
+/* =========================================================
+   SECTION 22
+   GRAVITY TYPOGRAPHY
+========================================================= */
+
+.section-twenty-two {
+    width: 100%;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #080808;
+    color: #fff;
+
+    perspective: 1600px;
+}
+
+.gravity-stage {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gravity-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: clamp(5rem, 15vw, 14rem);
+    font-weight: 900;
+
+    line-height: 0.8;
+    letter-spacing: -0.08em;
+
+    white-space: nowrap;
+}
+
+.gravity-char {
+    display: inline-block;
+
+    transform-origin: 50% 0%;
+
+    will-change: transform, opacity;
+
+    backface-visibility: hidden;
+}
+
+/* =========================================================
+   SECTION 23
+   GLASS REFRACTION
+========================================================= */
+
+.section-twenty-three {
+    position: relative;
+
+    width: 100%;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #080808;
+    color: #fff;
+}
+
+.glass-stage {
+    position: relative;
+
+    width: min(90vw, 1400px);
+    height: 300px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.glass-text {
+    position: relative;
+
+    margin: 0;
+
+    font-size: clamp(4rem, 11vw, 11rem);
+    font-weight: 900;
+
+    line-height: 1;
+    letter-spacing: -0.08em;
+
+    white-space: nowrap;
+
+    color: #f5f5f5;
+
+    will-change: transform, filter;
+}
+
+
+/* =========================================================
+   GLASS LENS
+========================================================= */
+
+.glass-lens {
+    position: absolute;
+
+    top: 50%;
+
+    left: -25%;
+
+    width: 180px;
+    height: 220px;
+
+    transform: translateY(-50%);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: 2;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.12),
+            rgba(255,255,255,.55),
+            rgba(255,255,255,.12),
+            transparent
+        );
+
+    border-left: 1px solid rgba(255,255,255,.35);
+    border-right: 1px solid rgba(255,255,255,.35);
+
+    box-shadow:
+        inset 0 0 30px rgba(255,255,255,.12),
+        0 0 40px rgba(255,255,255,.05);
+
+    backdrop-filter: blur(3px);
+
+    opacity: 0;
+
+    will-change: left, transform;
+}
+
+/* =========================================================
+   REFLECTION
+========================================================= */
+
+.glass-lens::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 10% 35%;
+
+    background: rgba(255,255,255,.35);
+
+    filter: blur(18px);
+
+    opacity: .5;
+}
+
+/* =========================================================
+   SECTION 24
+   TYPOGRAPHY COLLAPSE
+========================================================= */
+
+.section-twenty-four {
+    width: 100%;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #050505;
+    color: #fff;
+
+    perspective: 1800px;
+}
+
+.collapse-stage {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.collapse-text {
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: clamp(5rem, 15vw, 15rem);
+    font-weight: 900;
+
+    line-height: .8;
+    letter-spacing: -.08em;
+
+    white-space: nowrap;
+
+    will-change: transform;
+}
+
+.collapse-char {
+    display: inline-block;
+
+    transform-origin: center center;
+
+    will-change: transform, opacity, filter;
+}
+
+.collapse-point {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    box-shadow:
+        0 0 20px rgba(255,255,255,.7),
+        0 0 60px rgba(255,255,255,.25);
+
+    will-change: transform, opacity;
+}
+
+/* =========================================================
+   SECTION 25
+   LIQUID DISTORTION
+========================================================= */
+
+.section-twenty-five {
+    width: 100%;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #050505;
+    color: #fff;
+
+    perspective: 1600px;
+}
+
+.liquid-stage {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.liquid-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0;
+
+    font-size: clamp(6rem, 20vw, 20rem);
+    font-weight: 900;
+
+    line-height: .8;
+    letter-spacing: -.08em;
+
+    white-space: nowrap;
+}
+
+.liquid-char {
+    display: inline-block;
+
+    transform-origin: center center;
+
+    will-change: transform, filter;
+
+    backface-visibility: hidden;
+}
+
+/* =========================================================
+   SECTION 26
+   MECHANICAL TYPOGRAPHY
+========================================================= */
+
+.section-twenty-six {
+    width: 100%;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #111;
+    color: #f5f5f5;
+
+    perspective: 1800px;
+}
+
+.mechanical-stage {
+    position: relative;
+
+    width: 90%;
+    max-width: 1500px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mechanical-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0;
+
+    font-size: clamp(4rem, 12vw, 12rem);
+    font-weight: 900;
+
+    line-height: .8;
+    letter-spacing: -.07em;
+
+    white-space: nowrap;
+
+    transform-style: preserve-3d;
+}
+
+.mechanical-char {
+    display: inline-block;
+
+    transform-origin: center center;
+
+    will-change: transform, opacity;
+
+    backface-visibility: hidden;
+}
+
+
+/* =========================================================
+   MECHANICAL LINES
+========================================================= */
+
+.mechanical-lines {
+    position: absolute;
+
+    top: 50%;
+
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+
+    pointer-events: none;
+}
+
+.mechanical-lines span {
+    width: 35px;
+    height: 1px;
+
+    background: rgba(255,255,255,.3);
+
+    transform-origin: left center;
+}
+
+.mechanical-lines:first-child {
+    transform: translateY(-130px);
+}
+
+.mechanical-lines:last-child {
+    transform: translateY(130px);
+}
+
+/* =========================================================
+   SECTION 27
+   FLOATING / DREAMY TYPOGRAPHY
+========================================================= */
+
+.section-twenty-seven {
+    width: 100%;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #dfe8ef;
+    color: #17212b;
+
+    perspective: 1800px;
+}
+
+.floating-stage {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   SOFT ATMOSPHERE
+========================================================= */
+
+.floating-atmosphere {
+    position: absolute;
+
+    width: 60vw;
+    height: 60vw;
+
+    max-width: 800px;
+    max-height: 800px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.8) 0%,
+            rgba(255,255,255,.35) 35%,
+            transparent 70%
+        );
+
+    filter: blur(30px);
+
+    opacity: .7;
+
+    pointer-events: none;
+}
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+.floating-text {
+    position: relative;
+
+    display: flex;
+
+    margin: 0;
+
+    font-size: clamp(6rem, 18vw, 18rem);
+    font-weight: 900;
+
+    line-height: .8;
+    letter-spacing: -.08em;
+
+    white-space: nowrap;
+
+    transform-style: preserve-3d;
+
+    will-change: transform;
+}
+
+.floating-char {
+    display: inline-block;
+
+    transform-origin: center center;
+
+    will-change: transform, opacity, filter;
+
+    backface-visibility: hidden;
+}
+
+/* =========================================================
+   SECTION 28
+   NEON POWER ON
+========================================================= */
+
+.section-twenty-eight {
+    width: 100%;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #050505;
+    color: #fff;
+}
+
+.neon-stage {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================================================
+   SUBTLE GRID
+========================================================= */
+
+.neon-grid {
+    position: absolute;
+
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 70px 70px;
+
+    mask-image:
+        radial-gradient(
+            ellipse at center,
+            black 0%,
+            transparent 70%
+        );
+
+    pointer-events: none;
+}
+/* =========================================================
+   TEXT
+========================================================= */
+
+.neon-text {
+    position: relative;
+
+    display: flex;
+
+    margin: 0;
+
+    font-size: clamp(7rem, 20vw, 20rem);
+    font-weight: 900;
+
+    line-height: .8;
+    letter-spacing: -.08em;
+
+    white-space: nowrap;
+
+    color: #151515;
+
+    text-shadow: none;
+
+    will-change: filter;
+}
+
+.neon-char {
+    display: inline-block;
+
+    color: #111;
+
+    opacity: .08;
+
+    will-change:
+        color,
+        opacity,
+        text-shadow,
+        transform,
+        filter;
+}
+
+/* =========================================================
+   SECTION 29
+   WIREFRAME TYPOGRAPHY
+========================================================= */
+
+.section-twenty-nine {
+    width: 100%;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #050505;
+    color: #fff;
+
+    perspective: 1800px;
+}
+
+.wireframe-stage {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* =========================================================
+   TEXT
+========================================================= */
+
+.wireframe-text {
+    position: absolute;
+
+    margin: 0;
+
+    font-size: clamp(5rem, 15vw, 15rem);
+    font-weight: 900;
+
+    line-height: .8;
+    letter-spacing: -.08em;
+
+    white-space: nowrap;
+
+    will-change:
+        transform,
+        opacity,
+        clip-path,
+        filter;
+}
+/* =========================================================
+   SOLID VERSION
+========================================================= */
+
+.wireframe-solid {
+    color: #fff;
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   OUTLINE VERSION
+========================================================= */
+
+.wireframe-outline {
+
+    color: transparent;
+
+    -webkit-text-stroke: 2px rgba(255,255,255,.9);
+
+    text-stroke: 2px rgba(255,255,255,.9);
+
+    z-index: 2;
+
+    opacity: 0;
+
+    transform: scale(.96);
+}
+
+/* =========================================================
+   DIGITAL LINES
+========================================================= */
+
+.wireframe-stage::before,
+.wireframe-stage::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 100vw;
+
+    height: 1px;
+
+    background: rgba(255,255,255,.15);
+
+    transform: scaleX(var(--line-scale, 0));
+
+    transform-origin: center;
+
+    pointer-events: none;
+}
+
+.wireframe-stage::before {
+    top: 35%;
+}
+
+.wireframe-stage::after {
+    bottom: 35%;
+}
+
+/* =========================================================
+   SECTION 30
+   TYPOGRAPHY CONVERGENCE
+========================================================= */
+
+.section-thirty {
+    width: 100%;
+    height: 100dvh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #050505;
+    color: #fff;
+
+    perspective: 1800px;
+}
+
+.convergence-stage {
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+/* =========================================================
+   SCATTERED WORDS
+========================================================= */
+
+.convergence-words {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+}
+
+.convergence-word {
+    position: absolute;
+
+    font-size: clamp(2rem, 5vw, 5rem);
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    letter-spacing: -.05em;
+
+    white-space: nowrap;
+
+    will-change:
+        transform,
+        opacity,
+        filter;
+}
+/* Initial positions */
+
+.word-1 {
+    top: 15%;
+    left: 12%;
+}
+
+.word-2 {
+    top: 25%;
+    right: 10%;
+}
+
+.word-3 {
+    top: 55%;
+    left: 8%;
+}
+
+.word-4 {
+    top: 70%;
+    right: 15%;
+}
+
+.word-5 {
+    top: 10%;
+    left: 55%;
+}
+
+.word-6 {
+    bottom: 12%;
+    left: 30%;
+}
+
+.word-7 {
+    top: 45%;
+    right: 5%;
+}
+
+/* =========================================================
+   FINAL STATEMENT
+========================================================= */
+
+.final-statement {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: .02em;
+
+     text-align: center;
+
+    opacity: 0;
+
+    transform: scale(.7);
+
+    will-change:
+        transform,
+        opacity;
+}
+
+.final-statement span {
+    display: block;
+
+    font-size: clamp(4rem, 11vw, 11rem);
+
+    font-weight: 900;
+
+    line-height: .8;
+
+    letter-spacing: -.08em;
+
+    white-space: nowrap;
+}
+/* =========================================================
+   PLUS SIGN
+========================================================= */
+
+.final-statement span:nth-child(4) {
+
+    font-size: clamp(2rem, 5vw, 5rem);
+
+    line-height: 1;
+
+    margin: .08em 0;
+}

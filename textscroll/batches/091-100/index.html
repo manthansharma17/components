@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Text Scroll Animations 091-100</title>
+
+    <link rel="stylesheet" href="../../shared/base.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- GSAP bundled locally (works offline / without CDN) -->
+    <script src="../../vendor/gsap.min.js"></script>
+    <script src="../../vendor/ScrollTrigger.min.js"></script>
+</head>
+
+<body>
+
+<nav class="ts-nav" aria-label="Batch navigation">
+    <a href="../../index.html">All batches</a>
+    <a href="../081-090/index.html">&larr; 081-090</a>
+    <a href="../101-102/index.html">101-102 &rarr;</a>
+</nav>
+
+<!-- BATCH INTRO -->
+<section class="hero ts-hero">
+    <div class="ts-hero-inner">
+        <p class="ts-kicker">Batch 10 / 11</p>
+        <h1>Animations 091&ndash;100</h1>
+        <ol class="ts-list">
+      <li><span>091</span>Collapse</li>
+      <li><span>092</span>Disintegrate</li>
+      <li><span>093</span>Aftershock</li>
+      <li><span>094</span>Echo</li>
+      <li><span>095</span>Supernova</li>
+      <li><span>096</span>Afterglow</li>
+      <li><span>097</span>Gravity</li>
+      <li><span>098</span>Void</li>
+      <li><span>099</span>After the End</li>
+      <li><span>100</span>Eclipse</li>
+        </ol>
+        <p class="ts-scroll">Scroll down &darr;</p>
+    </div>
+</section>
+
+
+<!-- =========================================================
+     SECTION 91 — TYPOGRAPHY: COLLAPSE
+========================================================= -->
+
+<section class="section-ninety-one" id="en91Section">
+  <div class="en91-grid"></div>
+  <div class="en91-grain"></div>
+  <div class="en91-vignette"></div>
+
+  <header class="en91-header">
+    <div class="en91-brand">
+      <span class="en91-dot"></span>
+      EXPERIMENTAL TYPOGRAPHY
+    </div>
+    <div class="en91-index">SECTION 091 <span>/</span> GRAVITY STUDY</div>
+  </header>
+
+  <div class="en91-meta">
+    <span>STRUCTURAL INSTABILITY / 091.01</span>
+    <span id="en91Status">STATE: STABLE</span>
+  </div>
+
+  <main class="en91-stage" id="en91Stage">
+    <div class="en91-coordinate en91-coordinate-top">FIELD / 001</div>
+
+    <div class="en91-word" id="en91Word" aria-label="COLLAPSE">
+      <span class="en91-letter">C</span>
+      <span class="en91-letter">O</span>
+      <span class="en91-letter">L</span>
+      <span class="en91-letter">L</span>
+      <span class="en91-letter">A</span>
+      <span class="en91-letter">P</span>
+      <span class="en91-letter">S</span>
+      <span class="en91-letter">E</span>
+    </div>
+
+    <div class="en91-gravity-point" id="en91GravityPoint">
+      <span></span>
+    </div>
+
+    <div class="en91-ring en91-ring-1"></div>
+    <div class="en91-ring en91-ring-2"></div>
+    <div class="en91-ring en91-ring-3"></div>
+
+    <div class="en91-side-label en91-side-left">MASS / 08.00</div>
+    <div class="en91-side-label en91-side-right">FORCE / INWARD</div>
+
+    <div class="en91-coordinate en91-coordinate-bottom">
+      ORIGIN <span>0.000 / 0.000</span>
+    </div>
+  </main>
+
+  <div class="en91-caption">
+    <span></span>
+    ALL THINGS RETURN TO THE CENTRE
+    <span></span>
+  </div>
+
+  <footer class="en91-footer">
+    <div class="en91-footer-info">
+      <span>FIG. 091</span>
+      <i></i>
+      <span>GRAVITATIONAL TYPOGRAPHY</span>
+    </div>
+
+    <div class="en91-progress">
+      <div class="en91-progress-track">
+        <div id="en91Progress"></div>
+      </div>
+      <span id="en91Percent">00%</span>
+    </div>
+
+    <button type="button" class="en91-reset" id="en91Reset">
+      RESET FIELD <span>↺</span>
+    </button>
+  </footer>
+</section>
+
+<!------------------------ Section 92: Disintegrate----------------------->
+
+<section class="section-ninety-two" id="en92Section">
+  <div class="en92-grid"></div>
+  <div class="en92-grain"></div>
+  <div class="en92-vignette"></div>
+
+  <header class="en92-header">
+    <div class="en92-brand">
+      <span class="en92-dot"></span>
+      EXPERIMENTAL TYPOGRAPHY
+    </div>
+    <div class="en92-index">SECTION 092 <span>/</span> DECONSTRUCTION</div>
+  </header>
+
+  <div class="en92-meta">
+    <span>STRUCTURAL DECAY / 092.01</span>
+    <span id="en92Status">MATTER: INTACT</span>
+  </div>
+
+  <main class="en92-stage" id="en92Stage">
+    <div class="en92-word" id="en92Word" aria-label="DISINTEGRATE">
+      <span class="en92-letter">D</span>
+      <span class="en92-letter">I</span>
+      <span class="en92-letter">S</span>
+      <span class="en92-letter">I</span>
+      <span class="en92-letter">N</span>
+      <span class="en92-letter">T</span>
+      <span class="en92-letter">E</span>
+      <span class="en92-letter">G</span>
+      <span class="en92-letter">R</span>
+      <span class="en92-letter">A</span>
+      <span class="en92-letter">T</span>
+      <span class="en92-letter">E</span>
+    </div>
+
+    <div class="en92-particle-field" id="en92Particles"></div>
+
+    <div class="en92-origin" id="en92Origin">
+      <span></span>
+    </div>
+
+    <div class="en92-stage-label en92-label-left">FORM / 001</div>
+    <div class="en92-stage-label en92-label-right">FRAGMENT / ∞</div>
+    <div class="en92-stage-label en92-label-bottom">
+      DISASSEMBLY <span>IN PROGRESS</span>
+    </div>
+  </main>
+
+  <div class="en92-caption">
+    <span></span>
+    EVERY FORM CONTAINS ITS OWN END
+    <span></span>
+  </div>
+
+  <footer class="en92-footer">
+    <div class="en92-footer-info">
+      <span>FIG. 092</span>
+      <i></i>
+      <span>MATTER / TRANSFORMATION</span>
+    </div>
+
+    <div class="en92-progress">
+      <div class="en92-progress-track">
+        <div id="en92Progress"></div>
+      </div>
+      <span id="en92Percent">00%</span>
+    </div>
+
+    <button class="en92-reset" id="en92Reset" type="button">
+      REASSEMBLE <span>↺</span>
+    </button>
+  </footer>
+</section>
+
+<!------------------------ Section 92: Disintegrate----------------------->
+
+<section class="section-ninety-three" id="en93Section">
+  <div class="en93-grid"></div>
+  <div class="en93-grain"></div>
+  <div class="en93-vignette"></div>
+
+  <header class="en93-header">
+    <div class="en93-brand">
+      <span class="en93-dot"></span>
+      EXPERIMENTAL TYPOGRAPHY
+    </div>
+    <div class="en93-index">SECTION 093 <span>/</span> IMPACT STUDY</div>
+  </header>
+
+  <div class="en93-meta">
+    <span>OSCILLATION / VISUAL RESIDUE</span>
+    <span id="en93Status">SYSTEM: STABLE</span>
+  </div>
+
+  <main class="en93-stage" id="en93Stage">
+    <div class="en93-word" id="en93Word" aria-label="AFTERSHOCK">
+      <span class="en93-line en93-line-0">AFTERSHOCK</span>
+      <span class="en93-line en93-line-1" aria-hidden="true">AFTERSHOCK</span>
+      <span class="en93-line en93-line-2" aria-hidden="true">AFTERSHOCK</span>
+      <span class="en93-line en93-line-3" aria-hidden="true">AFTERSHOCK</span>
+      <span class="en93-line en93-line-4" aria-hidden="true">AFTERSHOCK</span>
+      <span class="en93-line en93-line-5" aria-hidden="true">AFTERSHOCK</span>
+      <span class="en93-line en93-line-6" aria-hidden="true">AFTERSHOCK</span>
+      <span class="en93-line en93-line-7" aria-hidden="true">AFTERSHOCK</span>
+    </div>
+
+    <div class="en93-wave en93-wave-1"></div>
+    <div class="en93-wave en93-wave-2"></div>
+    <div class="en93-wave en93-wave-3"></div>
+
+    <div class="en93-crosshair en93-crosshair-x"></div>
+    <div class="en93-crosshair en93-crosshair-y"></div>
+
+    <div class="en93-stage-label en93-label-left">IMPACT / 001</div>
+    <div class="en93-stage-label en93-label-right">DECAY / ∞</div>
+    <div class="en93-origin" id="en93Origin"></div>
+  </main>
+
+  <div class="en93-caption">
+    <span></span>
+    THE IMPACT OUTLIVES THE MOMENT
+    <span></span>
+  </div>
+
+  <footer class="en93-footer">
+    <div class="en93-footer-info">
+      <span>FIG. 093</span>
+      <i></i>
+      <span>WAVE PROPAGATION</span>
+    </div>
+
+    <div class="en93-progress">
+      <div class="en93-progress-track">
+        <div id="en93Progress"></div>
+      </div>
+      <span id="en93Percent">00%</span>
+    </div>
+
+    <button class="en93-reset" id="en93Reset" type="button">
+      RESET FIELD <span>↺</span>
+    </button>
+  </footer>
+</section>
+
+<!--------- SECTION 94: ECHO------------->
+
+<section class="en94-section" id="en94-resonance">
+  <div class="en94-topbar">
+    <span>EXPERIMENT 094</span>
+    <span class="en94-top-label">WAVE / FREQUENCY</span>
+    <span class="en94-status">
+      <i></i> SYSTEM ACTIVE
+    </span>
+  </div>
+
+  <div class="en94-grid"></div>
+
+  <div class="en94-content">
+    <div class="en94-index">
+      <span>94</span>
+      <span class="en94-index-line"></span>
+      <span>RESONANCE FIELD</span>
+    </div>
+
+    <div class="en94-stage">
+      <div class="en94-rings" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <div class="en94-echoes" aria-hidden="true">
+        <span>RESONANCE</span>
+        <span>RESONANCE</span>
+        <span>RESONANCE</span>
+        <span>RESONANCE</span>
+        <span>RESONANCE</span>
+        <span>RESONANCE</span>
+        <span>RESONANCE</span>
+      </div>
+
+      <h2 class="en94-word">
+        <span>RESONANCE</span>
+      </h2>
+
+      <div class="en94-crosshair en94-crosshair--left"></div>
+      <div class="en94-crosshair en94-crosshair--right"></div>
+    </div>
+
+    <div class="en94-caption">
+      <span class="en94-caption-left">ONE SIGNAL. INFINITE RESPONSES.</span>
+      <span class="en94-caption-right">MOVE TO DISTURB THE FIELD ↗</span>
+    </div>
+  </div>
+
+  <div class="en94-bottom">
+    <span>FREQUENCY: <b class="en94-frequency">00.00 HZ</b></span>
+    <span class="en94-progress">
+      <i></i>
+    </span>
+    <span>SCROLL TO AMPLIFY <b>↓</b></span>
+  </div>
+</section>
+
+<!---------------------------- SECTION 95: SUPERNOVA ---------------------->
+
+<section class="en95-section" id="en95-supernova">
+  <div class="en95-topbar">
+    <span>EXPERIMENT 095</span>
+    <span class="en95-top-center">STELLAR COLLAPSE / 01</span>
+    <span class="en95-status"><i></i> CRITICAL MASS</span>
+  </div>
+
+  <div class="en95-grid" aria-hidden="true"></div>
+
+  <div class="en95-content">
+    <div class="en95-index">
+      <span>95</span>
+      <span class="en95-index-line"></span>
+      <span>MATTER / ENERGY / TIME</span>
+    </div>
+
+    <div class="en95-stage">
+      <div class="en95-orbit en95-orbit--one"></div>
+      <div class="en95-orbit en95-orbit--two"></div>
+      <div class="en95-orbit en95-orbit--three"></div>
+
+      <div class="en95-core" aria-hidden="true"></div>
+
+      <div class="en95-particles" aria-hidden="true"></div>
+
+      <h2 class="en95-title" aria-label="SUPERNOVA">
+        <span class="en95-letter">S</span>
+        <span class="en95-letter">U</span>
+        <span class="en95-letter">P</span>
+        <span class="en95-letter">E</span>
+        <span class="en95-letter">R</span>
+        <span class="en95-letter">N</span>
+        <span class="en95-letter">O</span>
+        <span class="en95-letter">V</span>
+        <span class="en95-letter">A</span>
+      </h2>
+
+      <div class="en95-coordinate en95-coordinate--left">
+        <span>COORD. 01</span>
+        <span>0.000 / 9.000</span>
+      </div>
+
+      <div class="en95-coordinate en95-coordinate--right">
+        <span>ENERGY OUTPUT</span>
+        <span class="en95-energy">000%</span>
+      </div>
+    </div>
+
+    <div class="en95-caption">
+      <span>EVERY END IS AN EXPANSION.</span>
+      <span class="en95-caption-right">MOVE TO ALTER GRAVITY ↗</span>
+    </div>
+  </div>
+
+  <div class="en95-bottom">
+    <span>STELLAR SYSTEM <b>09-A</b></span>
+    <div class="en95-progress"><i></i></div>
+    <span>SCROLL TO EXPLODE <b>↓</b></span>
+  </div>
+</section>
+
+<!----------------- Section 96 — AFTERGLOW --------------------->
+<section class="en96-section" id="en96-afterglow">
+  <div class="en96-topbar">
+    <span>EXPERIMENT 096</span>
+    <span class="en96-top-center">MEMORY / PERSISTENCE</span>
+    <span class="en96-status"><i></i> TRACE DETECTED</span>
+  </div>
+
+  <div class="en96-grid" aria-hidden="true"></div>
+
+  <div class="en96-content">
+    <div class="en96-index">
+      <span>96</span>
+      <span class="en96-index-line"></span>
+      <span>THE LIGHT THAT REMAINS</span>
+    </div>
+
+    <div class="en96-stage">
+      <div class="en96-aura" aria-hidden="true"></div>
+
+      <div class="en96-echoes" aria-hidden="true">
+        <span>AFTERGLOW</span>
+        <span>AFTERGLOW</span>
+        <span>AFTERGLOW</span>
+        <span>AFTERGLOW</span>
+        <span>AFTERGLOW</span>
+        <span>AFTERGLOW</span>
+      </div>
+
+      <h2 class="en96-title">
+        <span class="en96-letter">A</span><span class="en96-letter">F</span><span class="en96-letter">T</span><span class="en96-letter">E</span><span class="en96-letter">R</span><span class="en96-letter">G</span><span class="en96-letter">L</span><span class="en96-letter">O</span><span class="en96-letter">W</span>
+      </h2>
+
+      <div class="en96-trail" aria-hidden="true"></div>
+
+      <div class="en96-marker en96-marker--left"></div>
+      <div class="en96-marker en96-marker--right"></div>
+    </div>
+
+    <div class="en96-caption">
+      <span>NOTHING DISAPPEARS INSTANTLY.</span>
+      <span class="en96-caption-right">MOVE TO LEAVE A TRACE ↗</span>
+    </div>
+  </div>
+
+  <div class="en96-bottom">
+    <span>LIGHT DECAY <b class="en96-decay">100%</b></span>
+    <div class="en96-progress"><i></i></div>
+    <span>SCROLL TO DISSOLVE <b>↓</b></span>
+  </div>
+</section>
+
+<!------------------ SECTION 97: GRAVITY --------------------->
+
+<section class="en97-section" id="en97-gravity">
+  <header class="en97-topbar">
+    <span>EXPERIMENT 097</span>
+    <span class="en97-top-center">ATTRACTION / FORCE</span>
+    <span class="en97-status"><i></i> FIELD ACTIVE</span>
+  </header>
+
+  <div class="en97-grid" aria-hidden="true"></div>
+
+  <main class="en97-content">
+    <div class="en97-index">
+      <span>97</span>
+      <span class="en97-index-line"></span>
+      <span>THE INVISIBLE FORCE</span>
+    </div>
+
+    <div class="en97-stage">
+      <div class="en97-orbit en97-orbit--one" aria-hidden="true"></div>
+      <div class="en97-orbit en97-orbit--two" aria-hidden="true"></div>
+      <div class="en97-orbit en97-orbit--three" aria-hidden="true"></div>
+
+      <div class="en97-gravity-core" aria-hidden="true"></div>
+
+      <div class="en97-particles" aria-hidden="true"></div>
+
+      <h2 class="en97-title" aria-label="GRAVITY">
+        <span class="en97-letter">G</span>
+        <span class="en97-letter">R</span>
+        <span class="en97-letter">A</span>
+        <span class="en97-letter">V</span>
+        <span class="en97-letter">I</span>
+        <span class="en97-letter">T</span>
+        <span class="en97-letter">Y</span>
+      </h2>
+
+      <div class="en97-coord en97-coord--left">
+        <span>FIELD / 001</span>
+        <span>VECTOR: <b class="en97-vector">00.00</b></span>
+      </div>
+
+      <div class="en97-coord en97-coord--right">
+        <span>GRAVITATIONAL PULL</span>
+        <span class="en97-pull">MINIMAL</span>
+      </div>
+    </div>
+
+    <div class="en97-caption">
+      <span>EVERYTHING IS DRAWN TO SOMETHING.</span>
+      <span class="en97-caption-right">MOVE TO ALTER THE FIELD ↗</span>
+    </div>
+  </main>
+
+  <footer class="en97-bottom">
+    <span>FORCE <b>G / 09.81</b></span>
+    <div class="en97-progress"><i></i></div>
+    <span>SCROLL TO COLLAPSE <b>↓</b></span>
+  </footer>
+</section>
+
+<!------------------ SECTION 98: VOID --------------------->
+
+<section id="en98-void">
+  <div class="en98-grain"></div>
+  <div class="en98-vignette"></div>
+
+  <header class="en98-header">
+    <span>FORM / 098</span>
+    <span class="en98-header-center">THE VANISHING POINT</span>
+    <span>EXISTENCE: TEMPORARY</span>
+  </header>
+
+  <div class="en98-stage">
+    <div class="en98-orbit en98-orbit-1"></div>
+    <div class="en98-orbit en98-orbit-2"></div>
+    <div class="en98-orbit en98-orbit-3"></div>
+
+    <div class="en98-particles" aria-hidden="true"></div>
+
+    <div class="en98-intro">
+      <span class="en98-kicker">EVERYTHING RETURNS TO</span>
+      <h1 class="en98-title">
+        <span class="en98-line">NOTHING</span>
+        <span class="en98-line en98-line-2">IS <i>PERMANENT.</i></span>
+      </h1>
+      <span class="en98-caption">SCROLL TO DISAPPEAR <span>↓</span></span>
+    </div>
+
+    <div class="en98-collapse" aria-hidden="true">
+      <span class="en98-word">N</span>
+      <span class="en98-word">O</span>
+      <span class="en98-word">T</span>
+      <span class="en98-word">H</span>
+      <span class="en98-word">I</span>
+      <span class="en98-word">N</span>
+      <span class="en98-word">G</span>
+    </div>
+
+    <div class="en98-core" aria-hidden="true"></div>
+    <div class="en98-flash" aria-hidden="true"></div>
+
+    <div class="en98-outro">
+      <span class="en98-outro-kicker">THE ABSENCE OF EVERYTHING</span>
+      <h2>
+        EVEN NOTHING<br />
+        <span>LEAVES A TRACE.</span>
+      </h2>
+      <div class="en98-outro-line"></div>
+      <p>WHAT REMAINS WHEN EVERYTHING IS GONE?</p>
+    </div>
+  </div>
+
+  <footer class="en98-footer">
+    <span>98 / VOID</span>
+    <span class="en98-footer-status">MATTER DISSOLVING <i></i></span>
+    <span>END OF PRESENCE ↗</span>
+  </footer>
+
+  <div class="en98-progress"><span></span></div>
+</section>
+
+<!------------------------ SECTION 99: AFTER THE END ------------------------>
+<section id="en99-after">
+  <div class="en99-noise"></div>
+  <div class="en99-grid"></div>
+
+  <header class="en99-header">
+    <span>FORM / 099</span>
+    <span class="en99-header-mid">TEMPORAL INSTABILITY</span>
+    <span>TIME IS NOT LINEAR</span>
+  </header>
+
+  <div class="en99-stage">
+    <div class="en99-coordinate en99-coordinate-left">T−00:00:01</div>
+    <div class="en99-coordinate en99-coordinate-right">FRAME 099.01</div>
+
+    <div class="en99-crosshair en99-crosshair-a"></div>
+    <div class="en99-crosshair en99-crosshair-b"></div>
+
+    <div class="en99-intro">
+      <div class="en99-eyebrow">
+        <span class="en99-live"></span>
+        AN EVENT THAT NEVER OCCURRED
+      </div>
+
+      <div class="en99-headline-wrap">
+        <h1 class="en99-headline">
+          <span class="en99-headline-line">IT NEVER</span>
+          <span class="en99-headline-line en99-headline-outline">
+            HAPPENED<span class="en99-period">.</span>
+          </span>
+        </h1>
+
+        <div class="en99-glitch en99-glitch-one" aria-hidden="true">
+          IT NEVER<br />HAPPENED.
+        </div>
+
+        <div class="en99-glitch en99-glitch-two" aria-hidden="true">
+          IT NEVER<br />HAPPENED.
+        </div>
+      </div>
+
+      <div class="en99-intro-bottom">
+        <span>THE PAST IS STILL LOADING</span>
+        <span class="en99-scroll-cue">SCROLL TO REWIND ↓</span>
+      </div>
+    </div>
+
+    <div class="en99-timelines" aria-hidden="true">
+      <div class="en99-timeline en99-timeline-1">
+        <span>IT NEVER HAPPENED.</span>
+        <span>IT NEVER HAPPENED.</span>
+        <span>IT NEVER HAPPENED.</span>
+      </div>
+
+      <div class="en99-timeline en99-timeline-2">
+        <span>IT ALWAYS HAPPENED.</span>
+        <span>IT ALWAYS HAPPENED.</span>
+        <span>IT ALWAYS HAPPENED.</span>
+      </div>
+
+      <div class="en99-timeline en99-timeline-3">
+        <span>IT COULD HAVE HAPPENED.</span>
+        <span>IT COULD HAVE HAPPENED.</span>
+        <span>IT COULD HAVE HAPPENED.</span>
+      </div>
+
+      <div class="en99-timeline en99-timeline-4">
+        <span>IT NEVER HAPPENED.</span>
+        <span>IT NEVER HAPPENED.</span>
+        <span>IT NEVER HAPPENED.</span>
+      </div>
+
+      <div class="en99-timeline en99-timeline-5">
+        <span>IT HAPPENED ELSEWHERE.</span>
+        <span>IT HAPPENED ELSEWHERE.</span>
+        <span>IT HAPPENED ELSEWHERE.</span>
+      </div>
+    </div>
+
+    <div class="en99-fragments" aria-hidden="true">
+      <span class="en99-fragment">NEVER</span>
+      <span class="en99-fragment">ALWAYS</span>
+      <span class="en99-fragment">AGAIN</span>
+      <span class="en99-fragment">BEFORE</span>
+      <span class="en99-fragment">AFTER</span>
+      <span class="en99-fragment">NOW</span>
+    </div>
+
+    <div class="en99-collapse" aria-hidden="true">
+      <span class="en99-collapse-word">AFTER</span>
+      <span class="en99-collapse-word">THE</span>
+      <span class="en99-collapse-word">END</span>
+    </div>
+
+    <div class="en99-singularity" aria-hidden="true"></div>
+
+    <div class="en99-final">
+      <span class="en99-final-kicker">THE NEXT MOMENT DOES NOT EXIST</span>
+
+      <h2 class="en99-final-title">
+        WHAT COMES<br />
+        <span>AFTER ZERO?</span>
+      </h2>
+
+      <div class="en99-final-rule"></div>
+
+      <p>THERE IS NO BEGINNING WITHOUT AN END.</p>
+
+      <span class="en99-final-index">T+∞ / UNKNOWN</span>
+    </div>
+
+    <div class="en99-counter" aria-hidden="true">
+      <span>PARALLEL REALITIES</span>
+      <strong>05</strong>
+    </div>
+  </div>
+
+  <footer class="en99-footer">
+    <span>099 / AFTER THE END</span>
+    <span class="en99-footer-status">TIMELINE DESYNCHRONIZED <i></i></span>
+    <span>TIME IS A LOOP ↗</span>
+  </footer>
+
+  <div class="en99-progress"><span></span></div>
+</section>
+
+<!-------------------------  SECTION 100: ECLIPSE -------------------------------------->
+
+<section id="en100-eclipse">
+  <div class="en100-grain"></div>
+  <div class="en100-vignette"></div>
+
+  <header class="en100-header">
+    <span>FORM / 100</span>
+    <span class="en100-header-center">CELESTIAL STUDY Nº 01</span>
+    <span>LIGHT / SHADOW</span>
+  </header>
+
+  <div class="en100-stage">
+    <canvas class="en100-rays" aria-hidden="true"></canvas>
+
+    <div class="en100-coordinate en100-coordinate-left">
+      LAT 00° 00' 00"
+    </div>
+    <div class="en100-coordinate en100-coordinate-right">
+      SOLAR EVENT / 100
+    </div>
+
+    <div class="en100-orbit en100-orbit-outer"></div>
+    <div class="en100-orbit en100-orbit-middle"></div>
+    <div class="en100-orbit en100-orbit-inner"></div>
+
+    <div class="en100-stars" aria-hidden="true"></div>
+
+    <div class="en100-intro">
+      <div class="en100-eyebrow">
+        <span></span>
+        THE OTHER SIDE OF LIGHT
+      </div>
+
+      <h1 class="en100-headline">
+        <span>LIGHT HAS</span>
+        <span class="en100-outline">A DARK SIDE.</span>
+      </h1>
+
+      <p class="en100-subtitle">
+        EVERY SOURCE OF LIGHT<br />
+        CREATES ITS OWN SHADOW.
+      </p>
+
+      <div class="en100-scroll">
+        <span>WITNESS THE ECLIPSE</span>
+        <span class="en100-scroll-arrow">↓</span>
+      </div>
+    </div>
+
+    <div class="en100-solar-system" aria-hidden="true">
+      <div class="en100-sun"></div>
+      <div class="en100-sun-corona"></div>
+      <div class="en100-sun-ring"></div>
+      <div class="en100-shadow"></div>
+      <div class="en100-eclipse-core"></div>
+      <div class="en100-eclipse-ring"></div>
+      <div class="en100-eclipse-glow"></div>
+    </div>
+
+    <div class="en100-side-label en100-side-label-left">
+      <span>01</span>
+      <span>ILLUMINATION</span>
+    </div>
+
+    <div class="en100-side-label en100-side-label-right">
+      <span>02</span>
+      <span>ABSENCE</span>
+    </div>
+
+    <div class="en100-beam"></div>
+
+    <div class="en100-final">
+      <span class="en100-final-kicker">
+        WHAT THE DARKNESS HIDES
+      </span>
+
+      <h2>
+        DARKNESS IS<br />
+        <span>JUST LIGHT UNSEEN.</span>
+      </h2>
+
+      <div class="en100-final-rule"></div>
+
+      <p>EVERY SHADOW HAS A SOURCE.</p>
+
+      <span class="en100-final-index">
+        100 / BETWEEN TWO INFINITIES
+      </span>
+    </div>
+
+    <div class="en100-readout">
+      <span>OCCULTATION</span>
+      <strong class="en100-percentage">00%</strong>
+    </div>
+  </div>
+
+  <footer class="en100-footer">
+    <span>100 / ECLIPSE</span>
+    <span class="en100-footer-status">
+      SOLAR ACTIVITY <i></i>
+    </span>
+    <span>BETWEEN TWO INFINITIES ↗</span>
+  </footer>
+
+  <div class="en100-progress"><span></span></div>
+</section>
+
+<footer class="ts-footer">
+    <p>End of animations 091&ndash;100</p>
+    <div class="ts-footer-links">
+        <a href="../../index.html">All batches</a>
+        <a href="../081-090/index.html">&larr; 081-090</a>
+        <a href="../101-102/index.html">101-102 &rarr;</a>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>

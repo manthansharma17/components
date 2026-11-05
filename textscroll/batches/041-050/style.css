@@ -1,0 +1,2513 @@
+/* Animations 041-050. Global styles live in ../../shared/base.css */
+
+/* =========================================================
+   SECTION 41
+   MOTION TRAIL
+========================================================= */
+
+.section-forty-one {
+    width: 100%;
+    height: 100dvh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #050505;
+    color: #fff;
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.motion41-stage {
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: none;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.motion41-label {
+    position: absolute;
+
+    top: 12%;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    margin: 0;
+
+    font-size: .65rem;
+
+    letter-spacing: .35em;
+
+    color: rgba(255,255,255,.3);
+
+    pointer-events: none;
+
+    z-index: 5;
+}
+
+/* =========================================================
+   CENTER TEXT
+========================================================= */
+
+.motion41-center {
+    position: relative;
+
+    z-index: 3;
+
+    font-size: clamp(
+        5rem,
+        16vw,
+        17rem
+    );
+
+    font-weight: 900;
+
+    line-height: .8;
+
+    letter-spacing: -.09em;
+
+    color: #fff;
+
+    user-select: none;
+
+    pointer-events: none;
+
+    text-shadow:
+        0 0 0 transparent;
+
+    transition:
+        transform .5s cubic-bezier(.16,1,.3,1),
+        text-shadow .5s ease;
+
+    will-change:
+        transform,
+        opacity;
+}
+
+/* =========================================================
+   TRAIL CONTAINER
+========================================================= */
+
+.motion41-trail {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   TRAIL TEXT
+========================================================= */
+
+.motion41-item {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    font-size: clamp(
+        2rem,
+        6vw,
+        7rem
+    );
+
+    font-weight: 900;
+
+    line-height: 1;
+
+    letter-spacing: -.08em;
+
+    white-space: nowrap;
+
+    color: #fff;
+
+    pointer-events: none;
+
+    user-select: none;
+
+    will-change:
+        transform,
+        opacity;
+
+    transform:
+        translate(-50%, -50%);
+}
+/* =========================================================
+   HOVER / ACTIVE GLOW
+========================================================= */
+
+.motion41-stage.is-active
+.motion41-center {
+
+    transform:
+        scale(1.03);
+
+    text-shadow:
+        0 0 12px rgba(255,255,255,.7),
+        0 0 45px rgba(255,255,255,.25);
+}
+
+
+/* =========================================================
+   CLICK COLLAPSE
+========================================================= */
+
+.motion41-stage.is-collapsing
+.motion41-center {
+
+    transform:
+        scale(.94);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .motion41-stage {
+        cursor: default;
+    }
+
+    .motion41-center {
+
+        font-size:
+            clamp(
+                4rem,
+                18vw,
+                9rem
+            );
+
+    }
+
+    .motion41-item {
+
+        font-size:
+            clamp(
+                1.8rem,
+                8vw,
+                4rem
+            );
+
+    }
+
+}
+/* =========================================================
+   SECTION 42
+   LIQUID TEXT DISTORTION
+========================================================= */
+
+.section-forty-two {
+    width: 100%;
+    height: 100dvh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #050505;
+    color: #fff;
+}
+
+
+/* =========================================================
+   SVG
+========================================================= */
+
+.liquid42-svg {
+    position: absolute;
+
+    width: 0;
+    height: 0;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.liquid42-stage {
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    cursor: none;
+}
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.liquid42-label {
+    position: absolute;
+
+    top: 12%;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    margin: 0;
+
+    font-size: 0.65rem;
+
+    letter-spacing: 0.35em;
+
+    color: rgba(255, 255, 255, 0.3);
+
+    white-space: nowrap;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   TEXT WRAPPER
+========================================================= */
+
+.liquid42-text-wrap {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 4rem;
+
+    overflow: visible;
+}
+
+/* =========================================================
+   LIQUID TEXT
+========================================================= */
+
+.liquid42-text {
+    margin: 0;
+
+    font-size: clamp(
+        5rem,
+        18vw,
+        18rem
+    );
+
+    font-weight: 900;
+
+    line-height: 0.8;
+
+    letter-spacing: -0.1em;
+
+    white-space: nowrap;
+
+    color: #fff;
+
+    user-select: none;
+
+    pointer-events: none;
+
+    filter:
+        url(#liquid42Filter);
+
+    will-change:
+        filter,
+        transform;
+
+    text-shadow:
+        0 0 0 transparent;
+
+    transition:
+        text-shadow 0.4s ease;
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.liquid42-cursor {
+    position: absolute;
+
+    width: 18px;
+    height: 18px;
+
+    left: 50%;
+    top: 50%;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    pointer-events: none;
+
+    z-index: 10;
+
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    box-shadow:
+        0 0 15px rgba(255,255,255,.9),
+        0 0 40px rgba(255,255,255,.35);
+
+    will-change:
+        left,
+        top,
+        transform;
+}
+
+/* =========================================================
+   ACTIVE
+========================================================= */
+
+.liquid42-stage.is-active
+.liquid42-text {
+
+    text-shadow:
+        0 0 12px rgba(255,255,255,.5),
+        0 0 45px rgba(255,255,255,.15);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .liquid42-stage {
+        cursor: default;
+    }
+
+    .liquid42-text {
+        font-size: clamp(
+            4rem,
+            18vw,
+            8rem
+        );
+    }
+
+    .liquid42-cursor {
+        display: none;
+    }
+
+}
+
+/* =========================================================
+   CUSTOM CURSOR
+========================================================= */
+
+.particle43-cursor {
+    position: absolute;
+
+    width: 22px;
+    height: 22px;
+
+    left: 50%;
+    top: 50%;
+
+    border: 1px solid rgba(255,255,255,.7);
+
+    border-radius: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 5;
+
+    box-shadow:
+        0 0 20px rgba(255,255,255,.25);
+
+    will-change:
+        left,
+        top,
+        transform,
+        opacity;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .particle43-stage {
+        cursor: default;
+    }
+
+    .particle43-cursor {
+        display: none;
+    }
+
+}
+
+/* =========================================================
+   SECTION 44
+   MAGNETIC TEXT SHATTER
+========================================================= */
+
+.section-forty-four {
+    width: 100%;
+    height: 100dvh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #050505;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.shatter44-stage {
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    cursor: none;
+}
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.shatter44-label {
+    position: absolute;
+
+    top: 12%;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    margin: 0;
+
+    font-size: 0.65rem;
+
+    letter-spacing: 0.35em;
+
+    color: rgba(255,255,255,.3);
+
+    white-space: nowrap;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   WORD
+========================================================= */
+
+.shatter44-word {
+    display: flex;
+
+    position: relative;
+
+    font-size: clamp(
+        4.5rem,
+        15vw,
+        16rem
+    );
+
+    font-weight: 900;
+
+    line-height: 0.8;
+
+    letter-spacing: -0.09em;
+
+    white-space: nowrap;
+
+    user-select: none;
+
+    transform-style: preserve-3d;
+}
+
+
+/* =========================================================
+   LETTER
+========================================================= */
+
+.shatter44-char {
+    display: inline-block;
+
+    position: relative;
+
+    transform-origin: center center;
+
+    will-change:
+        transform,
+        filter;
+
+    backface-visibility: hidden;
+}
+
+/* =========================================================
+   CUSTOM CURSOR
+========================================================= */
+
+.shatter44-cursor {
+    position: absolute;
+
+    width: 20px;
+    height: 20px;
+
+    left: 50%;
+    top: 50%;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    pointer-events: none;
+
+    z-index: 10;
+
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    box-shadow:
+        0 0 15px rgba(255,255,255,.9),
+        0 0 50px rgba(255,255,255,.25);
+
+    will-change:
+        left,
+        top,
+        transform;
+}
+
+
+/* =========================================================
+   ACTIVE STATE
+========================================================= */
+
+.shatter44-stage.is-active
+.shatter44-word {
+
+    text-shadow:
+        0 0 30px rgba(255,255,255,.08);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .shatter44-stage {
+        cursor: default;
+    }
+
+    .shatter44-word {
+
+        font-size: clamp(
+            3.2rem,
+            15vw,
+            7rem
+        );
+
+    }
+
+    .shatter44-cursor {
+        display: none;
+    }
+
+}
+
+/* =========================================================
+   SECTION 45
+   3D TEXT TUNNEL
+========================================================= */
+
+.section-forty-five {
+    width: 100%;
+    height: 100dvh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #050505;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.tunnel45-stage {
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    cursor: none;
+
+    perspective: 1400px;
+}
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.tunnel45-label {
+    position: absolute;
+
+    top: 12%;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    margin: 0;
+
+    font-size: 0.65rem;
+
+    letter-spacing: 0.35em;
+
+    color: rgba(255,255,255,.3);
+
+    white-space: nowrap;
+
+    pointer-events: none;
+
+    z-index: 10;
+}
+
+
+/* =========================================================
+   3D SCENE
+========================================================= */
+
+.tunnel45-scene {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transform-style: preserve-3d;
+
+    will-change: transform;
+}
+
+
+/* =========================================================
+   TEXT LAYERS
+========================================================= */
+
+.tunnel45-layers {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    transform-style: preserve-3d;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================================================
+   INDIVIDUAL TEXT
+========================================================= */
+
+.tunnel45-text {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    margin: 0;
+
+    transform-style: preserve-3d;
+
+    font-size: clamp(
+        4rem,
+        13vw,
+        15rem
+    );
+
+    font-weight: 900;
+
+    line-height: 0.8;
+
+    letter-spacing: -0.09em;
+
+    white-space: nowrap;
+
+    color: #ffffff;
+
+    user-select: none;
+
+    pointer-events: none;
+
+    will-change:
+        transform,
+        opacity,
+        filter;
+}
+
+
+/* =========================================================
+   MAIN LAYER
+========================================================= */
+
+.tunnel45-text.is-main {
+
+    text-shadow:
+        0 0 20px rgba(255,255,255,.15),
+        0 0 80px rgba(255,255,255,.08);
+
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.tunnel45-cursor {
+    position: absolute;
+
+    width: 18px;
+    height: 18px;
+
+    left: 50%;
+    top: 50%;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    pointer-events: none;
+
+    z-index: 20;
+
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    box-shadow:
+        0 0 15px rgba(255,255,255,.8),
+        0 0 45px rgba(255,255,255,.3);
+
+    will-change:
+        left,
+        top,
+        transform;
+}
+
+/* =========================================================
+   ACTIVE GLOW
+========================================================= */
+
+.tunnel45-stage.is-active
+.tunnel45-text.is-main {
+
+    text-shadow:
+        0 0 25px rgba(255,255,255,.7),
+        0 0 90px rgba(255,255,255,.2);
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .tunnel45-stage {
+        cursor: default;
+    }
+
+    .tunnel45-text {
+
+        font-size: clamp(
+            3rem,
+            14vw,
+            7rem
+        );
+
+    }
+
+    .tunnel45-cursor {
+        display: none;
+    }
+
+}
+/* =========================================================
+   SECTION 46
+   CURSOR TEXT SCANNER
+========================================================= */
+
+.section-forty-six {
+    width: 100%;
+    height: 100dvh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #050505;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.scanner46-stage {
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    cursor: none;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.scanner46-label {
+    position: absolute;
+
+    top: 12%;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    margin: 0;
+
+    font-size: 0.65rem;
+
+    letter-spacing: 0.35em;
+
+    color: rgba(255, 255, 255, 0.3);
+
+    white-space: nowrap;
+
+    pointer-events: none;
+
+    z-index: 10;
+}
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+.scanner46-text {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    margin: 0;
+
+    transform:
+        translate(-50%, -50%);
+
+    font-size: clamp(
+        4rem,
+        15vw,
+        17rem
+    );
+
+    font-weight: 900;
+
+    line-height: 0.8;
+
+    letter-spacing: -0.09em;
+
+    white-space: nowrap;
+
+    user-select: none;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   DARK BASE TEXT
+========================================================= */
+
+.scanner46-base {
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
+
+    text-shadow:
+        0 0 30px
+        rgba(
+            255,
+            255,
+            255,
+            0.02
+        );
+}
+
+
+/* =========================================================
+   REVEAL CONTAINER
+========================================================= */
+
+.scanner46-reveal {
+    position: absolute;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 2;
+
+
+    /* Circular reveal area */
+
+    clip-path:
+        circle(
+            0px
+            at
+            50%
+            50%
+        );
+}
+/* =========================================================
+   BRIGHT TEXT
+========================================================= */
+
+.scanner46-bright {
+
+    color: #ffffff;
+
+    text-shadow:
+        0 0 15px
+        rgba(
+            255,
+            255,
+            255,
+            0.8
+        ),
+
+        0 0 50px
+        rgba(
+            255,
+            255,
+            255,
+            0.25
+        ),
+
+        0 0 100px
+        rgba(
+            255,
+            255,
+            255,
+            0.1
+        );
+}
+
+
+/* =========================================================
+   SCANNER LIGHT
+========================================================= */
+
+.scanner46-light {
+    position: absolute;
+
+    width: 230px;
+    height: 230px;
+
+    left: 50%;
+    top: 50%;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: 3;
+
+    opacity: 0;
+
+
+    background:
+        radial-gradient(
+            circle,
+
+            rgba(
+                255,
+                255,
+                255,
+                0.12
+            ) 0%,
+
+            rgba(
+                255,
+                255,
+                255,
+                0.04
+            ) 35%,
+
+            transparent 70%
+        );
+
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.18
+        );
+
+
+    box-shadow:
+
+        0 0 25px
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        ),
+
+        inset
+        0 0 25px
+        rgba(
+            255,
+            255,
+            255,
+            0.05
+        );
+
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+
+    will-change:
+
+        left,
+        top,
+        transform,
+        width;
+}
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.scanner46-cursor {
+    position: absolute;
+
+    width: 8px;
+    height: 8px;
+
+    left: 50%;
+    top: 50%;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    pointer-events: none;
+
+    z-index: 5;
+
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+
+    box-shadow:
+
+        0 0 12px
+        rgba(
+            255,
+            255,
+            255,
+            1
+        ),
+
+        0 0 30px
+        rgba(
+            255,
+            255,
+            255,
+            0.5
+        );
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .scanner46-stage {
+        cursor: default;
+    }
+
+
+    .scanner46-text {
+
+        font-size: clamp(
+            3rem,
+            14vw,
+            7rem
+        );
+
+    }
+
+
+    .scanner46-light {
+
+        width: 170px;
+        height: 170px;
+
+    }
+
+
+    .scanner46-cursor {
+        display: none;
+    }
+
+}
+/* =========================================================
+   SECTION 47
+   TEXT WARP VORTEX
+========================================================= */
+
+.section-forty-seven {
+    width: 100%;
+    height: 100dvh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #050505;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.vortex47-stage {
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    cursor: none;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.vortex47-label {
+    position: absolute;
+
+    top: 12%;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    margin: 0;
+
+    font-size: 0.65rem;
+
+    letter-spacing: 0.35em;
+
+    color: rgba(255, 255, 255, 0.3);
+
+    white-space: nowrap;
+
+    pointer-events: none;
+
+    z-index: 10;
+}
+
+
+/* =========================================================
+   WORD
+========================================================= */
+
+.vortex47-word {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: clamp(
+        4.5rem,
+        16vw,
+        17rem
+    );
+
+    font-weight: 900;
+
+    line-height: 0.8;
+
+    letter-spacing: -0.09em;
+
+    white-space: nowrap;
+
+    user-select: none;
+
+    z-index: 3;
+}
+/* =========================================================
+   INDIVIDUAL LETTER
+========================================================= */
+
+.vortex47-char {
+    display: inline-block;
+
+    position: relative;
+
+    transform-origin: center center;
+
+    will-change:
+        transform,
+        opacity,
+        filter;
+
+    backface-visibility: hidden;
+}
+
+
+/* =========================================================
+   VORTEX RINGS
+========================================================= */
+
+.vortex47-ring {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 0;
+    height: 0;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    transform:
+        translate(-50%, -50%);
+
+    opacity: 0;
+
+    z-index: 1;
+
+    will-change:
+        width,
+        height,
+        opacity;
+}
+
+
+.vortex47-ring-one {
+    border:
+        1px solid
+        rgba(255,255,255,.18);
+
+    box-shadow:
+        0 0 40px
+        rgba(255,255,255,.05);
+}
+
+
+.vortex47-ring-two {
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    box-shadow:
+        inset
+        0 0 40px
+        rgba(255,255,255,.03);
+}
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.vortex47-cursor {
+    position: absolute;
+
+    width: 18px;
+    height: 18px;
+
+    left: 50%;
+    top: 50%;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    pointer-events: none;
+
+    z-index: 20;
+
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    box-shadow:
+        0 0 15px rgba(255,255,255,.9),
+        0 0 50px rgba(255,255,255,.25);
+
+    will-change:
+        left,
+        top,
+        transform;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .vortex47-stage {
+        cursor: default;
+    }
+
+    .vortex47-word {
+
+        font-size: clamp(
+            3.2rem,
+            15vw,
+            7rem
+        );
+
+    }
+
+    .vortex47-cursor {
+        display: none;
+    }
+
+}
+
+/* =========================================================
+   SECTION 48
+   NEON TEXT GLITCH MATRIX
+========================================================= */
+
+.section-forty-eight {
+    width: 100%;
+    height: 100dvh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #050505;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.glitch48-stage {
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    cursor: none;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.glitch48-label {
+    position: absolute;
+
+    top: 12%;
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    margin: 0;
+
+    font-size: 0.65rem;
+
+    letter-spacing: 0.35em;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.3
+        );
+
+    white-space: nowrap;
+
+    pointer-events: none;
+
+    z-index: 10;
+}
+
+/* =========================================================
+   MAIN WORD
+========================================================= */
+
+.glitch48-word {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: clamp(
+        5rem,
+        18vw,
+        20rem
+    );
+
+    font-weight: 900;
+
+    line-height: 0.8;
+
+    letter-spacing: -0.1em;
+
+    white-space: nowrap;
+
+    user-select: none;
+
+    z-index: 3;
+
+    will-change:
+        transform,
+        filter;
+
+    text-shadow:
+        0 0 20px
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
+}
+
+
+/* =========================================================
+   INDIVIDUAL CHARACTERS
+========================================================= */
+
+.glitch48-char {
+    display: inline-block;
+
+    position: relative;
+
+    transform-origin:
+        center center;
+
+    will-change:
+        transform,
+        opacity,
+        filter;
+}
+
+
+/* =========================================================
+   GHOST TEXT LAYERS
+========================================================= */
+
+.glitch48-word::before,
+.glitch48-word::after {
+    content:
+        attr(data-text);
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+}
+
+
+.glitch48-word::before {
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.45
+        );
+
+    transform:
+        translate(
+            -8px,
+            0
+        );
+
+    clip-path:
+        inset(
+            15% 0
+            65% 0
+        );
+
+}
+
+
+.glitch48-word::after {
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.25
+        );
+
+    transform:
+        translate(
+            8px,
+            0
+        );
+
+    clip-path:
+        inset(
+            65% 0
+            10% 0
+        );
+
+}
+
+
+/* =========================================================
+   SCANLINES
+========================================================= */
+
+.glitch48-scanlines {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: 0.08;
+
+    z-index: 8;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+
+            transparent
+            0px,
+
+            transparent
+            3px,
+
+            rgba(
+                255,
+                255,
+                255,
+                0.35
+            )
+            4px
+        );
+
+    mix-blend-mode:
+        overlay;
+}
+
+
+/* =========================================================
+   CUSTOM CURSOR
+========================================================= */
+
+.glitch48-cursor {
+    position: absolute;
+
+    width: 18px;
+    height: 18px;
+
+    left: 50%;
+    top: 50%;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    pointer-events: none;
+
+
+    z-index: 20;
+
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    box-shadow:
+
+        0 0 15px
+        rgba(
+            255,
+            255,
+            255,
+            0.9
+        ),
+
+        0 0 50px
+        rgba(
+            255,
+            255,
+            255,
+            0.2
+        );
+
+    will-change:
+        left,
+        top,
+        transform;
+}
+
+
+/* =========================================================
+   FLASH
+========================================================= */
+
+.glitch48-flash {
+    position: absolute;
+
+    inset: 0;
+
+    background: #ffffff;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 15;
+}
+
+/* =========================================================
+   ACTIVE GLITCH
+========================================================= */
+
+.glitch48-stage.is-moving
+.glitch48-word::before {
+
+    opacity: 0.8;
+
+}
+
+
+.glitch48-stage.is-moving
+.glitch48-word::after {
+
+    opacity: 0.6;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .glitch48-stage {
+        cursor: default;
+    }
+
+
+    .glitch48-word {
+
+        font-size: clamp(
+            3.8rem,
+            16vw,
+            8rem
+        );
+
+    }
+
+
+    .glitch48-cursor {
+        display: none;
+    }
+
+}
+
+/* =========================================================
+   SECTION 49
+   MAGNETIC LIQUID TYPOGRAPHY
+========================================================= */
+
+.section-forty-nine {
+    width: 100%;
+    height: 100dvh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #050505;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.liquid49-stage {
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    cursor: none;
+}
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.liquid49-label {
+    position: absolute;
+
+    top: 12%;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    margin: 0;
+
+    font-size: 0.65rem;
+
+    letter-spacing: 0.35em;
+
+    color: rgba(255, 255, 255, 0.3);
+
+    white-space: nowrap;
+
+    pointer-events: none;
+
+    z-index: 10;
+}
+
+
+/* =========================================================
+   WORD
+========================================================= */
+
+.liquid49-word {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: clamp(
+        6rem,
+        20vw,
+        22rem
+    );
+
+    font-weight: 900;
+
+    line-height: 0.8;
+
+    letter-spacing: -0.1em;
+
+    white-space: nowrap;
+
+    user-select: none;
+
+    z-index: 3;
+
+    filter:
+        url("#liquid49Filter");
+}
+
+/* =========================================================
+   INDIVIDUAL LETTERS
+========================================================= */
+
+.liquid49-char {
+    display: inline-block;
+
+    position: relative;
+
+    transform-origin: center center;
+
+    will-change:
+        transform,
+        filter,
+        opacity;
+
+    text-shadow:
+        0 0 25px
+        rgba(255, 255, 255, 0.08);
+}
+
+
+/* =========================================================
+   LIQUID DROP PARTICLES
+========================================================= */
+
+.liquid49-drop {
+    position: absolute;
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    z-index: 2;
+
+    box-shadow:
+        0 0 12px
+        rgba(255, 255, 255, 0.5);
+}
+
+/* =========================================================
+   CUSTOM CURSOR
+========================================================= */
+
+.liquid49-cursor {
+    position: absolute;
+
+    width: 18px;
+    height: 18px;
+
+    left: 50%;
+    top: 50%;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    pointer-events: none;
+
+    z-index: 20;
+
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    box-shadow:
+
+        0 0 15px
+        rgba(255, 255, 255, 0.9),
+
+        0 0 50px
+        rgba(255, 255, 255, 0.2);
+
+    will-change:
+        left,
+        top,
+        transform;
+}
+
+
+/* =========================================================
+   LIQUID RIPPLE
+========================================================= */
+
+.liquid49-ripple {
+    position: absolute;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.35);
+
+    pointer-events: none;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    opacity: 0;
+
+    z-index: 1;
+}
+
+/* =========================================================
+   BREATHING ANIMATION
+========================================================= */
+
+@keyframes liquid49Breathe {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            scaleY(1);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-4px)
+            scaleY(1.025);
+
+    }
+
+}
+
+
+.liquid49-stage:not(.is-melting)
+.liquid49-word {
+
+    animation:
+        liquid49Breathe
+        4s
+        ease-in-out
+        infinite;
+
+}
+
+
+/* =========================================================
+   MELTING STATE
+========================================================= */
+
+.liquid49-stage.is-melting
+.liquid49-word {
+
+    animation: none;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .liquid49-stage {
+        cursor: default;
+    }
+
+
+    .liquid49-word {
+
+        font-size: clamp(
+            4rem,
+            18vw,
+            9rem
+        );
+
+    }
+
+
+    .liquid49-cursor {
+        display: none;
+    }
+
+}
+
+/* =========================================================
+   SECTION 50
+   TYPOGRAPHY SINGULARITY
+========================================================= */
+
+.section-fifty {
+    width: 100%;
+    height: 100dvh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #050505;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.singularity50-stage {
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    cursor: none;
+
+    perspective: 1200px;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.singularity50-label {
+    position: absolute;
+
+    top: 12%;
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    margin: 0;
+
+    font-size: 0.65rem;
+
+    letter-spacing: 0.35em;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.3
+        );
+
+    white-space: nowrap;
+
+    pointer-events: none;
+
+    z-index: 10;
+}
+
+
+/* =========================================================
+   WORD
+========================================================= */
+
+.singularity50-word {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: clamp(
+        4rem,
+        15vw,
+        18rem
+    );
+
+    font-weight: 900;
+
+    line-height: 0.8;
+
+    letter-spacing: -0.08em;
+
+    white-space: nowrap;
+
+    user-select: none;
+
+    z-index: 5;
+}
+/* =========================================================
+   INDIVIDUAL LETTER
+========================================================= */
+
+.singularity50-char {
+    display: inline-block;
+
+    position: relative;
+
+    transform-origin:
+        center center;
+
+    will-change:
+        transform,
+        opacity,
+        filter;
+
+    text-shadow:
+
+        0 0 20px
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
+}
+
+
+/* =========================================================
+   SINGULARITY CORE
+========================================================= */
+
+.singularity50-core {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    z-index: 8;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+
+    box-shadow:
+
+        0 0 10px
+        rgba(
+            255,
+            255,
+            255,
+            1
+        ),
+
+        0 0 40px
+        rgba(
+            255,
+            255,
+            255,
+            0.8
+        ),
+
+        0 0 100px
+        rgba(
+            255,
+            255,
+            255,
+            0.4
+        );
+}
+
+
+/* =========================================================
+   SHOCKWAVES
+========================================================= */
+
+.singularity50-wave {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.6
+        );
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    z-index: 2;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    box-shadow:
+        0 0 20px
+        rgba(
+            255,
+            255,
+            255,
+            0.12
+        );
+}
+
+
+/* =========================================================
+   PARTICLE CONTAINER
+========================================================= */
+
+.singularity50-particles {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 3;
+}
+
+
+/* =========================================================
+   PARTICLE
+========================================================= */
+
+.singularity50-particle {
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    opacity: 0;
+
+    box-shadow:
+
+        0 0 8px
+        rgba(
+            255,
+            255,
+            255,
+            0.8
+        );
+}
+
+
+/* =========================================================
+   CUSTOM CURSOR
+========================================================= */
+
+.singularity50-cursor {
+    position: absolute;
+
+    width: 18px;
+    height: 18px;
+
+    left: 50%;
+    top: 50%;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    z-index: 20;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    box-shadow:
+
+        0 0 15px
+        rgba(
+            255,
+            255,
+            255,
+            0.9
+        ),
+
+        0 0 50px
+        rgba(
+            255,
+            255,
+            255,
+            0.25
+        );
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .singularity50-stage {
+        cursor: default;
+    }
+
+
+    .singularity50-word {
+
+        font-size: clamp(
+            3rem,
+            14vw,
+            7rem
+        );
+
+    }
+
+
+    .singularity50-cursor {
+        display: none;
+    }
+
+}

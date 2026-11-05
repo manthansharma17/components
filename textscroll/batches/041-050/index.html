@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Text Scroll Animations 041-050</title>
+
+    <link rel="stylesheet" href="../../shared/base.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- GSAP bundled locally (works offline / without CDN) -->
+    <script src="../../vendor/gsap.min.js"></script>
+    <script src="../../vendor/ScrollTrigger.min.js"></script>
+</head>
+
+<body>
+
+<nav class="ts-nav" aria-label="Batch navigation">
+    <a href="../../index.html">All batches</a>
+    <a href="../031-040/index.html">&larr; 031-040</a>
+    <a href="../051-060/index.html">051-060 &rarr;</a>
+</nav>
+
+<!-- BATCH INTRO -->
+<section class="hero ts-hero">
+    <div class="ts-hero-inner">
+        <p class="ts-kicker">Batch 5 / 11</p>
+        <h1>Animations 041&ndash;050</h1>
+        <ol class="ts-list">
+      <li><span>041</span>Motion Trail</li>
+      <li><span>042</span>Liquid Text Distortion</li>
+      <li><span>043</span>Particle Text Dissolve</li>
+      <li><span>044</span>Magnetic Text Shatter</li>
+      <li><span>045</span>3D Text Tunnel</li>
+      <li><span>046</span>Cursor Text Scanner</li>
+      <li><span>047</span>Text Warp Vortex</li>
+      <li><span>048</span>Neon Text Glitch Matrix</li>
+      <li><span>049</span>Magnetic Liquid Typography</li>
+      <li><span>050</span>Typography Singularity</li>
+        </ol>
+        <p class="ts-scroll">Scroll down &darr;</p>
+    </div>
+</section>
+
+<!-- =====================================================
+     SECTION 41 — MOTION TRAIL
+===================================================== -->
+
+<section class="section-forty-one">
+
+    <div class="motion41-stage">
+
+        <p class="motion41-label">
+            MOVE YOUR CURSOR
+        </p>
+
+        <!-- Main center text -->
+        <div class="motion41-center">
+            MOTION
+        </div>
+
+        <!-- Mouse text trail -->
+        <div
+            class="motion41-trail"
+            aria-hidden="true"
+        ></div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     SECTION 42 — LIQUID TEXT DISTORTION
+===================================================== -->
+
+<section class="section-forty-two">
+
+    <!-- SVG LIQUID FILTER -->
+    <svg
+        class="liquid42-svg"
+        aria-hidden="true"
+    >
+        <filter
+            id="liquid42Filter"
+            x="-50%"
+            y="-50%"
+            width="200%"
+            height="200%"
+        >
+
+            <feTurbulence
+                id="liquid42Turbulence"
+                type="turbulence"
+                baseFrequency="0.008 0.018"
+                numOctaves="2"
+                seed="2"
+                result="noise"
+            />
+
+            <feDisplacementMap
+                id="liquid42Displacement"
+                in="SourceGraphic"
+                in2="noise"
+                scale="0"
+                xChannelSelector="R"
+                yChannelSelector="G"
+            />
+
+        </filter>
+    </svg>
+
+
+    <div class="liquid42-stage">
+
+        <p class="liquid42-label">
+            DISTURB THE SURFACE
+        </p>
+
+
+        <div class="liquid42-text-wrap">
+
+            <h2
+                class="liquid42-text"
+                id="liquid42Text"
+            >
+                LIQUID
+            </h2>
+
+        </div>
+
+
+        <div
+            class="liquid42-cursor"
+            id="liquid42Cursor"
+        ></div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     SECTION 43 — PARTICLE TEXT DISSOLVE
+===================================================== -->
+
+<section class="section-forty-three">
+
+    <div class="particle43-stage">
+
+        <p class="particle43-label">
+            TOUCH THE TEXT
+        </p>
+
+        <canvas
+            id="particle43Canvas"
+            aria-label="Interactive particle text"
+        ></canvas>
+
+        <div
+            class="particle43-cursor"
+            aria-hidden="true"
+        ></div>
+
+    </div>
+
+</section>
+<!-- =====================================================
+     SECTION 44 — MAGNETIC TEXT SHATTER
+===================================================== -->
+
+<section class="section-forty-four">
+
+    <div class="shatter44-stage">
+
+        <p class="shatter44-label">
+            DISTURB THE TEXT
+        </p>
+
+        <div class="shatter44-word">
+            SHATTER
+        </div>
+
+        <div
+            class="shatter44-cursor"
+            aria-hidden="true"
+        ></div>
+
+    </div>
+
+</section>
+<!-- =====================================================
+     SECTION 45 — 3D TEXT TUNNEL
+===================================================== -->
+
+<section class="section-forty-five">
+
+    <div class="tunnel45-stage">
+
+        <p class="tunnel45-label">
+            ENTER THE DIMENSION
+        </p>
+
+        <div class="tunnel45-scene">
+
+            <div class="tunnel45-layers"></div>
+
+        </div>
+
+        <div
+            class="tunnel45-cursor"
+            aria-hidden="true"
+        ></div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     SECTION 46 — CURSOR TEXT SCANNER
+===================================================== -->
+
+<section class="section-forty-six">
+
+    <div class="scanner46-stage">
+
+        <p class="scanner46-label">
+            DISCOVER WHAT'S HIDDEN
+        </p>
+
+
+        <!-- BASE DARK TEXT -->
+        <h2 class="scanner46-text scanner46-base">
+            DISCOVER
+        </h2>
+
+
+        <!-- REVEALED TEXT -->
+        <div
+            class="scanner46-reveal"
+            id="scanner46Reveal"
+        >
+
+            <h2 class="scanner46-text scanner46-bright">
+                DISCOVER
+            </h2>
+
+        </div>
+
+
+        <!-- SCANNER LIGHT -->
+        <div
+            class="scanner46-light"
+            id="scanner46Light"
+        ></div>
+
+
+        <!-- CURSOR DOT -->
+        <div
+            class="scanner46-cursor"
+            id="scanner46Cursor"
+        ></div>
+
+    </div>
+
+</section>
+<!-- =====================================================
+     SECTION 47 — TEXT WARP VORTEX
+===================================================== -->
+
+<section class="section-forty-seven">
+
+    <div class="vortex47-stage">
+
+        <p class="vortex47-label">
+            ENTER THE FORCE FIELD
+        </p>
+
+        <div
+            class="vortex47-word"
+            id="vortex47Word"
+        >
+            GRAVITY
+        </div>
+
+        <div
+            class="vortex47-ring vortex47-ring-one"
+        ></div>
+
+        <div
+            class="vortex47-ring vortex47-ring-two"
+        ></div>
+
+        <div
+            class="vortex47-cursor"
+            id="vortex47Cursor"
+        ></div>
+
+    </div>
+
+</section>
+<!-- =====================================================
+     SECTION 48 — NEON TEXT GLITCH MATRIX
+===================================================== -->
+
+<section class="section-forty-eight">
+
+    <div class="glitch48-stage">
+
+        <p class="glitch48-label">
+            SYSTEM INSTABILITY DETECTED
+        </p>
+
+
+        <!-- GLITCH WORD -->
+
+        <div
+            class="glitch48-word"
+            id="glitch48Word"
+        >
+            SYSTEM
+        </div>
+
+
+        <!-- DIGITAL SCAN LINES -->
+
+        <div
+            class="glitch48-scanlines"
+            aria-hidden="true"
+        ></div>
+
+
+        <!-- CUSTOM CURSOR -->
+
+        <div
+            class="glitch48-cursor"
+            id="glitch48Cursor"
+            aria-hidden="true"
+        ></div>
+
+
+        <!-- CLICK FLASH -->
+
+        <div
+            class="glitch48-flash"
+            id="glitch48Flash"
+            aria-hidden="true"
+        ></div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     SECTION 49 — MAGNETIC LIQUID TYPOGRAPHY
+===================================================== -->
+
+<section class="section-forty-nine">
+
+    <div class="liquid49-stage">
+
+        <p class="liquid49-label">
+            FOLLOW THE FLOW
+        </p>
+
+        <div
+            class="liquid49-word"
+            id="liquid49Word"
+        >
+            FLOW
+        </div>
+
+        <div
+            class="liquid49-liquid"
+            id="liquid49Liquid"
+        ></div>
+
+        <div
+            class="liquid49-cursor"
+            id="liquid49Cursor"
+        ></div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     SECTION 50 — TYPOGRAPHY SINGULARITY
+===================================================== -->
+
+<section class="section-fifty">
+
+    <div class="singularity50-stage">
+
+        <p class="singularity50-label">
+            EVERYTHING BECOMES ONE
+        </p>
+
+
+        <!-- TYPOGRAPHY -->
+
+        <div
+            class="singularity50-word"
+            id="singularity50Word"
+        >
+            INFINITE
+        </div>
+
+
+        <!-- SINGULARITY CORE -->
+
+        <div
+            class="singularity50-core"
+            id="singularity50Core"
+        ></div>
+
+
+        <!-- SHOCKWAVES -->
+
+        <div
+            class="singularity50-wave singularity50-wave-one"
+        ></div>
+
+        <div
+            class="singularity50-wave singularity50-wave-two"
+        ></div>
+
+        <div
+            class="singularity50-wave singularity50-wave-three"
+        ></div>
+
+
+        <!-- PARTICLES -->
+
+        <div
+            class="singularity50-particles"
+            id="singularity50Particles"
+        ></div>
+
+
+        <!-- CUSTOM CURSOR -->
+
+        <div
+            class="singularity50-cursor"
+            id="singularity50Cursor"
+        ></div>
+
+    </div>
+
+</section>
+
+<footer class="ts-footer">
+    <p>End of animations 041&ndash;050</p>
+    <div class="ts-footer-links">
+        <a href="../../index.html">All batches</a>
+        <a href="../031-040/index.html">&larr; 031-040</a>
+        <a href="../051-060/index.html">051-060 &rarr;</a>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Text Scroll Animations 051-060</title>
+
+    <link rel="stylesheet" href="../../shared/base.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- GSAP bundled locally (works offline / without CDN) -->
+    <script src="../../vendor/gsap.min.js"></script>
+    <script src="../../vendor/ScrollTrigger.min.js"></script>
+</head>
+
+<body>
+
+<nav class="ts-nav" aria-label="Batch navigation">
+    <a href="../../index.html">All batches</a>
+    <a href="../041-050/index.html">&larr; 041-050</a>
+    <a href="../061-070/index.html">061-070 &rarr;</a>
+</nav>
+
+<!-- BATCH INTRO -->
+<section class="hero ts-hero">
+    <div class="ts-hero-inner">
+        <p class="ts-kicker">Batch 6 / 11</p>
+        <h1>Animations 051&ndash;060</h1>
+        <ol class="ts-list">
+      <li><span>051</span>Typography Gravity Field</li>
+      <li><span>052</span>Liquid Reflection Text</li>
+      <li><span>053</span>Chromatic Echo Typography</li>
+      <li><span>054</span>Typography Time Rift</li>
+      <li><span>055</span>Typography Black Hole</li>
+      <li><span>056</span>Typography Event Horizon</li>
+      <li><span>057</span>Typography Gravity Lens</li>
+      <li><span>058</span>Typography Warp</li>
+      <li><span>059</span>Typography Shatter</li>
+      <li><span>060</span>Typography Melt</li>
+        </ol>
+        <p class="ts-scroll">Scroll down &darr;</p>
+    </div>
+</section>
+
+
+<!-- =====================================================
+     SECTION 51 — TYPOGRAPHY GRAVITY FIELD
+===================================================== -->
+
+<section class="section-fifty-one">
+
+    <div class="gravity51-stage">
+
+        <p class="gravity51-label">
+            EVERYTHING HAS A PULL
+        </p>
+
+        <!-- TYPOGRAPHY -->
+
+        <div
+            class="gravity51-word"
+            id="gravity51Word"
+        >
+            GRAVITY
+        </div>
+
+        <!-- GRAVITY CORE -->
+
+        <div
+            class="gravity51-core"
+            id="gravity51Core"
+        ></div>
+
+        <!-- ORBIT RINGS -->
+
+        <div
+            class="gravity51-orbit gravity51-orbit-one"
+        ></div>
+
+        <div
+            class="gravity51-orbit gravity51-orbit-two"
+        ></div>
+
+        <div
+            class="gravity51-orbit gravity51-orbit-three"
+        ></div>
+
+        <!-- CUSTOM CURSOR -->
+
+        <div
+            class="gravity51-cursor"
+            id="gravity51Cursor"
+        ></div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     SECTION 52 — LIQUID REFLECTION TEXT
+===================================================== -->
+
+<section class="section-fifty-two">
+
+    <div class="reflection52-stage">
+
+        <p class="reflection52-label">
+            NOTHING IS EVER STILL
+        </p>
+
+        <div class="reflection52-scene">
+
+            <!-- MAIN TEXT -->
+            <div
+                class="reflection52-word"
+                id="reflection52Word"
+            >
+                REFLECT
+            </div>
+
+            <!-- WATER SURFACE -->
+            <div
+                class="reflection52-water"
+                id="reflection52Water"
+            >
+
+                <div
+                    class="reflection52-reflection"
+                    id="reflection52Reflection"
+                >
+                    REFLECT
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- MOUSE LIGHT -->
+
+        <div
+            class="reflection52-light"
+            id="reflection52Light"
+        ></div>
+
+
+        <!-- CURSOR -->
+
+        <div
+            class="reflection52-cursor"
+            id="reflection52Cursor"
+        ></div>
+
+
+        <!-- RIPPLE CONTAINER -->
+
+        <div
+            class="reflection52-ripples"
+            id="reflection52Ripples"
+        ></div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     SECTION 53 — CHROMATIC ECHO TYPOGRAPHY
+===================================================== -->
+
+<section class="section-fifty-three">
+
+    <div class="echo53-stage">
+
+        <div class="echo53-grid"></div>
+
+        <p class="echo53-label">
+            SOUND LEAVES A TRACE
+        </p>
+
+        <div class="echo53-scene" id="echo53Scene">
+
+            <div class="echo53-word-wrap" id="echo53WordWrap">
+
+                <!-- RGB ECHOES -->
+                <div class="echo53-word echo53-red">
+                    ECHO
+                </div>
+
+                <div class="echo53-word echo53-green">
+                    ECHO
+                </div>
+
+                <div class="echo53-word echo53-blue">
+                    ECHO
+                </div>
+
+                <!-- MAIN WORD -->
+                <div
+                    class="echo53-word echo53-main"
+                    id="echo53Main"
+                >
+                    ECHO
+                </div>
+
+            </div>
+
+            <div
+                class="echo53-trails"
+                id="echo53Trails"
+            ></div>
+
+        </div>
+
+        <div
+            class="echo53-cursor"
+            id="echo53Cursor"
+        ></div>
+
+        <div
+            class="echo53-crosshair"
+            id="echo53Crosshair"
+        ></div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     SECTION 54 — TYPOGRAPHY TIME RIFT
+===================================================== -->
+
+<section class="section-fifty-four">
+
+    <div class="time54-stage">
+
+        <!-- BACKGROUND TIMELINE -->
+        <div class="time54-timeline">
+            <span>-03</span>
+            <span>-02</span>
+            <span>-01</span>
+            <span>NOW</span>
+            <span>+01</span>
+            <span>+02</span>
+            <span>+03</span>
+        </div>
+
+        <p class="time54-label">
+            THE PRESENT IS ONLY A MOMENT
+        </p>
+
+        <div
+            class="time54-scene"
+            id="time54Scene"
+        >
+
+            <!-- TEMPORAL ECHOES -->
+            <div
+                class="time54-echo time54-echo-1"
+                id="time54Echo1"
+            >
+                TIME
+            </div>
+
+            <div
+                class="time54-echo time54-echo-2"
+                id="time54Echo2"
+            >
+                TIME
+            </div>
+
+            <div
+                class="time54-echo time54-echo-3"
+                id="time54Echo3"
+            >
+                TIME
+            </div>
+
+            <div
+                class="time54-echo time54-echo-4"
+                id="time54Echo4"
+            >
+                TIME
+            </div>
+
+            <!-- MAIN -->
+            <div
+                class="time54-word"
+                id="time54Word"
+            >
+                TIME
+            </div>
+
+        </div>
+
+        <!-- TIME MARKER -->
+        <div
+            class="time54-marker"
+            id="time54Marker"
+        ></div>
+
+        <!-- CURSOR -->
+        <div
+            class="time54-cursor"
+            id="time54Cursor"
+        ></div>
+
+        <!-- REWIND FLASH -->
+        <div
+            class="time54-flash"
+            id="time54Flash"
+        ></div>
+
+    </div>
+
+</section>
+<!-- =====================================================
+     SECTION 55 — TYPOGRAPHY BLACK HOLE
+===================================================== -->
+
+<section class="section-fifty-five">
+
+    <div class="void55-stage" id="void55Stage">
+
+        <!-- BACKGROUND STAR FIELD -->
+        <div
+            class="void55-stars"
+            id="void55Stars"
+        ></div>
+
+        <!-- GRAVITY RINGS -->
+        <div class="void55-ring void55-ring-1"></div>
+        <div class="void55-ring void55-ring-2"></div>
+        <div class="void55-ring void55-ring-3"></div>
+        <div class="void55-ring void55-ring-4"></div>
+
+        <!-- LABEL -->
+        <p class="void55-label">
+            NOTHING ESCAPES THE VOID
+        </p>
+
+        <!-- MAIN SCENE -->
+        <div
+            class="void55-scene"
+            id="void55Scene"
+        >
+
+            <!-- GRAVITY CORE -->
+            <div
+                class="void55-core"
+                id="void55Core"
+            ></div>
+
+            <!-- TYPOGRAPHY -->
+            <div
+                class="void55-word"
+                id="void55Word"
+            >
+                VOID
+            </div>
+
+        </div>
+
+        <!-- GRAVITY PARTICLES -->
+        <div
+            class="void55-particles"
+            id="void55Particles"
+        ></div>
+
+        <!-- CURSOR GRAVITY -->
+        <div
+            class="void55-cursor"
+            id="void55Cursor"
+        ></div>
+
+        <!-- CLICK SHOCKWAVE -->
+        <div
+            class="void55-shockwave"
+            id="void55Shockwave"
+        ></div>
+
+    </div>
+
+
+</section>
+<!-- =====================================================
+     SECTION 56 — TYPOGRAPHY EVENT HORIZON
+===================================================== -->
+
+<section class="section-fifty-six">
+
+    <div class="horizon56-stage" id="horizon56Stage">
+
+        <!-- AMBIENT PARTICLES -->
+        <div class="horizon56-particles" id="horizon56Particles"></div>
+
+        <!-- LABEL -->
+        <p class="horizon56-label">
+            BEYOND THIS POINT, NOTHING RETURNS
+        </p>
+
+        <!-- MAIN SCENE -->
+        <div class="horizon56-scene" id="horizon56Scene">
+
+            <div class="horizon56-glow" id="horizon56Glow"></div>
+
+            <div class="horizon56-word" id="horizon56Word">
+                HORIZON
+            </div>
+
+            <div class="horizon56-line" id="horizon56Line"></div>
+
+            <div class="horizon56-mask" id="horizon56Mask"></div>
+
+            <div class="horizon56-core" id="horizon56Core"></div>
+
+        </div>
+
+        <!-- CURSOR -->
+        <div class="horizon56-cursor" id="horizon56Cursor"></div>
+
+        <!-- CLICK SHOCKWAVE -->
+        <div class="horizon56-shockwave" id="horizon56Shockwave"></div>
+
+    </div>
+
+</section>
+<!-- =====================================================
+     SECTION 57 — TYPOGRAPHY GRAVITY LENS
+===================================================== -->
+
+<section class="section-fifty-seven">
+
+    <div
+        class="focus57-stage"
+        id="focus57Stage"
+    >
+
+        <!-- AMBIENT GRID -->
+        <div class="focus57-grid"></div>
+
+        <!-- SMALL LABEL -->
+        <p class="focus57-label">
+            EVERYTHING DEPENDS ON WHERE YOU LOOK
+        </p>
+
+        <!-- MAIN TYPOGRAPHY -->
+        <div
+            class="focus57-scene"
+            id="focus57Scene"
+        >
+
+            <!-- BLURRED BACKGROUND WORD -->
+            <div
+                class="focus57-word focus57-word-blur"
+                aria-hidden="true"
+            >
+                FOCUS
+            </div>
+
+            <!-- SHARP WORD -->
+            <div
+                class="focus57-word focus57-word-main"
+                id="focus57Main"
+            >
+                FOCUS
+            </div>
+
+            <!-- MAGNIFIED WORD -->
+            <div
+                class="focus57-word focus57-word-lens"
+                id="focus57LensText"
+            >
+                FOCUS
+            </div>
+
+        </div>
+
+        <!-- OPTICAL LENS -->
+        <div
+            class="focus57-lens"
+            id="focus57Lens"
+        >
+
+            <div class="focus57-lens-ring"></div>
+
+            <div class="focus57-lens-glass"></div>
+
+            <div class="focus57-lens-cross"></div>
+
+        </div>
+
+        <!-- CURSOR DOT -->
+        <div
+            class="focus57-cursor"
+            id="focus57Cursor"
+        ></div>
+
+        <!-- CLICK EXPANSION -->
+        <div
+            class="focus57-expansion"
+            id="focus57Expansion"
+        ></div>
+
+    </div>
+
+</section>
+<!-- =====================================================
+     SECTION 58 — TYPOGRAPHY WARP
+===================================================== -->
+
+<section class="section-fifty-eight">
+
+    <div
+        class="warp58-stage"
+        id="warp58Stage"
+    >
+
+        <!-- BACKGROUND WARP GRID -->
+        <div
+            class="warp58-grid"
+            id="warp58Grid"
+        ></div>
+
+        <!-- TOP LABEL -->
+        <p class="warp58-label">
+            DISTANCE IS A MATTER OF PERSPECTIVE
+        </p>
+
+        <!-- MAIN SCENE -->
+        <div
+            class="warp58-scene"
+            id="warp58Scene"
+        >
+
+            <!-- MOTION TRAILS -->
+            <div
+                class="warp58-trail warp58-trail-1"
+                id="warp58Trail1"
+            >
+                WARP
+            </div>
+
+            <div
+                class="warp58-trail warp58-trail-2"
+                id="warp58Trail2"
+            >
+                WARP
+            </div>
+
+            <!-- MAIN WORD -->
+            <div
+                class="warp58-word"
+                id="warp58Word"
+            >
+                WARP
+            </div>
+
+            <!-- WARP STREAK -->
+            <div
+                class="warp58-streak"
+                id="warp58Streak"
+            ></div>
+
+        </div>
+
+        <!-- CURSOR -->
+        <div
+            class="warp58-cursor"
+            id="warp58Cursor"
+        ></div>
+
+        <!-- TUNNEL -->
+        <div
+            class="warp58-tunnel"
+            id="warp58Tunnel"
+        ></div>
+
+        <!-- CLICK FLASH -->
+        <div
+            class="warp58-flash"
+            id="warp58Flash"
+        ></div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     SECTION 59 — TYPOGRAPHY SHATTER
+===================================================== -->
+
+<section class="section-fifty-nine">
+
+    <div
+        class="shatter59-stage"
+        id="shatter59Stage"
+    >
+
+        <!-- BACKGROUND -->
+        <div
+            class="shatter59-bg"
+            id="shatter59Bg"
+        ></div>
+
+        <!-- CRACKS -->
+        <div
+            class="shatter59-cracks"
+            id="shatter59Cracks"
+        ></div>
+
+        <!-- LABEL -->
+        <p class="shatter59-label">
+            EVERYTHING CAN BREAK
+        </p>
+
+        <!-- MAIN SCENE -->
+        <div
+            class="shatter59-scene"
+            id="shatter59Scene"
+        >
+
+            <!-- ORIGINAL WORD -->
+            <div
+                class="shatter59-word"
+                id="shatter59Word"
+            >
+                SHATTER
+            </div>
+
+            <!-- FRAGMENT CONTAINER -->
+            <div
+                class="shatter59-fragments"
+                id="shatter59Fragments"
+            ></div>
+
+        </div>
+
+        <!-- CURSOR -->
+        <div
+            class="shatter59-cursor"
+            id="shatter59Cursor"
+        ></div>
+
+        <!-- CURSOR RING -->
+        <div
+            class="shatter59-cursor-ring"
+            id="shatter59CursorRing"
+        ></div>
+
+        <!-- IMPACT -->
+        <div
+            class="shatter59-impact"
+            id="shatter59Impact"
+        ></div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     SECTION 60 — TYPOGRAPHY MELT
+===================================================== -->
+
+<section class="section-sixty">
+
+    <div class="melt60-stage" id="melt60Stage">
+
+        <!-- AMBIENT HEAT -->
+        <div class="melt60-heat" id="melt60Heat"></div>
+
+        <!-- BACKGROUND RIPPLE -->
+        <div class="melt60-ripple" id="melt60Ripple"></div>
+
+        <!-- TOP LABEL -->
+        <p class="melt60-label">
+            NOTHING STAYS SOLID
+        </p>
+
+        <!-- MAIN SCENE -->
+        <div class="melt60-scene" id="melt60Scene">
+
+            <!-- SHADOW WORD -->
+            <div
+                class="melt60-word melt60-shadow"
+                aria-hidden="true"
+            >
+                MELT
+            </div>
+
+            <!-- MAIN WORD -->
+            <div
+                class="melt60-word"
+                id="melt60Word"
+            >
+                MELT
+            </div>
+
+            <!-- LIQUID LAYER -->
+            <div
+                class="melt60-word melt60-liquid"
+                id="melt60Liquid"
+            >
+                MELT
+            </div>
+
+        </div>
+
+        <!-- LIQUID DROPS -->
+        <div
+            class="melt60-drops"
+            id="melt60Drops"
+        ></div>
+
+        <!-- CURSOR -->
+        <div
+            class="melt60-cursor"
+            id="melt60Cursor"
+        ></div>
+
+        <!-- CURSOR RING -->
+        <div
+            class="melt60-ring"
+            id="melt60Ring"
+        ></div>
+
+        <!-- CLICK IMPACT -->
+        <div
+            class="melt60-impact"
+            id="melt60Impact"
+        ></div>
+
+    </div>
+
+</section>
+
+<footer class="ts-footer">
+    <p>End of animations 051&ndash;060</p>
+    <div class="ts-footer-links">
+        <a href="../../index.html">All batches</a>
+        <a href="../041-050/index.html">&larr; 041-050</a>
+        <a href="../061-070/index.html">061-070 &rarr;</a>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
