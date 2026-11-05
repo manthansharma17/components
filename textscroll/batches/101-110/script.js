@@ -1279,6 +1279,182 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 /* =========================================================
+   SECTION 103 — KINETIC PATH TEXT
+   Scroll position slides the text along two SVG curves in
+   opposite directions. Scroll velocity bends the curves and
+   skews the scene, then everything eases back to calm.
+========================================================= */
+
+(() => {
+  const root = document.querySelector("#en103-path");
+  if (!root || !window.gsap) return;
+
+  const svg = root.querySelector(".en103-svg");
+  const curves = [
+    root.querySelector("#en103-curve-a"),
+    root.querySelector("#en103-curve-b")
+  ];
+  const guides = [
+    root.querySelector(".en103-guide-a"),
+    root.querySelector(".en103-guide-b")
+  ];
+  const textPaths = [...root.querySelectorAll("textPath")];
+  const readouts = [...root.querySelectorAll(".en103-readout b")];
+  const progressBar = root.querySelector(".en103-progress span");
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Line A sits above line B; B runs in the opposite phase so they cross.
+  const LINES = [
+    { y: 380, phaseShift: 0 },
+    { y: 560, phaseShift: Math.PI }
+  ];
+  const X_START = -200;
+  const X_END = 1800;
+  const POINTS = 96;
+
+  function buildPath(line, amplitude, phase) {
+    let d = "";
+
+    for (let i = 0; i <= POINTS; i++) {
+      const t = i / POINTS;
+      const x = X_START + (X_END - X_START) * t;
+      // Two layered sines give a looser, more organic curve.
+      const y =
+        line.y +
+        Math.sin(t * Math.PI * 2.2 + phase + line.phaseShift) * amplitude +
+        Math.sin(t * Math.PI * 5.1 + phase * 1.7) * amplitude * 0.18;
+
+      d += (i ? " L" : "M") + x.toFixed(1) + " " + y.toFixed(1);
+    }
+
+    return d;
+  }
+
+  function setCurves(amplitude, phase) {
+    LINES.forEach((line, index) => {
+      const d = buildPath(line, amplitude, phase);
+      curves[index].setAttribute("d", d);
+      guides[index].setAttribute("d", d);
+    });
+  }
+
+  // Repeat each phrase until the text is long enough to keep the
+  // curve filled for the whole scroll distance.
+  const travel = [];
+
+  setCurves(90, 0);
+  const pathLength = curves[0].getTotalLength();
+
+  textPaths.forEach((textPath, index) => {
+    const phrase = textPath.dataset.phrase;
+    textPath.textContent = phrase;
+
+    const phraseLength = textPath.getComputedTextLength() || 1;
+    const repeats = Math.ceil((pathLength * 2.4) / phraseLength);
+
+    textPath.textContent = phrase.repeat(repeats);
+
+    const textLength = textPath.getComputedTextLength();
+    travel[index] = Math.max(0, textLength - pathLength * 1.15);
+  });
+
+  function setOffsets(progress) {
+    // A drifts left, B drifts right.
+    textPaths[0].setAttribute("startOffset", (-travel[0] * progress).toFixed(1));
+    textPaths[1].setAttribute("startOffset", (-travel[1] * (1 - progress)).toFixed(1));
+  }
+
+  if (reducedMotion || !window.ScrollTrigger) {
+    setCurves(70, 0.6);
+    setOffsets(0.35);
+    return;
+  }
+
+  setOffsets(0);
+
+  const state = {
+    progress: 0,
+    velocity: 0, // px/s from ScrollTrigger, decays every frame
+    bend: 0,     // eased extra amplitude caused by velocity
+    skew: 0,
+    time: 0,
+    lastReadout: ""
+  };
+
+  const setSkew = gsap.quickSetter(svg, "skewY", "deg");
+  const setScaleY = gsap.quickSetter(svg, "scaleY");
+
+  function tick(_time, deltaTime) {
+    const dt = Math.min(deltaTime, 50) / 16.67; // in 60fps frames
+
+    state.time += 0.004 * dt;
+    state.velocity *= Math.pow(0.9, dt);
+
+    const speed = Math.abs(state.velocity);
+    const targetBend = Math.min(speed / 12, 220);
+    const targetSkew = gsap.utils.clamp(-7, 7, state.velocity / 350);
+
+    state.bend += (targetBend - state.bend) * Math.min(1, 0.12 * dt);
+    state.skew += (targetSkew - state.skew) * Math.min(1, 0.1 * dt);
+
+    // Base amplitude breathes with progress; velocity adds bend on top.
+    const amplitude = 40 + Math.sin(state.progress * Math.PI) * 70 + state.bend;
+    const phase = state.progress * Math.PI * 3 + state.time;
+
+    setCurves(amplitude, phase);
+    setSkew(state.skew);
+    setScaleY(1 + state.bend / 1400);
+
+    const velocityText = String(Math.min(999, Math.round(speed / 10))).padStart(3, "0");
+    const bendText = String(Math.round(amplitude)).padStart(3, "0");
+    const readout = velocityText + bendText;
+
+    if (readout !== state.lastReadout) {
+      readouts[0].textContent = velocityText;
+      readouts[1].textContent = bendText;
+      state.lastReadout = readout;
+    }
+  }
+
+  // Only animate while the section is on screen.
+  let ticking = false;
+
+  function setTicking(active) {
+    if (active === ticking) return;
+    ticking = active;
+
+    if (active) gsap.ticker.add(tick);
+    else gsap.ticker.remove(tick);
+  }
+
+  ScrollTrigger.create({
+    trigger: root,
+    start: "top top",
+    end: "+=2600",
+    pin: true,
+    anticipatePin: 1,
+    invalidateOnRefresh: true,
+    onUpdate: (self) => {
+      state.progress = self.progress;
+      state.velocity = self.getVelocity();
+      progressBar.style.transform = `scaleX(${self.progress})`;
+      setOffsets(self.progress);
+    }
+  });
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(([entry]) => setTicking(entry.isIntersecting))
+      .observe(root);
+  } else {
+    setTicking(true);
+  }
+
+  tick(0, 16.67);
+})();
+
+
+/* =========================================================
    REFRESH
 ========================================================= */
 

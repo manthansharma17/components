@@ -1327,3 +1327,148 @@
       animation: none;
     }
   }
+
+
+/* =========================================================
+   SECTION 103 — KINETIC PATH TEXT
+========================================================= */
+
+#en103-path {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 50% 50%, #161616 0%, #0a0a0a 55%, #050505 100%);
+  color: #f3f3ef;
+}
+
+#en103-path .en103-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(#ffffff0a 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff0a 1px, transparent 1px);
+  background-size: 80px 80px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  pointer-events: none;
+}
+
+#en103-path .en103-header,
+#en103-path .en103-footer {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  width: 100%;
+  padding: 0 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #777;
+  font-size: 10px;
+  letter-spacing: .16em;
+}
+
+#en103-path .en103-header {
+  top: 0;
+  height: 72px;
+  border-bottom: 1px solid #ffffff14;
+}
+
+#en103-path .en103-footer {
+  bottom: 0;
+  height: 64px;
+  border-top: 1px solid #ffffff14;
+}
+
+#en103-path .en103-readout b {
+  display: inline-block;
+  min-width: 3ch;
+  color: #f3f3ef;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+#en103-path .en103-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+#en103-path .en103-svg {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+#en103-path .en103-guide {
+  fill: none;
+  stroke: #ffffff1c;
+  stroke-width: 1;
+  stroke-dasharray: 4 10;
+}
+
+#en103-path .en103-text {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 128px;
+  font-weight: 900;
+  letter-spacing: -.045em;
+}
+
+#en103-path .en103-text-a {
+  fill: #f3f3ef;
+}
+
+#en103-path .en103-text-b {
+  fill: transparent;
+  stroke: #f3f3ef;
+  stroke-width: 1.4px;
+}
+
+#en103-path .en103-progress {
+  position: absolute;
+  z-index: 4;
+  left: 0;
+  bottom: 64px;
+  width: 100%;
+  height: 1px;
+  background: #ffffff14;
+}
+
+#en103-path .en103-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #f3f3ef;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+@media (max-width: 600px) {
+  #en103-path .en103-header,
+  #en103-path .en103-footer {
+    font-size: 8px;
+    letter-spacing: .08em;
+  }
+
+  #en103-path .en103-header span:nth-child(2),
+  #en103-path .en103-footer span:first-child {
+    display: none;
+  }
+
+  #en103-path .en103-text {
+    font-size: 150px;
+  }
+}

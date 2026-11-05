@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Text Scroll Animations 101-102</title>
+    <title>Text Scroll Animations 101-110</title>
 
     <link rel="stylesheet" href="../../shared/base.css">
     <link rel="stylesheet" href="style.css">
@@ -25,10 +25,11 @@
 <section class="hero ts-hero">
     <div class="ts-hero-inner">
         <p class="ts-kicker">Batch 11 / 11</p>
-        <h1>Animations 101&ndash;102</h1>
+        <h1>Animations 101&ndash;103</h1>
         <ol class="ts-list">
       <li><span>101</span>Black Hole</li>
       <li><span>102</span>Time Dilation</li>
+      <li><span>103</span>Kinetic Path Text</li>
         </ol>
         <p class="ts-scroll">Scroll down &darr;</p>
     </div>
@@ -300,8 +301,52 @@
   </div>
 </section>
 
+<!-- =====================================================
+     SECTION 103 — KINETIC PATH TEXT
+     Text rides two curved paths. Scroll moves it along the
+     curves; scroll speed bends the curves and skews the scene.
+===================================================== -->
+
+<section class="section-one-hundred-three" id="en103-path">
+  <div class="en103-grid"></div>
+
+  <header class="en103-header">
+    <span>FORM / 103</span>
+    <span>KINETIC PATH</span>
+    <span>SCROLL FASTER TO BEND</span>
+  </header>
+
+  <h2 class="en103-sr">Motion is a language. Typography follows the curve.</h2>
+
+  <svg class="en103-svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <path id="en103-curve-a" d="M-200 380 L1800 380" />
+      <path id="en103-curve-b" d="M-200 560 L1800 560" />
+    </defs>
+
+    <path class="en103-guide en103-guide-a" d="M-200 380 L1800 380" />
+    <path class="en103-guide en103-guide-b" d="M-200 560 L1800 560" />
+
+    <text class="en103-text en103-text-a">
+      <textPath href="#en103-curve-a" startOffset="0" data-phrase="MOTION IS A LANGUAGE ✦ ">MOTION IS A LANGUAGE ✦ MOTION IS A LANGUAGE ✦ MOTION IS A LANGUAGE ✦ </textPath>
+    </text>
+
+    <text class="en103-text en103-text-b">
+      <textPath href="#en103-curve-b" startOffset="0" data-phrase="TYPOGRAPHY FOLLOWS THE CURVE ✦ ">TYPOGRAPHY FOLLOWS THE CURVE ✦ TYPOGRAPHY FOLLOWS THE CURVE ✦ </textPath>
+    </text>
+  </svg>
+
+  <footer class="en103-footer">
+    <span>103 / KINETIC PATH</span>
+    <span class="en103-readout">VELOCITY / <b>000</b></span>
+    <span class="en103-readout">BEND / <b>000</b></span>
+  </footer>
+
+  <div class="en103-progress"><span></span></div>
+</section>
+
 <footer class="ts-footer">
-    <p>End of animations 101&ndash;102</p>
+    <p>End of animations 101&ndash;103</p>
     <div class="ts-footer-links">
         <a href="../../index.html">All batches</a>
         <a href="../091-100/index.html">&larr; 091-100</a>
