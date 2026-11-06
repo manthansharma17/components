@@ -1472,3 +1472,741 @@
     font-size: 150px;
   }
 }
+
+
+/* =========================================================
+   SECTION 104 — THE SIMULATION
+========================================================= */
+
+#en104-simulation {
+  --en104-white: #f2f2ee;
+  --en104-muted: #777;
+  --en104-red: #ff3535;
+
+  /* Eased pointer position in -1..1, written by script.js.
+     Applied through the `translate` property so it stacks with
+     (instead of overwriting) the GSAP scroll transforms. */
+  --en104-mx: 0;
+  --en104-my: 0;
+
+  position: relative;
+  width: 100%;
+  overflow: clip;
+  isolation: isolate;
+  background: #030303;
+  color: var(--en104-white);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#en104-simulation *,
+#en104-simulation *::before,
+#en104-simulation *::after {
+  box-sizing: border-box;
+}
+
+#en104-simulation .en104-stage {
+  position: relative;
+  height: 100vh;
+  min-height: 680px;
+  max-height: 1100px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(ellipse at center, #111 0%, #060606 48%, #020202 100%);
+}
+
+#en104-simulation .en104-header,
+#en104-simulation .en104-footer {
+  position: absolute;
+  z-index: 35;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  padding-inline: 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #777;
+  font-size: 8px;
+  letter-spacing: .16em;
+}
+
+#en104-simulation .en104-header {
+  top: 0;
+  border-bottom: 1px solid #ffffff18;
+}
+
+#en104-simulation .en104-footer {
+  bottom: 0;
+  height: 65px;
+  border-top: 1px solid #ffffff18;
+}
+
+#en104-simulation .en104-footer i,
+#en104-simulation .en104-live i {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin-right: 8px;
+  background: white;
+  box-shadow: 0 0 10px white;
+}
+
+#en104-simulation .en104-grid-canvas,
+#en104-simulation .en104-particle-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+#en104-simulation .en104-grid-canvas {
+  z-index: 1;
+}
+
+#en104-simulation .en104-particle-canvas {
+  z-index: 3;
+}
+
+#en104-simulation .en104-grid-overlay {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  opacity: .12;
+  pointer-events: none;
+  background-image:
+    linear-gradient(#ffffff15 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff15 1px, transparent 1px);
+  background-size: 70px 70px;
+  -webkit-mask-image: radial-gradient(ellipse, black 5%, transparent 85%);
+  mask-image: radial-gradient(ellipse, black 5%, transparent 85%);
+}
+
+#en104-simulation .en104-noise {
+  position: absolute;
+  z-index: 25;
+  inset: 0;
+  opacity: .07;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+
+#en104-simulation .en104-scanlines {
+  position: absolute;
+  z-index: 26;
+  inset: 0;
+  opacity: .08;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    #ffffff18 4px
+  );
+}
+
+#en104-simulation .en104-vignette {
+  position: absolute;
+  z-index: 24;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse, transparent 20%, #000 100%);
+}
+
+#en104-simulation .en104-corner {
+  position: absolute;
+  z-index: 15;
+  width: 20px;
+  height: 20px;
+  border-color: #ffffff55;
+  border-style: solid;
+}
+
+#en104-simulation .en104-corner-tl {
+  top: 100px;
+  left: 5%;
+  border-width: 1px 0 0 1px;
+}
+
+#en104-simulation .en104-corner-tr {
+  top: 100px;
+  right: 5%;
+  border-width: 1px 1px 0 0;
+}
+
+#en104-simulation .en104-corner-bl {
+  bottom: 90px;
+  left: 5%;
+  border-width: 0 0 1px 1px;
+}
+
+#en104-simulation .en104-corner-br {
+  bottom: 90px;
+  right: 5%;
+  border-width: 0 1px 1px 0;
+}
+
+#en104-simulation .en104-system-top {
+  position: absolute;
+  z-index: 15;
+  top: 105px;
+  left: 6%;
+  right: 6%;
+  display: flex;
+  justify-content: space-between;
+  color: #777;
+  font-size: 8px;
+  letter-spacing: .14em;
+}
+
+#en104-simulation .en104-live {
+  color: #aaa;
+}
+
+/* Opening */
+
+#en104-simulation .en104-intro {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  padding-inline: 3%;
+  text-align: center;
+  translate:
+    calc(var(--en104-mx) * -8px)
+    calc(var(--en104-my) * -5px);
+  will-change: transform, opacity;
+}
+
+#en104-simulation .en104-eyebrow {
+  margin-bottom: 35px;
+  color: #999;
+  font-size: 9px;
+  letter-spacing: .2em;
+}
+
+#en104-simulation .en104-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 9px;
+  border-radius: 50%;
+  background: white;
+}
+
+#en104-simulation .en104-title {
+  margin: 0;
+  font-size: clamp(55px, 11.5vw, 155px);
+  font-weight: 900;
+  line-height: .85;
+  letter-spacing: -.09em;
+}
+
+#en104-simulation .en104-title span {
+  display: block;
+  white-space: nowrap;
+  transform-origin: center bottom;
+}
+
+#en104-simulation .en104-outline {
+  margin-top: .1em;
+  color: transparent;
+  -webkit-text-stroke: 1px white;
+}
+
+#en104-simulation .en104-intro-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-top: 38px;
+}
+
+#en104-simulation .en104-intro-bottom p {
+  margin: 0;
+  color: #888;
+  font-size: 8px;
+  line-height: 1.9;
+  letter-spacing: .17em;
+}
+
+#en104-simulation .en104-scroll {
+  color: #aaa;
+  font-size: 8px;
+  letter-spacing: .16em;
+}
+
+/* Wireframe cube
+   Centering is applied by GSAP (xPercent / yPercent) so it survives
+   scale tweens; the CSS transform is the no-JS fallback. */
+
+#en104-simulation .en104-wire-object {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  top: 50%;
+  width: 250px;
+  height: 250px;
+  transform: translate(-50%, -50%);
+  translate:
+    calc(var(--en104-mx) * 35px)
+    calc(var(--en104-my) * 25px);
+  perspective: 800px;
+  pointer-events: none;
+}
+
+#en104-simulation .en104-wire-cube {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100px;
+  height: 100px;
+  margin: -50px 0 0 -50px;
+  transform-style: preserve-3d;
+}
+
+#en104-simulation .en104-wire-cube span {
+  position: absolute;
+  inset: 0;
+  border: 1px solid #ffffff70;
+  background: #ffffff02;
+}
+
+#en104-simulation .en104-wire-cube span:nth-child(1) {
+  transform: translateZ(50px);
+}
+#en104-simulation .en104-wire-cube span:nth-child(2) {
+  transform: rotateY(180deg) translateZ(50px);
+}
+#en104-simulation .en104-wire-cube span:nth-child(3) {
+  transform: rotateY(90deg) translateZ(50px);
+}
+#en104-simulation .en104-wire-cube span:nth-child(4) {
+  transform: rotateY(-90deg) translateZ(50px);
+}
+#en104-simulation .en104-wire-cube span:nth-child(5) {
+  transform: rotateX(90deg) translateZ(50px);
+}
+#en104-simulation .en104-wire-cube span:nth-child(6) {
+  transform: rotateX(-90deg) translateZ(50px);
+}
+
+#en104-simulation .en104-wire-orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 220px;
+  height: 90px;
+  margin: -45px 0 0 -110px;
+  border: 1px solid #ffffff30;
+  border-radius: 50%;
+}
+
+#en104-simulation .en104-wire-orbit-two {
+  transform: rotateX(70deg);
+}
+
+/* Diagnostics */
+
+#en104-simulation .en104-diagnostics {
+  position: absolute;
+  z-index: 15;
+  left: 6%;
+  bottom: 15%;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 22px 35px;
+  translate: calc(var(--en104-mx) * 10px) 0;
+}
+
+#en104-simulation .en104-diagnostic {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+#en104-simulation .en104-diagnostic span {
+  color: #666;
+  font-size: 7px;
+  letter-spacing: .13em;
+}
+
+#en104-simulation .en104-diagnostic strong {
+  color: #ddd;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: .08em;
+}
+
+/* Breach */
+
+#en104-simulation .en104-breach {
+  position: absolute;
+  z-index: 12;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+#en104-simulation .en104-breach-label,
+#en104-simulation .en104-breach-code {
+  color: var(--en104-red);
+  font-size: 8px;
+  letter-spacing: .2em;
+}
+
+/* Own line, so it sits above the inline-block heading instead of beside it. */
+#en104-simulation .en104-breach-label {
+  display: block;
+}
+
+#en104-simulation .en104-glitch-text {
+  position: relative;
+  display: inline-block;
+  margin: 30px 0 0;
+  font-size: clamp(60px, 13vw, 175px);
+  font-weight: 900;
+  letter-spacing: -.09em;
+  line-height: .9;
+}
+
+#en104-simulation .en104-glitch-text::before,
+#en104-simulation .en104-glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#en104-simulation .en104-glitch-text::before {
+  color: var(--en104-red);
+  translate: -4px 0;
+  clip-path: inset(20% 0 60% 0);
+}
+
+#en104-simulation .en104-glitch-text::after {
+  color: white;
+  translate: 4px 0;
+  clip-path: inset(65% 0 10% 0);
+}
+
+/* Toggled by script.js while the breach scene is on screen. */
+#en104-simulation .en104-breach.is-glitching .en104-glitch-text::before {
+  opacity: .9;
+  animation: en104-glitch .32s steps(2, end) infinite;
+}
+
+#en104-simulation .en104-breach.is-glitching .en104-glitch-text::after {
+  opacity: .75;
+  animation: en104-glitch .27s steps(2, end) infinite reverse;
+}
+
+#en104-simulation .en104-breach h3 {
+  margin: 10px 0 0;
+  color: transparent;
+  font-size: clamp(35px, 7vw, 85px);
+  -webkit-text-stroke: 1px white;
+  letter-spacing: -.06em;
+}
+
+#en104-simulation .en104-breach-line {
+  width: 0;
+  height: 1px;
+  margin: 35px auto 20px;
+  background: var(--en104-red);
+}
+
+/* Messages */
+
+#en104-simulation .en104-messages {
+  position: absolute;
+  z-index: 13;
+  inset: 0;
+  pointer-events: none;
+}
+
+#en104-simulation .en104-message {
+  position: absolute;
+  opacity: 0;
+}
+
+#en104-simulation .en104-message-one {
+  left: 10%;
+  top: 25%;
+}
+
+#en104-simulation .en104-message-two {
+  right: 8%;
+  top: 44%;
+  text-align: right;
+}
+
+#en104-simulation .en104-message-three {
+  left: 15%;
+  bottom: 22%;
+}
+
+#en104-simulation .en104-message > span {
+  color: #888;
+  font-size: 8px;
+  letter-spacing: .15em;
+}
+
+#en104-simulation .en104-message h2 {
+  margin: 12px 0;
+  font-size: clamp(22px, 4vw, 50px);
+  letter-spacing: -.06em;
+}
+
+#en104-simulation .en104-message p {
+  color: #777;
+  font-size: 7px;
+  letter-spacing: .14em;
+}
+
+/* Failure */
+
+#en104-simulation .en104-failure {
+  position: absolute;
+  z-index: 14;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+#en104-simulation .en104-failure-code {
+  color: var(--en104-red);
+  font-size: 8px;
+  letter-spacing: .2em;
+}
+
+#en104-simulation .en104-failure h2 {
+  margin: 25px 0;
+  font-size: clamp(65px, 12vw, 155px);
+  font-weight: 900;
+  line-height: .8;
+  letter-spacing: -.09em;
+}
+
+#en104-simulation .en104-failure h2 span {
+  color: transparent;
+  -webkit-text-stroke: 1px white;
+}
+
+#en104-simulation .en104-failure p {
+  color: #888;
+  font-size: 8px;
+  letter-spacing: .15em;
+}
+
+#en104-simulation .en104-error-bar {
+  width: min(280px, 60%);
+  height: 2px;
+  margin: 30px auto;
+  background: #ffffff20;
+}
+
+#en104-simulation .en104-error-bar span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--en104-red);
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Final */
+
+#en104-simulation .en104-final {
+  position: absolute;
+  z-index: 16;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  padding-inline: 4%;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(-45%);
+  pointer-events: none;
+}
+
+#en104-simulation .en104-final-kicker {
+  display: block;
+  margin-bottom: 30px;
+  color: #888;
+  font-size: 8px;
+  letter-spacing: .2em;
+}
+
+#en104-simulation .en104-final h2 {
+  margin: 0;
+  font-size: clamp(75px, 14vw, 180px);
+  font-weight: 900;
+  line-height: .8;
+  letter-spacing: -.1em;
+}
+
+#en104-simulation .en104-final h2 span {
+  color: transparent;
+  -webkit-text-stroke: 1px white;
+}
+
+#en104-simulation .en104-final-rule {
+  width: 0;
+  height: 1px;
+  margin: 35px auto 22px;
+  background: white;
+}
+
+#en104-simulation .en104-final p {
+  color: #888;
+  font-size: 8px;
+  letter-spacing: .2em;
+}
+
+#en104-simulation .en104-final-index {
+  display: block;
+  margin-top: 40px;
+  color: #555;
+  font-size: 8px;
+  letter-spacing: .15em;
+}
+
+#en104-simulation .en104-system-bottom {
+  position: absolute;
+  z-index: 15;
+  left: 6%;
+  right: 6%;
+  bottom: 12%;
+  display: flex;
+  justify-content: space-between;
+  color: #666;
+  font-size: 7px;
+  letter-spacing: .13em;
+}
+
+#en104-simulation .en104-system-bottom strong {
+  color: #bbb;
+  font-weight: 400;
+}
+
+#en104-simulation .en104-progress {
+  position: absolute;
+  z-index: 40;
+  bottom: 65px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: #ffffff20;
+}
+
+#en104-simulation .en104-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: white;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* Glitch keyframes */
+
+@keyframes en104-glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-3px, 2px); }
+  40% { transform: translate(3px, -2px); }
+  60% { transform: translate(-2px, -1px); }
+  80% { transform: translate(2px, 1px); }
+  100% { transform: translate(0); }
+}
+
+@media (max-width: 600px) {
+  #en104-simulation .en104-header,
+  #en104-simulation .en104-footer {
+    font-size: 7px;
+    letter-spacing: .05em;
+  }
+
+  #en104-simulation .en104-header span:nth-child(2),
+  #en104-simulation .en104-footer span:nth-child(2) {
+    display: none;
+  }
+
+  #en104-simulation .en104-stage {
+    height: 100svh;
+    min-height: 650px;
+  }
+
+  #en104-simulation .en104-system-top {
+    top: 90px;
+    font-size: 6px;
+  }
+
+  #en104-simulation .en104-title {
+    font-size: 12.5vw;
+  }
+
+  #en104-simulation .en104-diagnostics {
+    left: 5%;
+    bottom: 16%;
+    gap: 14px 18px;
+  }
+
+  #en104-simulation .en104-diagnostic span {
+    font-size: 6px;
+  }
+
+  #en104-simulation .en104-diagnostic strong {
+    font-size: 8px;
+  }
+
+  /* `scale` (not `transform`) so GSAP's transform tweens don't wipe it. */
+  #en104-simulation .en104-wire-object {
+    scale: .7;
+  }
+
+  #en104-simulation .en104-message-one {
+    left: 5%;
+    top: 22%;
+  }
+
+  #en104-simulation .en104-message-two {
+    right: 5%;
+    top: 45%;
+  }
+
+  #en104-simulation .en104-message-three {
+    left: 5%;
+    bottom: 23%;
+  }
+
+  #en104-simulation .en104-system-bottom {
+    left: 5%;
+    right: 5%;
+    bottom: 11%;
+    font-size: 6px;
+  }
+
+  #en104-simulation .en104-final h2 {
+    font-size: 19vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #en104-simulation .en104-breach.is-glitching .en104-glitch-text::before,
+  #en104-simulation .en104-breach.is-glitching .en104-glitch-text::after {
+    animation: none;
+  }
+}
