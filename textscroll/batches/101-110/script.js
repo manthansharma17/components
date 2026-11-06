@@ -1455,6 +1455,562 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 /* =========================================================
+   SECTION 104 — THE SIMULATION
+========================================================= */
+
+(() => {
+  const root = document.querySelector("#en104-simulation");
+  if (!root || !window.gsap) return;
+
+  const gsap = window.gsap;
+  const ScrollTrigger = window.ScrollTrigger;
+
+  const $ = (selector) => root.querySelector(selector);
+  const $$ = (selector) => [...root.querySelectorAll(selector)];
+
+  const stage = $(".en104-stage");
+  const gridCanvas = $(".en104-grid-canvas");
+  const particleCanvas = $(".en104-particle-canvas");
+  const gridOverlay = $(".en104-grid-overlay");
+
+  const gridCtx = gridCanvas.getContext("2d");
+  const particleCtx = particleCanvas.getContext("2d");
+
+  const intro = $(".en104-intro");
+  const titleLines = $$(".en104-title span");
+  const introItems = $$(".en104-eyebrow, .en104-intro-bottom");
+
+  const wireObject = $(".en104-wire-object");
+  const wireCube = $(".en104-wire-cube");
+  const wireOrbits = $$(".en104-wire-orbit");
+
+  const diagnostics = $(".en104-diagnostics");
+  const breach = $(".en104-breach");
+  const breachText = $(".en104-glitch-text");
+  const breachLine = $(".en104-breach-line");
+
+  const messages = $$(".en104-message");
+  const failure = $(".en104-failure");
+  const errorBar = $(".en104-error-bar span");
+  const finalScene = $(".en104-final");
+  const finalRule = $(".en104-final-rule");
+
+  const progress = $(".en104-progress span");
+
+  const integrity = $(".en104-integrity");
+  const inputState = $(".en104-input-state");
+  const coordinateDisplay = $(".en104-coordinates");
+  const fpsDisplay = $(".en104-fps");
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  let width = 0;
+  let height = 0;
+  let mouseX = 0;
+  let mouseY = 0;
+  let targetX = 0;
+  let targetY = 0;
+  let raf = null;
+  let tabVisible = !document.hidden;
+  let inView = true;
+  let frameCount = 0;
+  let fpsUpdate = performance.now();
+
+  /* ---------- Canvas: grid + drifting particles ---------- */
+
+  const particles = Array.from(
+    { length: window.innerWidth < 600 ? 45 : 100 },
+    () => ({
+      x: Math.random(),
+      y: Math.random(),
+      size: Math.random() * 1.3 + .3,
+      opacity: Math.random() * .5 + .1,
+      speed: Math.random() * .15 + .04
+    })
+  );
+
+  function resizeCanvas() {
+    const rect = stage.getBoundingClientRect();
+
+    width = rect.width;
+    height = rect.height;
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    [gridCanvas, particleCanvas].forEach((canvas) => {
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+    });
+
+    gridCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    particleCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    drawGrid();
+    drawParticles();
+  }
+
+  function drawGrid() {
+    if (!width || !height) return;
+
+    gridCtx.clearRect(0, 0, width, height);
+
+    const spacing = 55;
+    const centerX = width / 2 + mouseX * 25;
+    const centerY = height / 2 + mouseY * 25;
+    const offsetX = (centerX - width / 2) * .15;
+    const offsetY = (centerY - height / 2) * .15;
+
+    gridCtx.lineWidth = .5;
+    gridCtx.strokeStyle = "rgba(255,255,255,0.11)";
+    gridCtx.beginPath();
+
+    for (let x = -spacing; x < width + spacing; x += spacing) {
+      gridCtx.moveTo(x + offsetX, 0);
+      gridCtx.lineTo(x + offsetX, height);
+    }
+
+    for (let y = -spacing; y < height + spacing; y += spacing) {
+      gridCtx.moveTo(0, y + offsetY);
+      gridCtx.lineTo(width, y + offsetY);
+    }
+
+    gridCtx.stroke();
+
+    // Perspective center.
+    const gradient = gridCtx.createRadialGradient(
+      centerX, centerY, 0,
+      centerX, centerY, Math.min(width, height) * .55
+    );
+
+    gradient.addColorStop(0, "rgba(255,255,255,0.04)");
+    gradient.addColorStop(1, "rgba(0,0,0,0)");
+
+    gridCtx.fillStyle = gradient;
+    gridCtx.fillRect(0, 0, width, height);
+  }
+
+  function drawParticles() {
+    if (!width || !height) return;
+
+    particleCtx.clearRect(0, 0, width, height);
+
+    particles.forEach((particle) => {
+      particleCtx.beginPath();
+
+      particleCtx.arc(
+        particle.x * width + mouseX * 10,
+        particle.y * height + mouseY * 10,
+        particle.size,
+        0,
+        Math.PI * 2
+      );
+
+      particleCtx.fillStyle = `rgba(255,255,255,${particle.opacity})`;
+      particleCtx.fill();
+    });
+  }
+
+  // The eased pointer is written to CSS variables; the CSS applies it via
+  // the `translate` property so it never fights the GSAP scroll transforms.
+  let lastX = null;
+  let lastY = null;
+
+  function writePointerVars() {
+    if (lastX !== null && Math.abs(mouseX - lastX) < .001 && Math.abs(mouseY - lastY) < .001) {
+      return;
+    }
+
+    lastX = mouseX;
+    lastY = mouseY;
+    root.style.setProperty("--en104-mx", mouseX.toFixed(4));
+    root.style.setProperty("--en104-my", mouseY.toFixed(4));
+  }
+
+  function render() {
+    if (!tabVisible || !inView) {
+      raf = null;
+      return;
+    }
+
+    const now = performance.now();
+
+    mouseX += (targetX - mouseX) * .06;
+    mouseY += (targetY - mouseY) * .06;
+
+    particles.forEach((particle) => {
+      particle.y += particle.speed * .0005;
+
+      if (particle.y > 1) {
+        particle.y = 0;
+        particle.x = Math.random();
+      }
+    });
+
+    drawGrid();
+    drawParticles();
+    writePointerVars();
+
+    frameCount++;
+
+    if (now - fpsUpdate >= 1000) {
+      const fps = Math.round(frameCount * 1000 / (now - fpsUpdate));
+      fpsDisplay.textContent = String(Math.min(fps, 999)).padStart(3, "0") + " FPS";
+
+      frameCount = 0;
+      fpsUpdate = now;
+    }
+
+    raf = requestAnimationFrame(render);
+  }
+
+  function startLoop() {
+    if (!reducedMotion && !raf && tabVisible && inView) render();
+  }
+
+  resizeCanvas();
+  startLoop();
+
+  // Pause rendering while off-screen or while the tab is hidden.
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      startLoop();
+    }).observe(root);
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    tabVisible = !document.hidden;
+
+    if (!tabVisible && raf) {
+      cancelAnimationFrame(raf);
+      raf = null;
+    } else {
+      startLoop();
+    }
+  });
+
+  let resizeTimer;
+
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+
+    resizeTimer = setTimeout(() => {
+      resizeCanvas();
+      if (ScrollTrigger) ScrollTrigger.refresh();
+    }, 150);
+  });
+
+  /* ---------- Pointer ---------- */
+
+  root.addEventListener("pointermove", (event) => {
+    const rect = stage.getBoundingClientRect();
+
+    targetX = gsap.utils.clamp(-1, 1, ((event.clientX - rect.left) / rect.width - .5) * 2);
+    targetY = gsap.utils.clamp(-1, 1, ((event.clientY - rect.top) / rect.height - .5) * 2);
+
+    coordinateDisplay.textContent =
+      `X: ${String(Math.round((targetX + 1) * 500)).padStart(3, "0")} / ` +
+      `Y: ${String(Math.round((targetY + 1) * 500)).padStart(3, "0")}`;
+
+    inputState.textContent = "TRACKING";
+  });
+
+  root.addEventListener("pointerleave", () => {
+    targetX = 0;
+    targetY = 0;
+    inputState.textContent = "WAITING";
+  });
+
+  /* ---------- Initial states ---------- */
+
+  // Centering moves from CSS into GSAP so scale tweens keep it.
+  gsap.set([wireObject, breach], { x: 0, y: 0, xPercent: -50, yPercent: -50 });
+  gsap.set([failure, finalScene], { y: 0, yPercent: -50 });
+
+  if (reducedMotion || !ScrollTrigger) {
+    // Static, readable opening. Later scenes stay hidden so nothing overlaps.
+    gsap.set(wireObject, { opacity: .6 });
+    return;
+  }
+
+  gsap.set(titleLines, {
+    yPercent: 120,
+    opacity: 0,
+    rotateX: -15,
+    transformOrigin: "center bottom"
+  });
+
+  gsap.set(introItems, { y: 20, opacity: 0 });
+  gsap.set([wireObject, diagnostics], { opacity: 0, scale: .8 });
+  gsap.set(wireOrbits, { scale: .5, opacity: 0 });
+  gsap.set(breach, { opacity: 0 });
+  gsap.set(breachLine, { width: 0 });
+  gsap.set(messages, { opacity: 0, y: 20 });
+  gsap.set(failure, { opacity: 0, scale: .8 });
+  gsap.set(finalScene, { opacity: 0, yPercent: -45 });
+
+  /* ---------- Intro reveal ---------- */
+
+  gsap.timeline({ defaults: { ease: "power3.out" } })
+    .to(titleLines, {
+      yPercent: 0,
+      rotateX: 0,
+      opacity: 1,
+      duration: 1.1,
+      stagger: .15
+    }, .1)
+    .to(introItems, {
+      y: 0,
+      opacity: 1,
+      duration: .8,
+      stagger: .12
+    }, .5)
+    .to([wireObject, diagnostics], {
+      opacity: 1,
+      scale: 1,
+      duration: 1.2,
+      stagger: .2
+    }, .2)
+    .to(wireOrbits, {
+      opacity: 1,
+      scale: 1,
+      duration: 1.1,
+      stagger: .2
+    }, .5);
+
+  /* ---------- Ambient movement ---------- */
+
+  const cubeSpin = gsap.to(wireCube, {
+    rotationX: 360,
+    rotationY: 360,
+    duration: 18,
+    repeat: -1,
+    ease: "none"
+  });
+
+  gsap.to(wireOrbits[0], {
+    rotation: 360,
+    duration: 22,
+    repeat: -1,
+    ease: "none"
+  });
+
+  gsap.to(wireOrbits[1], {
+    rotation: -360,
+    duration: 16,
+    repeat: -1,
+    ease: "none"
+  });
+
+  /* ---------- Scroll timeline ---------- */
+
+  const GLITCH_START = 2.1;
+  const GLITCH_END = 2.9;
+
+  const timeline = gsap.timeline({
+    scrollTrigger: {
+      trigger: root,
+      start: "top top",
+      end: "+=3700",
+      scrub: 1,
+      pin: true,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        const p = self.progress;
+
+        progress.style.transform = `scaleX(${p})`;
+        integrity.textContent = Math.max(0, 100 - p * 100).toFixed(2) + "%";
+      }
+    },
+    // Show the red/white glitch layers only while the breach scene plays.
+    onUpdate() {
+      const t = this.time();
+      breach.classList.toggle("is-glitching", t >= GLITCH_START && t < GLITCH_END);
+    }
+  });
+
+  timeline
+    // 1. System initialization.
+    .to(intro, {
+      scale: .75,
+      opacity: .2,
+      filter: "blur(5px)",
+      duration: 1
+    }, 0)
+
+    .to(wireObject, {
+      scale: 1.8,
+      rotation: 35,
+      duration: 1.4
+    }, 0)
+
+    .to(diagnostics, {
+      opacity: 1,
+      duration: .6
+    }, .2)
+
+    // 2. Reality begins to glitch: the cube spins up, then settles.
+    .to(wireObject, {
+      scale: 2.5,
+      rotation: 100,
+      duration: 1.2
+    }, 1.2)
+
+    .to(cubeSpin, {
+      timeScale: 9,
+      duration: .6,
+      ease: "power2.in"
+    }, 1.2)
+
+    .to(cubeSpin, {
+      timeScale: 1,
+      duration: .8,
+      ease: "power2.out"
+    }, 1.9)
+
+    .to(diagnostics, {
+      x: -30,
+      opacity: .45,
+      duration: .8
+    }, 1.5)
+
+    .to(intro, {
+      opacity: 0,
+      scale: .5,
+      filter: "blur(12px)",
+      duration: .6
+    }, 1.5)
+
+    // 3. System breach.
+    .to(breach, {
+      opacity: 1,
+      duration: .5
+    }, 2)
+
+    .fromTo(breachText, {
+      x: -30,
+      skewX: -15,
+      scaleX: 1.5
+    }, {
+      x: 0,
+      skewX: 0,
+      scaleX: 1,
+      duration: .6,
+      ease: "power4.out"
+    }, GLITCH_START)
+
+    .to(breachLine, {
+      width: "45%",
+      duration: .8
+    }, 2.3)
+
+    .to(wireObject, {
+      scale: 3,
+      rotation: 180,
+      opacity: .2,
+      duration: .9
+    }, 2)
+
+    // 4. System messages.
+    .to(breach, {
+      opacity: 0,
+      scale: 1.4,
+      duration: .5
+    }, GLITCH_END)
+
+    .to(messages, {
+      opacity: 1,
+      y: 0,
+      duration: .7,
+      stagger: .3
+    }, 3.1)
+
+    .to(messages[0], {
+      x: 50,
+      opacity: .35,
+      duration: .7
+    }, 4)
+
+    .to(messages[1], {
+      x: -40,
+      opacity: .65,
+      duration: .7
+    }, 4.1)
+
+    .to(messages[2], {
+      scale: 1.2,
+      duration: .7
+    }, 4.2)
+
+    // 5. Simulation failure.
+    .to(messages, {
+      opacity: 0,
+      scale: .8,
+      filter: "blur(8px)",
+      duration: .5
+    }, 4.8)
+
+    .to(failure, {
+      opacity: 1,
+      scale: 1,
+      duration: .8,
+      ease: "power3.out"
+    }, 5)
+
+    .fromTo(errorBar, {
+      scaleX: 1
+    }, {
+      scaleX: 0,
+      duration: 1.2,
+      ease: "power2.inOut"
+    }, 5.5)
+
+    .to(wireObject, {
+      scale: .1,
+      opacity: 0,
+      duration: .8
+    }, 5.2)
+
+    // The world goes dark: grid and overlay fade out.
+    .to(gridCanvas, {
+      opacity: .15,
+      duration: .5
+    }, 5.8)
+
+    .to(gridOverlay, {
+      opacity: 0,
+      duration: .5
+    }, 5.8)
+
+    // 6. Final reveal.
+    .to(failure, {
+      opacity: 0,
+      scale: 1.5,
+      filter: "blur(12px)",
+      duration: .6
+    }, 6.2)
+
+    .to(finalScene, {
+      opacity: 1,
+      yPercent: -50,
+      duration: 1,
+      ease: "power3.out"
+    }, 6.6)
+
+    .to(finalRule, {
+      width: "min(200px, 35vw)",
+      duration: .8
+    }, 7.2);
+})();
+
+
+/* =========================================================
    REFRESH
 ========================================================= */
 
