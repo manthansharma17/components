@@ -1,6 +1,6 @@
 # Text Scroll Animations
 
-103 scroll-driven typography animations built with [GSAP](https://gsap.com/) and ScrollTrigger.
+104 scroll-driven typography animations built with [GSAP](https://gsap.com/) and ScrollTrigger.
 
 To keep pages light, the animations are split into **batches of 10**. Each batch is
 its own page and only loads the HTML, CSS and JS for those 10 animations.
@@ -150,3 +150,4 @@ Every animation is marked with a `SECTION <number>` comment in all three files o
 | 101 | Black Hole | [101-110](batches/101-110/index.html) |
 | 102 | Time Dilation | [101-110](batches/101-110/index.html) |
 | 103 | Kinetic Path Text | [101-110](batches/101-110/index.html) |
+| 104 | The Simulation | [101-110](batches/101-110/index.html) |
