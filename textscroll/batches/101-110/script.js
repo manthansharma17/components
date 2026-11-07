@@ -2011,6 +2011,159 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 /* =========================================================
+   SECTION 105 — THE MULTIVERSE
+========================================================= */
+
+(() => {
+  const root = document.querySelector("#en105-multiverse");
+  if (!root || !window.gsap) return;
+
+  const gsap = window.gsap;
+  const ScrollTrigger = window.ScrollTrigger;
+  if (ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+
+  const $ = (s) => root.querySelector(s);
+  const $$ = (s) => [...root.querySelectorAll(s)];
+
+  const intro = $(".en105-intro");
+  const heading = $$(".en105-heading > span");
+  const introBits = $$(".en105-kicker,.en105-subline,.en105-scroll-cue");
+  const portals = $$(".en105-portal");
+  const rings = $$(".en105-ring");
+  const orbits = $$(".en105-orbit");
+  const split = $(".en105-split");
+  const fragments = $$(".en105-fragments span");
+  const collision = $(".en105-collision");
+  const collisionLine = $(".en105-line");
+  const singularity = $(".en105-singularity");
+  const singularityRings = $$(".en105-singularity-ring");
+  const finalScene = $(".en105-final");
+  const finalRule = $(".en105-final-rule");
+  const progress = $(".en105-progress span");
+  const index = $(".en105-index");
+  const count = $(".en105-count");
+  const stability = $(".en105-stability");
+  const coordinates = $(".en105-coordinate-left");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const isMobile = () => window.matchMedia("(max-width: 650px)").matches;
+  const spread = () => (isMobile() ? 27 : 34);
+
+  let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
+
+  // Centre elements with xPercent/yPercent so GSAP owns the transforms and
+  // the scroll tweens don't drop the CSS translate(-50%,-50%) offset.
+  gsap.set([...orbits, singularity], { xPercent: -50, yPercent: -50 });
+  gsap.set([split, collision, finalScene], { yPercent: -50 });
+  gsap.set(orbits[0], { rotation: -22 });
+  gsap.set(orbits[1], { rotation: 55 });
+  gsap.set(portals, {
+    xPercent: -50,
+    yPercent: -50,
+    x: (i) => (i - 1) * spread() + "vw",
+    y: (i) => (i === 1 && !isMobile() ? "-3vh" : 0),
+    rotationY: (i) => (isMobile() ? 0 : (1 - i) * 25),
+    scale: (i) => (i === 1 ? (isMobile() ? .8 : 1.05) : (isMobile() ? .72 : .8)),
+    opacity: 0
+  });
+
+  gsap.set(heading,{yPercent:110,opacity:0,rotateX:-12,transformOrigin:"center bottom"});
+  gsap.set(introBits,{y:18,opacity:0});
+  gsap.set(split,{opacity:0,scale:.9});
+  gsap.set(fragments,{opacity:0,y:20});
+  gsap.set(collision,{opacity:0,scale:.9});
+  gsap.set(singularity,{opacity:0,scale:1.5});
+  gsap.set(finalScene,{opacity:0,y:"6vh"});
+
+  gsap.timeline({defaults:{ease:"power3.out"}})
+    .to(heading,{yPercent:0,opacity:1,rotateX:0,duration:1.15,stagger:.16},.1)
+    .to(introBits,{y:0,opacity:1,duration:.75,stagger:.12},.45);
+
+  if(!reducedMotion){
+    gsap.to(orbits[0],{rotation:"+=360",duration:70,repeat:-1,ease:"none"});
+    gsap.to(orbits[1],{rotation:"-=360",duration:90,repeat:-1,ease:"none"});
+    gsap.to(rings,{rotation:360,duration:24,repeat:-1,ease:"none",stagger:2});
+  }
+
+  root.addEventListener("pointermove",(event)=>{
+    const rect=root.getBoundingClientRect();
+    targetX=((event.clientX-rect.left)/rect.width-.5)*2;
+    targetY=((event.clientY-rect.top)/rect.height-.5)*2;
+    coordinates.innerHTML=`X <b>${String(Math.round((targetX+1)*500)).padStart(3,"0")}.00</b><br>Y <b>${String(Math.round((targetY+1)*500)).padStart(3,"0")}.00</b>`;
+  });
+
+  // Pointer parallax uses the independent CSS `translate` property so it
+  // stacks on top of the GSAP transforms instead of overwriting them.
+  function pointerFrame(){
+    currentX+=(targetX-currentX)*.07;
+    currentY+=(targetY-currentY)*.07;
+    portals.forEach((el,i)=>{el.style.translate=`${(currentX*(i+1)*9).toFixed(2)}px ${(currentY*(i+1)*7).toFixed(2)}px`;});
+    orbits.forEach((el)=>{el.style.translate=`${(currentX*-12).toFixed(2)}px ${(currentY*-9).toFixed(2)}px`;});
+    requestAnimationFrame(pointerFrame);
+  }
+  if(!reducedMotion) pointerFrame();
+
+  if(ScrollTrigger && !reducedMotion){
+    const tl=gsap.timeline({
+      scrollTrigger:{
+        trigger:root,start:"top top",end:"+=4200",scrub:1,pin:true,
+        anticipatePin:1,invalidateOnRefresh:true,
+        onUpdate:(self)=>{
+          const p=self.progress;
+          progress.style.transform=`scaleX(${p})`;
+          index.textContent=String(Math.min(999,Math.round(1+p*99))).padStart(3,"0");
+          count.textContent=String(Math.min(999,Math.round(1+p*998))).padStart(3,"0");
+          stability.textContent=`${Math.max(0,100-p*100).toFixed(0)}%`;
+        }
+      }
+    });
+
+    tl
+      // 1. The original reality dissolves.
+      .to(intro,{scale:.78,opacity:.15,filter:"blur(7px)",duration:1},0)
+      .to(orbits[0],{scale:1.25,opacity:.2,duration:1},0)
+      // 2. Three timelines branch out.
+      .to(portals,{opacity:1,duration:.8,stagger:.18},1)
+      .to(portals[0],{x:()=>-spread()+"vw",rotationY:22,scale:.9,duration:1.4},1)
+      .to(portals[1],{y:"-3vh",scale:1.12,duration:1.4},1)
+      .to(portals[2],{x:()=>spread()+"vw",rotationY:-22,scale:.9,duration:1.4},1)
+      .to(split,{opacity:1,scale:1,duration:.8},2.1)
+      .to(split,{opacity:0,scale:1.12,filter:"blur(8px)",duration:.6},3)
+      // 3. Different outcomes.
+      .to(fragments,{opacity:1,y:0,duration:.55,stagger:.22},3.1)
+      .to(portals,{scale:1.18,rotation:(i)=>(i-1)*13,duration:1.1},3.3)
+      .to(fragments,{x:(i)=>(i%2?-90:90),y:(i)=>(i<2?-45:45),opacity:.35,duration:1},4.1)
+      // 4. Parallel universes collide.
+      .to(portals,{x:0,y:0,rotationY:0,scale:.75,rotation:0,opacity:.55,duration:1.2},4.8)
+      .to(collision,{opacity:1,scale:1,duration:.8},5.1)
+      .to(collisionLine,{width:"min(260px,45vw)",duration:.8},5.6)
+      .to(fragments,{opacity:0,scale:.7,duration:.45},5.2)
+      // 5. Every branch collapses into one point.
+      .to(collision,{opacity:0,scale:1.15,filter:"blur(10px)",duration:.6},6.3)
+      .to(portals,{scale:.12,opacity:0,rotation:(i)=>(i-1)*80,duration:1.3,ease:"power3.in"},6.4)
+      .to(singularity,{opacity:1,scale:.7,duration:1},6.5)
+      .to(singularityRings,{rotation:(i)=>i?-180:180,scaleY:(i)=>i?.5:.18,duration:1.4},6.7)
+      .to(singularity,{scale:.025,opacity:.1,duration:.8,ease:"power4.in"},8)
+      // 6. Final reveal (short hold at the end so it isn't cut off).
+      .to(finalScene,{opacity:1,y:0,duration:1,ease:"power3.out"},8.4)
+      .to(finalRule,{width:"min(220px,40vw)",duration:.8},9.1)
+      .to({},{duration:.4},9.9);
+  }else{
+    gsap.set(heading,{clearProps:"all"});
+    gsap.set(introBits,{clearProps:"all"});
+    gsap.set(intro,{clearProps:"all"});
+    gsap.set(finalScene,{opacity:1,y:0});
+    gsap.set(finalRule,{width:"min(220px,40vw)"});
+  }
+
+  let resizeTimer;
+  window.addEventListener("resize",()=>{
+    clearTimeout(resizeTimer);
+    resizeTimer=setTimeout(()=>{if(ScrollTrigger)ScrollTrigger.refresh();},180);
+  });
+})();
+
+
+/* =========================================================
    REFRESH
 ========================================================= */
 
