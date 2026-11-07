@@ -2293,3 +2293,158 @@
  #en105-multiverse .en105-coordinate{bottom:10%;font-size:6px}
  #en105-multiverse .en105-final h2{font-size:13vw}
 }
+
+
+/* =========================================================
+   SECTION 106 — THE AFTERLIFE OF LIGHT
+========================================================= */
+
+#en106-afterlight{
+  --en106-white:#f4f3ef;
+  position:relative;width:100%;overflow:clip;isolation:isolate;
+  color:var(--en106-white);background:#020202;
+  font-family:Arial,Helvetica,sans-serif;
+}
+#en106-afterlight *{box-sizing:border-box}
+#en106-afterlight .en106-stage{
+  position:relative;height:100vh;min-height:660px;max-height:1100px;
+  overflow:hidden;display:grid;place-items:center;
+  background:radial-gradient(ellipse at 50% 48%,#151515 0%,#070707 48%,#010101 100%);
+}
+#en106-afterlight .en106-header,#en106-afterlight .en106-footer{
+  position:absolute;z-index:30;left:0;width:100%;height:60px;
+  padding:0 5%;display:flex;align-items:center;justify-content:space-between;
+  color:#777;font-size:8px;letter-spacing:.15em;
+}
+#en106-afterlight .en106-header{top:0;border-bottom:1px solid #ffffff20}
+#en106-afterlight .en106-footer{bottom:0;border-top:1px solid #ffffff20}
+#en106-afterlight .en106-header i,#en106-afterlight .en106-kicker i{
+  display:inline-block;width:5px;height:5px;margin-right:8px;border-radius:50%;
+  background:#fff;box-shadow:0 0 12px #fff;
+}
+#en106-afterlight .en106-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+#en106-afterlight .en106-vignette,#en106-afterlight .en106-grid,#en106-afterlight .en106-grain{
+  position:absolute;inset:0;pointer-events:none;
+}
+#en106-afterlight .en106-vignette{z-index:20;background:radial-gradient(ellipse,transparent 20%,#000 100%)}
+#en106-afterlight .en106-grid{
+  z-index:1;opacity:.09;
+  background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);
+  background-size:80px 80px;mask-image:radial-gradient(ellipse,#000,transparent 75%);
+}
+#en106-afterlight .en106-grain{
+  z-index:25;opacity:.055;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.55'/%3E%3C/svg%3E");
+}
+#en106-afterlight .en106-intro{
+  position:relative;z-index:8;width:100%;padding:0 4%;text-align:center;
+  will-change:transform,opacity;
+}
+#en106-afterlight .en106-kicker,#en106-afterlight .en106-label{
+  color:#999;font-size:8px;letter-spacing:.2em;
+}
+#en106-afterlight .en106-kicker{display:block;margin:0 0 32px}
+#en106-afterlight .en106-intro h1{
+  margin:0;font-size:clamp(56px,10.8vw,145px);font-weight:900;
+  line-height:.79;letter-spacing:-.095em;
+}
+#en106-afterlight .en106-intro h1 span{display:block}
+#en106-afterlight .en106-outline{
+  color:transparent;-webkit-text-stroke:1px #eee;
+}
+#en106-afterlight .en106-intro>p{
+  margin:34px 0 0;color:#888;font-size:8px;letter-spacing:.19em;
+}
+#en106-afterlight .en106-scroll{
+  margin-top:48px;color:#aaa;font-size:8px;letter-spacing:.16em;
+}
+#en106-afterlight .en106-scroll b{margin-left:8px}
+#en106-afterlight .en106-beam-wrap{
+  position:absolute;z-index:5;left:50%;top:50%;width:min(70vw,900px);
+  height:2px;opacity:0;transform:translate(-50%,-50%) rotate(-18deg);
+  pointer-events:none;
+}
+#en106-afterlight .en106-beam{
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,#ffffff20 12%,#fff 50%,#ffffff20 88%,transparent);
+  box-shadow:0 0 15px #fff,0 0 50px #ffffff90,0 0 110px #ffffff50;
+}
+#en106-afterlight .en106-beam-core{
+  position:absolute;left:50%;top:50%;width:7px;height:7px;border-radius:50%;
+  background:#fff;transform:translate(-50%,-50%);
+  box-shadow:0 0 20px 8px #fff,0 0 80px 25px #ffffff80;
+}
+#en106-afterlight .en106-beam-glow{
+  position:absolute;inset:-25px 0;
+  background:linear-gradient(90deg,transparent,#ffffff16,transparent);
+  filter:blur(16px);
+}
+#en106-afterlight .en106-trace-copy,#en106-afterlight .en106-memory,#en106-afterlight .en106-final{
+  position:absolute;z-index:12;left:0;top:50%;width:100%;padding:0 5%;
+  text-align:center;opacity:0;pointer-events:none;transform:translateY(-50%);
+}
+#en106-afterlight .en106-trace-copy h2,#en106-afterlight .en106-memory h2{
+  margin:24px 0;font-size:clamp(76px,14vw,180px);font-weight:900;
+  line-height:.78;letter-spacing:-.1em;
+}
+#en106-afterlight .en106-trace-copy h2 i,#en106-afterlight .en106-memory h2 i,
+#en106-afterlight .en106-final h2 i{
+  color:transparent;-webkit-text-stroke:1px #eee;font-style:normal;
+}
+#en106-afterlight .en106-trace-copy p,#en106-afterlight .en106-memory p,
+#en106-afterlight .en106-final p{
+  color:#888;font-size:8px;letter-spacing:.19em;
+}
+#en106-afterlight .en106-memory-rule,#en106-afterlight .en106-final-rule{
+  width:0;height:1px;margin:34px auto 22px;background:#eee;
+}
+#en106-afterlight .en106-fragment-words{position:absolute;z-index:10;inset:0;pointer-events:none}
+#en106-afterlight .en106-fragment-words span{
+  position:absolute;color:#eee;font-size:clamp(10px,1.6vw,18px);
+  font-weight:700;letter-spacing:.08em;opacity:0;white-space:nowrap;
+}
+#en106-afterlight .en106-fragment-words span:nth-child(1){top:23%;left:10%}
+#en106-afterlight .en106-fragment-words span:nth-child(2){top:29%;right:10%}
+#en106-afterlight .en106-fragment-words span:nth-child(3){bottom:25%;left:13%}
+#en106-afterlight .en106-fragment-words span:nth-child(4){bottom:20%;right:9%}
+#en106-afterlight .en106-final h2{
+  margin:24px 0;font-size:clamp(52px,9.5vw,125px);font-weight:900;
+  line-height:.84;letter-spacing:-.09em;
+}
+#en106-afterlight .en106-final-rule{margin-top:34px}
+#en106-afterlight .en106-index{
+  display:block;margin-top:40px;color:#555;font-size:8px;letter-spacing:.17em;
+}
+#en106-afterlight .en106-readout{
+  position:absolute;z-index:22;bottom:12%;color:#666;font-size:7px;
+  line-height:2;letter-spacing:.13em;
+}
+#en106-afterlight .en106-readout b{color:#bbb;font-weight:400}
+#en106-afterlight .en106-readout-left{left:5%}
+#en106-afterlight .en106-readout-right{right:5%;text-align:right}
+#en106-afterlight .en106-progress{
+  position:absolute;z-index:40;bottom:60px;left:0;width:100%;height:1px;background:#ffffff20;
+}
+#en106-afterlight .en106-progress span{
+  display:block;width:100%;height:100%;background:#fff;transform:scaleX(0);transform-origin:left;
+}
+@media(max-width:650px){
+  #en106-afterlight .en106-header,#en106-afterlight .en106-footer{
+    height:48px;padding-inline:4%;font-size:6px;letter-spacing:.06em;
+  }
+  #en106-afterlight .en106-header span:nth-child(2),#en106-afterlight .en106-footer span:nth-child(2){display:none}
+  #en106-afterlight .en106-progress{bottom:48px}
+  #en106-afterlight .en106-stage{height:100svh;min-height:620px}
+  #en106-afterlight .en106-intro h1{font-size:13vw}
+  #en106-afterlight .en106-beam-wrap{width:110vw}
+  #en106-afterlight .en106-fragment-words span{font-size:9px}
+  #en106-afterlight .en106-fragment-words span:nth-child(1){left:5%}
+  #en106-afterlight .en106-fragment-words span:nth-child(2){right:5%}
+  #en106-afterlight .en106-fragment-words span:nth-child(3){left:5%}
+  #en106-afterlight .en106-fragment-words span:nth-child(4){right:5%}
+  #en106-afterlight .en106-readout{bottom:10%;font-size:6px}
+  #en106-afterlight .en106-final h2{font-size:11vw}
+}
+@media(prefers-reduced-motion:reduce){
+  #en106-afterlight .en106-scroll b{display:none}
+}
