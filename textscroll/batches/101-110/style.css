@@ -2210,3 +2210,86 @@
     animation: none;
   }
 }
+
+
+/* =========================================================
+   SECTION 105 — THE MULTIVERSE
+========================================================= */
+
+#en105-multiverse{--w:#f1f0eb;position:relative;width:100%;overflow:clip;isolation:isolate;background:#030303;color:var(--w);font-family:Arial,Helvetica,sans-serif}
+#en105-multiverse *{box-sizing:border-box}
+#en105-multiverse .en105-stage{position:relative;height:100vh;min-height:650px;max-height:1050px;overflow:hidden;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 48%,#171717 0%,#080808 48%,#020202 100%)}
+#en105-multiverse .en105-topbar,#en105-multiverse .en105-footer{position:absolute;z-index:30;left:0;width:100%;height:58px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;color:#777;font-size:8px;letter-spacing:.14em}
+#en105-multiverse .en105-topbar{top:0;border-bottom:1px solid #ffffff20}
+#en105-multiverse .en105-footer{height:58px;bottom:0;border-top:1px solid #ffffff20}
+#en105-multiverse .en105-topbar i,#en105-multiverse .en105-kicker i{display:inline-block;width:5px;height:5px;margin-right:7px;border-radius:50%;background:#eee;box-shadow:0 0 10px #fff}
+#en105-multiverse .en105-stars,#en105-multiverse .en105-world-grid,#en105-multiverse .en105-noise{position:absolute;inset:0;pointer-events:none}
+#en105-multiverse .en105-stars{opacity:.45;background-image:radial-gradient(1px 1px at 12% 22%,#fff 50%,transparent 100%),radial-gradient(1px 1px at 76% 18%,#fff 50%,transparent 100%),radial-gradient(1px 1px at 85% 72%,#fff 50%,transparent 100%),radial-gradient(1px 1px at 22% 78%,#fff 50%,transparent 100%),radial-gradient(1px 1px at 54% 12%,#fff 50%,transparent 100%);background-size:320px 260px}
+#en105-multiverse .en105-world-grid{opacity:.12;background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:75px 75px;mask-image:radial-gradient(ellipse,#000 5%,transparent 75%)}
+#en105-multiverse .en105-noise{z-index:25;opacity:.055;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E")}
+#en105-multiverse .en105-orbit{position:absolute;left:50%;top:50%;width:min(70vw,850px);height:min(24vw,290px);border:1px solid #ffffff1c;border-radius:50%;transform:translate(-50%,-50%) rotate(-22deg);pointer-events:none}
+#en105-multiverse .en105-orbit-b{width:min(48vw,600px);height:min(72vw,800px);transform:translate(-50%,-50%) rotate(55deg);border-color:#ffffff12}
+#en105-multiverse .en105-intro{position:relative;z-index:8;width:100%;padding:0 4%;text-align:center;will-change:transform,opacity}
+#en105-multiverse .en105-kicker,#en105-multiverse .en105-label{color:#999;font-size:8px;letter-spacing:.2em}
+#en105-multiverse .en105-kicker{margin:0 0 34px}
+#en105-multiverse .en105-heading{margin:0;font-size:clamp(66px,13vw,170px);font-weight:900;line-height:.78;letter-spacing:-.095em}
+#en105-multiverse .en105-heading>span{display:block}
+#en105-multiverse .en105-outline{margin-top:.12em;color:transparent;-webkit-text-stroke:1px #eee}
+#en105-multiverse .en105-subline{margin:35px 0 0;color:#888;font-size:8px;letter-spacing:.19em}
+#en105-multiverse .en105-scroll-cue{margin-top:50px;color:#aaa;font-size:8px;letter-spacing:.16em}
+#en105-multiverse .en105-scroll-cue b{margin-left:8px}
+#en105-multiverse .en105-portals{position:absolute;inset:0;z-index:6;pointer-events:none;perspective:1000px}
+#en105-multiverse .en105-portal{position:absolute;left:50%;top:50%;width:clamp(155px,23vw,300px);aspect-ratio:1;opacity:0;transform-style:preserve-3d}
+#en105-multiverse .en105-portal-a{transform:translate(-50%,-50%) translateX(-34vw) rotateY(25deg) scale(.8)}
+#en105-multiverse .en105-portal-b{transform:translate(-50%,-50%) translateY(-3vh) scale(1.05)}
+#en105-multiverse .en105-portal-c{transform:translate(-50%,-50%) translateX(34vw) rotateY(-25deg) scale(.8)}
+#en105-multiverse .en105-ring{position:absolute;inset:0;border:1px solid #eee9;border-radius:50%;box-shadow:inset 0 0 35px #fff0,0 0 35px #fff0}
+#en105-multiverse .en105-ring:before,#en105-multiverse .en105-ring:after{content:"";position:absolute;inset:12%;border:1px solid #ffffff65;border-radius:50%}
+#en105-multiverse .en105-ring:after{inset:25%;border-color:#ffffff35;transform:rotate(45deg) scaleX(.72)}
+#en105-multiverse .en105-core{position:absolute;inset:31%;display:grid;place-items:center;border:1px solid #ffffff55;border-radius:50%;background:radial-gradient(circle,#ffffff25,#050505 72%);box-shadow:0 0 45px #ffffff12;font-size:10px;letter-spacing:.2em}
+#en105-multiverse .en105-portal-label{position:absolute;top:calc(100% + 18px);width:100%;text-align:center;color:#aaa;font-size:7px;letter-spacing:.17em}
+#en105-multiverse .en105-portal-word{position:absolute;top:50%;left:50%;white-space:nowrap;color:#ffffff16;font-size:clamp(25px,4vw,50px);font-weight:900;letter-spacing:-.06em;transform:translate(-50%,-50%)}
+#en105-multiverse .en105-split,#en105-multiverse .en105-collision,#en105-multiverse .en105-final{position:absolute;z-index:12;left:0;top:50%;width:100%;padding:0 5%;text-align:center;opacity:0;pointer-events:none;transform:translateY(-50%)}
+#en105-multiverse .en105-split h2,#en105-multiverse .en105-collision h2,#en105-multiverse .en105-final h2{margin:24px 0;font-size:clamp(54px,10vw,130px);line-height:.83;font-weight:900;letter-spacing:-.09em}
+#en105-multiverse .en105-split h2 i,#en105-multiverse .en105-collision h2 i,#en105-multiverse .en105-final h2 i{color:transparent;-webkit-text-stroke:1px #eee;font-style:normal}
+#en105-multiverse .en105-split p,#en105-multiverse .en105-final p{color:#888;font-size:8px;letter-spacing:.18em}
+#en105-multiverse .en105-fragments{position:absolute;z-index:10;inset:0;pointer-events:none}
+#en105-multiverse .en105-fragments span{position:absolute;color:#eee;font-size:clamp(12px,2vw,24px);font-weight:700;letter-spacing:-.04em;opacity:0}
+#en105-multiverse .en105-fragments span:nth-child(1){top:24%;left:12%}
+#en105-multiverse .en105-fragments span:nth-child(2){top:30%;right:12%}
+#en105-multiverse .en105-fragments span:nth-child(3){bottom:25%;left:16%}
+#en105-multiverse .en105-fragments span:nth-child(4){bottom:20%;right:10%}
+#en105-multiverse .en105-line,#en105-multiverse .en105-final-rule{width:0;height:1px;margin:35px auto 0;background:#eee}
+#en105-multiverse .en105-singularity{position:absolute;z-index:11;left:50%;top:50%;width:30vw;max-width:390px;min-width:180px;aspect-ratio:1;opacity:0;transform:translate(-50%,-50%) scale(1.5);pointer-events:none}
+#en105-multiverse .en105-singularity-ring{position:absolute;inset:0;border:1px solid #ffffff80;border-radius:50%}
+#en105-multiverse .en105-singularity-a{transform:scaleY(.28) rotate(35deg)}
+#en105-multiverse .en105-singularity-b{transform:scaleX(.28) rotate(-35deg)}
+#en105-multiverse .en105-singularity-core{position:absolute;inset:43%;border-radius:50%;background:#fff;box-shadow:0 0 25px #fff,0 0 80px #ffffffa0}
+#en105-multiverse .en105-final h2{font-size:clamp(58px,11vw,145px)}
+#en105-multiverse .en105-final-rule{margin-top:36px}
+#en105-multiverse .en105-final-index{display:block;margin-top:42px;color:#555;font-size:8px;letter-spacing:.18em}
+#en105-multiverse .en105-coordinate{position:absolute;z-index:20;bottom:12%;color:#666;font-size:7px;line-height:2;letter-spacing:.12em}
+#en105-multiverse .en105-coordinate b{color:#bbb;font-weight:400}
+#en105-multiverse .en105-coordinate-left{left:5%}
+#en105-multiverse .en105-coordinate-right{right:5%;text-align:right}
+#en105-multiverse .en105-progress{position:absolute;z-index:40;bottom:58px;left:0;width:100%;height:1px;background:#ffffff20}
+#en105-multiverse .en105-progress span{display:block;width:100%;height:100%;background:#eee;transform:scaleX(0);transform-origin:left}
+@media(max-width:650px){
+ #en105-multiverse .en105-topbar,#en105-multiverse .en105-footer{height:48px;padding-inline:4%;font-size:6px;letter-spacing:.06em}
+ #en105-multiverse .en105-topbar span:nth-child(2),#en105-multiverse .en105-footer span:nth-child(2){display:none}
+ #en105-multiverse .en105-progress{bottom:48px}
+ #en105-multiverse .en105-stage{height:100svh;min-height:620px}
+ #en105-multiverse .en105-heading{font-size:15vw}
+ #en105-multiverse .en105-portal{width:42vw}
+ #en105-multiverse .en105-portal-a{transform:translate(-50%,-50%) translateX(-27vw) scale(.72)}
+ #en105-multiverse .en105-portal-c{transform:translate(-50%,-50%) translateX(27vw) scale(.72)}
+ #en105-multiverse .en105-portal-b{transform:translate(-50%,-50%) scale(.8)}
+ #en105-multiverse .en105-portal-label{font-size:6px}
+ #en105-multiverse .en105-fragments span{font-size:10px}
+ #en105-multiverse .en105-fragments span:nth-child(1){left:5%}
+ #en105-multiverse .en105-fragments span:nth-child(2){right:5%}
+ #en105-multiverse .en105-fragments span:nth-child(3){left:5%}
+ #en105-multiverse .en105-fragments span:nth-child(4){right:5%}
+ #en105-multiverse .en105-coordinate{bottom:10%;font-size:6px}
+ #en105-multiverse .en105-final h2{font-size:13vw}
+}
