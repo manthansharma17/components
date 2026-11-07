@@ -2164,6 +2164,215 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 /* =========================================================
+   SECTION 106 — THE AFTERLIFE OF LIGHT
+========================================================= */
+
+(() => {
+  const root=document.querySelector("#en106-afterlight");
+  if(!root||!window.gsap)return;
+
+  const gsap=window.gsap;
+  const ScrollTrigger=window.ScrollTrigger;
+  if(ScrollTrigger)gsap.registerPlugin(ScrollTrigger);
+
+  const $=s=>root.querySelector(s);
+  const $$=s=>[...root.querySelectorAll(s)];
+
+  const stage=$(".en106-stage");
+  const canvas=$(".en106-canvas");
+  const ctx=canvas.getContext("2d");
+  const intro=$(".en106-intro");
+  const introLines=$$(".en106-intro h1 span");
+  const introBits=$$(".en106-kicker,.en106-intro>p,.en106-scroll");
+  const beam=$(".en106-beam-wrap");
+  const trace=$(".en106-trace-copy");
+  const memory=$(".en106-memory");
+  const memoryRule=$(".en106-memory-rule");
+  const words=$$(".en106-fragment-words span");
+  const finalScene=$(".en106-final");
+  const finalRule=$(".en106-final-rule");
+  const progress=$(".en106-progress span");
+  const status=$(".en106-status");
+  const particleCount=$(".en106-particle-count");
+  const energy=$(".en106-energy");
+  const traceState=$(".en106-trace");
+  const reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  let width=0,height=0,dpr=1;
+  let pointerX=0,pointerY=0,targetX=0,targetY=0;
+  let particles=[];
+  let raf=0,visible=!document.hidden,time=0;
+
+  const makeParticles=()=>{
+    const total=window.innerWidth<650?100:190;
+    particles=Array.from({length:total},()=>({
+      x:Math.random(),y:Math.random(),
+      vx:(Math.random()-.5)*.0008,vy:(Math.random()-.5)*.0008,
+      r:Math.random()*1.5+.35,a:Math.random()*.7+.15,
+      phase:Math.random()*Math.PI*2
+    }));
+  };
+
+  function resize(){
+    const rect=stage.getBoundingClientRect();
+    width=rect.width;height=rect.height;
+    dpr=Math.min(window.devicePixelRatio||1,2);
+    canvas.width=Math.round(width*dpr);
+    canvas.height=Math.round(height*dpr);
+    canvas.style.width=width+"px";
+    canvas.style.height=height+"px";
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    makeParticles();
+    draw();
+  }
+
+  function draw(){
+    if(!width||!height)return;
+    ctx.clearRect(0,0,width,height);
+    const cx=width*.5+pointerX*width*.08;
+    const cy=height*.5+pointerY*height*.08;
+
+    // Fine, drifting, softly twinkling light particles.
+    particles.forEach(p=>{
+      const px=p.x*width+pointerX*18;
+      const py=p.y*height+pointerY*18;
+      const alpha=p.a*(.65+.35*Math.sin(time*.02+p.phase));
+      ctx.beginPath();
+      ctx.arc(px,py,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,255,255,${alpha.toFixed(3)})`;
+      ctx.fill();
+    });
+
+    // Delicate luminous trails curving out from the centre.
+    const spread=Math.min(width,height)*.42;
+    for(let i=0;i<34;i++){
+      const angle=(i/34)*Math.PI*2;
+      const bend=Math.sin(angle*2+pointerX*2)*pointerY*18;
+      const x2=cx+Math.cos(angle)*spread;
+      const y2=cy+Math.sin(angle)*spread+bend;
+      const grad=ctx.createLinearGradient(cx,cy,x2,y2);
+      grad.addColorStop(0,"rgba(255,255,255,0.16)");
+      grad.addColorStop(.55,"rgba(255,255,255,0.035)");
+      grad.addColorStop(1,"rgba(255,255,255,0)");
+      ctx.beginPath();
+      ctx.moveTo(cx,cy);
+      ctx.quadraticCurveTo(
+        cx+Math.cos(angle+1.1)*spread*.3,
+        cy+Math.sin(angle+1.1)*spread*.3,
+        x2,y2
+      );
+      ctx.strokeStyle=grad;
+      ctx.lineWidth=.65;
+      ctx.stroke();
+    }
+  }
+
+  function animate(){
+    if(!visible){raf=0;return;}
+    time++;
+    pointerX+=(targetX-pointerX)*.055;
+    pointerY+=(targetY-pointerY)*.055;
+    particles.forEach(p=>{
+      p.x=(p.x+p.vx+1)%1;
+      p.y=(p.y+p.vy+1)%1;
+    });
+    draw();
+    raf=requestAnimationFrame(animate);
+  }
+
+  resize();
+  if(!reduced)animate();
+
+  // Let GSAP own the centring so scroll tweens keep the -50% offsets.
+  gsap.set(beam,{xPercent:-50,yPercent:-50,rotation:-18,opacity:0,scaleX:.05});
+  gsap.set([trace,memory,finalScene],{yPercent:-50});
+
+  gsap.set(introLines,{yPercent:115,opacity:0,rotateX:-12,transformOrigin:"center bottom"});
+  gsap.set(introBits,{y:18,opacity:0});
+  gsap.set(trace,{opacity:0,scale:.9});
+  gsap.set(memory,{opacity:0,scale:.9});
+  gsap.set(words,{opacity:0,y:20});
+  gsap.set(finalScene,{opacity:0,y:"6vh"});
+
+  gsap.timeline({defaults:{ease:"power3.out"}})
+    .to(introLines,{yPercent:0,opacity:1,rotateX:0,duration:1.1,stagger:.13},.1)
+    .to(introBits,{y:0,opacity:1,duration:.7,stagger:.12},.45);
+
+  root.addEventListener("pointermove",event=>{
+    const rect=stage.getBoundingClientRect();
+    targetX=((event.clientX-rect.left)/rect.width-.5)*2;
+    targetY=((event.clientY-rect.top)/rect.height-.5)*2;
+  });
+  root.addEventListener("pointerleave",()=>{targetX=0;targetY=0});
+
+  if(ScrollTrigger&&!reduced){
+    const tl=gsap.timeline({
+      scrollTrigger:{
+        trigger:root,start:"top top",end:"+=4000",scrub:1,pin:true,
+        anticipatePin:1,invalidateOnRefresh:true,
+        onUpdate:self=>{
+          const p=self.progress;
+          progress.style.transform=`scaleX(${p})`;
+          particleCount.textContent=String(Math.round(particles.length*(1+p))).padStart(3,"0");
+          energy.textContent=`${Math.max(0,100-p*100).toFixed(0)}%`;
+          status.textContent=p>.78?"FADING":p>.25?"ACTIVE":"DORMANT";
+          traceState.textContent=p>.78?"FADING":p>.4?"FRAGMENTED":"STABLE";
+        }
+      }
+    });
+
+    tl
+      // 1 — A single point of light wakes up.
+      .to(beam,{opacity:1,scaleX:1,duration:1.1},0)
+      .to(intro,{opacity:.12,scale:.78,filter:"blur(8px)",duration:1},0)
+      // 2 — The beam travels and leaves a memory.
+      .to(beam,{rotation:18,scaleX:1.35,x:"8vw",duration:1.4},1)
+      .to(beam,{rotation:-25,x:"-7vw",scaleX:1.1,duration:1.2},2.1)
+      .to(trace,{opacity:1,scale:1,duration:.7},2.1)
+      .to(trace,{opacity:0,scale:1.15,filter:"blur(8px)",duration:.6},3.1)
+      // 3 — The light breaks into fragments.
+      .to(beam,{scaleX:.08,scaleY:14,rotation:90,opacity:.65,duration:1.1},3.2)
+      .to(words,{opacity:1,y:0,duration:.5,stagger:.18},3.5)
+      .to(words,{x:(i)=>(i%2?-70:70),y:(i)=>(i<2?-45:45),opacity:.35,duration:1},4.2)
+      // 4 — Memory reconstructs from the fragments.
+      .to(words,{opacity:0,scale:.5,duration:.45},5.1)
+      .to(beam,{opacity:0,scale:0,duration:.5},5.1)
+      .to(memory,{opacity:1,scale:1,duration:1,ease:"power3.out"},5.4)
+      .to(memoryRule,{width:"min(240px,45vw)",duration:.8},6.1)
+      .to(memory,{scale:1.08,duration:1},6.8)
+      // 5 — Everything slowly dissolves.
+      .to(memory,{opacity:0,scale:1.2,filter:"blur(12px)",duration:.8},7.7)
+      .to(memoryRule,{width:0,duration:.4},7.7)
+      .to(finalScene,{opacity:1,y:0,duration:1,ease:"power3.out"},8.4)
+      .to(finalRule,{width:"min(220px,42vw)",duration:.8},9.1)
+      .to(finalScene,{opacity:.92,duration:.7},10)
+      .to({},{duration:.3},10.7);
+  }else{
+    gsap.set(introLines,{clearProps:"all"});
+    gsap.set(introBits,{clearProps:"all"});
+    gsap.set(intro,{clearProps:"all"});
+    gsap.set(finalScene,{opacity:1,y:0});
+    gsap.set(finalRule,{width:"min(220px,42vw)"});
+  }
+
+  let resizeTimer;
+  window.addEventListener("resize",()=>{
+    clearTimeout(resizeTimer);
+    resizeTimer=setTimeout(()=>{
+      resize();
+      if(ScrollTrigger)ScrollTrigger.refresh();
+    },160);
+  });
+
+  document.addEventListener("visibilitychange",()=>{
+    visible=!document.hidden;
+    if(!visible&&raf){cancelAnimationFrame(raf);raf=0;}
+    else if(visible&&!reduced&&!raf)animate();
+  });
+})();
+
+
+/* =========================================================
    REFRESH
 ========================================================= */
 
