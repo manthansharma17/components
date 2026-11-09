@@ -1,0 +1,89 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --glass: rgba(255,255,255,0.075);
+  --border: rgba(255,255,255,0.19);
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Outfit', sans-serif;
+  color: white;
+  background: #080910;
+  overflow-x: hidden;
+}
+
+.background {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: .65;
+  animation: blobMove 12s ease-in-out infinite alternate;
+}
+
+.blob-1 {
+  width: 450px;
+  height: 450px;
+  background: #5934d5;
+  top: -180px;
+  left: -100px;
+}
+
+.blob-2 {
+  width: 500px;
+  height: 500px;
+  background: #126b9e;
+  bottom: -250px;
+  right: -100px;
+  animation-delay: -4s;
+}
+
+.blob-3 {
+  width: 300px;
+  height: 300px;
+  background: #b04b89;
+  top: 35%;
+  left: 40%;
+  animation-delay: -7s;
+}
+
+.main {
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+  padding: 90px 7%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 75px;
+  animation: fadeUp 1s ease both;
+}
+
+.heading > span {
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: #b5b5c6;
+}
+
+.heading h1 {
+  font-size: clamp(48px, 7vw, 90px);
+  font-weight: 500;
+  letter-spacing: -5px;
+  margin: 18px 0;
+}
