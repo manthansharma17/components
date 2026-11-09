@@ -116,3 +116,131 @@ body {
   top: -70px;
   pointer-events: none;
 }
+
+.card-one::before {
+  background: #8053e9;
+}
+
+.card-two::before {
+  background: #df794c;
+}
+
+.card-three::before {
+  background: #338f9c;
+}
+
+.card-two {
+  background: #211713;
+}
+
+.card-three {
+  background: #101e22;
+}
+
+.card-number {
+  font-size: 11px;
+  color: #aaa;
+  letter-spacing: 2px;
+  z-index: 1;
+}
+
+.card-content {
+  z-index: 1;
+}
+
+.card-content h2 {
+  font-size: 47px;
+  line-height: 1.02;
+  letter-spacing: -2px;
+  margin-top: 17px;
+}
+
+.card-content h2 span {
+  color: #b99aff;
+}
+
+.card-two h2 span {
+  color: #f2a17c;
+}
+
+.card-three h2 span {
+  color: #69c6cf;
+}
+
+.flip-hint {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #aaa;
+  z-index: 1;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(145deg, #24202e, #111);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.back-number {
+  font-size: 80px;
+  line-height: 1;
+  color: rgba(255,255,255,.08);
+  font-weight: 700;
+}
+
+.card-back h2 {
+  font-size: 38px;
+  letter-spacing: -2px;
+  margin: 18px 0;
+  line-height: 1.05;
+}
+
+.card-back p {
+  color: #aaa;
+  line-height: 1.7;
+  font-size: 13px;
+}
+
+.back-footer {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #b99aff;
+}
+
+.bottom-note {
+  margin-top: 65px;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #555;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 700px) {
+  .hero {
+    padding: 70px 20px;
+  }
+
+  .intro h1 {
+    letter-spacing: -2px;
+  }
+
+  .cards {
+    gap: 25px;
+  }
+
+  .card-wrapper {
+    width: min(100%, 320px);
+    height: 420px;
+  }
+}
