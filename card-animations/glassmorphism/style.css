@@ -87,3 +87,133 @@ body {
   letter-spacing: -5px;
   margin: 18px 0;
 }
+.heading h1 i {
+  font-weight: 300;
+  color: #b8a4ff;
+}
+
+.heading p {
+  font-size: 14px;
+  color: #9999aa;
+}
+
+.glass-container {
+  width: 100%;
+  max-width: 1120px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  perspective: 1200px;
+}
+
+.glass-card {
+  min-height: 460px;
+  position: relative;
+  border-radius: 25px;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,.45),
+    rgba(255,255,255,.03) 40%,
+    rgba(255,255,255,.22)
+  );
+  transform-style: preserve-3d;
+  transition: transform .15s ease-out;
+  animation: fadeUp .9s ease both;
+}
+
+.glass-card:nth-child(2) {
+  animation-delay: .15s;
+}
+
+.glass-card:nth-child(3) {
+  animation-delay: .3s;
+}
+
+.card-inner {
+  height: 100%;
+  min-height: 458px;
+  padding: 28px;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  background: rgba(18,20,36,.45);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  isolation: isolate;
+}
+
+.card-inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: .7;
+  background: radial-gradient(
+    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255,255,255,.16),
+    transparent 50%
+  );
+}
+
+.card-glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity .4s;
+  background: radial-gradient(
+    350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255,255,255,.5),
+    transparent 45%
+  );
+}
+
+.glass-card:hover .card-glow {
+  opacity: 1;
+}
+
+.top, .bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.top {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #c3c3d0;
+}
+
+.symbol {
+  font-size: 22px;
+  color: white;
+}
+
+.visual {
+  position: absolute;
+  top: 105px;
+  right: 20px;
+  width: 170px;
+  height: 160px;
+  display: grid;
+  place-items: center;
+  transform: translateZ(45px);
+}
+
+.circle {
+  width: 115px;
+  height: 115px;
+  border-radius: 50%;
+  background: linear-gradient(135deg,#b7a1ff,#603be0);
+  box-shadow:
+    inset -12px -10px 25px rgba(0,0,0,.3),
+    inset 5px 5px 15px rgba(255,255,255,.5),
+    0 0 60px rgba(142,105,255,.4);
+  animation: float 5s ease-in-out infinite;
+}
