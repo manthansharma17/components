@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #08090e;
+  color: white;
+  font-family: 'Space Grotesk', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.scene {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 6%;
+  background:
+    radial-gradient(ellipse at 50% 45%, #17162a 0%, #08090e 65%);
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 75px;
+}
+
+.heading > span {
+  color: #77758b;
+  font-size: 10px;
+  letter-spacing: 4px;
+}
+
+.heading h1 {
+  font-size: clamp(48px, 7vw, 85px);
+  letter-spacing: -5px;
+  margin: 18px 0;
+}
+
+.heading h1 i {
+  color: #b79bff;
+  font-weight: 400;
+}
+
+.heading p {
+  color: #777;
+  font-size: 14px;
+}
+
+.card-container {
+  width: 100%;
+  max-width: 1120px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  perspective: 1400px;
+}
+
+.tilt-card {
+  height: 440px;
+  position: relative;
+  border-radius: 24px;
+  padding: 1px;
+  transform-style: preserve-3d;
+  transition: transform .12s ease-out;
+  will-change: transform;
+}
+
+.card-purple {
+  --accent: #a47aff;
+  background: linear-gradient(135deg, #9e7aff, #27203f 50%, #5540a1);
+}
+
+.card-blue {
+  --accent: #69caff;
+  background: linear-gradient(135deg, #69caff, #172b46 50%, #306caa);
+}
+
+.card-orange {
+  --accent: #ffab76;
+  background: linear-gradient(135deg, #ffab76, #40251d 50%, #a34d36);
+}
