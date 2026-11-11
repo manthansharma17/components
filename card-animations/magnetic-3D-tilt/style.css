@@ -263,3 +263,45 @@ footer {
   font-size: 9px;
   letter-spacing: 3px;
 }
+@keyframes float {
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes cubeRotate {
+  to { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+@keyframes morph {
+  to {
+    border-radius: 70% 30% 35% 65%;
+    transform: rotate(45deg) scale(1.1);
+  }
+}
+
+@media(max-width: 900px) {
+  .card-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width: 600px) {
+  .card-container {
+    grid-template-columns: 1fr;
+    max-width: 350px;
+  }
+
+  .heading h1 {
+    letter-spacing: -3px;
+  }
+
+  .scene {
+    padding: 70px 20px;
+  }
+}
+
+@media(prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
