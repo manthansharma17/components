@@ -31,3 +31,15 @@ cards.forEach((card) => {
       card.style.setProperty('--y', `${y}px`);
     });
   });
+
+   card.addEventListener('pointerleave', () => {
+    cancelAnimationFrame(frame);
+
+    card.style.transform = `
+      perspective(1200px)
+      rotateX(0deg)
+      rotateY(0deg)
+      translateY(0)
+    `;
+  });
+});
