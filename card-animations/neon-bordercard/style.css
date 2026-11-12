@@ -235,3 +235,89 @@ body {
   margin-top: auto;
   margin-bottom: 35px;
 }
+.tag {
+  color: var(--neon);
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+
+.content h2 {
+  font-size: 39px;
+  letter-spacing: -2px;
+  line-height: 1.05;
+  margin: 14px 0;
+}
+
+.content p {
+  font-size: 12px;
+  line-height: 1.7;
+  color: #888;
+  max-width: 220px;
+}
+
+.bottom {
+  color: #aaa;
+}
+
+.bottom span:last-child {
+  font-size: 18px;
+  color: var(--neon);
+}
+
+footer {
+  color: #555;
+  font-size: 9px;
+  letter-spacing: 3px;
+  margin-top: 65px;
+}
+
+@keyframes rotateBorder {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@keyframes energyPulse {
+  0%, 100% {
+    transform: scale(.85);
+    opacity: .5;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@media(max-width: 850px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width: 580px) {
+  .cards {
+    grid-template-columns: 1fr;
+    max-width: 350px;
+  }
+
+  .wrapper {
+    padding: 70px 20px;
+  }
+
+  .heading h1 {
+    letter-spacing: -3px;
+  }
+}
+
+@media(prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
