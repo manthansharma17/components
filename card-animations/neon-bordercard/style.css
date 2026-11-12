@@ -98,3 +98,140 @@ body {
 .neon-card:hover {
   transform: translateY(-12px) scale(1.02);
 }
+/* Animated neon border */
+
+.neon-border {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--angle),
+    transparent 0%,
+    var(--neon) 12%,
+    transparent 30%,
+    transparent 50%,
+    var(--neon) 65%,
+    transparent 85%
+  );
+  animation: rotateBorder 4s linear infinite;
+  filter: blur(2px);
+  z-index: -1;
+}
+
+.neon-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--angle),
+    transparent,
+    var(--neon),
+    transparent,
+    var(--neon),
+    transparent
+  );
+  filter: blur(15px);
+  opacity: .35;
+  animation: rotateBorder 4s linear infinite;
+  z-index: -2;
+}
+
+.purple { --neon: #a36bff; }
+.cyan { --neon: #35dfff; }
+.pink { --neon: #ff65b8; }
+
+.card-inner {
+  height: 100%;
+  width: 100%;
+  padding: 27px;
+  background: #101019;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--x, 50%) var(--y, 50%),
+    var(--neon),
+    transparent 55%
+  );
+  opacity: var(--light-opacity, 0);
+  pointer-events: none;
+}
+
+.top, .bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  color: #999;
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+
+.arrow {
+  font-size: 20px;
+  color: var(--neon);
+}
+
+.visual {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  top: 75px;
+  right: 20px;
+  display: grid;
+  place-items: center;
+}
+
+.energy {
+  position: absolute;
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  border: 1px solid var(--neon);
+  animation: energyPulse 3s ease-in-out infinite;
+}
+
+.energy-purple {
+  box-shadow: 0 0 20px #a36bff, inset 0 0 20px #a36bff;
+}
+
+.energy-cyan {
+  box-shadow: 0 0 20px #35dfff, inset 0 0 20px #35dfff;
+}
+
+.energy-pink {
+  box-shadow: 0 0 20px #ff65b8, inset 0 0 20px #ff65b8;
+}
+
+.energy-core {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--neon);
+  display: grid;
+  place-items: center;
+  color: var(--neon);
+  font-size: 30px;
+  text-shadow: 0 0 15px var(--neon);
+  box-shadow: 0 0 30px var(--neon);
+  animation: float 3s ease-in-out infinite;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  margin-bottom: 35px;
+}
