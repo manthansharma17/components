@@ -65,3 +65,72 @@ header p {
   position: relative;
   transform-style: preserve-3d;
 }
+.stack-card {
+  position: absolute;
+  inset: 0;
+  padding: 25px;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.2);
+  transform-style: preserve-3d;
+  cursor: grab;
+  user-select: none;
+  transition:
+    transform .8s cubic-bezier(.2,.8,.2,1),
+    box-shadow .4s;
+}
+
+.stack-card:active {
+  cursor: grabbing;
+}
+
+.card-1 {
+  background: linear-gradient(145deg,#7250be,#211c3e);
+  z-index: 4;
+}
+
+.card-2 {
+  background: linear-gradient(145deg,#167b9c,#102c46);
+  z-index: 3;
+}
+
+.card-3 {
+  background: linear-gradient(145deg,#b04c81,#411e50);
+  z-index: 2;
+}
+
+.card-4 {
+  background: linear-gradient(145deg,#bd7543,#4b2a20);
+  z-index: 1;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,.7);
+}
+
+.card-top span:last-child {
+  font-size: 20px;
+}
+
+.card-art {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  top: 75px;
+  right: 15px;
+  display: grid;
+  place-items: center;
+  transform: translateZ(40px);
+}
+
+.art-circle {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: linear-gradient(135deg,#e3d5ff,#8b65f0);
+  box-shadow: 0 0 50px rgba(185,145,255,.5);
+}
