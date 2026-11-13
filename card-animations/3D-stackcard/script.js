@@ -26,3 +26,16 @@ cards.forEach((card) => {
 
     const rotateY = (x - 0.5) * 12;
     const rotateX = (0.5 - y) * 12;
+
+     card.style.setProperty('--mouse-x', `${x * 100}%`);
+    card.style.setProperty('--mouse-y', `${y * 100}%`);
+
+    if (isSpread) {
+      card.style.filter = 'brightness(1.15)';
+    }
+  });
+
+  card.addEventListener('pointerleave', () => {
+    card.style.filter = 'brightness(1)';
+  });
+});
