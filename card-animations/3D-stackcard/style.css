@@ -1,0 +1,67 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #090910;
+  color: white;
+  font-family: 'Space Grotesk', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.scene {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 70px 20px;
+  background:
+    radial-gradient(ellipse at 50% 50%, #25203d 0%, #090910 65%);
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+  z-index: 5;
+}
+
+header > span {
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: #999;
+}
+
+header h1 {
+  font-size: clamp(40px, 6vw, 75px);
+  letter-spacing: -4px;
+  margin: 18px 0;
+}
+
+header h1 i {
+  color: #b49aff;
+  font-weight: 400;
+}
+
+header p {
+  font-size: 13px;
+  color: #888;
+}
+
+.deck-container {
+  width: 100%;
+  height: 480px;
+  display: grid;
+  place-items: center;
+  perspective: 1400px;
+}
+
+.deck {
+  width: 280px;
+  height: 390px;
+  position: relative;
+  transform-style: preserve-3d;
+}
