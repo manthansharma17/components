@@ -91,3 +91,82 @@ body {
   outline: 2px solid white;
   outline-offset: 4px;
 }
+
+/* Image zoom */
+
+.expand-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  background-size: cover;
+  background-position: center;
+  transition: transform 1.2s cubic-bezier(.2,.8,.2,1);
+  z-index: -2;
+}
+
+.expand-card:hover::before,
+.expand-card.active::before {
+  transform: scale(1.12);
+}
+
+/* Dark overlay */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,.05) 0%,
+    rgba(0,0,0,.1) 35%,
+    rgba(0,0,0,.85) 100%
+  );
+  transition: background .5s;
+  z-index: -1;
+}
+
+.expand-card:hover .overlay,
+.expand-card.active .overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,.05),
+    rgba(0,0,0,.1) 25%,
+    rgba(0,0,0,.85) 100%
+  );
+}
+
+/* Number */
+
+.card-number {
+  position: absolute;
+  top: 25px;
+  left: 22px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: white;
+  opacity: .8;
+}
+
+/* Content */
+
+.card-content {
+  position: absolute;
+  left: 25px;
+  bottom: 35px;
+  width: 300px;
+  max-width: calc(100% - 50px);
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity .4s,
+    transform .6s cubic-bezier(.2,.8,.2,1);
+  transition-delay: 0s;
+  pointer-events: none;
+}
+
+.expand-card:hover .card-content,
+.expand-card.active .card-content {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: .2s;
+}
