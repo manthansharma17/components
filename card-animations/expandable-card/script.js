@@ -15,3 +15,12 @@ cards.forEach(card => {
   card.addEventListener('click', () => {
     activateCard(card);
   });
+ // Keyboard accessibility
+  card.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      activateCard(card);
+    }
+  });
+
+});
