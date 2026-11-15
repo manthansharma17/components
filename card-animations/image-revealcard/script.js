@@ -21,3 +21,23 @@ cards.forEach(card => {
       activateCard(card);
     }
   });
+
+   // Mouse-following spotlight
+  card.addEventListener('pointermove', (e) => {
+    if (e.pointerType === 'touch') return;
+
+    const rect = card.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    card.style.setProperty('--x', `${x}px`);
+    card.style.setProperty('--y', `${y}px`);
+  });
+
+  // Prevent placeholder links from jumping to page top
+  card.querySelector('.explore').addEventListener('click', (e) => {
+    e.preventDefault();
+  });
+
+});
