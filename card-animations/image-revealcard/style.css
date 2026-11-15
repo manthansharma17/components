@@ -235,3 +235,36 @@ footer {
   letter-spacing: 3px;
   color: #555;
 }
+
+/* Responsive */
+
+@media(max-width: 850px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width: 580px) {
+  .page {
+    padding: 70px 20px;
+  }
+
+  .gallery {
+    grid-template-columns: 1fr;
+    max-width: 380px;
+  }
+
+  .reveal-card {
+    height: 430px;
+  }
+
+  .heading h1 {
+    letter-spacing: -3px;
+  }
+}
+
+@media(prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: .01ms !important;
+  }
+}
