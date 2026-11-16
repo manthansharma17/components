@@ -77,3 +77,37 @@ function animate() {
     const x = Math.cos(angle) * radius.x;
     const y = Math.sin(angle) * radius.y;
     const z = Math.sin(angle) * radius.z;
+     // Individual card rotations
+    const rotateY = Math.sin(angle) * 38;
+    const rotateX = Math.cos(angle) * 12;
+    const rotateZ = Math.sin(angle * 1.5) * 13;
+
+    // Subtle floating movement
+    const float = Math.sin(
+      performance.now() * 0.0015 + index
+    ) * 9;
+
+    const scale = 1 + (z / radius.z) * 0.08;
+
+    card.style.transform = `
+      translate3d(
+        ${x}px,
+        ${y + float}px,
+        ${z}px
+      )
+      rotateX(${rotateX}deg)
+      rotateY(${rotateY}deg)
+      rotateZ(${rotateZ}deg)
+      scale(${scale})
+    `;
+
+    // Depth-based brightness
+    card.style.filter = `
+      brightness(${0.75 + ((z + radius.z) / (radius.z * 2)) * 0.4})
+    `;
+  });
+
+  requestAnimationFrame(animate);
+}
+
+animate();
