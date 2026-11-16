@@ -40,3 +40,92 @@ body {
   opacity: .12;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
 }
+
+/* 3D stage */
+
+.gallery-stage {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  height: 650px;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Cards */
+
+.gallery-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 190px;
+  height: 265px;
+  margin-left: -95px;
+  margin-top: -132px;
+  border-radius: 12px;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  border: 1px solid rgba(255,255,255,.13);
+  cursor: pointer;
+  transition: box-shadow .4s ease;
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+  filter: saturate(.85) contrast(1.04);
+  transition: filter .5s ease;
+}
+
+.gallery-card:hover {
+  box-shadow: 0 25px 70px rgba(0,0,0,.7);
+  z-index: 5;
+}
+
+.gallery-card:hover img {
+  filter: saturate(1.1) contrast(1.08);
+}
+
+/* Bottom label */
+
+.bottom-label {
+  position: absolute;
+  bottom: 35px;
+  left: 40px;
+  right: 40px;
+  display: flex;
+  justify-content: space-between;
+  color: #777;
+  font-size: 9px;
+  letter-spacing: 3px;
+  z-index: 11;
+}
+
+@media(max-width: 700px) {
+  .gallery-card {
+    width: 145px;
+    height: 205px;
+    margin-left: -72px;
+    margin-top: -102px;
+  }
+
+  .bottom-label {
+    left: 15px;
+    right: 15px;
+    font-size: 7px;
+    letter-spacing: 1px;
+  }
+}
+
+@media(prefers-reduced-motion: reduce) {
+  .gallery-card {
+    transition: none;
+  }
+}
