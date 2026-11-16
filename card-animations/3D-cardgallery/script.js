@@ -33,3 +33,47 @@ window.addEventListener('pointermove', (e) => {
   targetX = (e.clientX / window.innerWidth - 0.5) * 2;
   targetY = (e.clientY / window.innerHeight - 0.5) * 2;
 });
+
+// Drag interaction
+gallery.addEventListener('pointerdown', (e) => {
+  isDragging = true;
+  lastX = e.clientX;
+  gallery.setPointerCapture(e.pointerId);
+});
+
+gallery.addEventListener('pointerup', () => {
+  isDragging = false;
+});
+
+gallery.addEventListener('pointercancel', () => {
+  isDragging = false;
+});
+
+// Animation loop
+function animate() {
+
+  const radius = getRadius();
+
+  if (!isDragging) {
+    rotation += 0.0018;
+    dragVelocity *= 0.94;
+    rotation += dragVelocity * 0.0005;
+  }
+
+  // Smooth mouse parallax
+  mouseX += (targetX - mouseX) * 0.035;
+  mouseY += (targetY - mouseY) * 0.035;
+
+  gallery.style.transform = `
+    rotateX(${-mouseY * 7}deg)
+    rotateY(${mouseX * 9}deg)
+  `;
+
+  cards.forEach((card, index) => {
+
+    const angle = (index / total) * Math.PI * 2 + rotation;
+
+    // 3D orbital position
+    const x = Math.cos(angle) * radius.x;
+    const y = Math.sin(angle) * radius.y;
+    const z = Math.sin(angle) * radius.z;
