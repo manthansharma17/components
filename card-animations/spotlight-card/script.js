@@ -44,3 +44,26 @@ cards.forEach(card => {
     active = true;
     updatePosition(e);
   });
+card.addEventListener('pointermove', e => {
+    if (e.pointerType === 'touch') return;
+    updatePosition(e);
+  });
+
+  card.addEventListener('pointerleave', () => {
+    active = false;
+    targetX = 50;
+    targetY = 50;
+
+    if (!animationId) {
+      animationId = requestAnimationFrame(animate);
+    }
+  });
+
+  // Mobile tap interaction
+  card.addEventListener('click', () => {
+    if (window.matchMedia('(hover: none)').matches) {
+      card.classList.toggle('mobile-active');
+    }
+  });
+
+});
