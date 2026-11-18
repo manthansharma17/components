@@ -1,0 +1,68 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  background: #090909;
+  color: #f5f3ee;
+  font-family: 'Space Grotesk', sans-serif;
+  overflow-x: hidden;
+}
+
+.intro, .outro {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.intro {
+  background: radial-gradient(
+    ellipse at center,
+    #202025,
+    #090909 70%
+  );
+}
+
+.intro > span,
+.outro > span {
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: #999;
+}
+
+.intro h1,
+.outro h2 {
+  font-size: clamp(65px, 11vw, 160px);
+  line-height: .92;
+  letter-spacing: -.075em;
+  margin: 30px 0;
+}
+
+.intro em,
+.outro em {
+  color: #b6a0ff;
+  font-weight: 400;
+}
+
+.intro p,
+.outro p {
+  color: #999;
+  font-size: 14px;
+}
+
+.scroll-cue {
+  margin-top: 70px;
+  font-size: 10px;
+  letter-spacing: 3px;
+  animation: bounce 2s infinite;
+}
