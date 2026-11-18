@@ -158,3 +158,85 @@ body {
   letter-spacing: -4px;
   margin: 15px 0;
 }
+
+.project-info p {
+  color: #ddd;
+  font-size: 13px;
+  max-width: 320px;
+  line-height: 1.6;
+}
+
+/* Progress indicator */
+
+.progress {
+  position: absolute;
+  bottom: 30px;
+  left: 5vw;
+  right: 5vw;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 11px;
+  color: #aaa;
+  z-index: 5;
+}
+
+.progress-line {
+  height: 2px;
+  background: #333;
+  flex: 1;
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 100%;
+  height: 100%;
+  background: #b6a0ff;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* Outro */
+
+.outro {
+  background: #090909;
+}
+
+@keyframes bounce {
+  50% {
+    transform: translateY(12px);
+  }
+}
+
+@media(max-width: 700px) {
+  .project-card {
+    width: 85vw;
+    height: 60vh;
+    min-height: 350px;
+  }
+
+  .project-info {
+    left: 25px;
+    bottom: 30px;
+  }
+
+  .project-info h2 {
+    font-size: 48px;
+    letter-spacing: -2px;
+  }
+
+  .section-header {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+
+  .horizontal-track {
+    gap: 20px;
+  }
+}
+
+@media(prefers-reduced-motion: reduce) {
+  .scroll-cue {
+    animation: none;
+  }
+}
