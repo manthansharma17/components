@@ -75,3 +75,26 @@ gsap.from('.intro h1', {
   duration: 1.4,
   ease: 'power4.out'
 });
+
+gsap.from('.intro p', {
+  y: 30,
+  opacity: 0,
+  duration: 1,
+  delay: 0.3
+});
+
+gsap.from('.outro h2', {
+  y: 100,
+  opacity: 0,
+  duration: 1.2,
+  ease: 'power3.out',
+  scrollTrigger: {
+    trigger: '.outro',
+    start: 'top 75%',
+    toggleActions: 'play none none reverse'
+  }
+});
+
+window.addEventListener('load', () => {
+  ScrollTrigger.refresh();
+});
