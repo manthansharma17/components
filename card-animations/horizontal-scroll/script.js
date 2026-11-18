@@ -33,3 +33,45 @@ const horizontalTween = gsap.to(track, {
     }
   }
 });
+
+// Image parallax and text reveal
+cards.forEach((card) => {
+  const image = card.querySelector('img');
+  const info = card.querySelector('.project-info');
+
+  gsap.fromTo(image,
+    { xPercent: -8 },
+    {
+      xPercent: 8,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: card,
+        containerAnimation: horizontalTween,
+        start: 'left right',
+        end: 'right left',
+        scrub: true
+      }
+    }
+  );
+
+  gsap.from(info, {
+    y: 65,
+    opacity: 0,
+    duration: 0.8,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: card,
+      containerAnimation: horizontalTween,
+      start: 'left 90%',
+      toggleActions: 'play none none reverse'
+    }
+  });
+});
+
+// Entrance animations
+gsap.from('.intro h1', {
+  y: 100,
+  opacity: 0,
+  duration: 1.4,
+  ease: 'power4.out'
+});
