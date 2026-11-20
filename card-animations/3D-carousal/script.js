@@ -79,3 +79,39 @@ function animate() {
 
   requestAnimationFrame(animate);
 }
+
+// Drag interaction
+scene.addEventListener('pointerdown', (e) => {
+  isDragging = true;
+  lastX = e.clientX;
+  lastTime = performance.now();
+  velocity = 0;
+
+  scene.setPointerCapture(e.pointerId);
+});
+
+scene.addEventListener('pointermove', (e) => {
+
+  if (!isDragging) return;
+
+  const now = performance.now();
+  const delta = e.clientX - lastX;
+  const elapsed = Math.max(1, now - lastTime);
+
+  rotation += delta * 0.35;
+
+  velocity = (delta / elapsed) * 8;
+
+  lastX = e.clientX;
+  lastTime = now;
+
+});
+
+function stopDragging() {
+  isDragging = false;
+}
+
+scene.addEventListener('pointerup', stopDragging);
+scene.addEventListener('pointercancel', stopDragging);
+
+
