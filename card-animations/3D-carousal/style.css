@@ -147,3 +147,92 @@ body {
     transparent 55%
   );
 }
+
+/* Card information */
+
+.card-overlay {
+  position: absolute;
+  bottom: 25px;
+  left: 20px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.card-overlay span {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #d0baff;
+}
+
+.card-overlay h2 {
+  font-size: 25px;
+  margin-top: 8px;
+  letter-spacing: -1px;
+}
+
+/* Active card */
+
+.carousel-card.active {
+  border-color: rgba(255,255,255,.7);
+  box-shadow: 0 20px 90px rgba(181,154,255,.2);
+}
+
+/* Controls */
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 35px;
+  margin-top: 5px;
+}
+
+.controls button {
+  width: 45px;
+  height: 45px;
+  border: 1px solid #444;
+  border-radius: 50%;
+  background: transparent;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.controls button:hover {
+  background: #fff;
+  color: #000;
+  border-color: white;
+  transform: scale(1.08);
+}
+
+.counter {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+#current {
+  color: #c0aaff;
+}
+
+.separator,
+#total {
+  color: #666;
+}
+
+.instruction {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #666;
+}
+
+footer {
+  margin-top: 45px;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #444;
+}
