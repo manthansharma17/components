@@ -236,3 +236,30 @@ footer {
   letter-spacing: 3px;
   color: #444;
 }
+
+/* Responsive */
+
+@media(max-width: 700px) {
+  .carousel-scene {
+    height: 420px;
+    perspective: 900px;
+  }
+
+  .carousel-card {
+    width: 165px;
+    height: 245px;
+    margin-left: -82px;
+    margin-top: -122px;
+  }
+
+  .heading h1 {
+    letter-spacing: -2px;
+  }
+}
+
+@media(prefers-reduced-motion: reduce) {
+  .carousel-card,
+  .carousel-card img {
+    transition: none;
+  }
+}
