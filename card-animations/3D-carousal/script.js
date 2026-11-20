@@ -39,3 +39,43 @@ function setupCarousel() {
     `;
   });
 }
+// Find the card facing the viewer
+function updateActiveCard() {
+  let normalized = ((rotation % 360) + 360) % 360;
+
+  let activeIndex = Math.round(
+    (360 - normalized) / angleStep
+  ) % total;
+
+  cards.forEach((card, index) => {
+    card.classList.toggle(
+      'active',
+      index === activeIndex
+    );
+  });
+
+  currentDisplay.textContent =
+    String(activeIndex + 1).padStart(2, '0');
+}
+
+// Main animation loop
+function animate() {
+
+  if (!isDragging) {
+    rotation += 0.18 + velocity;
+
+    velocity *= 0.94;
+
+    if (Math.abs(velocity) < 0.002) {
+      velocity = 0;
+    }
+  }
+
+  ring.style.transform = `
+    rotateY(${rotation}deg)
+  `;
+
+  updateActiveCard();
+
+  requestAnimationFrame(animate);
+}
