@@ -115,3 +115,20 @@ scene.addEventListener('pointerup', stopDragging);
 scene.addEventListener('pointercancel', stopDragging);
 
 
+// Previous and next controls
+document.querySelector('#prev').addEventListener('click', () => {
+  velocity = 0;
+  rotation -= angleStep;
+});
+
+document.querySelector('#next').addEventListener('click', () => {
+  velocity = 0;
+  rotation += angleStep;
+});
+
+// Resize support
+window.addEventListener('resize', setupCarousel);
+
+// Start
+setupCarousel();
+animate();
