@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Liquid Distortion Experience</title>
+  <link rel="stylesheet" href="style.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- SVG Liquid Filter -->
+  <svg class="svg-filters">
+    <filter id="liquid">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.012 0.025"
+        numOctaves="2"
+        seed="8"
+        result="noise"
+      />
+
+      <feDisplacementMap
+        in="SourceGraphic"
+        in2="noise"
+        scale="0"
+        xChannelSelector="R"
+        yChannelSelector="G"
+        result="displaced"
+      />
+    </filter>
+  </svg>
+
+  <main class="page">
+
+    <header class="heading">
+      <span>INTERACTION LAB / 013</span>
+      <h1>Fluid <i>Reality.</i></h1>
+      <p>Move your cursor and watch the images transform.</p>
+    </header>
+
+    <section class="gallery">
+
+      <article class="liquid-card">
+        <div class="image-container">
+          <img
+            src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1000"
+            alt="Fashion editorial"
+          >
+        </div>
+        <div class="card-content">
+          <span>01 / FASHION</span>
+          <h2>Fluid<br>Identity.</h2>
+        </div>
+        <span class="card-number">01</span>
+      </article>
+
+      <article class="liquid-card">
+        <div class="image-container">
+          <img
+            src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1000"
+            alt="Mountain landscape"
+          >
+        </div>
+        <div class="card-content">
+          <span>02 / NATURE</span>
+          <h2>Beyond<br>Reality.</h2>
+        </div>
+        <span class="card-number">02</span>
+      </article>
