@@ -107,3 +107,45 @@ body {
     transform 1s ease,
     filter .2s ease;
 }
+/* Dark overlay */
+
+.liquid-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,.85),
+    rgba(0,0,0,.05) 70%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Text */
+
+.card-content {
+  position: absolute;
+  left: 30px;
+  bottom: 35px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.card-content span {
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #c5afff;
+}
+
+.card-content h2 {
+  font-size: clamp(40px, 5vw, 65px);
+  line-height: .95;
+  letter-spacing: -3px;
+  margin-top: 15px;
+  transition: transform .5s ease;
+}
+
+.liquid-card:hover .card-content h2 {
+  transform: translateY(-7px);
+}
