@@ -62,3 +62,48 @@ body {
   color: #888;
   font-size: 14px;
 }
+
+/* Gallery */
+
+.gallery {
+  max-width: 1150px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+/* Cards */
+
+.liquid-card {
+  position: relative;
+  height: 480px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #181818;
+  cursor: crosshair;
+  isolation: isolate;
+}
+
+.image-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+
+  filter: url(#liquid);
+
+  transform: scale(1.05);
+
+  will-change: filter, transform;
+
+  transition:
+    transform 1s ease,
+    filter .2s ease;
+}
