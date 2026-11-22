@@ -91,3 +91,31 @@ cards.forEach((card) => {
 
     startAnimation();
   });
+  card.addEventListener('pointerleave', () => {
+
+    if (activeCard === card) {
+      activeCard = null;
+    }
+
+    targetStrength = 0;
+    targetFrequency = 0.025;
+
+    startAnimation();
+  });
+
+  // Mobile tap interaction
+  card.addEventListener('click', () => {
+
+    if (window.matchMedia('(hover: none)').matches) {
+
+      const isActive = card.classList.toggle('liquid-active');
+
+      targetStrength = isActive ? 35 : 0;
+      targetFrequency = isActive ? 0.045 : 0.025;
+
+      startAnimation();
+    }
+
+  });
+
+});
