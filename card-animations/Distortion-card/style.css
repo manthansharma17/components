@@ -149,3 +149,48 @@ body {
 .liquid-card:hover .card-content h2 {
   transform: translateY(-7px);
 }
+
+/* Number */
+
+.card-number {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  z-index: 2;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,.8);
+}
+
+/* Hover effect */
+
+.liquid-card:hover img {
+  transform: scale(1.13);
+}
+
+/* Footer */
+
+footer {
+  text-align: center;
+  margin-top: 65px;
+  color: #666;
+  font-size: 9px;
+  letter-spacing: 3px;
+}
+
+/* Responsive */
+
+@media(max-width: 750px) {
+  .gallery {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+  }
+
+  .liquid-card {
+    height: 400px;
+  }
+
+  .page {
+    padding: 65px 20px;
+  }
+}
