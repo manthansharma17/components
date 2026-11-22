@@ -52,3 +52,42 @@ function startAnimation() {
     animationFrame = requestAnimationFrame(animateLiquid);
   }
 }
+
+// Mouse interaction
+cards.forEach((card) => {
+
+  const image = card.querySelector('img');
+
+  card.addEventListener('pointerenter', (e) => {
+
+    if (e.pointerType === 'touch') return;
+
+    activeCard = card;
+
+    targetStrength = 35;
+    targetFrequency = 0.045;
+
+    startAnimation();
+  });
+
+  card.addEventListener('pointermove', (e) => {
+
+    if (e.pointerType === 'touch') return;
+
+    const rect = card.getBoundingClientRect();
+
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+
+    // More distortion near the edges
+    const edgeDistance = Math.max(
+      Math.abs(x - 0.5),
+      Math.abs(y - 0.5)
+    );
+
+    targetStrength = 18 + edgeDistance * 55;
+
+    targetFrequency = 0.025 + edgeDistance * 0.035;
+
+    startAnimation();
+  });
