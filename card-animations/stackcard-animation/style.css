@@ -1,0 +1,68 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #090909;
+  color: #fff;
+  font-family: 'Space Grotesk', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Intro */
+
+.intro,
+.outro {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.intro {
+  background: radial-gradient(
+    ellipse at center,
+    #24212d,
+    #090909 70%
+  );
+}
+
+.intro > span,
+.outro > span {
+  color: #888;
+  font-size: 10px;
+  letter-spacing: 4px;
+}
+
+.intro h1,
+.outro h2 {
+  font-size: clamp(65px, 10vw, 140px);
+  line-height: .92;
+  letter-spacing: -7px;
+  margin: 25px 0;
+}
+
+.intro em,
+.outro em {
+  color: #b59aff;
+  font-weight: 400;
+}
+
+.intro p,
+.outro p {
+  color: #888;
+  font-size: 14px;
+}
+
+.scroll-cue {
+  margin-top: 65px;
+  color: #999;
+  font-size: 10px;
+  letter-spacing: 3px;
+  animation: bounce 2s infinite;
+}
