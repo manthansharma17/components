@@ -66,3 +66,44 @@ cards.forEach(card => {
   );
 
 });
+
+// Scroll progress
+ScrollTrigger.create({
+  trigger: '.stack-container',
+  start: 'top center',
+  end: 'bottom center',
+
+  onUpdate: self => {
+
+    gsap.set(progressBar, {
+      scaleX: self.progress
+    });
+
+    const index = Math.min(
+      cards.length,
+      Math.floor(self.progress * cards.length) + 1
+    );
+
+    progressNumber.textContent =
+      String(index).padStart(2, '0');
+
+  }
+});
+
+// Outro entrance
+gsap.from('.outro h2', {
+  y: 80,
+  opacity: 0,
+  duration: 1.2,
+  ease: 'power3.out',
+
+  scrollTrigger: {
+    trigger: '.outro',
+    start: 'top 75%'
+  }
+});
+
+// Refresh measurements after loading
+window.addEventListener('load', () => {
+  ScrollTrigger.refresh();
+});
