@@ -83,3 +83,64 @@ header p {
 .pink {
   background: linear-gradient(145deg, #5a244d, #231325 75%);
 }
+
+/* Cursor-following spotlight */
+
+.card-glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background: radial-gradient(
+    circle at var(--mouse-x) var(--mouse-y),
+    rgba(255,255,255,.22),
+    transparent 45%
+  );
+
+  opacity: .5;
+  transition: opacity .3s;
+}
+
+.magnetic-card:hover .card-glow {
+  opacity: 1;
+}
+
+.card-content {
+  height: 100%;
+  min-height: 380px;
+  padding: 30px;
+  position: relative;
+
+  transform: translateZ(35px);
+  display: flex;
+  flex-direction: column;
+}
+
+.number {
+  color: rgba(255,255,255,.5);
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.icon {
+  font-size: 55px;
+  margin-top: 42px;
+  color: #d8caff;
+  text-shadow: 0 0 30px rgba(255,255,255,.4);
+}
+
+h2 {
+  font-size: 32px;
+  line-height: 1.05;
+  margin-top: 20px;
+  letter-spacing: -1px;
+}
+
+.card-content p {
+  color: rgba(255,255,255,.62);
+  font-size: 13px;
+  line-height: 1.7;
+  margin-top: 15px;
+  max-width: 240px;
+}
