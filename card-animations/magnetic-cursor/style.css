@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: #09090d;
+  color: #fff;
+  font-family: 'Space Grotesk', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+.container {
+  width: min(1150px, 90%);
+  padding: 90px 0;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 65px;
+}
+
+.eyebrow {
+  color: #a78bfa;
+  font-size: 11px;
+  letter-spacing: 4px;
+}
+
+h1 {
+  font-size: clamp(38px, 6vw, 68px);
+  margin: 20px 0 12px;
+  letter-spacing: -3px;
+}
+
+h1 span {
+  color: #a78bfa;
+}
+
+header p {
+  color: #85858f;
+  font-size: 15px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  perspective: 1000px;
+}
+
+.magnetic-card {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+
+  position: relative;
+  min-height: 380px;
+  border-radius: 25px;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(255,255,255,.12);
+
+  transform-style: preserve-3d;
+  transition:
+    transform .15s ease-out,
+    border-color .3s ease;
+
+  will-change: transform;
+}
+
+.purple {
+  background: linear-gradient(145deg, #30205d, #171327 75%);
+}
+
+.blue {
+  background: linear-gradient(145deg, #153e5e, #101b2b 75%);
+}
+
+.pink {
+  background: linear-gradient(145deg, #5a244d, #231325 75%);
+}
