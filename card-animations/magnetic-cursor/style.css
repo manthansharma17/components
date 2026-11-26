@@ -144,3 +144,45 @@ h2 {
   margin-top: 15px;
   max-width: 240px;
 }
+
+.arrow {
+  position: absolute;
+  bottom: 28px;
+  right: 30px;
+  font-size: 25px;
+  transition: transform .3s;
+}
+
+.magnetic-card:hover .arrow {
+  transform: translate(5px, -5px);
+}
+
+footer {
+  text-align: center;
+  margin-top: 50px;
+  color: #55545f;
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+
+@media (max-width: 800px) {
+  .cards {
+    grid-template-columns: 1fr;
+    max-width: 450px;
+    margin: auto;
+  }
+
+  .magnetic-card {
+    min-height: 340px;
+  }
+
+  .card-content {
+    min-height: 340px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .magnetic-card {
+    transition: none;
+  }
+}
