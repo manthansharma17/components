@@ -36,3 +36,19 @@ cards.forEach((card) => {
     card.style.setProperty("--mouse-y", `${y}px`);
 
   });
+   card.addEventListener("mouseleave", () => {
+
+    // Reset card position
+    card.style.transform = `
+      translate(0, 0)
+      rotateX(0deg)
+      rotateY(0deg)
+      scale3d(1, 1, 1)
+    `;
+
+    card.style.setProperty("--mouse-x", "50%");
+    card.style.setProperty("--mouse-y", "50%");
+
+  });
+
+});
