@@ -1,0 +1,88 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: #080810;
+  color: white;
+  font-family: 'Space Grotesk', sans-serif;
+  overflow-x: hidden;
+}
+
+.background {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse at center, #17152c, #080810 75%);
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(75px);
+  opacity: .65;
+  animation: float 12s ease-in-out infinite alternate;
+}
+
+.orb-one {
+  width: 350px;
+  height: 350px;
+  background: #713cff;
+  top: 5%;
+  left: 5%;
+}
+
+.orb-two {
+  width: 300px;
+  height: 300px;
+  background: #087fbd;
+  right: 5%;
+  top: 30%;
+  animation-delay: -4s;
+}
+
+.orb-three {
+  width: 250px;
+  height: 250px;
+  background: #c32c9e;
+  bottom: -5%;
+  left: 40%;
+  animation-delay: -7s;
+}
+
+@keyframes float {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(90px, -60px) scale(1.2);
+  }
+}
+
+.container {
+  width: min(1150px, 90%);
+  margin: auto;
+  padding: 100px 0 50px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.eyebrow {
+  color: #b9a1ff;
+  font-size: 11px;
+  letter-spacing: 4px;
+}
+
+h1 {
+  font-size: clamp(45px, 7vw, 75px);
+  letter-spacing: -4px;
+  margin: 20px 0 10px;
+}
