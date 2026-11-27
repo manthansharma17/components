@@ -28,3 +28,19 @@ cards.forEach((card) => {
     `;
 
   });
+
+    card.addEventListener("mouseleave", () => {
+
+    card.style.transform = `
+      perspective(900px)
+      translateY(0)
+      rotateX(0deg)
+      rotateY(0deg)
+    `;
+
+    card.style.setProperty("--mx", "50%");
+    card.style.setProperty("--my", "50%");
+
+  });
+
+});
