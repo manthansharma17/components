@@ -196,3 +196,34 @@ h2 {
   font-size: 13px;
   text-decoration: none;
 }
+.glass-card a span {
+  margin-left: 8px;
+  transition: margin .3s;
+}
+
+.glass-card:hover a span {
+  margin-left: 15px;
+}
+
+footer {
+  text-align: center;
+  color: #777187;
+  font-size: 10px;
+  letter-spacing: 3px;
+  margin-top: 55px;
+}
+
+@media(max-width: 850px) {
+  .glass-grid {
+    grid-template-columns: 1fr;
+    max-width: 450px;
+    margin: auto;
+  }
+}
+
+@media(prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
